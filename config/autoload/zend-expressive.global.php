@@ -16,6 +16,7 @@ use Zend\ConfigAggregator\ConfigAggregator;
 return [
     ConfigAggregator::ENABLE_CACHE => true,
     'debug' => false,
+    'version' => time(), // Will be cached on production with the config.
     'zend-expressive' => [
         'programmatic_pipeline' => true,
         'error_handler' => [

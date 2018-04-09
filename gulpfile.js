@@ -32,6 +32,9 @@ gulp.task('css-build', () => {
             outputStyle: 'compressed',
             includePaths: ['node_modules']
         }))
+        .pipe(modules.rename((path) => {
+            path.extname = '.min.css'
+        }))
         .pipe(gulp.dest(outputDirectories.css));
 });
 

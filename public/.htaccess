@@ -5,6 +5,9 @@
     RewriteCond %{HTTP_HOST} ^(?!www\.)?factorio-item-browser\.com$
     RewriteRule ^(.*)$ https://www.factoio-item-browser.com$1
 
+    # Remove version number from asset files
+    RewriteRule ^(.*\.)(\d+\.)(css|js|jpg|png)$ $1$3
+
     # Serve actually existing files
     RewriteCond %{REQUEST_FILENAME} -s [OR]
     RewriteCond %{REQUEST_FILENAME} -l [OR]

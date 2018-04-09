@@ -13,6 +13,7 @@ namespace FactorioItemBrowser\Portal;
 
 return [
     'templates' => [
+        'layout' => 'layout::layout',
         'paths' => [
             'error' => ['template/error'],
             'layout' => ['template/layout'],

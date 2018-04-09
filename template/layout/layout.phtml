@@ -1,0 +1,58 @@
+<?php
+
+use FactorioItemBrowser\Portal\Constant\RouteNames;
+
+$this->doctype('HTML5');
+$this->headMeta()->setCharset('utf-8')
+                 ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+                 ->appendName('theme-color', '#165868')
+                 ->appendName('msapplication-TileColor', '#165868')
+                 ->appendName('msapplication-TileImage', $this->basePath('asset/image/icon/tile-icon.png'));
+
+$this->headLink()->appendRelation('icon', $this->basePath('asset/image/icon/favicon.png'))
+                 ->appendRelation('apple-touch-icon-precomposed', $this->basePath('asset/image/icon/apple-touch-icon.png'))
+                 ->appendStylesheet($this->assetPath('asset/css/main.min.css'));
+$this->footLink()->appendStylesheet($this->assetPath('asset/css/images.min.css'));
+
+$this->headScript()->appendFile($this->assetPath('asset/js/jquery.min.js'), '')
+                   ->appendFile($this->assetPath('asset/js/load.min.js'), '');
+
+// @todo Javascript config
+$bodyClass = '';
+
+echo $this->doctype();
+?>
+<html>
+    <head>
+        <base href="<?php echo $this->escapeHtmlAttr($this->url(RouteNames::INDEX)); ?>" />
+        <?php
+            echo $this->headMeta();
+            echo $this->headTitle();
+            echo $this->headLink();
+        ?>
+    </head>
+    <body <?php if (!empty($bodyClass)) { ?>class="<?php echo $this->escapeHtmlAttr($bodyClass); ?>"<?php } ?>>
+        <div id="wrapper">
+            <?php
+                //echo $this->partial('factorio-item-browser/portal/layout/partial/header');
+            ?>
+            <div id="content-wrapper">
+                <?php //echo $this->render('factorio-item-browser/portal/layout/partial/sidebar'); ?>
+                <div id="content"><?php
+                    //echo $this->partial('factorio-item-browser/portal/layout/partial/noscriptWarning');
+                    echo $this->content;
+                ?></div>
+            </div>
+            <?php
+//                echo $this->partial('factorio-item-browser/portal/layout/partial/tooltip');
+//                echo $this->partial('factorio-item-browser/portal/layout/partial/loadingCircle');
+                echo $this->partial('layout::partial/footer');
+            ?>
+        </div>
+
+        <?php
+            echo $this->headScript();
+            echo $this->footLink();
+        ?>
+    </body>
+</html>
