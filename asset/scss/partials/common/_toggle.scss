@@ -1,0 +1,21 @@
+@import '../../modules/all';
+
+.toggle-overlay {
+    background: rgba(black, 0.5);
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: $zIndex-overlay-clickLayer;
+}
+.toggle-target {
+    z-index: $zIndex-overlay-contentLayer;
+}
+.toggle-label {
+    cursor: pointer;
+}
+
+.toggle-checkbox, .toggle-checkbox:not(:checked) ~ .toggle-target, .toggle-checkbox:not(:checked) ~ .toggle-overlay {
+    display: none;
+}

@@ -1,0 +1,36 @@
+@import 'vars/all';
+@import 'foundation';
+@import 'misc';
+@import 'box';
+
+$section-headline-color: $color-box-default;
+$section-headline-size: rem-calc(28);
+$section-headline-border-width: rem-calc(2);
+
+@mixin section() {
+    @include gutter(0.5, margin);
+}
+
+@mixin section-headline-underline() {
+    &:after {
+        background: $section-headline-color;
+        box-shadow: $shadow-text;
+        content: '';
+        display: block;
+        height: $section-headline-border-width;
+        left: 0;
+        position: absolute;
+        right: 0;
+    }
+}
+
+@mixin section-headline() {
+    @include gutter(0.5, margin);
+    @include grid-column-margin();
+
+    color: $section-headline-color;
+    font-size: $section-headline-size;
+    font-weight: bold;
+    position: relative;
+    text-shadow: $shadow-text;
+}

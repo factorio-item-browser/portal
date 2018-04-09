@@ -1,0 +1,17 @@
+@import '../../../modules/all';
+
+.header-sidebar-icon {
+    @include flex-grid-column($columns: shrink);
+
+    label {
+        @include header-icon($fa-var-bars);
+    }
+
+    @include breakpoint(large) {
+        display: none;
+    }
+}
+
+body.index-page .header-sidebar-icon {
+    display: none;
+}

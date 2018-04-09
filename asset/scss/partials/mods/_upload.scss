@@ -1,0 +1,73 @@
+@import '../../modules/all';
+
+.mod-upload-form {
+    @include button-box($color-button-primary);
+    @include gutter(0.5, margin);
+
+    font-weight: normal;
+    padding: 0;
+
+    label {
+        cursor: pointer;
+        display: none;
+        font-size: rem-calc(20);
+        padding: $margin-large;
+        text-align: center;
+
+        @include breakpoint(large) {
+            font-size: rem-calc(28);
+        }
+    }
+
+    label.simple-upload {
+        display: block;
+    }
+
+    label.simple-upload, label.advanced-upload {
+        @include font-icon($fa-var-upload, rem-calc(28));
+        &::before {
+            padding: 0 rem-calc(4);
+        }
+    }
+
+    label.uploading {
+        @include font-icon($fa-var-spinner, rem-calc(28));
+        &::before {
+            animation: fa-spin 2s infinite linear;
+            padding: 0 rem-calc(4);
+        }
+    }
+    label.dragover {
+        @include font-icon($fa-var-arrow-down, rem-calc(28));
+        &::before {
+            padding: 0 rem-calc(4);
+        }
+    }
+
+    &.has-advanced-upload {
+        label.advanced-upload {
+            display: block;
+        }
+        label.simple-upload {
+            display: none;
+        }
+    }
+    &.is-uploading {
+        label.uploading {
+            display: block;
+        }
+        label.advanced-upload, label.simple-upload, label.dragover  {
+            display: none;
+        }
+    }
+    &.is-dragover {
+        background: set-lightness($color-button-primary, $lightness-button-background-hover);
+
+        label.dragover {
+            display: block;
+        }
+        label.advanced-upload, label.simple-upload  {
+            display: none;
+        }
+    }
+}

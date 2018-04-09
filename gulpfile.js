@@ -1,7 +1,9 @@
 'use strict';
 
 let outputDirectories = {
-        'js': 'public/asset/js'
+        'css': 'public/asset/css',
+        'image': 'public/asset/image',
+        'js': 'public/asset/js',
     },
     projectFiles = {
         'load.min.js': ['asset/js/init.js', 'asset/js/config.js', 'asset/js/load.js'],
@@ -18,8 +20,40 @@ let outputDirectories = {
         concat: require('gulp-concat'),
         minify: require('gulp-minify'),
         rename: require('gulp-rename'),
+        sass: require('gulp-sass'),
         sequence: require('gulp-sequence')
     };
+
+
+// Builds the CSS files from the SCSS source.
+gulp.task('css-build', () => {
+    gulp.src('asset/scss/*.scss')
+        .pipe(modules.sass({
+            outputStyle: 'compressed',
+            includePaths: ['node_modules']
+        }))
+        .pipe(gulp.dest(outputDirectories.css));
+});
+
+// Cleans any previously built CSS file from the output directory.
+gulp.task('css-clean', () => {
+    gulp.src(outputDirectories.css + '/*', { read: false })
+        .pipe(modules.clean());
+});
+
+
+// Copies the images to the output directory.
+gulp.task('image-copy', () => {
+    gulp.src(['asset/image/**', '!asset/image/inline/**'], { nodir: true })
+        .pipe(gulp.dest(outputDirectories.image));
+});
+
+// Cleans any previously built image file from the output directory.
+gulp.task('image-clean', () => {
+    gulp.src(outputDirectories.image + '/*', { read: false })
+        .pipe(modules.clean());
+});
+
 
 // Concatenates and compresses the JS files of the project.
 gulp.task('js-build', () => {
@@ -64,19 +98,23 @@ gulp.task('js-copy-lib', () => {
 
 // Cleans any previously built JS file from the output directory.
 gulp.task('js-clean', () => {
-    gulp.src(outputDirectories.js + '/*', {read: false})
+    gulp.src(outputDirectories.js + '/*', { read: false })
         .pipe(modules.clean());
 });
 
 // Watches you.
 gulp.task('watch', () => {
+    gulp.watch('asset/scss/**', ['css-build']);
+    gulp.watch('asset/image/**', ['image-copy']);
     gulp.watch('asset/js/**/*.js', ['js-build']); // We are not building the fallback on watch. Do it manually.
 });
 
 // Does everything at once.
 gulp.task('default', (callback) => {
     modules.sequence(
-        'js-clean',
+        ['css-clean', 'image-clean', 'js-clean'],
+        ['css-build'],
+        ['image-copy'],
         ['js-copy-lib', 'js-build', 'js-build-fallback'],
         callback
     );

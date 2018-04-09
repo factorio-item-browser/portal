@@ -1,0 +1,53 @@
+@import '../../../modules/all';
+
+.sidebar-entity {
+    @include box($color-box-sidebar, $alpha-box-content);
+    @include label-with-icon();
+    @include transition-default(background);
+
+    margin: $margin-default 0;
+    padding: $margin-small $margin-default;
+    position: relative;
+
+    .label {
+        font-weight: bold;
+    }
+
+    .action-icons {
+        @include flex-grid-column($gutters: 0);
+        @include flex-grid-size(shrink);
+        @include flex-align-self(top);
+
+        color: set-lightness($color-box-sidebar, $lightness-text-secondary);
+        cursor: pointer;
+
+        .pin, .unpin {
+            height: rem-calc(24);
+            text-align: center;
+            width: rem-calc(24);
+
+            &:hover {
+                color: set-lightness($color-box-sidebar, $lightness-text-primary);
+            }
+        }
+        .pin {
+            @include font-icon($fa-var-thumb-tack);
+        }
+        .unpin {
+            @include font-icon($fa-var-trash);
+        }
+    }
+
+    .box-label {
+        @include box-label();
+    }
+
+    &:hover {
+        background: set-lightness($color-box-sidebar, $lightness-box-background);
+    }
+}
+
+.sidebar-pinned-entity-list .action-icons .pin,
+.sidebar-unpinned-entity-list .action-icons .unpin {
+    display: none;
+}

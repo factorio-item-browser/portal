@@ -1,0 +1,89 @@
+@import '../modules/all';
+
+.error-box {
+    @include box($color-box-error);
+    @include label-with-icon('.error-message', '.error-icon-box');
+    @include gutter(1, margin);
+}
+
+.error-icon {
+    height: 128px;
+    position: relative;
+    width: 128px;
+
+    &::before {
+        animation: error-layer 1s infinite;
+        content: '';
+        height: 48px;
+        left: 40px;
+        position: absolute;
+        top: 40px;
+        width: 48px;
+    }
+}
+
+.error-message {
+    color: set-lightness($color-box-error, $lightness-text-primary);
+    font-weight: bold;
+
+    h2 {
+        @include grid-column-margin();
+        font-size: rem-calc(28);
+        position: relative;
+
+        &::after {
+            background: set-lightness($color-box-error, $lightness-text-primary);
+            content: '';
+            display: block;
+            height: rem-calc(2);
+            left: 0;
+            position: absolute;
+            right: 0;
+        }
+    }
+}
+
+.simple-error {
+    @include box();
+
+    color: set-lightness($color-box-default, $lightness-text-secondary);
+    font-size: rem-calc(12);
+    padding: $margin-default;
+
+    h3 {
+        color: set-lightness($color-box-default, $lightness-text-primary);
+        font-size: rem-calc(18);
+        font-weight: bold;
+    }
+}
+
+.debug-info {
+    @include box();
+    @include gutter(1, margin);
+
+    overflow: auto;
+    padding: $margin-default;
+
+    dl {
+        dt {
+            display: block;
+            font-weight: bold;
+            float: left;
+            padding: 0 $margin-default;
+            text-align: right;
+            width: 10rem;
+        }
+        dd {
+            display: block;
+            margin-left: 10rem;
+            padding: 0 $margin-default;
+        }
+    }
+}
+
+@keyframes error-layer {
+    0%   { visibility: hidden; }
+    49%  { visibility: hidden; }
+    50%  { visibility: visible;  }
+    100% { visibility: visible;  }
+}

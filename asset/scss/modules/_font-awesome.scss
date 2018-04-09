@@ -1,0 +1,10 @@
+@import 'font-awesome/scss/variables';
+@import 'font-awesome/scss/mixins';
+
+@mixin font-icon($icon, $font-size: inherit) {
+    &::before {
+        @include fa-icon;
+        font-size: $font-size;
+        content: $icon;
+    }
+}

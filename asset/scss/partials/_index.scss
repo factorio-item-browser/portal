@@ -1,0 +1,31 @@
+@import '../modules/all';
+
+ul.random-items {
+    @include flex-grid-row();
+
+    & > li {
+        @include grid-column-margin();
+
+        @include flex-grid-column($columns: 12);
+        @include breakpoint(medium) {
+            @include flex-grid-column($columns: 6);
+        }
+        @include breakpoint(large) {
+            @include flex-grid-column($columns: 4);
+        }
+        @include breakpoint(xlarge) {
+            @include flex-grid-column($columns: 3);
+        }
+    }
+}
+
+.random-item-motivator {
+    font-size: rem-calc(16);
+    &::before {
+        content: ' — '; // &mdash;
+    }
+
+    @include breakpoint(small down) {
+        display: none;
+    }
+}

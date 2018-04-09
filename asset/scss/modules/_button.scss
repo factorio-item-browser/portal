@@ -1,0 +1,22 @@
+@import 'vars/all';
+@import 'foundation';
+@import 'misc';
+
+@mixin button-box($color: $color-button-primary) {
+    @include transition-default(background-color);
+
+    background: set-lightness($color, $lightness-button-background);
+    box-shadow: $shadow-box;
+    color: set-lightness($color, $lightness-button-text);
+    cursor: pointer;
+    display: block;
+    font-size: rem-calc(18);
+    font-weight: bold;
+    padding: $margin-default;
+    text-align: center;
+
+    &:hover {
+        background: set-lightness($color, $lightness-button-background-hover);
+        color: set-lightness($color, $lightness-button-text);
+    }
+}

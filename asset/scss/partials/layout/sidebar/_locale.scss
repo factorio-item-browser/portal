@@ -1,0 +1,63 @@
+@import '../../../modules/all';
+
+.sidebar-locale {
+    @include box($color-box-default, $alpha-box-content);
+
+    margin: $margin-default 0;
+}
+
+.sidebar-locale-label {
+    @include label-with-icon($icon-class: '.locale-icon');
+    @include transition-default(background);
+
+    background: transparent;
+    padding: $margin-small $margin-default;
+
+    &:hover {
+        background: set-lightness($color-box-sidebar, $lightness-box-background);
+    }
+
+    .label {
+        font-weight: bold;
+    }
+    .locale-icon {
+        @include font-icon($fa-var-globe, rem-calc(24));
+
+        &::before {
+            height: rem-calc(32);
+            line-height: rem-calc(32);
+            text-align: center;
+            width: rem-calc(32);
+        }
+    }
+}
+#toggle-locale:checked ~ .sidebar-locale-label {
+    background: set-lightness($color-box-default, $lightness-box-background);
+}
+
+ul.sidebar-locale-list {
+    @include flex-grid-row();
+    @include box-border-top($color-box-default);
+
+    li {
+        padding: rem-calc(2);
+        @include flex-grid-column($columns: 6);
+
+        cursor: pointer;
+
+        &:hover {
+            background: $color-box-default;
+        }
+        &[data-locale='en'] {
+            font-weight: bold;
+        }
+    }
+}
+
+.sidebar-locale-disclaimer {
+    @include box-border-top($color-box-default);
+
+    background: set-lightness($color-box-default, $lightness-box-background);
+    font-size: rem-calc(14);
+    padding: $margin-small $margin-default;
+}

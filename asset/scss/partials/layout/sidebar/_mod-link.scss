@@ -1,0 +1,30 @@
+@import '../../../modules/all';
+
+.sidebar-mod-link {
+    @include label-with-icon($icon-class: '.mod-link-icon');
+    @include transition-default(background);
+
+    padding: $margin-small $margin-default;
+    background: set-lightness($color-button-primary, $lightness-button-background);
+    box-shadow: $shadow-box;
+    color: set-lightness($color-button-primary, $lightness-button-text);
+
+    &:hover {
+        background: set-lightness($color-button-primary, $lightness-button-background-hover);
+        color: set-lightness($color-button-primary, $lightness-button-text);
+    }
+
+    .label {
+        font-weight: bold;
+    }
+    .mod-link-icon {
+        @include font-icon($fa-var-sitemap, rem-calc(24));
+
+        &::before {
+            height: rem-calc(32);
+            line-height: rem-calc(32);
+            text-align: center;
+            width: rem-calc(32);
+        }
+    }
+}

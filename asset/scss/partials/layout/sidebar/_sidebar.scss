@@ -1,0 +1,68 @@
+@import '../../../modules/all';
+
+$sidebar-headline-size: rem-calc(24);
+
+#sidebar {
+    // images/inline/layout/concrete.jpg
+    background-color: $color-concrete;
+    flex: 0 0 $sidebar-width;
+    max-width: $sidebar-max-width;
+    padding: $margin-large $margin-default;
+    width: $sidebar-width;
+
+    @include breakpoint(medium down) {
+        @include transition-default(transform);
+
+        bottom: 0;
+        box-shadow: $shadow-box-tooltip;
+        left: 0;
+        max-width: 100%;
+        padding-top: 2rem;
+        position: fixed;
+        overflow-y: auto;
+        transform: translate(-110%, 0);
+        top: 0;
+        z-index: $zIndex-overlay-contentLayer;
+    }
+
+    h3 {
+        @include section-headline-underline();
+
+        color: $section-headline-color;
+        font-size: $sidebar-headline-size;
+        font-weight: bold;
+        margin-top: $margin-default;
+        position: relative;
+        text-shadow: $shadow-text;
+    }
+
+    .sidebar-close {
+        @include font-icon($fa-var-times);
+
+        color: $section-headline-color;
+        cursor: pointer;
+        display: none;
+        font-size: $sidebar-headline-size;
+        font-weight: bold;
+        padding: 0 $margin-default;
+        position: absolute;
+        right: 0;
+        text-shadow: $shadow-text;
+        top: 0;
+        z-index: $zIndex-icon;
+
+        @include breakpoint(medium down) {
+            display: block;
+        }
+    }
+}
+
+#toggle-sidebar:checked ~ #sidebar {
+    @include breakpoint(medium down) {
+        transform: translate(0, 0);
+    }
+}
+
+body.index-page #sidebar {
+    display: none;
+}

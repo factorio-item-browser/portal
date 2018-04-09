@@ -1,0 +1,36 @@
+@import '../../modules/all';
+
+section {
+    @include section();
+}
+
+section h2 {
+    @include section-headline();
+    @include section-headline-underline();
+}
+
+.headline-with-icon {
+    @include box($color-box-default);
+    @include label-with-icon();
+    @include gutter(1, margin);
+
+    color: set-lightness($color-box-default, $lightness-text-secondary);
+    font-weight: bold;
+
+    @include breakpoint(medium down) {
+        padding: $margin-small;
+    }
+
+    .icon {
+        margin: $margin-default;
+    }
+
+    h1 {
+        color: set-lightness($color-box-default, $lightness-text-primary);
+        font-size: rem-calc(32);
+
+        @include breakpoint(medium down) {
+            font-size: rem-calc(24);
+        }
+    }
+}

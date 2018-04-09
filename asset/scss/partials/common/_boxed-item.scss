@@ -1,0 +1,74 @@
+@import '../../modules/all';
+
+.boxed-item {
+    @include box($color-box-default, 0.8);
+
+    .item {
+        @include label-with-icon();
+
+        background: set-lightness($color-box-default, $lightness-box-background);
+        color: set-lightness($color-box-default, $lightness-text-secondary);
+        font-size: rem-calc(12);
+
+        h3 {
+            color: set-lightness($color-box-default, $lightness-text-primary);
+            font-size: rem-calc(18);
+            font-weight: bold;
+        }
+    }
+
+    .recipe {
+        @include box-border-top($color-box-default);
+        @include flex-align(center, middle);
+        @include item-list();
+
+        padding: rem-calc(2) $margin-default;
+        position: relative;
+
+        .icon {
+            z-index: $zIndex-icon;
+        }
+
+        .separator {
+            @include font-icon($fa-var-chevron-right, rem-calc(32));
+
+            color: set-lightness($color-box-default, $lightness-text-primary);
+            height: rem-calc(32);
+            margin: $margin-default;
+            position: relative;
+            text-align: center;
+            width: rem-calc(32);
+
+            .time {
+                @include attached-label($color-box-default);
+
+                bottom: rem-calc(-10);
+                left: rem-calc(-16);
+                position: absolute;
+                right: rem-calc(-16);
+            }
+        }
+
+        &.expensive {
+            background-color: rgba(set-lightness($color-recipe-expensive, $lightness-box-background), 0.5);
+
+            .separator {
+                color: set-lightness($color-recipe-expensive, $lightness-text-primary);
+            }
+
+            .box-label {
+                @include box-label($color-recipe-expensive);
+            }
+        }
+    }
+
+    .more-recipes {
+        @include box-border-top($color-box-default);
+
+        display: block;
+        font-size: rem-calc(12);
+        font-weight: bold;
+        padding: $margin-very-small;
+        text-align: center;
+    }
+}

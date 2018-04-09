@@ -1,0 +1,93 @@
+@import '../../modules/all';
+
+$mod-checkbox-size: rem-calc(32);
+
+ul.mod-list {
+    @include box-list();
+}
+
+.mod {
+    @include box($color-box-mod-disabled);
+    @include gutter(0.5, 'padding');
+
+    cursor: pointer;
+    position: relative;
+
+    .check-icon {
+        @include font-icon($fa-var-square-o, $mod-checkbox-size);
+        @include gutter(0.5, 'right');
+        @include gutter(0.5, 'top');
+
+        position: absolute;
+
+        &::before {
+            width: $mod-checkbox-size;
+        }
+    }
+
+    .head {
+        padding-right: ($mod-checkbox-size + rem-calc(4));
+    }
+
+    label {
+        cursor: pointer;
+    }
+
+    p {
+        color: set-lightness($color-box-mod-disabled, $lightness-text-secondary);
+        font-size: rem-calc(12);
+    }
+
+    dl {
+        @include flex-grid-row();
+        @include gutter(0.5, 'margin-top');
+        font-size: rem-calc(12);
+
+        dt {
+            @include flex-grid-column($gutters: 0, $columns: 3);
+            text-align: right;
+        }
+        dd {
+            @include flex-grid-column($columns: 9);
+            font-weight: bold;
+        }
+    }
+}
+
+.mod-checkbox:checked ~ .mod {
+    background: set-lightness($color-box-mod-enabled, $lightness-box-background);
+    color: set-lightness($color-box-mod-enabled, $lightness-text-primary);
+
+    .check-icon {
+        &::before {
+            content: $fa-var-check-square-o;
+        }
+    }
+
+    p {
+        color: set-lightness($color-box-mod-enabled, $lightness-text-secondary);
+    }
+}
+
+.button-save-mods {
+    @include gutter(0.5, margin-left margin-right);
+
+    button[type=submit] {
+        @include button-box($color-button-primary);
+        @include font-icon($fa-var-save);
+
+        max-width: 100%;
+        width: 100%;
+
+        &::before {
+            padding: 0 $margin-default;
+        }
+    }
+
+    &.is-sticky {
+        @include gutter(0.5, left right bottom);
+
+        position: fixed;
+        z-index: $zIndex-sticky-button;
+    }
+}

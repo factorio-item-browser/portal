@@ -1,0 +1,31 @@
+@import '../../modules/all';
+
+$icon-border-width: rem-calc(1);
+$icon-size: rem-calc(32);
+$icon-text-color: white;
+$icon-text-shadow: black 0 0 rem-calc(2);
+
+.icon {
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: block;
+    height: $icon-size;
+    position: relative;
+    text-decoration: none;
+    width: $icon-size;
+
+    &.with-background {
+        border: $icon-border-width solid set-lightness($color-box-default, $lightness-box-border);
+        background-color: set-lightness($color-box-default, $lightness-icon-background);
+        box-shadow: $shadow-box;
+        height: ($icon-size + 2 * $icon-border-width);
+        width: ($icon-size + 2 * $icon-border-width);
+    }
+
+    .amount {
+        @include attached-label($color-box-default);
+        left: rem-calc(-12);
+        position: absolute;
+        top: rem-calc(-10);
+    }
+}

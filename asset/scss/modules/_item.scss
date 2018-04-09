@@ -1,0 +1,16 @@
+@import 'vars/all';
+@import 'foundation';
+@import 'misc';
+
+@mixin item-list($icon-class: '.icon') {
+    @include flex-grid-row;
+    padding: 0;
+    margin: 0;
+
+    #{$icon-class} {
+        margin: $margin-default;
+
+        @include flex-grid-column($gutters: 0);
+        @include flex-grid-size(shrink);
+    }
+}
