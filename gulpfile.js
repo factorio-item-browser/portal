@@ -2,6 +2,7 @@
 
 let outputDirectories = {
         'css': 'public/asset/css',
+        'font': 'public/asset/font',
         'image': 'public/asset/image',
         'js': 'public/asset/js',
     },
@@ -41,6 +42,19 @@ gulp.task('css-build', () => {
 // Cleans any previously built CSS file from the output directory.
 gulp.task('css-clean', () => {
     gulp.src(outputDirectories.css + '/*', { read: false })
+        .pipe(modules.clean());
+});
+
+
+// Copies the font files to the output directory.
+gulp.task('font-copy', () => {
+    gulp.src('node_modules/font-awesome/fonts/**')
+        .pipe(gulp.dest(outputDirectories.font));
+});
+
+// Cleans any previously built font file from the output directory.
+gulp.task('font-clean', () => {
+    gulp.src(outputDirectories.font + '/*', { read: false })
         .pipe(modules.clean());
 });
 
@@ -115,8 +129,9 @@ gulp.task('watch', () => {
 // Does everything at once.
 gulp.task('default', (callback) => {
     modules.sequence(
-        ['css-clean', 'image-clean', 'js-clean'],
+        ['css-clean', 'font-clean', 'image-clean', 'js-clean'],
         ['css-build'],
+        ['font-copy'],
         ['image-copy'],
         ['js-copy-lib', 'js-build', 'js-build-fallback'],
         callback

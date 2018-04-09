@@ -21,6 +21,7 @@ return [
             'assetPath' => View\Helper\AssetPathHelper::class,
             'footLink' => View\Helper\FootLinkHelper::class,
             'headLink' => View\Helper\HeadLinkHelper::class,
+            'locale' => View\Helper\LocaleHelper::class,
             'replace' => View\Helper\ReplaceHelper::class,
 
             // 3rd-party helpers
@@ -30,6 +31,7 @@ return [
             View\Helper\AssetPathHelper::class => View\Helper\AssetPathHelperFactory::class,
             View\Helper\FootLinkHelper::class => InvokableFactory::class,
             View\Helper\HeadLinkHelper::class => InvokableFactory::class,
+            View\Helper\LocaleHelper::class => View\Helper\LocaleHelperFactory::class,
             View\Helper\ReplaceHelper::class => InvokableFactory::class,
 
             // 3rd-party helpers
