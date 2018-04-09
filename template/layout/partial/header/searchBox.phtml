@@ -1,0 +1,26 @@
+<?php
+use FactorioItemBrowser\Portal\Constant\RouteNames;
+?>
+
+<form
+    id="search-box"
+    class="header-search"
+    data-url="<?php // echo $this->escapeHtmlAttr($this->url(RouteNames::SEARCH, ['query' => '--query--']));?>"
+    action="<?php // echo $this->escapeHtmlAttr($this->url(RouteNames::SEARCH));?>"
+    method="get"
+>
+    <div class="header-search-box-icon"></div>
+    <input
+        autocomplete="off"
+        class="header-search-input"
+        name="query"
+        placeholder="<?php echo $this->escapeHtmlAttr($this->translate('search-box placeholder')); ?>"
+        type="text"
+        value="<?php echo $this->escapeHtmlAttr($this->layoutParams()->getSearchQuery()); ?>"
+    />
+    <label for="toggle-search-box" class="header-search-box-close-icon"></label>
+</form>
+
+<div class="header-search-icon">
+    <label for="toggle-search-box"></label>
+</div>

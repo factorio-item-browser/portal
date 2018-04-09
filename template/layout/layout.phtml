@@ -34,18 +34,18 @@ echo $this->doctype();
     <body <?php if (!empty($bodyClass)) { ?>class="<?php echo $this->escapeHtmlAttr($bodyClass); ?>"<?php } ?>>
         <div id="wrapper">
             <?php
-                //echo $this->partial('factorio-item-browser/portal/layout/partial/header');
+                echo $this->partial('layout::partial/header');
             ?>
             <div id="content-wrapper">
-                <?php //echo $this->render('factorio-item-browser/portal/layout/partial/sidebar'); ?>
+                <?php echo $this->render('layout::partial/sidebar'); ?>
                 <div id="content"><?php
-                    //echo $this->partial('factorio-item-browser/portal/layout/partial/noscriptWarning');
+                    echo $this->partial('layout::partial/noscriptWarning');
                     echo $this->content;
                 ?></div>
             </div>
             <?php
-//                echo $this->partial('factorio-item-browser/portal/layout/partial/tooltip');
-//                echo $this->partial('factorio-item-browser/portal/layout/partial/loadingCircle');
+                echo $this->partial('layout::partial/tooltip');
+                echo $this->partial('layout::partial/loadingCircle');
                 echo $this->partial('layout::partial/footer');
             ?>
         </div>
