@@ -1,0 +1,40 @@
+{
+  "name": "factorio-item-browser/portal",
+  "description": "The actual portal of the Factorio Item Browser used by the players.",
+  "homepage": "https://github.com/factorio-item-browser/portal",
+  "type": "project",
+  "keywords": ["Factorio Item Browser", "FIB", "portal", "BluePsyduck"],
+  "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "BluePsyduck",
+      "email": "bluepsyduck@gmx.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": "^7.2",
+    "dasprid/container-interop-doctrine": "^1.1",
+    "doctrine/orm": "^2.6",
+    "factorio-item-browser/api-client": "^1.0",
+    "mtymek/blast-base-url": "^0.2",
+    "zendframework/zend-config-aggregator": "^1.0",
+    "zendframework/zend-diactoros": "^1.7",
+    "zendframework/zend-expressive": "^3.0",
+    "zendframework/zend-expressive-fastroute": "^3.0",
+    "zendframework/zend-expressive-helpers": "^5.0",
+    "zendframework/zend-expressive-zendviewrenderer": "^2.0",
+    "zendframework/zend-stdlib": "^3.1",
+    "zendframework/zend-servicemanager": "^3.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "FactorioItemBrowser\\Portal\\": "src"
+    }
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "mkdir -p data/cache && chmod 0777 data/cache"
+    ]
+  }
+}

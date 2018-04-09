@@ -1,0 +1,1 @@
+-- Creates the database tables for the portal in an empty database.
