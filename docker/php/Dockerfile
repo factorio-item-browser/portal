@@ -22,6 +22,14 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php -r "unlink('composer-setup.php');" \
     && mv composer.phar /usr/local/bin/composer
 
+RUN apt-get install -y --quiet --no-install-recommends \
+        gnupg \
+        wget \
+    && curl -sL https://deb.nodesource.com/setup_6.x | bash - \
+    && apt-get install -y --quiet --no-install-recommends \
+            nodejs
+RUN npm install -g gulp-cli
+
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
 
