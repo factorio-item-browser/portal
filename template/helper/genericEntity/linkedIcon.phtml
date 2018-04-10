@@ -12,7 +12,7 @@ $entity = $this->entity;
     href="<?php echo $this->escapeHtmlAttr($genericEntityHelper->getDetailsUrl($entity)); ?>"
     class="icon with-background <?php echo $this->escapeHtmlAttr(implode('-', ['icon', $entity->getType(), $entity->getName()])); ?>"
     data-icon="<?php echo $this->escapeHtmlAttr(implode('/', [$entity->getType(), $entity->getName()])); ?>"
-    data-tooltip="<?php echo $this->escapeHtmlAttr($this->tooltip); ?>"
+    data-tooltip="<?php echo $this->escapeHtmlAttr($genericEntityHelper->getTooltip($entity)); ?>"
     data-link
 >
     <?php if ($entity instanceof Item && $entity->getAmount() > 0) { ?>

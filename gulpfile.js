@@ -8,7 +8,7 @@ let outputDirectories = {
     },
     projectFiles = {
         'load.min.js': ['asset/js/init.js', 'asset/js/config.js', 'asset/js/load.js'],
-        'main.min.js': ['asset/js/src/**/*.js']
+        'main.min.js': ['asset/js/src/**/*.js', 'asset/js/main.js']
     },
     libraryFiles = {
         'jquery.min.js': ['node_modules/jquery/dist/jquery.min.js']

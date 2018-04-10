@@ -8,6 +8,7 @@ use FactorioItemBrowser\Api\Client\Request\Item\ItemIngredientRequest;
 use FactorioItemBrowser\Api\Client\Request\Item\ItemProductRequest;
 use FactorioItemBrowser\Api\Client\Response\Item\ItemIngredientResponse;
 use FactorioItemBrowser\Api\Client\Response\Item\ItemProductResponse;
+use FactorioItemBrowser\Portal\Constant\Config;
 use FactorioItemBrowser\Portal\Handler\AbstractRequestHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -33,8 +34,8 @@ class ItemDetailsHandler extends AbstractRequestHandler
 
         $productRequest = new ItemProductRequest();
         $productRequest->setType($type)
-            ->setName($name)
-            ->setNumberOfResults(12);
+                       ->setName($name)
+                       ->setNumberOfResults(Config::ITEM_RECIPE_PER_PAGE);
 
         /* @var ItemProductResponse $productResponse */
         $productResponse = $this->apiClient->send($productRequest);
@@ -42,7 +43,7 @@ class ItemDetailsHandler extends AbstractRequestHandler
         $ingredientRequest = new ItemIngredientRequest();
         $ingredientRequest->setType($type)
                           ->setName($name)
-                          ->setNumberOfResults(12);
+                          ->setNumberOfResults(Config::ITEM_RECIPE_PER_PAGE);
         
         /* @var ItemIngredientResponse $ingredientResponse */
         $ingredientResponse = $this->apiClient->send($ingredientRequest);

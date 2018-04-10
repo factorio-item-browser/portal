@@ -49,6 +49,22 @@ class GenericEntityHelper extends AbstractHelper
     }
 
     /**
+     * Returns the URL to the details page of the specified entity.
+     * @param GenericEntity $entity
+     * @return string
+     */
+    public function getTooltip(GenericEntity $entity): string
+    {
+        return $this->urlHelper->generate(
+            RouteNames::GENERIC_TOOLTIP,
+            [
+                'type' => $entity->getType(),
+                'name' => $entity->getName()
+            ]
+        );
+    }
+
+    /**
      * Formats and returns the amount of an item.
      * @param float $amount
      * @return string

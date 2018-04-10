@@ -17,7 +17,8 @@ use Zend\Expressive\Application;
 use Zend\Expressive\MiddlewareFactory;
 
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
-    $app->get('/', Handler\Index\IndexHandler::class, RouteNames::INDEX);
+    $app->route('/', Handler\Index\IndexHandler::class, ['GET', 'POST'], RouteNames::INDEX);
 
-    $app->get('/{type}/{name}', Handler\Item\ItemDetailsHandler::class, RouteNames::ITEM_DETAILS);
+    $app->route('/{type}/{name}', Handler\Item\ItemDetailsHandler::class, ['GET', 'POST'], RouteNames::ITEM_DETAILS);
+    $app->route('/{type}/{name}/tooltip', Handler\Item\ItemTooltipHandler::class, ['GET', 'POST'], RouteNames::ITEM_TOOLTIP);
 };

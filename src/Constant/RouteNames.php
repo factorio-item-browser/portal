@@ -10,13 +10,14 @@ namespace FactorioItemBrowser\Portal\Constant;
  */
 class RouteNames {
     const GENERIC_DETAILS = 'item.details'; // Used to build links to any generic entity.
+    const GENERIC_TOOLTIP = 'item.tooltip'; // Used to build tooltip routes to any generic entity.
 
     const ICONS = 'icons';
 
     const INDEX = 'index';
 
     const ITEM_DETAILS = 'item.details';
-    const ITEM_TOOLTIP = 'item/tooltip';
+    const ITEM_TOOLTIP = 'item.tooltip';
 
     const MODS = 'mods';
     const MODS_SAVE = 'mods/save';

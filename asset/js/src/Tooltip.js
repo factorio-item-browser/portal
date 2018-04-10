@@ -168,7 +168,7 @@
                     }
 
                     this._runningAjax = $.ajax({
-                        url: '/' + route + '/tooltip',
+                        url: route,
                         method: 'POST',
                         dataType: 'json',
                         success: (response) => {
