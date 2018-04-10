@@ -20,8 +20,11 @@ return [
         'aliases' => [
             'assetPath' => View\Helper\AssetPathHelper::class,
             'footLink' => View\Helper\FootLinkHelper::class,
+            'genericEntity' => View\Helper\GenericEntityHelper::class,
             'headLink' => View\Helper\HeadLinkHelper::class,
+            'javascriptConfig' => View\Helper\JavascriptConfig::class,
             'locale' => View\Helper\LocaleHelper::class,
+            'layoutParams' => View\Helper\LayoutParamsHelper::class,
             'replace' => View\Helper\ReplaceHelper::class,
 
             // 3rd-party helpers
@@ -30,7 +33,10 @@ return [
         'factories' => [
             View\Helper\AssetPathHelper::class => View\Helper\AssetPathHelperFactory::class,
             View\Helper\FootLinkHelper::class => InvokableFactory::class,
+            View\Helper\GenericEntityHelper::class => InvokableFactory::class,
             View\Helper\HeadLinkHelper::class => InvokableFactory::class,
+            View\Helper\JavascriptConfig::class => View\Helper\JavascriptConfigFactory::class,
+            View\Helper\LayoutParamsHelper::class => InvokableFactory::class,
             View\Helper\LocaleHelper::class => View\Helper\LocaleHelperFactory::class,
             View\Helper\ReplaceHelper::class => InvokableFactory::class,
 

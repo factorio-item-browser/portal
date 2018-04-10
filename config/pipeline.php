@@ -42,6 +42,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
 
     $app->pipe(Middleware\SessionMiddleware::class);
     $app->pipe(Middleware\LocaleMiddleware::class);
+    $app->pipe(Middleware\ApiClientMiddleware::class);
 
     $app->pipe(RouteMiddleware::class);
 

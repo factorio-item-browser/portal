@@ -17,7 +17,7 @@
     "dasprid/container-interop-doctrine": "^1.1",
     "dflydev/fig-cookies": "^1.0",
     "doctrine/orm": "^2.6",
-    "factorio-item-browser/api-client": "^1.0",
+    "factorio-item-browser/api-client": "dev-master",
     "mtymek/blast-base-url": "^0.2",
     "zendframework/zend-config-aggregator": "^1.0",
     "zendframework/zend-diactoros": "^1.7",

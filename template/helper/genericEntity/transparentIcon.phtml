@@ -1,0 +1,17 @@
+<?php
+use FactorioItemBrowser\Api\Client\Entity\GenericEntity;
+
+/* @var GenericEntity $entity */
+$entity = $this->entity;
+?>
+<div
+    class="icon <?php echo $this->escapeHtmlAttr(implode('-', ['icon', $entity->getType(), $entity->getName()])); ?>"
+    data-icon="<?php echo $this->escapeHtmlAttr(implode('/', [$entity->getType(), $entity->getName()])); ?>"
+    <?php foreach ($this->attributes as $name => $value) {
+        echo $this->escapeHtml($name);
+        if (!empty($value)) {
+            echo '="' . $this->escapeHtmlAttr($name) . '"';
+        }
+    }
+    ?>
+></div>

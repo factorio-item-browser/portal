@@ -16,6 +16,7 @@ return [
         'layout' => 'layout::layout',
         'paths' => [
             'error' => ['template/error'],
+            'helper' => ['template/helper'],
             'layout' => ['template/layout'],
             'portal' => ['template/portal']
         ]

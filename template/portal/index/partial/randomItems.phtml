@@ -1,0 +1,20 @@
+<?php
+use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
+use FactorioItemBrowser\Portal\View\Helper\GenericEntityHelper;
+
+/* @var GenericEntityWithRecipes $randomItems */
+$randomItems = $this->randomItems;
+/* @var GenericEntityHelper $genericEntityHelper */
+$genericEntityHelper = $this->genericEntity()
+?>
+
+<section>
+    <h2><?php echo $this->escapeHtml($this->translate('index headline random-items')); ?>
+        <span class="random-item-motivator"><?php echo $this->escapeHtml($this->translate('index headline random-item-motivator')); ?></span>
+    </h2>
+    <ul class="random-items">
+        <?php foreach ($randomItems as $randomItem) { ?>
+            <li><?php echo $genericEntityHelper->renderBox($randomItem); ?></li>
+        <?php } ?>
+    </ul>
+</section>

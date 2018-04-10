@@ -11,10 +11,11 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal;
 
+use FactorioItemBrowser\Portal\Constant\RouteNames;
 use Psr\Container\ContainerInterface;
 use Zend\Expressive\Application;
 use Zend\Expressive\MiddlewareFactory;
 
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
-    $app->get('/', Handler\HelloWorldHandler::class, 'index');
+    $app->get('/', Handler\Index\IndexHandler::class, RouteNames::INDEX);
 };

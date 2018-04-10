@@ -1,0 +1,14 @@
+<?php
+use FactorioItemBrowser\Api\Client\Entity\GenericEntity;
+
+/* @var GenericEntity $entity */
+$entity = $this->entity;
+?>
+
+<a class="item" href="<?php // @todo echo link ?>" data-link>
+    <?php echo $this->genericEntity()->renderTransparentIcon($entity); ?>
+    <div class="label">
+        <h3><?php echo $this->escapeHtml($entity->getLabel()); ?></h3>
+        <?php echo $this->escapeHtml($entity->getDescription()); ?>
+    </div>
+</a>

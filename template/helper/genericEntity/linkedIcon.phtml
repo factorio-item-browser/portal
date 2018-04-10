@@ -1,0 +1,23 @@
+<?php
+use FactorioItemBrowser\Api\Client\Entity\GenericEntity;
+use FactorioItemBrowser\Api\Client\Entity\Item;
+use FactorioItemBrowser\Portal\View\Helper\GenericEntityHelper;
+
+/* @var GenericEntityHelper $genericEntityHelper */
+$genericEntityHelper = $this->genericEntity();
+/* @var GenericEntity $entity */
+$entity = $this->entity;
+?>
+<a
+    href="<?php // @todo echo $this->escapeHtmlAttr($this->url); ?>"
+    class="icon with-background <?php echo $this->escapeHtmlAttr(implode('-', ['icon', $entity->getType(), $entity->getName()])); ?>"
+    data-icon="<?php echo $this->escapeHtmlAttr(implode('/', [$entity->getType(), $entity->getName()])); ?>"
+    data-tooltip="<?php echo $this->escapeHtmlAttr($this->tooltip); ?>"
+    data-link
+>
+    <?php if ($entity instanceof Item && $entity->getAmount() > 0) { ?>
+        <span class="amount"><?php
+            echo $this->escapeHtml($genericEntityHelper->formatAmount($entity->getAmount()));
+        ?></span>
+    <?php } ?>
+</a>

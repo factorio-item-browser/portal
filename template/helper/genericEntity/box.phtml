@@ -1,0 +1,16 @@
+<?php
+use FactorioItemBrowser\Api\Client\Entity\GenericEntity;
+use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
+
+/* @var GenericEntity $entity */
+$entity = $this->entity;
+?>
+<div class="boxed-item"><?php
+    echo $this->render('helper::genericEntity/partial/head');
+    if ($entity instanceof GenericEntityWithRecipes) {
+        foreach ($entity->getRecipes() as $recipe) {
+            echo $this->partial('helper::genericEntity/partial/recipe', ['recipe' => $recipe]);
+        }
+        echo $this->render('helper::genericEntity/partial/omittedRecipes');
+    }
+?></div>

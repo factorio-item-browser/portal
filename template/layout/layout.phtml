@@ -17,8 +17,8 @@ $this->footLink()->appendStylesheet($this->assetPath('asset/css/images.min.css')
 $this->headScript()->appendFile($this->assetPath('asset/js/jquery.min.js'), '')
                    ->appendFile($this->assetPath('asset/js/load.min.js'), '');
 
-// @todo Javascript config
-$bodyClass = '';
+$this->javascriptConfig()->render();
+$bodyClass = $this->layoutParams()->getBodyClass();
 
 echo $this->doctype();
 ?>

@@ -16,6 +16,7 @@ use Blast\BaseUrl\BaseUrlMiddleware;
 use Blast\BaseUrl\BaseUrlMiddlewareFactory;
 use ContainerInteropDoctrine\EntityManagerFactory;
 use Doctrine\ORM\EntityManager;
+use FactorioItemBrowser\Api\Client\Client\Client;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
@@ -24,14 +25,16 @@ return [
             Database\Service\SidebarEntityService::class => Database\Service\AbstractDatabaseServiceFactory::class,
             Database\Service\UserService::class => Database\Service\AbstractDatabaseServiceFactory::class,
 
-            Handler\HelloWorldHandler::class => Handler\HelloWorldHandlerFactory::class,
+            Handler\Index\IndexHandler::class => Handler\AbstractRequestHandlerFactory::class,
 
+            Middleware\ApiClientMiddleware::class => Middleware\ApiClientMiddlewareFactory::class,
             Middleware\LocaleMiddleware::class => Middleware\LocaleMiddlewareFactory::class,
             Middleware\SessionMiddleware::class => Middleware\SessionMiddlewareFactory::class,
 
             // Dependencies of other libraries
             BasePathHelper::class => InvokableFactory::class,
             BaseUrlMiddleware::class => BaseUrlMiddlewareFactory::class,
+            Client::class => Api\ClientFactory::class,
             EntityManager::class => EntityManagerFactory::class,
         ]
     ],

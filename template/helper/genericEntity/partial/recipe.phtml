@@ -1,0 +1,31 @@
+<?php
+
+use FactorioItemBrowser\Api\Client\Constant\RecipeMode;
+use FactorioItemBrowser\Api\Client\Entity\Recipe;
+use FactorioItemBrowser\Portal\View\Helper\GenericEntityHelper;
+
+/* @var GenericEntityHelper $genericEntityHelper */
+$genericEntityHelper = $this->genericEntity();
+/* @var Recipe $recipe */
+$recipe = $this->recipe;
+?>
+
+<div class="recipe <?php echo $this->escapeHtmlAttr($recipe->getMode()); ?>">
+    <?php foreach ($recipe->getIngredients() as $ingredient) {
+        echo $genericEntityHelper->renderLinkedIcon($ingredient, $ingredient->getAmount());
+    } ?>
+    <div class="separator">
+        <?php if ($recipe->getCraftingTime() > 0) { ?>
+            <span class="time"><?php
+                echo $this->escapeHtml($genericEntityHelper->formatCraftingTime($recipe->getCraftingTime()));
+            ?></span>
+        <?php } ?>
+    </div>
+    <?php foreach ($recipe->getProducts() as $product) {
+        echo $genericEntityHelper->renderLinkedIcon($product, $product->getAmount());
+    }
+
+    if ($recipe->getMode() === RecipeMode::EXPENSIVE) { ?>
+        <div class="box-label"><?php echo $this->escapeHtml($this->translate('box-label expensive')); ?></div>
+    <?php } ?>
+</div>
