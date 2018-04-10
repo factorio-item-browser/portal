@@ -36,14 +36,14 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     }, new Response()));
     $app->pipe(ServerUrlMiddleware::class);
     $app->pipe(UrlHelperMiddleware::class);
-
-    $app->pipe(Middleware\SessionMiddleware::class);
-
-    $app->pipe(RouteMiddleware::class);
-
     $app->pipe(MethodNotAllowedMiddleware::class);
     $app->pipe(ImplicitHeadMiddleware::class);
     $app->pipe(ImplicitOptionsMiddleware::class);
+
+    $app->pipe(Middleware\SessionMiddleware::class);
+    $app->pipe(Middleware\LocaleMiddleware::class);
+
+    $app->pipe(RouteMiddleware::class);
 
     $app->pipe(DispatchMiddleware::class);
     $app->pipe(NotFoundHandler::class);

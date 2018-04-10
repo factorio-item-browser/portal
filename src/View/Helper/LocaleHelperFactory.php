@@ -2,6 +2,7 @@
 
 namespace FactorioItemBrowser\Portal\View\Helper;
 
+use FactorioItemBrowser\Portal\Database\Service\UserService;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
@@ -10,7 +11,6 @@ use Zend\ServiceManager\Factory\FactoryInterface;
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-2.0 GPL v2
- * @todo Read locale from user.
  */
 class LocaleHelperFactory implements FactoryInterface {
     /**
@@ -21,12 +21,12 @@ class LocaleHelperFactory implements FactoryInterface {
      * @return LocaleHelper
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null) {
-//        /* @var UserService $userService */
-//        $userService = $container->get(UserService::class);
+        /* @var UserService $userService */
+        $userService = $container->get(UserService::class);
 
         $config = $container->get('config');
         $enabledLocales = array_keys(array_filter($config['factorio-item-browser']['portal']['locales']));
 
-        return new LocaleHelper($enabledLocales, 'en' /*$userService->getCurrentUser()->getLocale() */);
+        return new LocaleHelper($enabledLocales, $userService->getCurrentUser()->getLocale());
     }
 }

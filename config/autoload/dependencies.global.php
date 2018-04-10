@@ -26,6 +26,7 @@ return [
 
             Handler\HelloWorldHandler::class => Handler\HelloWorldHandlerFactory::class,
 
+            Middleware\LocaleMiddleware::class => Middleware\LocaleMiddlewareFactory::class,
             Middleware\SessionMiddleware::class => Middleware\SessionMiddlewareFactory::class,
 
             // Dependencies of other libraries
