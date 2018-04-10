@@ -21,6 +21,9 @@ use Zend\ServiceManager\Factory\InvokableFactory;
 return [
     'dependencies' => [
         'factories'  => [
+            Database\Service\SidebarEntityService::class => Database\Service\AbstractDatabaseServiceFactory::class,
+            Database\Service\UserService::class => Database\Service\AbstractDatabaseServiceFactory::class,
+
             Handler\HelloWorldHandler::class => Handler\HelloWorldHandlerFactory::class,
 
             // Dependencies of other libraries
