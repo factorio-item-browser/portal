@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Portal\View\Helper;
 
 use FactorioItemBrowser\Api\Client\Entity\GenericEntity;
+use FactorioItemBrowser\Portal\Constant\RouteNames;
+use Zend\Expressive\Helper\UrlHelper;
 use Zend\View\Helper\AbstractHelper;
 
 /**
@@ -15,6 +17,37 @@ use Zend\View\Helper\AbstractHelper;
  */
 class GenericEntityHelper extends AbstractHelper
 {
+    /**
+     * The URL helper.
+     * @var UrlHelper
+     */
+    protected $urlHelper;
+
+    /**
+     * Initializes the view helper.
+     * @param UrlHelper $urlHelper
+     */
+    public function __construct(UrlHelper $urlHelper)
+    {
+        $this->urlHelper = $urlHelper;
+    }
+
+    /**
+     * Returns the URL to the details page of the specified entity.
+     * @param GenericEntity $entity
+     * @return string
+     */
+    public function getDetailsUrl(GenericEntity $entity): string
+    {
+        return $this->urlHelper->generate(
+            RouteNames::GENERIC_DETAILS,
+            [
+                'type' => $entity->getType(),
+                'name' => $entity->getName()
+            ]
+        );
+    }
+
     /**
      * Formats and returns the amount of an item.
      * @param float $amount

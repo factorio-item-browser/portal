@@ -1,0 +1,24 @@
+<?php
+use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
+use FactorioItemBrowser\Portal\View\Helper\GenericEntityHelper;
+
+/* @var GenericEntityHelper $genericEntityHelper */
+$genericEntityHelper = $this->genericEntity();
+/* @var array|GenericEntityWithRecipes[] $recipes */
+$recipes = $this->productRecipes;
+if (count($recipes) > 0) { ?>
+    <section>
+        <h2><?php echo $this->escapeHtml($this->replace(
+            $this->translatePlural('item-details product-of', '', $this->totalNumberOfProductRecipes),
+            ['count' => $this->totalNumberOfProductRecipes]
+        )); ?></h2>
+
+        <ul class="item-products-list">
+            <?php foreach ($recipes as $recipe) { ?>
+                <li><?php echo $genericEntityHelper->renderBox($recipe); ?></li>
+            <?php } ?>
+        </ul>
+    </section>
+<?php }
+
+// @todo Button to load more recipes

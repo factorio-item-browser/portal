@@ -10,9 +10,10 @@ use Zend\ServiceManager\Factory\FactoryInterface;
  * The factory of the locale helper class.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
- * @license http://opensource.org/licenses/GPL-2.0 GPL v2
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class LocaleHelperFactory implements FactoryInterface {
+class LocaleHelperFactory implements FactoryInterface
+{
     /**
      * Creates the view helper.
      * @param  ContainerInterface $container
@@ -20,7 +21,8 @@ class LocaleHelperFactory implements FactoryInterface {
      * @param  null|array $options
      * @return LocaleHelper
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) {
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
         /* @var UserService $userService */
         $userService = $container->get(UserService::class);
 

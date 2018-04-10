@@ -11,9 +11,10 @@ use Zend\View\HelperPluginManager;
  * The factory of the javascript config view helper.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
- * @license http://opensource.org/licenses/GPL-2.0 GPL v2
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class JavascriptConfigFactory implements FactoryInterface {
+class JavascriptConfigFactory implements FactoryInterface
+{
     /**
      * Creates the view helper.
      * @param ContainerInterface $container
@@ -21,7 +22,8 @@ class JavascriptConfigFactory implements FactoryInterface {
      * @param null|array $options
      * @return JavascriptConfig
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) {
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
 //        /* @var UserService $userService */
 //        $userService = $container->get(UserService::class);
         /* @var HelperPluginManager $helperPluginManager */

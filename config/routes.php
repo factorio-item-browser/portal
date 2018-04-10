@@ -18,4 +18,6 @@ use Zend\Expressive\MiddlewareFactory;
 
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
     $app->get('/', Handler\Index\IndexHandler::class, RouteNames::INDEX);
+
+    $app->get('/{type}/{name}', Handler\Item\ItemDetailsHandler::class, RouteNames::ITEM_DETAILS);
 };

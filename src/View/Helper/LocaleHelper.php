@@ -8,7 +8,7 @@ use Zend\View\Helper\AbstractHelper;
  * The view helper for the locales.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
- * @license http://opensource.org/licenses/GPL-2.0 GPL v2
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 class LocaleHelper extends AbstractHelper
 {

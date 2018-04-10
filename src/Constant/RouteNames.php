@@ -9,11 +9,13 @@ namespace FactorioItemBrowser\Portal\Constant;
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 class RouteNames {
+    const GENERIC_DETAILS = 'item.details'; // Used to build links to any generic entity.
+
     const ICONS = 'icons';
 
     const INDEX = 'index';
 
-    const ITEM = 'item';
+    const ITEM_DETAILS = 'item.details';
     const ITEM_TOOLTIP = 'item/tooltip';
 
     const MODS = 'mods';

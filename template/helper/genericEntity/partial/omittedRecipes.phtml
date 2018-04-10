@@ -1,12 +1,15 @@
 <?php
 use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
+use FactorioItemBrowser\Portal\View\Helper\GenericEntityHelper;
 
+/* @var GenericEntityHelper $genericEntityHelper */
+$genericEntityHelper = $this->genericEntity();
 /* @var GenericEntityWithRecipes $entity */
 $entity = $this->entity;
 $numberOfOmittedRecipes = $entity->getTotalNumberOfRecipes() - count($entity->getRecipes());
 
 if ($numberOfOmittedRecipes > 0) { ?>
-    <a class="more-recipes" href="<?php // @todo echo $this->escapeHtmlAttr($helper->getDetailsUrl($headEntity)); ?>" data-link><?php
+    <a class="more-recipes" href="<?php echo $this->escapeHtmlAttr($genericEntityHelper->getDetailsUrl($entity)); ?>" data-link><?php
         echo $this->escapeHtml($this->replace($this->translatePlural('boxed-item more-recipes', '', $numberOfOmittedRecipes), ['count' => $numberOfOmittedRecipes]));
     ?></a>
 <?php }

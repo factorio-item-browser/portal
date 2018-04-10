@@ -9,7 +9,7 @@ $genericEntityHelper = $this->genericEntity();
 $entity = $this->entity;
 ?>
 <a
-    href="<?php // @todo echo $this->escapeHtmlAttr($this->url); ?>"
+    href="<?php echo $this->escapeHtmlAttr($genericEntityHelper->getDetailsUrl($entity)); ?>"
     class="icon with-background <?php echo $this->escapeHtmlAttr(implode('-', ['icon', $entity->getType(), $entity->getName()])); ?>"
     data-icon="<?php echo $this->escapeHtmlAttr(implode('/', [$entity->getType(), $entity->getName()])); ?>"
     data-tooltip="<?php echo $this->escapeHtmlAttr($this->tooltip); ?>"

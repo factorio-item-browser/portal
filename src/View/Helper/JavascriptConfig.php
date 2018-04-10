@@ -10,7 +10,7 @@ use Zend\View\Helper\AbstractHelper;
  * The view helper for injecting an additional config into the Javascript.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
- * @license http://opensource.org/licenses/GPL-2.0 GPL v2
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 class JavascriptConfig extends AbstractHelper
 {

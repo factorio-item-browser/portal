@@ -26,6 +26,7 @@ return [
             Database\Service\UserService::class => Database\Service\AbstractDatabaseServiceFactory::class,
 
             Handler\Index\IndexHandler::class => Handler\AbstractRequestHandlerFactory::class,
+            Handler\Item\ItemDetailsHandler::class => Handler\AbstractRequestHandlerFactory::class,
 
             Middleware\ApiClientMiddleware::class => Middleware\ApiClientMiddlewareFactory::class,
             Middleware\LocaleMiddleware::class => Middleware\LocaleMiddlewareFactory::class,

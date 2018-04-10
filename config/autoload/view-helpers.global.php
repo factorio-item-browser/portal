@@ -33,7 +33,7 @@ return [
         'factories' => [
             View\Helper\AssetPathHelper::class => View\Helper\AssetPathHelperFactory::class,
             View\Helper\FootLinkHelper::class => InvokableFactory::class,
-            View\Helper\GenericEntityHelper::class => InvokableFactory::class,
+            View\Helper\GenericEntityHelper::class => View\Helper\GenericEntityHelperFactory::class,
             View\Helper\HeadLinkHelper::class => InvokableFactory::class,
             View\Helper\JavascriptConfig::class => View\Helper\JavascriptConfigFactory::class,
             View\Helper\LayoutParamsHelper::class => InvokableFactory::class,
