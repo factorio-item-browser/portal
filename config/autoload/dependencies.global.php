@@ -26,6 +26,8 @@ return [
 
             Handler\HelloWorldHandler::class => Handler\HelloWorldHandlerFactory::class,
 
+            Middleware\SessionMiddleware::class => Middleware\SessionMiddlewareFactory::class,
+
             // Dependencies of other libraries
             BasePathHelper::class => InvokableFactory::class,
             BaseUrlMiddleware::class => BaseUrlMiddlewareFactory::class,

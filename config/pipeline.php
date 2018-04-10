@@ -35,11 +35,15 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
         return $middleware($request, $response, $next);
     }, new Response()));
     $app->pipe(ServerUrlMiddleware::class);
+    $app->pipe(UrlHelperMiddleware::class);
+
+    $app->pipe(Middleware\SessionMiddleware::class);
+
     $app->pipe(RouteMiddleware::class);
+
     $app->pipe(MethodNotAllowedMiddleware::class);
     $app->pipe(ImplicitHeadMiddleware::class);
     $app->pipe(ImplicitOptionsMiddleware::class);
-    $app->pipe(UrlHelperMiddleware::class);
 
     $app->pipe(DispatchMiddleware::class);
     $app->pipe(NotFoundHandler::class);
