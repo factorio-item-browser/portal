@@ -1,0 +1,18 @@
+<?php if ($this->error instanceof Exception) { ?>
+    <div class="debug-info">
+        <h2>Debug information</h2>
+            <?php $currentException = $this->error;
+            while ($currentException instanceof Exception) { ?>
+                <h3><?php echo $this->escapeHtml(get_class($currentException)); ?></h3>
+                <dl>
+                    <dt>File:</dt>
+                    <dd><?php echo $this->escapeHtml($currentException->getFile()); ?>:<?php echo $this->escapeHtml($currentException->getLine()); ?></dd>
+                    <dt>Message:</dt>
+                    <dd><?php echo $this->escapeHtml($currentException->getMessage()); ?></dd>
+                    <dt>Stack trace:</dt>
+                    <dd><?php echo nl2br($this->escapeHtml($currentException->getTraceAsString())); ?></dd>
+                </dl>
+                <?php $currentException = $currentException->getPrevious();
+            } ?>
+    </div>
+<?php } ?>

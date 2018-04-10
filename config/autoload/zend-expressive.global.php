@@ -20,8 +20,9 @@ return [
     'zend-expressive' => [
         'programmatic_pipeline' => true,
         'error_handler' => [
+            'layout' => 'layout::layout',
             'template_404'   => 'error::404',
-            'template_error' => 'error::error',
+            'template_error' => 'error::500',
         ],
     ],
 ];

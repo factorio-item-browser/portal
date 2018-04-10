@@ -1,0 +1,13 @@
+<div class="error-box">
+    <div class="error-icon-box">
+        <div class="error-icon error-icon-500"></div>
+    </div>
+
+    <div class="error-message">
+        <h2><?php echo $this->escapeHtml($this->translate('error 500 title')); ?></h2>
+        <?php echo $this->escapeHtml($this->translate('error 500 message')); ?>
+    </div>
+</div>
+
+<?php
+echo $this->render('error::partial/debugInfo');
