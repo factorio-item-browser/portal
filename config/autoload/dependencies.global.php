@@ -30,6 +30,7 @@ return [
             Handler\Item\ItemTooltipHandler::class => Handler\AbstractRequestHandlerFactory::class,
 
             Middleware\ApiClientMiddleware::class => Middleware\ApiClientMiddlewareFactory::class,
+            Middleware\LayoutMiddleware::class => Middleware\LayoutMiddlewareFactory::class,
             Middleware\LocaleMiddleware::class => Middleware\LocaleMiddlewareFactory::class,
             Middleware\SessionMiddleware::class => Middleware\SessionMiddlewareFactory::class,
 

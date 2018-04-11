@@ -55,7 +55,7 @@ class ItemTooltipHandler extends AbstractRequestHandler
         return new JsonResponse([
             'content' => $this->templateRenderer->render('portal::item/tooltip', [
                 'entity' => $entity,
-                'layout' => 'layout::empty'
+                'layout' => false
             ])
         ]);
     }

@@ -16,6 +16,7 @@ use Psr\Container\ContainerInterface;
 use Zend\Diactoros\Response;
 use Zend\Expressive\Application;
 use Zend\Expressive\Handler\NotFoundHandler;
+use Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware;
 use Zend\Expressive\Helper\ServerUrlMiddleware;
 use Zend\Expressive\Helper\UrlHelperMiddleware;
 use Zend\Expressive\MiddlewareFactory;
@@ -44,7 +45,9 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->pipe(Middleware\LocaleMiddleware::class);
     $app->pipe(Middleware\ApiClientMiddleware::class);
 
+    $app->pipe(BodyParamsMiddleware::class);
     $app->pipe(RouteMiddleware::class);
+    $app->pipe(Middleware\LayoutMiddleware::class);
 
     $app->pipe(DispatchMiddleware::class);
     $app->pipe(NotFoundHandler::class);

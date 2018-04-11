@@ -3,7 +3,7 @@
 return [
     'boxed-item more-recipes' => ['%count% weiteres Rezept', '%count% weitere Rezepte'],
 
-    'box-label expensive' => 'teuerer Modus',
+    'box-label expensive' => 'teurer Modus',
     'box-label fluid' => 'Flüssigkeit',
     'box-label item' => 'Item',
     'box-label recipe' => 'Rezept',
