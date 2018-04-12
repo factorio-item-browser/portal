@@ -5,8 +5,8 @@ use FactorioItemBrowser\Portal\Constant\RouteNames;
 <form
     id="search-box"
     class="header-search"
-    data-url="<?php // echo $this->escapeHtmlAttr($this->url(RouteNames::SEARCH, ['query' => '--query--']));?>"
-    action="<?php // echo $this->escapeHtmlAttr($this->url(RouteNames::SEARCH));?>"
+    data-url="<?php echo $this->escapeHtmlAttr($this->url(RouteNames::SEARCH_QUERY, ['query' => '--query--']));?>"
+    action="<?php echo $this->escapeHtmlAttr($this->url(RouteNames::SEARCH_QUERY, ['query' => '']));?>"
     method="get"
 >
     <div class="header-search-box-icon"></div>

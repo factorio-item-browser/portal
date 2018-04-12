@@ -19,6 +19,8 @@ body.index-page .header-search {
 .header-search-input {
     @include transition-default(opacity);
 
+    border: 0;
+    border-radius: 0;
     box-shadow: $shadow-box;
     box-sizing: border-box;
     font-size: 2rem;
