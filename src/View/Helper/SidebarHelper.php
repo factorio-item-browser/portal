@@ -64,7 +64,7 @@ class SidebarHelper extends AbstractHelper
      * @param SidebarEntity $sidebarEntity
      * @return string
      */
-    protected function renderEntity(SidebarEntity $sidebarEntity): string
+    public function renderEntity(SidebarEntity $sidebarEntity): string
     {
         $genericEntity = new GenericEntity();
         $genericEntity->setType($sidebarEntity->getType())

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Portal\Middleware;
 
 use FactorioItemBrowser\Portal\View\Helper\LayoutParamsHelper;
+use FactorioItemBrowser\Portal\View\Helper\SidebarHelper;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\View\Helper\HeadTitle;
@@ -29,13 +30,16 @@ class LayoutMiddlewareFactory
     {
         /* @var TemplateRendererInterface $templateRenderer */
         $templateRenderer = $container->get(TemplateRendererInterface::class);
+
         /* @var HelperPluginManager $helperPluginManager */
         $helperPluginManager = $container->get(HelperPluginManager::class);
         /* @var HeadTitle $headTitleHelper */
         $headTitleHelper = $helperPluginManager->get('headTitle');
         /* @var LayoutParamsHelper $layoutParamsHelper */
         $layoutParamsHelper = $helperPluginManager->get(LayoutParamsHelper::class);
+        /* @var SidebarHelper $sidebarHelper */
+        $sidebarHelper = $helperPluginManager->get(SidebarHelper::class);
 
-        return new LayoutMiddleware($templateRenderer, $headTitleHelper, $layoutParamsHelper);
+        return new LayoutMiddleware($templateRenderer, $headTitleHelper, $layoutParamsHelper, $sidebarHelper);
     }
 }

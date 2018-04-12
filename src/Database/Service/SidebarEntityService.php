@@ -11,6 +11,7 @@ use FactorioItemBrowser\Portal\Constant\Config;
 use FactorioItemBrowser\Portal\Database\Entity\SidebarEntity;
 use FactorioItemBrowser\Portal\Database\Entity\User;
 use FactorioItemBrowser\Portal\Database\Repository\SidebarEntityRepository;
+use FactorioItemBrowser\Portal\View\Helper\LayoutParamsHelper;
 
 /**
  * The service class of the sidebar entity database table.
@@ -33,14 +34,26 @@ class SidebarEntityService extends AbstractDatabaseService
     protected $sidebarEntityRepository;
 
     /**
+     * The layout params helper.
+     * @var LayoutParamsHelper
+     */
+    protected $layoutParamsHelper;
+
+    /**
      * SidebarEntityService constructor.
      * @param EntityManager $entityManager
      * @param UserService $userService
+     * @param LayoutParamsHelper $layoutParamsHelper
      */
-    public function __construct(EntityManager $entityManager, UserService $userService)
+    public function __construct(
+        EntityManager $entityManager,
+        UserService $userService,
+        LayoutParamsHelper $layoutParamsHelper
+    )
     {
         parent::__construct($entityManager);
         $this->userService = $userService;
+        $this->layoutParamsHelper = $layoutParamsHelper;
     }
 
 
@@ -79,7 +92,7 @@ class SidebarEntityService extends AbstractDatabaseService
         $this->entityManager->flush($sidebarEntity);
         $this->sidebarEntityRepository->cleanUnpinnedEntities($user, Config::SIDEBAR_UNPINNED_ENTITIES);
 
-        // @todo LayoutParams
+        $this->layoutParamsHelper->setNewSidebarEntity($sidebarEntity);
         return $this;
     }
 

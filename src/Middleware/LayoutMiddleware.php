@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Portal\Middleware;
 
 use FactorioItemBrowser\Portal\Constant\Attribute;
+use FactorioItemBrowser\Portal\Database\Entity\SidebarEntity;
 use FactorioItemBrowser\Portal\View\Helper\LayoutParamsHelper;
+use FactorioItemBrowser\Portal\View\Helper\SidebarHelper;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -41,20 +43,29 @@ class LayoutMiddleware implements MiddlewareInterface
     protected $layoutParamsHelper;
 
     /**
+     * The sidebar helper.
+     * @var SidebarHelper
+     */
+    protected $sidebarHelper;
+
+    /**
      * Initializes the middleware.
      * @param TemplateRendererInterface $templateRenderer
      * @param HeadTitle $headTitleHelper
      * @param LayoutParamsHelper $layoutParamsHelper
+     * @param SidebarHelper $sidebarHelper
      */
     public function __construct(
         TemplateRendererInterface $templateRenderer,
         HeadTitle $headTitleHelper,
-        LayoutParamsHelper $layoutParamsHelper
+        LayoutParamsHelper $layoutParamsHelper,
+        SidebarHelper $sidebarHelper
     )
     {
         $this->templateRenderer = $templateRenderer;
         $this->headTitleHelper = $headTitleHelper;
         $this->layoutParamsHelper = $layoutParamsHelper;
+        $this->sidebarHelper = $sidebarHelper;
     }
 
     /**
@@ -122,8 +133,10 @@ class LayoutMiddleware implements MiddlewareInterface
             if (strlen($this->layoutParamsHelper->getSearchQuery()) > 0) {
                 $responseData['searchQuery'] = $this->layoutParamsHelper->getSearchQuery();
             }
-
-            // @todo SidebarEntity
+            if ($this->layoutParamsHelper->getNewSidebarEntity() instanceof SidebarEntity) {
+                $responseData['newSidebarEntity']
+                    = $this->sidebarHelper->renderEntity($this->layoutParamsHelper->getNewSidebarEntity());
+            }
 
             $response = new JsonResponse($responseData, $response->getStatusCode(), $response->getHeaders());
         }

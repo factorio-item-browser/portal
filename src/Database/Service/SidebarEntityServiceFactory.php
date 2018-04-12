@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Portal\Database\Service;
 
 use Doctrine\ORM\EntityManager;
+use FactorioItemBrowser\Portal\View\Helper\LayoutParamsHelper;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
+use Zend\View\HelperPluginManager;
 
 /**
  * The factory of the sidebar entity service.
@@ -30,6 +32,11 @@ class SidebarEntityServiceFactory implements FactoryInterface
         /* @var UserService $userService */
         $userService = $container->get(UserService::class);
 
-        return new SidebarEntityService($entityManager, $userService);
+        /* @var HelperPluginManager $helperPluginManager */
+        $helperPluginManager = $container->get(HelperPluginManager::class);
+        /* @var LayoutParamsHelper $layoutParamsHelper */
+        $layoutParamsHelper = $helperPluginManager->get(LayoutParamsHelper::class);
+
+        return new SidebarEntityService($entityManager, $userService, $layoutParamsHelper);
     }
 }
