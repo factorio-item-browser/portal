@@ -25,9 +25,9 @@ return [
             Database\Service\SidebarEntityService::class => Database\Service\SidebarEntityServiceFactory::class,
             Database\Service\UserService::class => Database\Service\UserServiceFactory::class,
 
-            Handler\Index\IndexHandler::class => Handler\AbstractRequestHandlerFactory::class,
-            Handler\Item\ItemDetailsHandler::class => Handler\AbstractRequestHandlerFactory::class,
-            Handler\Item\ItemTooltipHandler::class => Handler\AbstractRequestHandlerFactory::class,
+            Handler\Index\IndexHandler::class => Handler\Index\IndexHandlerFactory::class,
+            Handler\Item\ItemDetailsHandler::class => Handler\Item\ItemDetailsHandlerFactory::class,
+            Handler\Item\ItemTooltipHandler::class => Handler\Item\ItemTooltipHandlerFactory::class,
             Handler\Recipe\RecipeDetailsHandler::class => Handler\Recipe\RecipeDetailsHandlerFactory::class,
             Handler\Recipe\RecipeTooltipHandler::class => Handler\Recipe\RecipeTooltipHandlerFactory::class,
             Handler\Sidebar\SidebarPinHandler::class => Handler\Sidebar\AbstractSidebarRequestHandlerFactory::class,

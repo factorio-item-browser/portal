@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Handler\Index;
 
+use FactorioItemBrowser\Api\Client\Client\Client;
 use FactorioItemBrowser\Api\Client\Exception\ApiClientException;
 use FactorioItemBrowser\Api\Client\Request\Item\ItemRandomRequest;
 use FactorioItemBrowser\Api\Client\Response\Item\ItemRandomResponse;
-use FactorioItemBrowser\Portal\Handler\AbstractRequestHandler;
+use FactorioItemBrowser\Portal\Constant\Config;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Expressive\Template\TemplateRendererInterface;
 
 /**
  * The class handling the index page.
@@ -18,8 +21,31 @@ use Zend\Diactoros\Response\HtmlResponse;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class IndexHandler extends AbstractRequestHandler
+class IndexHandler implements RequestHandlerInterface
 {
+    /**
+     * The API client.
+     * @var Client
+     */
+    protected $apiClient;
+
+    /**
+     * The template renderer.
+     * @var TemplateRendererInterface
+     */
+    protected $templateRenderer;
+
+    /**
+     * Initializes the request handler.
+     * @param Client $apiClient
+     * @param TemplateRendererInterface $templateRenderer
+     */
+    public function __construct(Client $apiClient, TemplateRendererInterface $templateRenderer)
+    {
+        $this->apiClient = $apiClient;
+        $this->templateRenderer = $templateRenderer;
+    }
+
     /**
      * Handle the request and return a response.
      * @param ServerRequestInterface $request
@@ -29,8 +55,8 @@ class IndexHandler extends AbstractRequestHandler
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $randomItemsRequest = new ItemRandomRequest();
-        $randomItemsRequest->setNumberOfResults(12)
-                           ->setNumberOfRecipesPerResult(3);
+        $randomItemsRequest->setNumberOfResults(Config::INDEX_RANDOM_ITEMS)
+                           ->setNumberOfRecipesPerResult(Config::SEARCH_RECIPE_COUNT);
 
         /* @var ItemRandomResponse $randomItemsResponse */
         $randomItemsResponse = $this->apiClient->send($randomItemsRequest);

@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Handler\Item;
 
+use FactorioItemBrowser\Api\Client\Client\Client;
 use FactorioItemBrowser\Api\Client\Request\Item\ItemIngredientRequest;
 use FactorioItemBrowser\Api\Client\Request\Item\ItemProductRequest;
 use FactorioItemBrowser\Api\Client\Response\Item\ItemIngredientResponse;
 use FactorioItemBrowser\Api\Client\Response\Item\ItemProductResponse;
 use FactorioItemBrowser\Portal\Constant\Config;
-use FactorioItemBrowser\Portal\Handler\AbstractRequestHandler;
+use FactorioItemBrowser\Portal\Database\Service\SidebarEntityService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Expressive\Template\TemplateRendererInterface;
 
 /**
  * The request handler of the item page.
@@ -20,8 +23,43 @@ use Zend\Diactoros\Response\HtmlResponse;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class ItemDetailsHandler extends AbstractRequestHandler
+class ItemDetailsHandler implements RequestHandlerInterface
 {
+    /**
+     * The API client.
+     * @var Client
+     */
+    protected $apiClient;
+
+    /**
+     * The sidebar entity database service.
+     * @var SidebarEntityService
+     */
+    protected $sidebarEntityService;
+
+    /**
+     * The template renderer.
+     * @var TemplateRendererInterface
+     */
+    protected $templateRenderer;
+
+    /**
+     * Initializes the request handler.
+     * @param Client $apiClient
+     * @param SidebarEntityService $sidebarEntityService
+     * @param TemplateRendererInterface $templateRenderer
+     */
+    public function __construct(
+        Client $apiClient,
+        SidebarEntityService $sidebarEntityService,
+        TemplateRendererInterface $templateRenderer
+    )
+    {
+        $this->apiClient = $apiClient;
+        $this->sidebarEntityService = $sidebarEntityService;
+        $this->templateRenderer = $templateRenderer;
+    }
+
     /**
      * Handle the request and return a response.
      * @param ServerRequestInterface $request

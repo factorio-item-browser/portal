@@ -18,7 +18,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 class RecipeTooltipHandlerFactory implements FactoryInterface
 {
     /**
-     * Creates the API client.
+     * Creates the request handler client.
      * @param  ContainerInterface $container
      * @param  string $requestedName
      * @param  null|array $options

@@ -13,9 +13,24 @@ namespace FactorioItemBrowser\Portal\Constant;
 class Config
 {
     /**
+     * The number of random items to show on the index page.
+     */
+    const INDEX_RANDOM_ITEMS = 12;
+
+    /**
      * The number of recipes per page on the item pages.
      */
     const ITEM_RECIPE_PER_PAGE = 12;
+
+    /**
+     * The number of search results to show per page.
+     */
+    const SEARCH_RESULTS_PER_PAGE = 12;
+
+    /**
+     * The number of recipes per search result.
+     */
+    const SEARCH_RECIPE_COUNT = 3;
 
     /**
      * The number of unpinned entities in the sidebar.
