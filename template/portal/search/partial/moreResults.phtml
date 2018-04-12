@@ -1,0 +1,15 @@
+<?php
+use FactorioItemBrowser\Portal\Constant\Config;
+use FactorioItemBrowser\Portal\Constant\RouteNames;
+
+if ($this->currentPage < $this->totalNumberOfResults / Config::SEARCH_RESULTS_PER_PAGE) { ?>
+    <li class="search-results-more"
+        data-url="<?php echo $this->escapeHtmlAttr($this->url(RouteNames::SEARCH_QUERY_PAGE, [
+            'page' => $this->currentPage + 1,
+            'query' => $this->query
+        ])); ?>"
+    >
+        <span class="default"><?php echo $this->escapeHtml($this->translate('search-results load-more')); ?></span>
+        <span class="loading"><?php echo $this->escapeHtml($this->translate('search-results loading-more')); ?></span>
+    </li>
+<?php }

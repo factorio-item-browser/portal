@@ -26,8 +26,8 @@ class RouteNames {
     const RECIPE_DETAILS = 'recipe.details';
     const RECIPE_TOOLTIP = 'recipe.tooltip';
 
-    const SEARCH  = 'search/query';
-    const SEARCH_PAGE  = 'search/page/query';
+    const SEARCH_QUERY  = 'search.query';
+    const SEARCH_QUERY_PAGE  = 'search.query.page';
 
     const SIDEBAR_PIN = 'sidebar.pin';
     const SIDEBAR_UNPIN = 'sidebar.unpin';

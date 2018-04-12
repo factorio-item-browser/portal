@@ -840,12 +840,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/factorio-item-browser/api-client.git",
-                "reference": "cb6c173aab00c90eb568ad63e928f8d5832c4048"
+                "reference": "231f07c899b89c6fe5cced4afa2ca93c31913a67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/factorio-item-browser/api-client/zipball/cb6c173aab00c90eb568ad63e928f8d5832c4048",
-                "reference": "cb6c173aab00c90eb568ad63e928f8d5832c4048",
+                "url": "https://api.github.com/repos/factorio-item-browser/api-client/zipball/231f07c899b89c6fe5cced4afa2ca93c31913a67",
+                "reference": "231f07c899b89c6fe5cced4afa2ca93c31913a67",
                 "shasum": ""
             },
             "require": {
@@ -881,7 +881,7 @@
                 "api",
                 "client"
             ],
-            "time": "2018-04-10T13:03:09+00:00"
+            "time": "2018-04-12T19:16:34+00:00"
         },
         {
             "name": "fig/http-message-util",
@@ -1571,16 +1571,16 @@
         },
         {
             "name": "zendframework/zend-expressive",
-            "version": "3.0.1",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-expressive.git",
-                "reference": "7cbc574376f0a6712c98a7fc2afdcc385dc5fc9c"
+                "reference": "4ea54ed15906c0e06d5211daf88a00ed36a0df83"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-expressive/zipball/7cbc574376f0a6712c98a7fc2afdcc385dc5fc9c",
-                "reference": "7cbc574376f0a6712c98a7fc2afdcc385dc5fc9c",
+                "url": "https://api.github.com/repos/zendframework/zend-expressive/zipball/4ea54ed15906c0e06d5211daf88a00ed36a0df83",
+                "reference": "4ea54ed15906c0e06d5211daf88a00ed36a0df83",
                 "shasum": ""
             },
             "require": {
@@ -1659,7 +1659,7 @@
                 "zend-expressive",
                 "zf"
             ],
-            "time": "2018-03-19T16:15:11+00:00"
+            "time": "2018-04-10T16:22:30+00:00"
         },
         {
             "name": "zendframework/zend-expressive-fastroute",
@@ -2203,16 +2203,16 @@
         },
         {
             "name": "zendframework/zend-stdlib",
-            "version": "3.1.0",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-stdlib.git",
-                "reference": "debedcfc373a293f9250cc9aa03cf121428c8e78"
+                "reference": "10ef03144902d1955f935fff5346ed52f7d99bcc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-stdlib/zipball/debedcfc373a293f9250cc9aa03cf121428c8e78",
-                "reference": "debedcfc373a293f9250cc9aa03cf121428c8e78",
+                "url": "https://api.github.com/repos/zendframework/zend-stdlib/zipball/10ef03144902d1955f935fff5346ed52f7d99bcc",
+                "reference": "10ef03144902d1955f935fff5346ed52f7d99bcc",
                 "shasum": ""
             },
             "require": {
@@ -2221,7 +2221,7 @@
             "require-dev": {
                 "athletic/athletic": "~0.1",
                 "phpunit/phpunit": "~4.0",
-                "squizlabs/php_codesniffer": "^2.6.2"
+                "zendframework/zend-coding-standard": "~1.0.0"
             },
             "type": "library",
             "extra": {
@@ -2244,7 +2244,7 @@
                 "stdlib",
                 "zf2"
             ],
-            "time": "2016-09-13T14:38:50+00:00"
+            "time": "2018-04-12T16:05:42+00:00"
         },
         {
             "name": "zendframework/zend-stratigility",

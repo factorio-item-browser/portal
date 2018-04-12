@@ -58,7 +58,6 @@ return [
     'search-box placeholder' => 'Item, Rezept, ...',
 
     'search-results change-terms' => 'Bitte passe deine Suchbegriffe an.',
-    'search-results empty-term' => 'Ein Suchbegriff muss aus mindestens 2 Zeichen bestehen.',
     'search-results headline' => ['%count% Suchergebnis für "%query%"', '%count% Suchergebnisse für "%query%"'],
     'search-results load-more' => 'Mehr Ergebnisse laden',
     'search-results loading-more' => 'Lade mehr Ergebnisse...',

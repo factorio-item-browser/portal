@@ -1,0 +1,20 @@
+<?php
+$this->headTitle()->prepend($this->query);
+?>
+
+<section>
+    <h2><?php
+        echo $this->replace($this->translatePlural('search-results headline', '', $this->totalNumberOfResults), [
+            'count' => $this->totalNumberOfResults,
+            'query' => $this->escapeHtml($this->query)
+        ]);
+    ?></h2>
+
+    <ul class="search-result-list">
+        <?php if ($this->totalNumberOfResults === 0) {
+            echo $this->render('portal::search/partial/noResults');
+        } else {
+            echo $this->render('portal::search/page');
+        } ?>
+    </ul>
+</section>

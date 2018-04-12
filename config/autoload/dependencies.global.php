@@ -30,6 +30,8 @@ return [
             Handler\Item\ItemTooltipHandler::class => Handler\Item\ItemTooltipHandlerFactory::class,
             Handler\Recipe\RecipeDetailsHandler::class => Handler\Recipe\RecipeDetailsHandlerFactory::class,
             Handler\Recipe\RecipeTooltipHandler::class => Handler\Recipe\RecipeTooltipHandlerFactory::class,
+            Handler\Search\SearchQueryHandler::class => Handler\Search\SearchQueryHandlerFactory::class,
+            Handler\Search\SearchQueryPageHandler::class => Handler\Search\SearchQueryPageHandlerFactory::class,
             Handler\Sidebar\SidebarPinHandler::class => Handler\Sidebar\AbstractSidebarRequestHandlerFactory::class,
             Handler\Sidebar\SidebarUnpinHandler::class => Handler\Sidebar\AbstractSidebarRequestHandlerFactory::class,
 

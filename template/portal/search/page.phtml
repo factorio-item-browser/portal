@@ -1,0 +1,10 @@
+<?php
+use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
+
+/* @var GenericEntityWithRecipes $searchResults */
+$results = $this->results;
+
+foreach ($results as $result) {
+    echo $this->partial('portal::search/partial/result', ['result' => $result]);
+}
+echo $this->render('portal::search/partial/moreResults');

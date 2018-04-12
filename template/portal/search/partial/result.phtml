@@ -1,0 +1,13 @@
+<?php
+use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
+use FactorioItemBrowser\Portal\View\Helper\GenericEntityHelper;
+
+/* @var GenericEntityHelper $genericEntityHelper */
+$genericEntityHelper = $this->genericEntity();
+/* @var GenericEntityWithRecipes $result */
+$result = $this->result;
+?>
+
+<li><?php
+    echo $genericEntityHelper->renderBox($result);
+?></li>

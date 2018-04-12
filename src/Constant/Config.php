@@ -25,7 +25,7 @@ class Config
     /**
      * The number of search results to show per page.
      */
-    const SEARCH_RESULTS_PER_PAGE = 12;
+    const SEARCH_RESULTS_PER_PAGE = 24;
 
     /**
      * The number of recipes per search result.

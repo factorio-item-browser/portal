@@ -101,7 +101,6 @@ return [
     'search-box placeholder' => 'Item, recipe, ...',
 
     'search-results change-terms' => 'Please adjust you search terms.',
-    'search-results empty-term' => 'A search term must consist of at least 2 characters.',
     'search-results headline' => ['%count% search result for "%query%"', '%count% search results for "%query%"'],
     'search-results load-more' => 'Load more results',
     'search-results loading-more' => 'Loading more results...',

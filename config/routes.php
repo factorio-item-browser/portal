@@ -22,6 +22,9 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->route('/recipe/{name}', Handler\Recipe\RecipeDetailsHandler::class, ['GET', 'POST'], RouteNames::RECIPE_DETAILS);
     $app->route('/recipe/{name}/tooltip', Handler\Recipe\RecipeTooltipHandler::class, ['GET', 'POST'], RouteNames::RECIPE_TOOLTIP);
 
+    $app->route('/search/page/{page:\d+}/{query:.+}', Handler\Search\SearchQueryPageHandler::class, ['GET', 'POST'], RouteNames::SEARCH_QUERY_PAGE);
+    $app->route('/search/{query:.+}', Handler\Search\SearchQueryHandler::class, ['GET', 'POST'], RouteNames::SEARCH_QUERY);
+
     $app->route('/sidebar/pin/{id:\d+}', Handler\Sidebar\SidebarPinHandler::class, ['GET', 'POST'], RouteNames::SIDEBAR_PIN);
     $app->route('/sidebar/unpin/{id:\d+}', Handler\Sidebar\SidebarUnpinHandler::class, ['GET', 'POST'], RouteNames::SIDEBAR_UNPIN);
 
