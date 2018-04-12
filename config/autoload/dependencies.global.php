@@ -28,6 +28,8 @@ return [
             Handler\Index\IndexHandler::class => Handler\AbstractRequestHandlerFactory::class,
             Handler\Item\ItemDetailsHandler::class => Handler\AbstractRequestHandlerFactory::class,
             Handler\Item\ItemTooltipHandler::class => Handler\AbstractRequestHandlerFactory::class,
+            Handler\Recipe\RecipeDetailsHandler::class => Handler\Recipe\RecipeDetailsHandlerFactory::class,
+            Handler\Recipe\RecipeTooltipHandler::class => Handler\Recipe\RecipeTooltipHandlerFactory::class,
             Handler\Sidebar\SidebarPinHandler::class => Handler\Sidebar\AbstractSidebarRequestHandlerFactory::class,
             Handler\Sidebar\SidebarUnpinHandler::class => Handler\Sidebar\AbstractSidebarRequestHandlerFactory::class,
 

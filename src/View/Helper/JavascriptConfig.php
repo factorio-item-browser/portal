@@ -2,6 +2,7 @@
 
 namespace FactorioItemBrowser\Portal\View\Helper;
 
+use FactorioItemBrowser\Portal\Constant\Config;
 use FactorioItemBrowser\Portal\Constant\RouteNames;
 use Zend\Expressive\Helper\UrlHelper;
 use Zend\Stdlib\ArrayUtils;
@@ -75,26 +76,13 @@ class JavascriptConfig extends AbstractHelper
         $this->add([
             'settingsHash' => $this->settingsHash,
             'sidebar' => [
+                'numberOfUnpinnedEntities' => Config::SIDEBAR_UNPINNED_ENTITIES,
                 'urls' => [
                     'pin' => $this->urlHelper->generate(RouteNames::SIDEBAR_PIN, ['id' => 1234]),
                     'unpin' => $this->urlHelper->generate(RouteNames::SIDEBAR_UNPIN, ['id' => 1234])
                 ]
             ]
         ]);
-// @todo
-//        $this->add([
-//                       'cssLoader' => [
-//                           'url' => $this->urlHelper->__invoke(RouteNames::ICONS, ['hash' => $this->settingsHash]),
-//                       ],
-//                       'settingsHash' => $this->settingsHash,
-//                       'sidebar' => [
-//                           'numberOfUnpinnedEntities' => SidebarEntityService::NUMBER_OF_UNPINNED_ENTITIES,
-//                           'urls' => [
-//                               'pin' => $this->urlHelper->__invoke(RouteNames::SIDEBAR_PIN, ['id' => '--id--']),
-//                               'unpin' => $this->urlHelper->__invoke(RouteNames::SIDEBAR_UNPIN, ['id' => '--id--']),
-//                           ]
-//                       ]
-//                   ]);
         return $this;
     }
 }

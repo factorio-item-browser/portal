@@ -1,0 +1,19 @@
+<?php
+use FactorioItemBrowser\Api\Client\Entity\Recipe;
+use FactorioItemBrowser\Portal\View\Helper\GenericEntityHelper;
+
+/* @var GenericEntityHelper $genericEntityHelper */
+$genericEntityHelper = $this->genericEntity();
+/* @var Recipe $recipe*/
+$recipe = $this->recipe;
+?>
+<div class="headline-with-icon">
+    <?php echo $genericEntityHelper->renderTransparentIcon($recipe); ?>
+    <div class="label">
+        <h1><?php echo $this->escapeHtml($this->replace(
+            $this->translate('recipe-details headline ' . $recipe->getMode()),
+            ['name' => $recipe->getLabel()]
+        )); ?></h1>
+        <?php echo $this->escapeHtml($recipe->getDescription()); ?>
+    </div>
+</div>

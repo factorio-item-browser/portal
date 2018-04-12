@@ -1,0 +1,24 @@
+<?php
+use FactorioItemBrowser\Api\Client\Entity\Recipe;
+use FactorioItemBrowser\Portal\View\Helper\GenericEntityHelper;
+
+/* @var GenericEntityHelper $genericEntityHelper */
+$genericEntityHelper = $this->genericEntity();
+/* @var Recipe $recipe*/
+$recipe = $this->recipe;
+?>
+<div class="recipe-products">
+    <h3><?php echo $this->escapeHtml($this->translate('recipe-details products')); ?></h3>
+    <?php foreach ($recipe->getProducts() as $product) { ?>
+        <a
+            class="recipe-item"
+            href="<?php echo $this->escapeHtmlAttr($genericEntityHelper->getDetailsUrl($product)); ?>"
+            data-link
+            data-tooltip="<?php echo $this->escapeHtmlAttr($genericEntityHelper->getTooltip($product)); ?>"
+        >
+            <div class="amount"><?php echo $this->escapeHtml($genericEntityHelper->formatAmount($product->getAmount())); ?></div>
+            <?php echo $genericEntityHelper->renderTransparentIcon($product, ['data-tooltip-anchor' => '']); ?>
+            <div class="name"><?php echo $this->escapeHtml($product->getLabel()); ?></div>
+        </a>
+    <?php } ?>
+</div>

@@ -23,12 +23,12 @@ class RouteNames {
     const MODS_SAVE = 'mods/save';
     const MODS_UPLOAD = 'mods/upload';
 
-    const RECIPE = 'recipe';
-    const RECIPE_TOOLTIP = 'recipe/tooltip';
+    const RECIPE_DETAILS = 'recipe.details';
+    const RECIPE_TOOLTIP = 'recipe.tooltip';
 
     const SEARCH  = 'search/query';
     const SEARCH_PAGE  = 'search/page/query';
 
-    const SIDEBAR_PIN = 'sidebar/pin';
-    const SIDEBAR_UNPIN = 'sidebar/unpin';
+    const SIDEBAR_PIN = 'sidebar.pin';
+    const SIDEBAR_UNPIN = 'sidebar.unpin';
 }

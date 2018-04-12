@@ -1,0 +1,23 @@
+<?php
+use FactorioItemBrowser\Api\Client\Entity\Recipe;
+
+/* @var Recipe[] $recipes */
+$recipes = $this->recipes;
+
+$this->headTitle()->prepend(reset($recipes)->getLabel());
+
+foreach ($recipes as $recipe) { ?>
+    <div class="recipe-details <?php echo $this->escapeHtmlAttr($recipe->getMode()); ?>">
+        <?php echo $this->partial('portal::recipe/partial/head', ['recipe' => $recipe]); ?>
+
+        <div class="recipe-columns">
+            <div class="recipe-column">
+                <?php echo $this->partial('portal::recipe/partial/ingredients', ['recipe' => $recipe]); ?>
+            </div>
+            <div class="recipe-column-separator"></div>
+            <div class="recipe-column">
+                <?php echo $this->partial('portal::recipe/partial/products', ['recipe' => $recipe]); ?>
+            </div>
+        </div>
+    </div>
+<?php }
