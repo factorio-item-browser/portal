@@ -64,6 +64,8 @@ return [
     'search-results loading-more' => 'Lade mehr Ergebnisse...',
     'search-results no-results' => 'Keine Ergebnisse gefunden',
 
+    'sidebar entity pin' => 'Element oben anheften.',
+    'sidebar entity unpin' => 'Element von oben abheften.',
     'sidebar headline last-viewed' => 'Zuletzt angesehen',
     'sidebar headline pinned' => 'Angeheftet',
     'sidebar locale label' => 'Sprache: %locale%',

@@ -215,7 +215,7 @@
                 this._elements.pinnedContainer.append(entity.element);
 
                 $.ajax({
-                    url: fib.config.sidebar.urls.pin.replace('--id--', entityId),
+                    url: fib.config.sidebar.urls.pin.replace(1234, entityId),
                     method: 'POST',
                     dataType: 'json'
                 });
@@ -238,7 +238,7 @@
                 this._limitUnpinnedEntities();
 
                 $.ajax({
-                    url: fib.config.sidebar.urls.unpin.replace('--id--', entityId),
+                    url: fib.config.sidebar.urls.unpin.replace(1234, entityId),
                     method: 'POST',
                     dataType: 'json'
                 });

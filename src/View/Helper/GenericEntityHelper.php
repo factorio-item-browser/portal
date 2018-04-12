@@ -65,6 +65,16 @@ class GenericEntityHelper extends AbstractHelper
     }
 
     /**
+     * Returns the icon used for the generic entity, to be handled by the icon manager.
+     * @param GenericEntity $entity
+     * @return string
+     */
+    public function getIcon(GenericEntity $entity): string
+    {
+        return $entity->getType() . '/' . $entity->getName();
+    }
+
+    /**
      * Formats and returns the amount of an item.
      * @param float $amount
      * @return string

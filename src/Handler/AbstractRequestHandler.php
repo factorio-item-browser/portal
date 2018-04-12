@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Portal\Handler;
 
 use FactorioItemBrowser\Api\Client\Client\Client;
+use FactorioItemBrowser\Portal\Database\Service\SidebarEntityService;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
@@ -23,6 +24,12 @@ abstract class AbstractRequestHandler implements RequestHandlerInterface
     protected $apiClient;
 
     /**
+     * The sidebar entity database service.
+     * @var SidebarEntityService
+     */
+    protected $sidebarEntityService;
+
+    /**
      * The template renderer.
      * @var TemplateRendererInterface
      */
@@ -31,11 +38,17 @@ abstract class AbstractRequestHandler implements RequestHandlerInterface
     /**
      * Initializes the request handler.
      * @param Client $apiClient
+     * @param SidebarEntityService $sidebarEntityService
      * @param TemplateRendererInterface $templateRenderer
      */
-    public function __construct(Client $apiClient, TemplateRendererInterface $templateRenderer)
+    public function __construct(
+        Client $apiClient,
+        SidebarEntityService $sidebarEntityService,
+        TemplateRendererInterface $templateRenderer
+    )
     {
         $this->apiClient = $apiClient;
+        $this->sidebarEntityService = $sidebarEntityService;
         $this->templateRenderer = $templateRenderer;
     }
 }

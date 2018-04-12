@@ -3,9 +3,8 @@
 namespace FactorioItemBrowser\Portal\View\Helper;
 
 use Interop\Container\ContainerInterface;
-use Zend\Expressive\ZendView\UrlHelper;
+use Zend\Expressive\Helper\UrlHelper;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\View\HelperPluginManager;
 
 /**
  * The factory of the javascript config view helper.
@@ -24,13 +23,9 @@ class JavascriptConfigFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-//        /* @var UserService $userService */
-//        $userService = $container->get(UserService::class);
-        /* @var HelperPluginManager $helperPluginManager */
-        $helperPluginManager = $container->get(HelperPluginManager::class);
         /* @var UrlHelper $urlHelper */
-//        $urlHelper = $helperPluginManager->get(UrlHelper::class);
+        $urlHelper = $container->get(UrlHelper::class);
 
-        return new JavascriptConfig('abc');
+        return new JavascriptConfig('abc', $urlHelper);
     }
 }

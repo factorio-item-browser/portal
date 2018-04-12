@@ -18,6 +18,11 @@ class Config
     const ITEM_RECIPE_PER_PAGE = 12;
 
     /**
+     * The number of unpinned entities in the sidebar.
+     */
+    const SIDEBAR_UNPINNED_ENTITIES = 10;
+
+    /**
      * The number of recipes in the tooltip.
      */
     const TOOLTIP_RECIPES = 3;

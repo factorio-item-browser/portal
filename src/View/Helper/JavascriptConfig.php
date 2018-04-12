@@ -2,7 +2,8 @@
 
 namespace FactorioItemBrowser\Portal\View\Helper;
 
-use Zend\Expressive\ZendView\UrlHelper;
+use FactorioItemBrowser\Portal\Constant\RouteNames;
+use Zend\Expressive\Helper\UrlHelper;
 use Zend\Stdlib\ArrayUtils;
 use Zend\View\Helper\AbstractHelper;
 
@@ -37,10 +38,10 @@ class JavascriptConfig extends AbstractHelper
      * @param string $settingsHash
      * @param UrlHelper $urlHelper
      */
-    public function __construct(string $settingsHash/*, UrlHelper $urlHelper*/)
+    public function __construct(string $settingsHash, UrlHelper $urlHelper)
     {
         $this->settingsHash = $settingsHash;
-//        $this->urlHelper = $urlHelper;
+        $this->urlHelper = $urlHelper;
     }
 
     /**
@@ -72,8 +73,14 @@ class JavascriptConfig extends AbstractHelper
     protected function addCommonConfig()
     {
         $this->add([
-            'settingsHash' => $this->settingsHash
-       ]);
+            'settingsHash' => $this->settingsHash,
+            'sidebar' => [
+                'urls' => [
+                    'pin' => $this->urlHelper->generate(RouteNames::SIDEBAR_PIN, ['id' => 1234]),
+                    'unpin' => $this->urlHelper->generate(RouteNames::SIDEBAR_UNPIN, ['id' => 1234])
+                ]
+            ]
+        ]);
 // @todo
 //        $this->add([
 //                       'cssLoader' => [

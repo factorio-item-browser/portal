@@ -1,6 +1,8 @@
 <?php
-/* @var \FactorioItemBrowser\Portal\View\Helper\SidebarEntitiesHelper $sidebarEntitiesHelper */
-// $sidebarEntitiesHelper = $this->sidebarEntities();
+use FactorioItemBrowser\Portal\View\Helper\SidebarHelper;
+
+/* @var SidebarHelper $sidebarHelper */
+$sidebarHelper = $this->sidebar();
 ?>
 
 <input id="toggle-sidebar" type="checkbox" class="toggle-checkbox" />
@@ -8,18 +10,18 @@
     <label for="toggle-sidebar" class="sidebar-close"></label>
 
     <?php
-//        echo $this->render('factorio-item-browser/portal/layout/partial/sidebar/modLink.phtml');
+        echo $this->render('layout::partial/sidebar/modLink');
         echo $this->render('layout::partial/sidebar/locale');
     ?>
 
     <div class="sidebar-pinned-entity-list">
         <h3><?php echo $this->escapeHtml($this->translate('sidebar headline pinned')); ?></h3>
-        <?php // echo $sidebarEntitiesHelper->renderPinnedList(); ?>
+        <?php echo $sidebarHelper->renderPinnedEntities(); ?>
     </div>
 
     <div class="sidebar-unpinned-entity-list">
         <h3><?php echo $this->escapeHtml($this->translate('sidebar headline last-viewed')); ?></h3>
-        <?php // echo $sidebarEntitiesHelper->renderUnpinnedList(); ?>
+        <?php  echo $sidebarHelper->renderUnpinnedEntities(); ?>
     </div>
 </div>
 <label class="toggle-overlay" for="toggle-sidebar"></label>

@@ -1,16 +1,13 @@
 <?php
 use FactorioItemBrowser\Portal\Constant\RouteNames;
-
-/* @var \FactorioItemBrowser\Portal\View\Helper\LayoutParamsHelper $layoutParamsHelper */
-$layoutParamsHelper = $this->layoutParams();
 ?>
 
-<a class="sidebar-mod-link no-loading-circle" href="<?php echo $this->escapeHtmlAttr($this->url(RouteNames::MODS)); ?>" data-link>
+<a class="sidebar-mod-link no-loading-circle" href="<?php // echo $this->escapeHtmlAttr($this->url(RouteNames::MODS)); ?>" data-link>
     <div class="mod-link-icon"></div>
     <div class="label">
         <?php echo $this->escapeHtml($this->replace($this->translate('sidebar mod-link label'), [
-            'number' => $layoutParamsHelper->getNumberOfEnabledMods(),
-            'count' => $layoutParamsHelper->getNumberOfAvailableMods()
+            'number' => 'X', // @todo Insert actual numbers
+            'count' => 'Y'
         ])); ?>
     </div>
 </a>

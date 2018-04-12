@@ -26,6 +26,7 @@ return [
             'locale' => View\Helper\LocaleHelper::class,
             'layoutParams' => View\Helper\LayoutParamsHelper::class,
             'replace' => View\Helper\ReplaceHelper::class,
+            'sidebar' => View\Helper\SidebarHelper::class,
 
             // 3rd-party helpers
             'basePath' => BasePathViewHelper::class,
@@ -39,6 +40,7 @@ return [
             View\Helper\LayoutParamsHelper::class => InvokableFactory::class,
             View\Helper\LocaleHelper::class => View\Helper\LocaleHelperFactory::class,
             View\Helper\ReplaceHelper::class => InvokableFactory::class,
+            View\Helper\SidebarHelper::class => View\Helper\SidebarHelperFactory::class,
 
             // 3rd-party helpers
             BasePathViewHelper::class => BasePathViewHelperFactory::class,

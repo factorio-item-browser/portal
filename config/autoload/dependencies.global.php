@@ -22,12 +22,14 @@ use Zend\ServiceManager\Factory\InvokableFactory;
 return [
     'dependencies' => [
         'factories'  => [
-            Database\Service\SidebarEntityService::class => Database\Service\AbstractDatabaseServiceFactory::class,
-            Database\Service\UserService::class => Database\Service\AbstractDatabaseServiceFactory::class,
+            Database\Service\SidebarEntityService::class => Database\Service\SidebarEntityServiceFactory::class,
+            Database\Service\UserService::class => Database\Service\UserServiceFactory::class,
 
             Handler\Index\IndexHandler::class => Handler\AbstractRequestHandlerFactory::class,
             Handler\Item\ItemDetailsHandler::class => Handler\AbstractRequestHandlerFactory::class,
             Handler\Item\ItemTooltipHandler::class => Handler\AbstractRequestHandlerFactory::class,
+            Handler\Sidebar\SidebarPinHandler::class => Handler\Sidebar\AbstractSidebarRequestHandlerFactory::class,
+            Handler\Sidebar\SidebarUnpinHandler::class => Handler\Sidebar\AbstractSidebarRequestHandlerFactory::class,
 
             Middleware\ApiClientMiddleware::class => Middleware\ApiClientMiddlewareFactory::class,
             Middleware\LayoutMiddleware::class => Middleware\LayoutMiddlewareFactory::class,

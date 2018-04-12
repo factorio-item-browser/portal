@@ -107,6 +107,8 @@ return [
     'search-results loading-more' => 'Loading more results...',
     'search-results no-results' => 'No results found',
 
+    'sidebar entity pin' => 'Pin the element to the top.',
+    'sidebar entity unpin' => 'Unpin the element from the top.',
     'sidebar headline last-viewed' => 'Last viewed',
     'sidebar headline pinned' => 'Pinned',
     'sidebar locale label' => 'Language: %locale%',

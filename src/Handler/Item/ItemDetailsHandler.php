@@ -48,6 +48,8 @@ class ItemDetailsHandler extends AbstractRequestHandler
         /* @var ItemIngredientResponse $ingredientResponse */
         $ingredientResponse = $this->apiClient->send($ingredientRequest);
 
+        $this->sidebarEntityService->add($productResponse->getItem());
+
         return new HtmlResponse($this->templateRenderer->render('portal::item/details', [
             'item' => $productResponse->getItem(),
             'productRecipes' => $productResponse->getGroupedRecipes(),

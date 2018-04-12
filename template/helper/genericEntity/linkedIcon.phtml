@@ -10,8 +10,8 @@ $entity = $this->entity;
 ?>
 <a
     href="<?php echo $this->escapeHtmlAttr($genericEntityHelper->getDetailsUrl($entity)); ?>"
-    class="icon with-background <?php echo $this->escapeHtmlAttr(implode('-', ['icon', $entity->getType(), $entity->getName()])); ?>"
-    data-icon="<?php echo $this->escapeHtmlAttr(implode('/', [$entity->getType(), $entity->getName()])); ?>"
+    class="icon with-background"
+    data-icon="<?php echo $this->escapeHtmlAttr($genericEntityHelper->getIcon($entity)); ?>"
     data-tooltip="<?php echo $this->escapeHtmlAttr($genericEntityHelper->getTooltip($entity)); ?>"
     data-link
 >

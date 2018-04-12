@@ -1,0 +1,33 @@
+<?php
+use FactorioItemBrowser\Api\Client\Entity\GenericEntity;
+use FactorioItemBrowser\Portal\Database\Entity\SidebarEntity;
+use FactorioItemBrowser\Portal\View\Helper\GenericEntityHelper;
+
+/* @var GenericEntityHelper $genericEntityHelper */
+$genericEntityHelper = $this->genericEntity();
+/* @var SidebarEntity $entity */
+$entity = $this->entity;
+/* @var GenericEntity $genericEntity */
+$genericEntity = $this->genericEntity;
+?>
+
+<a
+    class="sidebar-entity"
+    href="<?php echo $this->escapeHtmlAttr($genericEntityHelper->getDetailsUrl($genericEntity)); ?>"
+    data-id="<?php echo intval($entity->getId()); ?>"
+    data-view-time="<?php echo intval($entity->getLastViewTime()->getTimestamp()); ?>"
+    data-link
+    data-tooltip="<?php echo $this->escapeHtmlAttr($genericEntityHelper->getTooltip($genericEntity)); ?>"
+>
+    <div
+        class="icon"
+        data-icon="<?php echo $this->escapeHtmlAttr($genericEntityHelper->getIcon($genericEntity)); ?>"
+        data-tooltip-anchor
+    ></div>
+    <div class="label"><?php echo $this->escapeHtml($entity->getLabel()); ?></div>
+    <div class="action-icons">
+        <div class="pin" title="<?php echo $this->escapeHtml($this->translate('sidebar entity pin')); ?>"></div>
+        <div class="unpin" title="<?php echo $this->escapeHtml($this->translate('sidebar entity unpin')); ?>"></div>
+    </div>
+    <div class="box-label"><?php echo $this->escapeHtml($this->translate('box-label ' . $entity->getType())); ?></div>
+</a>

@@ -7,6 +7,7 @@ namespace FactorioItemBrowser\Portal\Database\Entity;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -242,5 +243,31 @@ class User
     public function getSidebarEntities(): Collection
     {
         return $this->sidebarEntities;
+    }
+
+    /**
+     * Returns the pinned sidebar entities of the user.
+     * @return Collection
+     */
+    public function getPinnedSidebarEntities(): Collection
+    {
+        $criteria = Criteria::create();
+        $criteria->andWhere(Criteria::expr()->gt('pinnedPosition', 0))
+                 ->orderBy(['pinnedPosition' => Criteria::ASC]);
+
+        return $this->sidebarEntities->matching($criteria);
+    }
+
+    /**
+     * Returns the unpinned sidebar entities of the user.
+     * @return Collection
+     */
+    public function getUnpinnedSidebarEntities(): Collection
+    {
+        $criteria = Criteria::create();
+        $criteria->andWhere(Criteria::expr()->eq('pinnedPosition', 0))
+                 ->orderBy(['lastViewTime' => Criteria::DESC]);
+
+        return $this->sidebarEntities->matching($criteria);
     }
 }

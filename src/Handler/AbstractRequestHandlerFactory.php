@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Portal\Handler;
 
 use FactorioItemBrowser\Api\Client\Client\Client;
+use FactorioItemBrowser\Portal\Database\Service\SidebarEntityService;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
@@ -28,9 +29,11 @@ class AbstractRequestHandlerFactory implements FactoryInterface
     {
         /* @var Client $apiClient */
         $apiClient = $container->get(Client::class);
+        /* @var SidebarEntityService $sidebarEntityService */
+        $sidebarEntityService = $container->get(SidebarEntityService::class);
         /* @var TemplateRendererInterface $templateRenderer */
         $templateRenderer = $container->get(TemplateRendererInterface::class);
 
-        return new $requestedName($apiClient, $templateRenderer);
+        return new $requestedName($apiClient, $sidebarEntityService, $templateRenderer);
     }
 }
