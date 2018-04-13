@@ -2,5 +2,5 @@
 use Zend\View\Helper\Placeholder\Container\AbstractContainer;
 
 $this->headScript()->captureStart(AbstractContainer::APPEND, '', ['noescape' => true]); ?>
-    factorioItemBrowser.config.change(<?php echo json_encode($this->config); ?>);
+    window.factorioItemBrowserConfig = <?php echo json_encode($this->config); ?>;
 <?php $this->headScript()->captureEnd();

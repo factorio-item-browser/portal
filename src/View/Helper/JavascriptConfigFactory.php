@@ -23,9 +23,11 @@ class JavascriptConfigFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
+        $config = $container->get('config');
+
         /* @var UrlHelper $urlHelper */
         $urlHelper = $container->get(UrlHelper::class);
-
-        return new JavascriptConfig('abc', $urlHelper);
+        // @todo Use actual settings hash.
+        return new JavascriptConfig($config['version'], 'abc', $urlHelper);
     }
 }

@@ -14,10 +14,10 @@ $this->headLink()->appendRelation('icon', $this->basePath('asset/image/icon/favi
                  ->appendStylesheet($this->assetPath('asset/css/main.min.css'));
 $this->footLink()->appendStylesheet($this->assetPath('asset/css/images.min.css'));
 
+$this->javascriptConfig()->render();
 $this->headScript()->appendFile($this->assetPath('asset/js/jquery.min.js'), '')
                    ->appendFile($this->assetPath('asset/js/load.min.js'), '');
 
-$this->javascriptConfig()->render();
 $bodyClass = $this->layoutParams()->getBodyClass();
 
 echo $this->doctype();

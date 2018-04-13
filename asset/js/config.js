@@ -60,6 +60,12 @@
         },
 
         /**
+         * The version to use for the assets.
+         * @type {string}
+         */
+        version: '',
+
+        /**
          * Changes the config to the specified values.
          * @param {Object} newConfig
          */
@@ -68,4 +74,9 @@
             $(this).trigger('config-change', [newConfig]);
         }
     };
+
+    if (typeof(window.factorioItemBrowserConfig) === 'object') {
+        fib.config.change(window.factorioItemBrowserConfig);
+        delete window.factorioItemBrowserConfig;
+    }
 })(jQuery, factorioItemBrowser);

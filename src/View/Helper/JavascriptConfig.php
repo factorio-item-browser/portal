@@ -17,6 +17,12 @@ use Zend\View\Helper\AbstractHelper;
 class JavascriptConfig extends AbstractHelper
 {
     /**
+     * The version to use for the assets.
+     * @var string
+     */
+    protected $version;
+
+    /**
      * The settings hash.
      * @var string
      */
@@ -36,11 +42,13 @@ class JavascriptConfig extends AbstractHelper
 
     /**
      * Initializes the view helper.
+     * @param string $version
      * @param string $settingsHash
      * @param UrlHelper $urlHelper
      */
-    public function __construct(string $settingsHash, UrlHelper $urlHelper)
+    public function __construct(string $version, string $settingsHash, UrlHelper $urlHelper)
     {
+        $this->version = $version;
         $this->settingsHash = $settingsHash;
         $this->urlHelper = $urlHelper;
     }
@@ -63,7 +71,7 @@ class JavascriptConfig extends AbstractHelper
     public function render()
     {
         $this->addCommonConfig();
-        $this->view->render('helper::javascriptConfig/render', ['config' => $this->config]);
+        $this->view->render('helper::javascriptConfig/script', ['config' => $this->config]);
         return $this;
     }
 
@@ -81,7 +89,8 @@ class JavascriptConfig extends AbstractHelper
                     'pin' => $this->urlHelper->generate(RouteNames::SIDEBAR_PIN, ['id' => 1234]),
                     'unpin' => $this->urlHelper->generate(RouteNames::SIDEBAR_UNPIN, ['id' => 1234])
                 ]
-            ]
+            ],
+            'version' => $this->version
         ]);
         return $this;
     }
