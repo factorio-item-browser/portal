@@ -14,19 +14,19 @@ use Zend\Expressive\Helper\UrlHelper;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
- * The factory of the mod list save handler.
+ * The abstract factory of the mod list change handlers.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class ModListSaveHandlerFactory implements FactoryInterface
+class AbstractModListChangeHandlerFactory implements FactoryInterface
 {
     /**
      * Creates the request handler client.
      * @param  ContainerInterface $container
      * @param  string $requestedName
      * @param  null|array $options
-     * @return ModListSaveHandler
+     * @return AbstractModListChangeHandler
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
@@ -43,7 +43,7 @@ class ModListSaveHandlerFactory implements FactoryInterface
         /* @var UrlHelper $urlHelper */
         $urlHelper = $container->get(UrlHelper::class);
 
-        return new ModListSaveHandler(
+        return new $requestedName(
             $apiClient,
             $userService->getCurrentUser(),
             $metaSessionContainer,

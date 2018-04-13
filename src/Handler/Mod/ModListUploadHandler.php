@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Handler\Mod;
 
-use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
+use Zend\Diactoros\UploadedFile;
 
 /**
  * The request handler for processing the uploaded mod-list.json file.
@@ -14,15 +13,32 @@ use Psr\Http\Server\RequestHandlerInterface;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class ModListUploadHandler implements RequestHandlerInterface
+class ModListUploadHandler extends AbstractModListChangeHandler
 {
     /**
-     * Handle the request and return a response.
+     * Returns the list of enabled mods from the request.
      * @param ServerRequestInterface $request
-     * @return ResponseInterface
+     * @return array|string[]
      */
-    public function handle(ServerRequestInterface $request): ResponseInterface
+    protected function getEnabledModNamesFromRequest(ServerRequestInterface $request): array
     {
-        // TODO: Implement handle() method.
+        $enabledModNames = [];
+        $uploadedFile = $request->getUploadedFiles()['modListFile'] ?? null;
+        if (!$uploadedFile instanceof UploadedFile) {
+            $this->modListSessionContainer->setUploadErrorMessage('missingFile');
+        } else {
+            $json = json_decode($uploadedFile->getStream()->getContents(), true);
+            if (!is_array($json) || !isset($json['mods']) || !is_array($json['mods'])) {
+                $this->modListSessionContainer->setUploadErrorMessage('invalidFile');
+            } else {
+                foreach ($json['mods'] as $mod) {
+                    $modName = $mod['name'] ?? '';
+                    if (($mod['enabled'] ?? false) && strlen($modName) > 0) {
+                        $enabledModNames[] = $modName;
+                    }
+                }
+            }
+        }
+        return $enabledModNames;
     }
 }
