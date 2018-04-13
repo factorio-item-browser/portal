@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Middleware;
 
+use FactorioItemBrowser\Portal\Constant\Attribute;
 use FactorioItemBrowser\Portal\Database\Service\UserService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -78,7 +79,7 @@ class LocaleMiddleware implements MiddlewareInterface
 
         if ($newLocale !== $this->userService->getCurrentUser()->getLocale()) {
             $this->userService->getCurrentUser()->setLocale($newLocale);
-            // @todo We have to update the sidebar entities later.
+            $request = $request->withAttribute(Attribute::LOCALE_CHANGED, true);
         }
 
         $this->translator->setLocale($newLocale)

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Middleware;
 
+use FactorioItemBrowser\Portal\Session\Container\MetaSessionContainer;
 use FactorioItemBrowser\Portal\View\Helper\LayoutParamsHelper;
 use FactorioItemBrowser\Portal\View\Helper\SidebarHelper;
 use Interop\Container\ContainerInterface;
@@ -28,6 +29,8 @@ class LayoutMiddlewareFactory
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
+        /* @var MetaSessionContainer $metaSessionContainer */
+        $metaSessionContainer = $container->get(MetaSessionContainer::class);
         /* @var TemplateRendererInterface $templateRenderer */
         $templateRenderer = $container->get(TemplateRendererInterface::class);
 
@@ -40,6 +43,12 @@ class LayoutMiddlewareFactory
         /* @var SidebarHelper $sidebarHelper */
         $sidebarHelper = $helperPluginManager->get(SidebarHelper::class);
 
-        return new LayoutMiddleware($templateRenderer, $headTitleHelper, $layoutParamsHelper, $sidebarHelper);
+        return new LayoutMiddleware(
+            $metaSessionContainer,
+            $templateRenderer,
+            $headTitleHelper,
+            $layoutParamsHelper,
+            $sidebarHelper
+        );
     }
 }

@@ -2,54 +2,38 @@
 
 declare(strict_types=1);
 
-namespace FactorioItemBrowser\Portal\Handler\Mod;
+namespace FactorioItemBrowser\Portal\Middleware;
 
 use FactorioItemBrowser\Api\Client\Client\Client;
 use FactorioItemBrowser\Portal\Database\Service\SidebarEntityService;
-use FactorioItemBrowser\Portal\Database\Service\UserService;
 use FactorioItemBrowser\Portal\Session\Container\MetaSessionContainer;
-use FactorioItemBrowser\Portal\Session\Container\ModListSessionContainer;
 use Interop\Container\ContainerInterface;
-use Zend\Expressive\Helper\UrlHelper;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
- * The factory of the mod list save handler.
+ * The factory of the meta data request middleware.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class ModListSaveHandlerFactory implements FactoryInterface
+class MetaDataRequestMiddlewareFactory implements FactoryInterface
 {
     /**
-     * Creates the request handler client.
+     * Creates the middleware.
      * @param  ContainerInterface $container
      * @param  string $requestedName
      * @param  null|array $options
-     * @return ModListSaveHandler
+     * @return MetaDataRequestMiddleware
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         /* @var Client $apiClient */
         $apiClient = $container->get(Client::class);
-        /* @var UserService $userService */
-        $userService = $container->get(UserService::class);
         /* @var MetaSessionContainer $metaSessionContainer */
         $metaSessionContainer = $container->get(MetaSessionContainer::class);
-        /* @var ModListSessionContainer $modListSessionContainer */
-        $modListSessionContainer = $container->get(ModListSessionContainer::class);
         /* @var SidebarEntityService $sidebarEntityService */
         $sidebarEntityService = $container->get(SidebarEntityService::class);
-        /* @var UrlHelper $urlHelper */
-        $urlHelper = $container->get(UrlHelper::class);
 
-        return new ModListSaveHandler(
-            $apiClient,
-            $userService->getCurrentUser(),
-            $metaSessionContainer,
-            $modListSessionContainer,
-            $sidebarEntityService,
-            $urlHelper
-        );
+        return new MetaDataRequestMiddleware($apiClient, $metaSessionContainer, $sidebarEntityService);
     }
 }

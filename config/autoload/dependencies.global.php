@@ -40,6 +40,7 @@ return [
             Middleware\ApiClientMiddleware::class => Middleware\ApiClientMiddlewareFactory::class,
             Middleware\LayoutMiddleware::class => Middleware\LayoutMiddlewareFactory::class,
             Middleware\LocaleMiddleware::class => Middleware\LocaleMiddlewareFactory::class,
+            Middleware\MetaDataRequestMiddleware::class => Middleware\MetaDataRequestMiddlewareFactory::class,
             Middleware\SessionMiddleware::class => Middleware\SessionMiddlewareFactory::class,
 
             Session\Container\MetaSessionContainer::class => Session\Container\AbstractSessionContainerFactory::class,

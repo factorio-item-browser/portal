@@ -6,7 +6,10 @@ namespace FactorioItemBrowser\Portal\Database\Service;
 
 use DateTime;
 use Doctrine\ORM\EntityManager;
+use FactorioItemBrowser\Api\Client\Client\Client;
 use FactorioItemBrowser\Api\Client\Entity\GenericEntity;
+use FactorioItemBrowser\Api\Client\Request\Generic\GenericDetailsRequest;
+use FactorioItemBrowser\Api\Client\Response\Generic\GenericDetailsResponse;
 use FactorioItemBrowser\Portal\Constant\Config;
 use FactorioItemBrowser\Portal\Database\Entity\SidebarEntity;
 use FactorioItemBrowser\Portal\Database\Entity\User;
@@ -22,6 +25,18 @@ use FactorioItemBrowser\Portal\View\Helper\LayoutParamsHelper;
 class SidebarEntityService extends AbstractDatabaseService
 {
     /**
+     * The API client.
+     * @var Client
+     */
+    protected $apiClient;
+
+    /**
+     * The layout params helper.
+     * @var LayoutParamsHelper
+     */
+    protected $layoutParamsHelper;
+
+    /**
      * The database user service.
      * @var UserService
      */
@@ -34,28 +49,24 @@ class SidebarEntityService extends AbstractDatabaseService
     protected $sidebarEntityRepository;
 
     /**
-     * The layout params helper.
-     * @var LayoutParamsHelper
-     */
-    protected $layoutParamsHelper;
-
-    /**
      * SidebarEntityService constructor.
      * @param EntityManager $entityManager
-     * @param UserService $userService
+     * @param Client $apiClient
      * @param LayoutParamsHelper $layoutParamsHelper
+     * @param UserService $userService
      */
     public function __construct(
         EntityManager $entityManager,
-        UserService $userService,
-        LayoutParamsHelper $layoutParamsHelper
+        Client $apiClient,
+        LayoutParamsHelper $layoutParamsHelper,
+        UserService $userService
     )
     {
         parent::__construct($entityManager);
-        $this->userService = $userService;
+        $this->apiClient = $apiClient;
         $this->layoutParamsHelper = $layoutParamsHelper;
+        $this->userService = $userService;
     }
-
 
     /**
      * Initializes the repositories needed by the service.
@@ -160,6 +171,44 @@ class SidebarEntityService extends AbstractDatabaseService
                 Config::SIDEBAR_UNPINNED_ENTITIES
             );
         }
+        return $this;
+    }
+
+    /**
+     * Refreshes the sidebar entities of the current user, removing any entities which are no longer available with the
+     * currently enabled mods.
+     * @return $this
+     */
+    public function refresh()
+    {
+        $detailsRequest = new GenericDetailsRequest();
+        /* @var SidebarEntity[] $entities */
+        $entities = [];
+        foreach ($this->userService->getCurrentUser()->getSidebarEntities() as $sidebarEntity) {
+            $entities[$sidebarEntity->getType() . '/' . $sidebarEntity->getName()] = $sidebarEntity;
+            $detailsRequest->addEntity($sidebarEntity->getType(), $sidebarEntity->getName());
+        }
+
+        /* @var GenericDetailsResponse $detailsResponse */
+        $detailsResponse = $this->apiClient->send($detailsRequest);
+
+        // Update the labels and descriptions of entities which are still available.
+        foreach ($detailsResponse->getEntities() as $entity) {
+            $key = $entity->getType() . '/' . $entity->getName();
+            if (isset($entities[$key])) {
+                $entities[$key]->setLabel($entity->getLabel())
+                               ->setDescription($entity->getDescription());
+                unset($entities[$key]);
+            }
+        }
+
+        // Remove any entities which are no longer available.
+        foreach ($entities as $entity) {
+            $this->userService->getCurrentUser()->getSidebarEntities()->removeElement($entity);
+            $this->entityManager->remove($entity);
+        }
+
+        $this->entityManager->flush();
         return $this;
     }
 }

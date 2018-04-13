@@ -6,6 +6,7 @@ namespace FactorioItemBrowser\Portal\Middleware;
 
 use FactorioItemBrowser\Portal\Constant\Attribute;
 use FactorioItemBrowser\Portal\Database\Entity\SidebarEntity;
+use FactorioItemBrowser\Portal\Session\Container\MetaSessionContainer;
 use FactorioItemBrowser\Portal\View\Helper\LayoutParamsHelper;
 use FactorioItemBrowser\Portal\View\Helper\SidebarHelper;
 use Psr\Http\Message\ResponseInterface;
@@ -24,6 +25,12 @@ use Zend\View\Helper\HeadTitle;
  */
 class LayoutMiddleware implements MiddlewareInterface
 {
+    /**
+     * The meta session container.
+     * @var MetaSessionContainer
+     */
+    protected $metaSessionContainer;
+
     /**
      * The template renderer.
      * @var TemplateRendererInterface
@@ -50,18 +57,21 @@ class LayoutMiddleware implements MiddlewareInterface
 
     /**
      * Initializes the middleware.
+     * @param MetaSessionContainer $metaSessionContainer
      * @param TemplateRendererInterface $templateRenderer
      * @param HeadTitle $headTitleHelper
      * @param LayoutParamsHelper $layoutParamsHelper
      * @param SidebarHelper $sidebarHelper
      */
     public function __construct(
+        MetaSessionContainer $metaSessionContainer,
         TemplateRendererInterface $templateRenderer,
         HeadTitle $headTitleHelper,
         LayoutParamsHelper $layoutParamsHelper,
         SidebarHelper $sidebarHelper
     )
     {
+        $this->metaSessionContainer = $metaSessionContainer;
         $this->templateRenderer = $templateRenderer;
         $this->headTitleHelper = $headTitleHelper;
         $this->layoutParamsHelper = $layoutParamsHelper;
@@ -82,6 +92,8 @@ class LayoutMiddleware implements MiddlewareInterface
             $this->templateRenderer->addDefaultParam(TemplateRendererInterface::TEMPLATE_ALL, 'layout', false);
         }
         $this->prepareTitle();
+        $this->layoutParamsHelper->setNumberOfAvailableMods($this->metaSessionContainer->getNumberOfAvailableMods());
+        $this->layoutParamsHelper->setNumberOfEnabledMods($this->metaSessionContainer->getNumberOfEnabledMods());
 
         $response = $handler->handle($request);
 

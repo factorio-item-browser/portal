@@ -16,4 +16,9 @@ class Attribute
      * The request has been started in an AJAX context.
      */
     const REQUEST_AJAX = 'ajax';
+
+    /**
+     * The locale changed with the current request.
+     */
+    const LOCALE_CHANGED = 'localeChanged';
 }

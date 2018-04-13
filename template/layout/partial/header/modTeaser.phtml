@@ -10,7 +10,7 @@ $layoutParamsHelper = $this->layoutParams();
         'count' => $layoutParamsHelper->getNumberOfAvailableMods(),
         'number' => $layoutParamsHelper->getNumberOfEnabledMods()
     ])); ?></span>
-    <a href="<?php echo $this->escapeHtmlAttr($this->url(RouteNames::MODS)); ?>" class="no-loading-circle" data-link><?php
+    <a href="<?php echo $this->escapeHtmlAttr($this->url(RouteNames::MOD_LIST)); ?>" class="no-loading-circle" data-link><?php
         echo $this->escapeHtml($this->translate('header mod-teaser button'));
     ?></a>
 </div>

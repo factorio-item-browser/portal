@@ -9,6 +9,7 @@ use FactorioItemBrowser\Api\Client\Request\Mod\ModMetaRequest;
 use FactorioItemBrowser\Api\Client\Response\Mod\ModMetaResponse;
 use FactorioItemBrowser\Portal\Constant\RouteNames;
 use FactorioItemBrowser\Portal\Database\Entity\User;
+use FactorioItemBrowser\Portal\Database\Service\SidebarEntityService;
 use FactorioItemBrowser\Portal\Session\Container\MetaSessionContainer;
 use FactorioItemBrowser\Portal\Session\Container\ModListSessionContainer;
 use Psr\Http\Message\ResponseInterface;
@@ -50,6 +51,12 @@ class ModListSaveHandler implements RequestHandlerInterface
     protected $modListSessionContainer;
 
     /**
+     * The database sidebar entity service.
+     * @var SidebarEntityService
+     */
+    protected $sidebarEntityService;
+
+    /**
      * The URL helper.
      * @var UrlHelper
      */
@@ -61,6 +68,7 @@ class ModListSaveHandler implements RequestHandlerInterface
      * @param User $currentUser
      * @param MetaSessionContainer $metaSessionContainer
      * @param ModListSessionContainer $modListSessionContainer
+     * @param SidebarEntityService $sidebarEntityService
      * @param UrlHelper $urlHelper
      */
     public function __construct(
@@ -68,6 +76,7 @@ class ModListSaveHandler implements RequestHandlerInterface
         User $currentUser,
         MetaSessionContainer $metaSessionContainer,
         ModListSessionContainer $modListSessionContainer,
+        SidebarEntityService $sidebarEntityService,
         UrlHelper $urlHelper
     )
     {
@@ -75,6 +84,7 @@ class ModListSaveHandler implements RequestHandlerInterface
         $this->currentUser = $currentUser;
         $this->metaSessionContainer = $metaSessionContainer;
         $this->modListSessionContainer = $modListSessionContainer;
+        $this->sidebarEntityService = $sidebarEntityService;
         $this->urlHelper = $urlHelper;
     }
 
@@ -98,7 +108,7 @@ class ModListSaveHandler implements RequestHandlerInterface
                                    ->setNumberOfEnabledMods($modMetaResponse->getNumberOfEnabledMods());
 
         $this->modListSessionContainer->setShowSuccessMessage(true);
-        // @todo Check sidebar entities
+        $this->sidebarEntityService->refresh();
 
         return new RedirectResponse($this->urlHelper->generate(RouteNames::MOD_LIST));
     }
