@@ -61,7 +61,7 @@ class SessionManager
     {
         $data = $this->sessionData;
         foreach ($this->containers as $container) {
-            $data[$container->getContainerName()] = $container->getData();
+            $data[$container->getContainerName()] = array_filter($container->getData());
         }
         return array_filter($data);
     }

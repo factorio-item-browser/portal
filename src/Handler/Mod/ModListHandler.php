@@ -8,6 +8,7 @@ use FactorioItemBrowser\Api\Client\Client\Client;
 use FactorioItemBrowser\Api\Client\Entity\Mod;
 use FactorioItemBrowser\Api\Client\Request\Mod\ModListRequest;
 use FactorioItemBrowser\Api\Client\Response\Mod\ModListResponse;
+use FactorioItemBrowser\Portal\Session\Container\ModListSessionContainer;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -29,6 +30,12 @@ class ModListHandler implements RequestHandlerInterface
     protected $apiClient;
 
     /**
+     * The mod list session container.
+     * @var ModListSessionContainer
+     */
+    protected $modListSessionContainer;
+
+    /**
      * The template renderer.
      * @var TemplateRendererInterface
      */
@@ -37,11 +44,17 @@ class ModListHandler implements RequestHandlerInterface
     /**
      * Initializes the request handler.
      * @param Client $apiClient
+     * @param ModListSessionContainer $modListSessionContainer
      * @param TemplateRendererInterface $templateRenderer
      */
-    public function __construct(Client $apiClient, TemplateRendererInterface $templateRenderer)
+    public function __construct(
+        Client $apiClient,
+        ModListSessionContainer $modListSessionContainer,
+        TemplateRendererInterface $templateRenderer
+    )
     {
         $this->apiClient = $apiClient;
+        $this->modListSessionContainer = $modListSessionContainer;
         $this->templateRenderer = $templateRenderer;
     }
 
@@ -56,9 +69,14 @@ class ModListHandler implements RequestHandlerInterface
         /* @var ModListResponse $modListResponse */
         $modListResponse = $this->apiClient->send($modListRequest);
 
-        return new HtmlResponse($this->templateRenderer->render('portal::mod/list', [
-            'mods' => $this->sortMods($modListResponse->getMods())
+        $response = new HtmlResponse($this->templateRenderer->render('portal::mod/list', [
+            'mods' => $this->sortMods($modListResponse->getMods()),
+            'showSuccessMessage' => $this->modListSessionContainer->getShowSuccessMessage(),
+            'uploadErrorMessage' => $this->modListSessionContainer->getUploadErrorMessage(),
+            'missingModNames' => $this->modListSessionContainer->getMissingModNames()
         ]));
+        $this->modListSessionContainer->reset();
+        return $response;
     }
 
     /**

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Portal\Handler\Mod;
 
 use FactorioItemBrowser\Api\Client\Client\Client;
+use FactorioItemBrowser\Portal\Session\Container\ModListSessionContainer;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
@@ -28,9 +29,11 @@ class ModListHandlerFactory implements FactoryInterface
     {
         /* @var Client $apiClient */
         $apiClient = $container->get(Client::class);
+        /* @var ModListSessionContainer $modListSessionContainer */
+        $modListSessionContainer = $container->get(ModListSessionContainer::class);
         /* @var TemplateRendererInterface $templateRenderer */
         $templateRenderer = $container->get(TemplateRendererInterface::class);
 
-        return new ModListHandler($apiClient, $templateRenderer);
+        return new ModListHandler($apiClient, $modListSessionContainer, $templateRenderer);
     }
 }

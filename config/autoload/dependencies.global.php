@@ -43,6 +43,7 @@ return [
             Middleware\SessionMiddleware::class => Middleware\SessionMiddlewareFactory::class,
 
             Session\Container\MetaSessionContainer::class => Session\Container\AbstractSessionContainerFactory::class,
+            Session\Container\ModListSessionContainer::class => Session\Container\AbstractSessionContainerFactory::class,
             Session\SessionManager::class => InvokableFactory::class,
 
             // Dependencies of other libraries

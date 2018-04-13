@@ -7,6 +7,7 @@ namespace FactorioItemBrowser\Portal\Handler\Mod;
 use FactorioItemBrowser\Api\Client\Client\Client;
 use FactorioItemBrowser\Portal\Database\Service\UserService;
 use FactorioItemBrowser\Portal\Session\Container\MetaSessionContainer;
+use FactorioItemBrowser\Portal\Session\Container\ModListSessionContainer;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Helper\UrlHelper;
 use Zend\ServiceManager\Factory\FactoryInterface;
@@ -34,9 +35,17 @@ class ModListSaveHandlerFactory implements FactoryInterface
         $userService = $container->get(UserService::class);
         /* @var MetaSessionContainer $metaSessionContainer */
         $metaSessionContainer = $container->get(MetaSessionContainer::class);
+        /* @var ModListSessionContainer $modListSessionContainer */
+        $modListSessionContainer = $container->get(ModListSessionContainer::class);
         /* @var UrlHelper $urlHelper */
         $urlHelper = $container->get(UrlHelper::class);
 
-        return new ModListSaveHandler($apiClient, $userService->getCurrentUser(), $metaSessionContainer, $urlHelper);
+        return new ModListSaveHandler(
+            $apiClient,
+            $userService->getCurrentUser(),
+            $metaSessionContainer,
+            $modListSessionContainer,
+            $urlHelper
+        );
     }
 }

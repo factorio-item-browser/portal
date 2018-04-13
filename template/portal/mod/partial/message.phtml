@@ -1,0 +1,29 @@
+<?php
+if (strlen($this->uploadErrorMessage) > 0) { ?>
+    <div class="message-box error">
+        <div class="icon"></div>
+        <div class="label">
+            <h3><?php echo $this->escapeHtml($this->translate('mod-list message failed')); ?></h3>
+            <?php echo $this->escapeHtml($this->translate('mod-list message error ' . $this->uploadErrorMessage)); ?>
+        </div>
+    </div>
+<?php } elseif ($this->showSuccessMessage) { ?>
+    <div class="message-box <?php echo (count($this->missingModNames) > 0) ? 'warning' : 'success'; ?>">
+        <div class="icon"></div>
+        <div class="label">
+            <h3><?php echo $this->escapeHtml($this->translate('mod-list message saved')); ?></h3>
+            <?php if (count($this->missingModNames) > 0) { ?>
+                <p><?php echo $this->escapeHtml($this->replace(
+                        $this->translate('mod-list message missing-mods'),
+                        ['mods' => implode(', ', $this->missingModNames)]
+                    )); ?></p>
+                <p><?php echo $this->escapeHtml($this->translate('mod-list message inaccurate-data')); ?></p>
+            <?php } else {
+                echo $this->escapeHtml($this->translate('mod-list message start-search'));
+            } ?>
+        </div>
+    </div>
+<?php }
+
+
+

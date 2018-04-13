@@ -10,6 +10,7 @@ use FactorioItemBrowser\Api\Client\Response\Mod\ModMetaResponse;
 use FactorioItemBrowser\Portal\Constant\RouteNames;
 use FactorioItemBrowser\Portal\Database\Entity\User;
 use FactorioItemBrowser\Portal\Session\Container\MetaSessionContainer;
+use FactorioItemBrowser\Portal\Session\Container\ModListSessionContainer;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -43,6 +44,12 @@ class ModListSaveHandler implements RequestHandlerInterface
     protected $metaSessionContainer;
 
     /**
+     * The mod list session container.
+     * @var ModListSessionContainer
+     */
+    protected $modListSessionContainer;
+
+    /**
      * The URL helper.
      * @var UrlHelper
      */
@@ -53,18 +60,21 @@ class ModListSaveHandler implements RequestHandlerInterface
      * @param Client $apiClient
      * @param User $currentUser
      * @param MetaSessionContainer $metaSessionContainer
+     * @param ModListSessionContainer $modListSessionContainer
      * @param UrlHelper $urlHelper
      */
     public function __construct(
         Client $apiClient,
         User $currentUser,
         MetaSessionContainer $metaSessionContainer,
+        ModListSessionContainer $modListSessionContainer,
         UrlHelper $urlHelper
     )
     {
         $this->apiClient = $apiClient;
         $this->currentUser = $currentUser;
         $this->metaSessionContainer = $metaSessionContainer;
+        $this->modListSessionContainer = $modListSessionContainer;
         $this->urlHelper = $urlHelper;
     }
 
@@ -87,6 +97,7 @@ class ModListSaveHandler implements RequestHandlerInterface
         $this->metaSessionContainer->setNumberOfAvailableMods($modMetaResponse->getNumberOfAvailableMods())
                                    ->setNumberOfEnabledMods($modMetaResponse->getNumberOfEnabledMods());
 
+        $this->modListSessionContainer->setShowSuccessMessage(true);
         // @todo Check sidebar entities
 
         return new RedirectResponse($this->urlHelper->generate(RouteNames::MOD_LIST));
