@@ -65,7 +65,7 @@ class SearchQueryHandler implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $query = $request->getAttribute('query');
+        $query = rawurldecode($request->getAttribute('query'));
         $this->layoutParamsHelper->setSearchQuery($query);
 
         $searchRequest = new SearchQueryRequest();

@@ -67,8 +67,8 @@ class ItemDetailsHandler implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $type = $request->getAttribute('type');
-        $name = $request->getAttribute('name');
+        $type = rawurldecode($request->getAttribute('type'));
+        $name = rawurldecode($request->getAttribute('name'));
 
         $productRequest = new ItemProductRequest();
         $productRequest->setType($type)

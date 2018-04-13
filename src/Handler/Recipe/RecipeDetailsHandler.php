@@ -65,7 +65,7 @@ class RecipeDetailsHandler implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $name = $request->getAttribute('name');
+        $name = rawurldecode($request->getAttribute('name'));
 
         $detailsRequest = new RecipeDetailsRequest();
         $detailsRequest->setNames([$name]);

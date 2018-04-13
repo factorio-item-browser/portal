@@ -55,7 +55,7 @@ class SearchQueryPageHandler implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $query = $request->getAttribute('query');
+        $query = rawurldecode($request->getAttribute('query'));
         $page = intval($request->getAttribute('page'));
 
         $searchRequest = new SearchQueryRequest();
