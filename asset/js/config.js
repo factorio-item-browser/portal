@@ -6,18 +6,6 @@
      */
     fib.config = {
         /**
-         * The config for the CSS loader.
-         * @type {Object}
-         */
-        cssLoader: {
-            /**
-             * The URL of the CSS file to load.
-             * @type {string}
-             */
-            url: '',
-        },
-
-        /**
          * The config of the media queries.
          * @type {object}
          */

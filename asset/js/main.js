@@ -7,7 +7,6 @@
         fib.browser = new fib.Browser();
 
         // Global features
-        fib.cssLoader = new fib.CssLoader();
         fib.loadingCircle = new fib.LoadingCircle($('#loading-circle'));
         fib.searchBox = new fib.SearchBox($('#search-box'));
         fib.sidebar = new fib.Sidebar($('#sidebar'));
