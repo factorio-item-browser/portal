@@ -2,34 +2,36 @@
 
 declare(strict_types=1);
 
-namespace FactorioItemBrowser\Portal\Middleware;
+namespace FactorioItemBrowser\Portal\Session\Container;
 
-use FactorioItemBrowser\Portal\Database\Service\UserService;
 use FactorioItemBrowser\Portal\Session\SessionManager;
 use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
- * The factory of the session middleware.
+ * The abstract factory of the session containers.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class SessionMiddlewareFactory
+class AbstractSessionContainerFactory implements FactoryInterface
 {
     /**
-     * Creates the middleware.
+     * Creates the session container.
      * @param  ContainerInterface $container
      * @param  string $requestedName
      * @param  null|array $options
-     * @return SessionMiddleware
+     * @return AbstractSessionContainer
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var UserService $userService */
-        $userService = $container->get(UserService::class);
+        /* @var AbstractSessionContainer $sessionContainer */
+        $sessionContainer = new $requestedName();
+
         /* @var SessionManager $sessionManager */
         $sessionManager = $container->get(SessionManager::class);
+        $sessionManager->initializeContainer($sessionContainer);
 
-        return new SessionMiddleware($userService, $sessionManager);
+        return $sessionContainer;
     }
 }

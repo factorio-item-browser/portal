@@ -1,0 +1,33 @@
+<?php
+use FactorioItemBrowser\Api\Client\Entity\Mod;
+use FactorioItemBrowser\Portal\Constant\RouteNames;
+
+/* @var Mod[] $mods */
+$mods = $this->mods;
+
+echo $this->render('portal::mod/partial/upload');
+?>
+
+<section>
+    <h2><?php echo $this->escapeHtml($this->translate('mod-list available')); ?></h2>
+
+    <div class="mod-list-filter-box">
+        <div class="mod-list-filter-icon"></div>
+        <input type="text" class="mod-list-filter" placeholder="<?php echo $this->escapeHtmlAttr($this->translate('mod-list filter placeholder')); ?>" />
+        <div class="mod-list-filter-reset-icon"></div>
+    </div>
+
+    <form class="mod-list-form" action="<?php echo $this->escapeHtmlAttr($this->url(RouteNames::MOD_LIST_SAVE)); ?>" method="post">
+        <ul class="mod-list">
+            <?php foreach ($mods as $mod) { ?>
+                <li><?php
+                    echo $this->partial('portal::mod/partial/mod', ['mod' => $mod]);
+                ?></li>
+            <?php } ?>
+        </ul>
+
+        <div class="button-save-mods hidden">
+            <button type="submit"><?php echo $this->escapeHtml($this->translate('mod-list button save')); ?></button>
+        </div>
+    </form>
+</section>

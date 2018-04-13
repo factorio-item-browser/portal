@@ -19,9 +19,9 @@ class RouteNames {
     const ITEM_DETAILS = 'item.details';
     const ITEM_TOOLTIP = 'item.tooltip';
 
-    const MODS = 'mods';
-    const MODS_SAVE = 'mods/save';
-    const MODS_UPLOAD = 'mods/upload';
+    const MOD_LIST = 'mod.list';
+    const MOD_LIST_SAVE = 'mod.list.save';
+    const MOD_LIST_UPLOAD = 'mod.list.upload';
 
     const RECIPE_DETAILS = 'recipe.details';
     const RECIPE_TOOLTIP = 'recipe.tooltip';

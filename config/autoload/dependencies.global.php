@@ -28,6 +28,8 @@ return [
             Handler\Index\IndexHandler::class => Handler\Index\IndexHandlerFactory::class,
             Handler\Item\ItemDetailsHandler::class => Handler\Item\ItemDetailsHandlerFactory::class,
             Handler\Item\ItemTooltipHandler::class => Handler\Item\ItemTooltipHandlerFactory::class,
+            Handler\Mod\ModListHandler::class => Handler\Mod\ModListHandlerFactory::class,
+            Handler\Mod\ModListSaveHandler::class => Handler\Mod\ModListSaveHandlerFactory::class,
             Handler\Recipe\RecipeDetailsHandler::class => Handler\Recipe\RecipeDetailsHandlerFactory::class,
             Handler\Recipe\RecipeTooltipHandler::class => Handler\Recipe\RecipeTooltipHandlerFactory::class,
             Handler\Search\SearchQueryHandler::class => Handler\Search\SearchQueryHandlerFactory::class,
@@ -39,6 +41,9 @@ return [
             Middleware\LayoutMiddleware::class => Middleware\LayoutMiddlewareFactory::class,
             Middleware\LocaleMiddleware::class => Middleware\LocaleMiddlewareFactory::class,
             Middleware\SessionMiddleware::class => Middleware\SessionMiddlewareFactory::class,
+
+            Session\Container\MetaSessionContainer::class => Session\Container\AbstractSessionContainerFactory::class,
+            Session\SessionManager::class => InvokableFactory::class,
 
             // Dependencies of other libraries
             BasePathHelper::class => InvokableFactory::class,

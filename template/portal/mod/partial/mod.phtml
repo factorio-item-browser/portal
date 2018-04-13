@@ -1,0 +1,41 @@
+<?php
+use FactorioItemBrowser\Api\Client\Entity\Mod;
+
+/* @var Mod $mod */
+$mod = $this->mod;
+/* @var bool $isEnabled */
+$isEnabled = $this->isEnabled;
+
+$modData = [
+    'name' => $mod->getName(),
+    'title' => $mod->getLabel(),
+    'description' => $mod->getDescription(),
+    'author' => $mod->getAuthor()
+];
+?>
+
+<input
+    id="mod_<?php echo $this->escapeHtmlAttr($mod->getName()); ?>"
+    name="enabledMods[]"
+    value="<?php echo $this->escapeHtmlAttr($mod->getName()); ?>"
+    type="checkbox"
+    <?php if ($mod->getIsEnabled()) { ?>checked<?php } ?>
+    class="mod-checkbox hidden"
+/>
+<div class="mod" data-mod="<?php echo $this->escapeHtmlAttr(json_encode($modData)); ?>">
+    <div class="check-icon"></div>
+    <div class="head">
+        <h3><label for="mod_<?php echo $this->escapeHtmlAttr($mod->getName()); ?>"><?php echo $this->escapeHtml($mod->getLabel()); ?></label></h3>
+        <p><?php echo $this->escapeHtml($mod->getDescription()); ?></p>
+    </div>
+    <dl>
+        <dt><?php echo $this->escapeHtml($this->translate('mod name')); ?></dt>
+        <dd><?php echo $this->escapeHtml($mod->getName()); ?></dd>
+
+        <dt><?php echo $this->escapeHtml($this->translate('mod author')); ?></dt>
+        <dd><?php echo $this->escapeHtml($mod->getAuthor()); ?></dd>
+
+        <dt><?php echo $this->escapeHtml($this->translate('mod version')); ?></dt>
+        <dd><?php echo $this->escapeHtml($mod->getVersion()); ?></dd>
+    </dl>
+</div>

@@ -11,6 +11,8 @@ $filter-font-size: 1.5rem;
 
 .mod-list-filter {
     @include transition-default(opacity);
+    border: none;
+    border-radius: 0;
     box-shadow: $shadow-box;
     box-sizing: border-box;
     font-size: $filter-font-size;
