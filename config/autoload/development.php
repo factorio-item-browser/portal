@@ -35,4 +35,9 @@ return [
             ]
         ],
     ],
+    'router' => [
+        'fastroute' => [
+            'cache_enabled' => false
+        ]
+    ],
 ];
