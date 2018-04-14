@@ -1,0 +1,20 @@
+<?php
+use FactorioItemBrowser\Api\Client\Entity\Item;
+use FactorioItemBrowser\Portal\Constant\Config;
+use FactorioItemBrowser\Portal\Constant\RouteNames;
+
+/* @var Item $item */
+$item = $this->item;
+if ($this->currentPage < $this->totalNumberOfResults / Config::ITEM_RECIPE_PER_PAGE) { ?>
+    <li class="paginated-list-button"
+        data-paginated-list="<?php echo $this->escapeHtmlAttr($this->url(RouteNames::ITEM_RECIPE_PAGE, [
+            'type' => $item->getType(),
+            'name' => $item->getName(),
+            'recipeType' => $this->recipeType,
+            'page' => $this->currentPage + 1
+        ])); ?>"
+    >
+        <span class="default-wording"><?php echo $this->escapeHtml($this->translate('item-details load-more')); ?></span>
+        <span class="loading-wording"><?php echo $this->escapeHtml($this->translate('item-details loading-more')); ?></span>
+    </li>
+<?php }

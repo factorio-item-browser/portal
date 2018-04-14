@@ -16,9 +16,13 @@ if (count($recipes) > 0) { ?>
         <ul class="item-ingredients-list">
             <?php foreach ($recipes as $recipe) { ?>
                 <li><?php echo $genericEntityHelper->renderBox($recipe); ?></li>
-            <?php } ?>
+            <?php }
+            echo $this->render('portal::item/partial/moreRecipes', [
+                'currentPage' => 1,
+                'item' => $this->item,
+                'recipeType' => 'ingredient',
+                'totalNumberOfResults' => $this->totalNumberOfIngredientRecipes
+            ]); ?>
         </ul>
     </section>
 <?php }
-
-// @todo Button to load more recipes

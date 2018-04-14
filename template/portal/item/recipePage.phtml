@@ -1,0 +1,14 @@
+<?php
+use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
+use FactorioItemBrowser\Portal\View\Helper\GenericEntityHelper;
+
+/* @var GenericEntityHelper $genericEntityHelper */
+$genericEntityHelper = $this->genericEntity();
+/* @var array|GenericEntityWithRecipes[] $recipes */
+$recipes = $this->recipes;
+?>
+
+<?php foreach ($recipes as $recipe) { ?>
+    <li><?php echo $genericEntityHelper->renderBox($recipe); ?></li>
+<?php }
+echo $this->render('portal::item/partial/moreRecipes'); ?>

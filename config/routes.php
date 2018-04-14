@@ -37,4 +37,6 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // Generic routes for items and fluids, but also used to abstract from the recipe routes.
     $app->route('/{type:fluid|item|recipe}/{name}', Handler\Item\ItemDetailsHandler::class, ['GET', 'POST'], RouteNames::ITEM_DETAILS);
     $app->route('/{type:fluid|item|recipe}/{name}/tooltip', Handler\Item\ItemTooltipHandler::class, ['GET', 'POST'], RouteNames::ITEM_TOOLTIP);
+
+    $app->route('/{type:fluid|item}/{name}/{recipeType:ingredient|product}/page/{page}', Handler\Item\ItemRecipePageHandler::class, ['POST'], RouteNames::ITEM_RECIPE_PAGE);
 };

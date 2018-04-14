@@ -27,6 +27,8 @@ return [
     'item-details headline item' => 'Item: %name%',
     'item-details headline fluid' => 'Fluid: %name%',
     'item-details ingredient-in' => ['Ingredient in %count% recipe', 'Ingredient in %count% recipes'],
+    'item-details load-more' => 'Load more recipes',
+    'item-details loading-more' => 'Loading more recipes...',
     'item-details product-of' => ['Result of %count% recipe', 'Result of %count% recipes'],
 
     'locale native af' => 'Afrikaans',

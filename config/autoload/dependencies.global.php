@@ -28,6 +28,7 @@ return [
             Handler\Icon\IconHandler::class => Handler\Icon\IconHandlerFactory::class,
             Handler\Index\IndexHandler::class => Handler\Index\IndexHandlerFactory::class,
             Handler\Item\ItemDetailsHandler::class => Handler\Item\ItemDetailsHandlerFactory::class,
+            Handler\Item\ItemRecipePageHandler::class => Handler\Item\ItemRecipePageHandlerFactory::class,
             Handler\Item\ItemTooltipHandler::class => Handler\Item\ItemTooltipHandlerFactory::class,
             Handler\Mod\ModListHandler::class => Handler\Mod\ModListHandlerFactory::class,
             Handler\Mod\ModListSaveHandler::class => Handler\Mod\AbstractModListChangeHandlerFactory::class,

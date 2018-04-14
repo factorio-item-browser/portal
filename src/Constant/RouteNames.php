@@ -17,6 +17,7 @@ class RouteNames {
     const INDEX = 'index';
 
     const ITEM_DETAILS = 'item.details';
+    const ITEM_RECIPE_PAGE = 'item.recipe.page';
     const ITEM_TOOLTIP = 'item.tooltip';
 
     const MOD_LIST = 'mod.list';

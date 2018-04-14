@@ -27,6 +27,8 @@ return [
     'item-details headline item' => 'Item: %name%',
     'item-details headline fluid' => 'Flüssigkeit: %name%',
     'item-details ingredient-in' => ['Zutat in %count% Rezept', 'Zutat in %count% Rezepten'],
+    'item-details load-more' => 'Weitere Rezepte laden',
+    'item-details loading-more' => 'Lade weitere Rezepte...',
     'item-details product-of' => ['Ergebnis von %count% Rezept', 'Ergebnis von %count% Rezepten'],
 
     'mod author' => 'Author:',
@@ -59,8 +61,8 @@ return [
 
     'search-results change-terms' => 'Bitte passe deine Suchbegriffe an.',
     'search-results headline' => ['%count% Suchergebnis für "%query%"', '%count% Suchergebnisse für "%query%"'],
-    'search-results load-more' => 'Mehr Ergebnisse laden',
-    'search-results loading-more' => 'Lade mehr Ergebnisse...',
+    'search-results load-more' => 'Weitere Ergebnisse laden',
+    'search-results loading-more' => 'Lade weitere Ergebnisse...',
     'search-results no-results' => 'Keine Ergebnisse gefunden',
 
     'sidebar entity pin' => 'Element oben anheften.',
