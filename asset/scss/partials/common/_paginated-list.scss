@@ -1,0 +1,26 @@
+@import '../../modules/all';
+
+.paginated-list-button {
+  @include gutter(0.5, margin-left margin-right);
+  @include button-box($color-button-primary);
+
+  max-width: 100%;
+  width: 100%;
+
+  .loading-wording {
+    @include font-icon($fa-var-spinner, rem-calc(18));
+    display: none;
+    &::before {
+      animation: fa-spin 2s infinite linear;
+      padding: 0 rem-calc(4);
+    }
+  }
+  &.loading {
+    .default-wording {
+      display: none;
+    }
+    .loading-wording {
+      display: inline-block;
+    }
+  }
+}

@@ -3,13 +3,14 @@ use FactorioItemBrowser\Portal\Constant\Config;
 use FactorioItemBrowser\Portal\Constant\RouteNames;
 
 if ($this->currentPage < $this->totalNumberOfResults / Config::SEARCH_RESULTS_PER_PAGE) { ?>
-    <li class="search-results-more"
-        data-url="<?php echo $this->escapeHtmlAttr($this->url(RouteNames::SEARCH_QUERY_PAGE, [
+    <li class="paginated-list-button"
+        data-paginated-list="<?php echo $this->escapeHtmlAttr($this->url(RouteNames::SEARCH_QUERY_PAGE, [
             'page' => $this->currentPage + 1,
             'query' => $this->query
         ])); ?>"
+        data-paginated-list-autoload="1"
     >
-        <span class="default"><?php echo $this->escapeHtml($this->translate('search-results load-more')); ?></span>
-        <span class="loading"><?php echo $this->escapeHtml($this->translate('search-results loading-more')); ?></span>
+        <span class="default-wording"><?php echo $this->escapeHtml($this->translate('search-results load-more')); ?></span>
+        <span class="loading-wording"><?php echo $this->escapeHtml($this->translate('search-results loading-more')); ?></span>
     </li>
 <?php }
