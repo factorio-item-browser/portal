@@ -11,7 +11,7 @@ $entity = $this->entity;
 <a class="item" href="<?php echo $this->escapeHtmlAttr($genericEntityHelper->getDetailsUrl($entity)); ?>" data-link>
     <?php echo $this->genericEntity()->renderTransparentIcon($entity); ?>
     <div class="label">
-        <h3><?php echo $this->escapeHtml($entity->getLabel()); ?></h3>
+        <h3><?php echo $this->escapeHtml($entity->getLabel() ?: $entity->getName()); ?></h3>
         <?php echo $this->escapeHtml($entity->getDescription()); ?>
     </div>
 </a>

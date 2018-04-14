@@ -4,7 +4,9 @@ use FactorioItemBrowser\Api\Client\Entity\Recipe;
 /* @var Recipe[] $recipes */
 $recipes = $this->recipes;
 
-$this->headTitle()->prepend(reset($recipes)->getLabel());
+$firstRecipe = reset($recipes);
+
+$this->headTitle()->prepend($firstRecipe->getLabel() ?: $firstRecipe->getName());
 
 foreach ($recipes as $recipe) { ?>
     <div class="recipe-details <?php echo $this->escapeHtmlAttr($recipe->getMode()); ?>">

@@ -25,7 +25,7 @@ $modData = [
 <div class="mod" data-mod="<?php echo $this->escapeHtmlAttr(json_encode($modData)); ?>">
     <div class="check-icon"></div>
     <div class="head">
-        <h3><label for="mod_<?php echo $this->escapeHtmlAttr($mod->getName()); ?>"><?php echo $this->escapeHtml($mod->getLabel()); ?></label></h3>
+        <h3><label for="mod_<?php echo $this->escapeHtmlAttr($mod->getName()); ?>"><?php echo $this->escapeHtml($mod->getLabel() ?: $mod->getName()); ?></label></h3>
         <p><?php echo $this->escapeHtml($mod->getDescription()); ?></p>
     </div>
     <dl>

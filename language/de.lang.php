@@ -37,7 +37,7 @@ return [
     'mod-list button save' => 'Änderungen speichern',
     'mod-list filter placeholder' => 'Mods filtern...',
     'mod-list message saved' => 'Die Liste der aktivierten Mods wurde gespeichert.',
-    'mod-list message start-search' => 'Leg los und suche nach items und Rezepten.',
+    'mod-list message start-search' => 'Leg los und suche nach Items und Rezepten.',
     'mod-list message missing-mods' => 'Die folgenden Mods sind im Factorio Item Browser nicht verfügbar: %mods%',
     'mod-list message inaccurate-data' => 'Dies kann zu Unterschieden zwischen den Daten im Browser und denen im Spiel führen.',
     'mod-list message failed' => 'Das Hochladen der the mod-list.json ist fehlgeschlagen.',

@@ -7,18 +7,8 @@ $genericEntityHelper = $this->genericEntity();
 /* @var Item $item */
 $item = $this->item;
 
-$this->headTitle()->prepend($item->getLabel());
+$this->headTitle()->prepend($item->getLabel() ?: $item->getName());
 
-?>
-<div class="headline-with-icon">
-    <?php echo $genericEntityHelper->renderTransparentIcon($item); ?>
-    <div class="label">
-        <h1><?php echo $this->escapeHtml($this->replace($this->translate('item-details headline ' . $item->getType()), ['name' => $item->getLabel()])); ?></h1>
-        <?php echo $this->escapeHtml($item->getDescription()); ?>
-    </div>
-</div>
-
-<?php
-
+echo $this->render('portal::item/partial/head');
 echo $this->render('portal::item/partial/products');
 echo $this->render('portal::item/partial/ingredients');
