@@ -6,6 +6,18 @@
      */
     fib.config = {
         /**
+         * The config of the icon manager.
+         * @type {object}
+         */
+        iconManager: {
+            /**
+             * The URL to request missing icons.
+             * @type {string}
+             */
+            url: ''
+        },
+
+        /**
          * The config of the media queries.
          * @type {object}
          */

@@ -19,6 +19,8 @@ use Zend\Expressive\MiddlewareFactory;
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
     $app->route('/', Handler\Index\IndexHandler::class, ['GET', 'POST'], RouteNames::INDEX);
 
+    $app->route('/icons', Handler\Icon\IconHandler::class, ['POST', 'GET'], RouteNames::ICONS);
+
     $app->route('/mods', Handler\Mod\ModListHandler::class, ['GET', 'POST'], RouteNames::MOD_LIST);
     $app->route('/mods/save', Handler\Mod\ModListSaveHandler::class, ['POST'], RouteNames::MOD_LIST_SAVE);
     $app->route('/mods/upload', Handler\Mod\ModListUploadHandler::class, ['POST'], RouteNames::MOD_LIST_UPLOAD);

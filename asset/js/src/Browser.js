@@ -280,6 +280,13 @@
         }
 
         /**
+         * Notifies the listeners that the page partially changed, without changing its location.
+         */
+        notifyPartialPageChange() {
+            $(this).trigger('page-change-partial');
+        }
+
+        /**
          * Notifies the listeners that browser has been initialized and other features may follow.
          * @private
          */

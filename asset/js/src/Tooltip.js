@@ -134,6 +134,7 @@
                 top: calculatedTop,
                 left: calculatedLeft
             });
+            fib.browser.notifyPartialPageChange();
         }
 
         /**

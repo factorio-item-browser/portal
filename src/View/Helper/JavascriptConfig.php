@@ -82,6 +82,9 @@ class JavascriptConfig extends AbstractHelper
     protected function addCommonConfig()
     {
         $this->add([
+            'iconManager' => [
+                'url' => $this->urlHelper->generate(RouteNames::ICONS)
+            ],
             'settingsHash' => $this->settingsHash,
             'sidebar' => [
                 'numberOfUnpinnedEntities' => Config::SIDEBAR_UNPINNED_ENTITIES,

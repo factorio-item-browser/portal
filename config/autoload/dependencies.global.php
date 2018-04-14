@@ -25,6 +25,7 @@ return [
             Database\Service\SidebarEntityService::class => Database\Service\SidebarEntityServiceFactory::class,
             Database\Service\UserService::class => Database\Service\UserServiceFactory::class,
 
+            Handler\Icon\IconHandler::class => Handler\Icon\IconHandlerFactory::class,
             Handler\Index\IndexHandler::class => Handler\Index\IndexHandlerFactory::class,
             Handler\Item\ItemDetailsHandler::class => Handler\Item\ItemDetailsHandlerFactory::class,
             Handler\Item\ItemTooltipHandler::class => Handler\Item\ItemTooltipHandlerFactory::class,

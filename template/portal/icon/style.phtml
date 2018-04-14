@@ -1,0 +1,15 @@
+<?php
+use FactorioItemBrowser\Api\Client\Entity\Icon;
+
+/* @var array|Icon[] $icons */
+$icons = $this->icons;
+
+foreach ($icons as $icon) {
+    $selectors = [];
+    foreach ($icon->getEntities() as $entity) {
+        $selectors[] = '.icon-' . $entity->getType() . '-' . $entity->getName();
+    }
+    $fullSelector = implode(',', $selectors);
+
+    echo $fullSelector . '{background-image:url(data:image/png;base64,' . $icon->getContent() . ');}' . PHP_EOL;
+}
