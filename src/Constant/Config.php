@@ -33,6 +33,21 @@ class Config
     const SEARCH_RECIPE_COUNT = 3;
 
     /**
+     * The name of the session cookie.
+     */
+    const SESSION_COOKIE_NAME = 'FIB';
+
+    /**
+     * The lifetime of the sessions.
+     */
+    const SESSION_LIFETIME = 2592000; // 1 month
+
+    /**
+     * The lifetime of the sessions for users only visiting once (i.e. search bots).
+     */
+    const SESSION_LIFETIME_SHORT = 3600; // 1 hour
+
+    /**
      * The number of unpinned entities in the sidebar.
      */
     const SIDEBAR_UNPINNED_ENTITIES = 10;

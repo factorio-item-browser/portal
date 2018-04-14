@@ -5,6 +5,7 @@ CREATE TABLE `User` (
   `locale` VARCHAR(5) NOT NULL COMMENT 'The locale the user uses.',
   `enabledModNames` TEXT NOT NULL COMMENT 'The mods the user wants to have enabled.',
   `lastVisit` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'The timestamp when the user last visited.',
+  `isFirstVisit` BIT(1) NOT NULL COMMENT 'Whether this is the first visit of the user.',
   `sessionId` CHAR(32) NOT NULL COMMENT 'The session ID for the user.',
   `apiAuthorizationToken` TEXT NOT NULL COMMENT 'The API authorization token of the user.',
   `sessionData` LONGTEXT NOT NULL COMMENT 'The data of the user session.',

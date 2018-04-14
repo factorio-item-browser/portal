@@ -41,6 +41,7 @@ return [
             Handler\Sidebar\SidebarUnpinHandler::class => Handler\Sidebar\AbstractSidebarRequestHandlerFactory::class,
 
             Middleware\ApiClientMiddleware::class => Middleware\ApiClientMiddlewareFactory::class,
+            Middleware\CleanupMiddleware::class => Middleware\CleanupMiddlewareFactory::class,
             Middleware\LayoutMiddleware::class => Middleware\LayoutMiddlewareFactory::class,
             Middleware\LocaleMiddleware::class => Middleware\LocaleMiddlewareFactory::class,
             Middleware\MetaDataRequestMiddleware::class => Middleware\MetaDataRequestMiddlewareFactory::class,

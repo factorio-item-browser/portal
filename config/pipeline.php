@@ -30,6 +30,7 @@ use Zend\Stratigility\Middleware\ErrorHandler;
 
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
     $app->pipe(ErrorHandler::class);
+    $app->pipe(Middleware\CleanupMiddleware::class);
 
     $app->pipe(new DoublePassMiddlewareDecorator(function ($request, $response, $next) use ($container) {
         $middleware = $container->get(BaseUrlMiddleware::class);

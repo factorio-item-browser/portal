@@ -181,34 +181,36 @@ class SidebarEntityService extends AbstractDatabaseService
      */
     public function refresh()
     {
-        $detailsRequest = new GenericDetailsRequest();
-        /* @var SidebarEntity[] $entities */
-        $entities = [];
-        foreach ($this->userService->getCurrentUser()->getSidebarEntities() as $sidebarEntity) {
-            $entities[$sidebarEntity->getType() . '/' . $sidebarEntity->getName()] = $sidebarEntity;
-            $detailsRequest->addEntity($sidebarEntity->getType(), $sidebarEntity->getName());
-        }
-
-        /* @var GenericDetailsResponse $detailsResponse */
-        $detailsResponse = $this->apiClient->send($detailsRequest);
-
-        // Update the labels and descriptions of entities which are still available.
-        foreach ($detailsResponse->getEntities() as $entity) {
-            $key = $entity->getType() . '/' . $entity->getName();
-            if (isset($entities[$key])) {
-                $entities[$key]->setLabel($entity->getLabel())
-                               ->setDescription($entity->getDescription());
-                unset($entities[$key]);
+        if ($this->userService->getCurrentUser()->getSidebarEntities()->count() > 0) {
+            $detailsRequest = new GenericDetailsRequest();
+            /* @var SidebarEntity[] $entities */
+            $entities = [];
+            foreach ($this->userService->getCurrentUser()->getSidebarEntities() as $sidebarEntity) {
+                $entities[$sidebarEntity->getType() . '/' . $sidebarEntity->getName()] = $sidebarEntity;
+                $detailsRequest->addEntity($sidebarEntity->getType(), $sidebarEntity->getName());
             }
-        }
 
-        // Remove any entities which are no longer available.
-        foreach ($entities as $entity) {
-            $this->userService->getCurrentUser()->getSidebarEntities()->removeElement($entity);
-            $this->entityManager->remove($entity);
-        }
+            /* @var GenericDetailsResponse $detailsResponse */
+            $detailsResponse = $this->apiClient->send($detailsRequest);
 
-        $this->entityManager->flush();
+            // Update the labels and descriptions of entities which are still available.
+            foreach ($detailsResponse->getEntities() as $entity) {
+                $key = $entity->getType() . '/' . $entity->getName();
+                if (isset($entities[$key])) {
+                    $entities[$key]->setLabel($entity->getLabel())
+                        ->setDescription($entity->getDescription());
+                    unset($entities[$key]);
+                }
+            }
+
+            // Remove any entities which are no longer available.
+            foreach ($entities as $entity) {
+                $this->userService->getCurrentUser()->getSidebarEntities()->removeElement($entity);
+                $this->entityManager->remove($entity);
+            }
+
+            $this->entityManager->flush();
+        }
         return $this;
     }
 }

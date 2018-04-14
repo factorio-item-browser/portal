@@ -8,6 +8,7 @@ use DateTime;
 use Dflydev\FigCookies\FigRequestCookies;
 use Dflydev\FigCookies\FigResponseCookies;
 use Dflydev\FigCookies\SetCookie;
+use FactorioItemBrowser\Portal\Constant\Config;
 use FactorioItemBrowser\Portal\Database\Entity\User;
 use FactorioItemBrowser\Portal\Database\Service\UserService;
 use FactorioItemBrowser\Portal\Session\SessionManager;
@@ -24,11 +25,6 @@ use Psr\Http\Server\RequestHandlerInterface;
  */
 class SessionMiddleware implements MiddlewareInterface
 {
-    /**
-     * The name of the cookie to save the session ID in.
-     */
-    private const COOKIE_NAME = 'FIB';
-
     /**
      * The user database service.
      * @var UserService
@@ -79,13 +75,14 @@ class SessionMiddleware implements MiddlewareInterface
     protected function readUserFromRequest(ServerRequestInterface $request)
     {
         $user = null;
-        $sessionId = FigRequestCookies::get($request, self::COOKIE_NAME, '')->getValue();
+        $sessionId = FigRequestCookies::get($request, Config::SESSION_COOKIE_NAME, '')->getValue();
         if (strlen($sessionId) > 0) {
             $user = $this->userService->getBySessionId($sessionId);
         }
         if (!$user instanceof User) {
             $user = $this->userService->createNewUser();
         }
+        $user->setIsFirstVisit($sessionId !== $user->getSessionId());
         $this->userService->setCurrentUser($user);
         $this->sessionManager->setSessionData($user->getSessionData());
         return $this;
@@ -100,8 +97,11 @@ class SessionMiddleware implements MiddlewareInterface
     {
         $currentUser = $this->userService->getCurrentUser();
         if ($currentUser instanceof User) {
-            $cookie = SetCookie::create(self::COOKIE_NAME, $this->userService->getCurrentUser()->getSessionId());
-            $cookie = $cookie->withExpires(new DateTime('+1 month'))
+            $cookie = SetCookie::create(
+                Config::SESSION_COOKIE_NAME,
+                $this->userService->getCurrentUser()->getSessionId()
+            );
+            $cookie = $cookie->withExpires(new DateTime('+'. Config::SESSION_LIFETIME . ' seconds'))
                              ->withPath('/');
             $response = FigResponseCookies::set($response, $cookie);
         }

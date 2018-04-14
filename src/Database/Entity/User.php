@@ -56,6 +56,14 @@ class User
     protected $lastVisit;
 
     /**
+     * @ORM\Column(name="isFirstVisit", type="boolean")
+     *
+     * Whether this is the first visit of the user.
+     * @var bool
+     */
+    protected $isFirstVisit = false;
+
+    /**
      * @ORM\Column(name="sessionId")
      *
      * The session ID for the user.
@@ -174,6 +182,24 @@ class User
     public function getLastVisit(): DateTime
     {
         return $this->lastVisit;
+    }
+
+    /**
+     * Sets whether this is the first visit of the user.
+     * @param bool $isFirstVisit
+     */
+    public function setIsFirstVisit(bool $isFirstVisit): void
+    {
+        $this->isFirstVisit = $isFirstVisit;
+    }
+
+    /**
+     * Returns whether this is the first visit of the user.
+     * @return bool
+     */
+    public function getIsFirstVisit(): bool
+    {
+        return $this->isFirstVisit;
     }
 
     /**

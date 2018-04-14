@@ -106,4 +106,14 @@ class UserService extends AbstractDatabaseService
         }
         return $this;
     }
+
+    /**
+     * Cleans up old users of which the sessions have timed out.
+     * @return $this
+     */
+    public function cleanup()
+    {
+        $this->userRepository->cleanup();
+        return $this;
+    }
 }
