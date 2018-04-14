@@ -13,10 +13,10 @@ use Zend\View\Helper\AbstractHelper;
 class LocaleHelper extends AbstractHelper
 {
     /**
-     * The enabled locales.
+     * The locales.
      * @var array|string[]
      */
-    protected $enabledLocales;
+    protected $locales;
 
     /**
      * The currently used locale.
@@ -26,12 +26,12 @@ class LocaleHelper extends AbstractHelper
 
     /**
      * Initializes the locale helper.
-     * @param array|string[] $enabledLocales
+     * @param array|string[] $locales
      * @param string $currentLocale
      */
-    public function __construct(array $enabledLocales, string $currentLocale)
+    public function __construct(array $locales, string $currentLocale)
     {
-        $this->enabledLocales = $enabledLocales;
+        $this->locales = $locales;
         $this->currentLocale = $currentLocale;
     }
 
@@ -41,7 +41,7 @@ class LocaleHelper extends AbstractHelper
      */
     public function getEnabledLocales()
     {
-        return $this->enabledLocales;
+        return array_keys($this->locales);
     }
 
     /**
@@ -51,5 +51,15 @@ class LocaleHelper extends AbstractHelper
     public function getCurrentLocale()
     {
         return $this->currentLocale;
+    }
+
+    /**
+     * Returns the translated locale.
+     * @param string $locale
+     * @return string
+     */
+    public function getTranslatedLocale(string $locale): string
+    {
+        return $this->locales[$locale] ?? '';
     }
 }

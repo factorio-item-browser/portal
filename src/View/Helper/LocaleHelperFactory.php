@@ -27,7 +27,7 @@ class LocaleHelperFactory implements FactoryInterface
         $userService = $container->get(UserService::class);
 
         $config = $container->get('config');
-        $enabledLocales = array_keys(array_filter($config['factorio-item-browser']['portal']['locales']));
+        $enabledLocales = array_filter($config['factorio-item-browser']['portal']['locales']);
 
         return new LocaleHelper($enabledLocales, $userService->getCurrentUser()->getLocale());
     }
