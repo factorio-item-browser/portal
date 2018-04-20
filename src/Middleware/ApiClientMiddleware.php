@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Portal\Middleware;
 
 use FactorioItemBrowser\Api\Client\Client\Client;
+use FactorioItemBrowser\Api\Client\Exception\ApiClientException;
 use FactorioItemBrowser\Portal\Database\Service\UserService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Expressive\Template\TemplateRendererInterface;
 
 /**
  * The middleware managing the API client.
@@ -26,6 +29,12 @@ class ApiClientMiddleware implements MiddlewareInterface
     protected $apiClient;
 
     /**
+     * The template renderer.
+     * @var TemplateRendererInterface
+     */
+    protected $templateRenderer;
+
+    /**
      * The user database service.
      * @var UserService
      */
@@ -34,11 +43,17 @@ class ApiClientMiddleware implements MiddlewareInterface
     /**
      * Initializes the middleware.
      * @param Client $apiClient
+     * @param TemplateRendererInterface $templateRenderer
      * @param UserService $userService
      */
-    public function __construct(Client $apiClient, UserService $userService)
+    public function __construct(
+        Client $apiClient,
+        TemplateRendererInterface $templateRenderer,
+        UserService $userService
+    )
     {
         $this->apiClient = $apiClient;
+        $this->templateRenderer = $templateRenderer;
         $this->userService = $userService;
     }
 
@@ -50,14 +65,18 @@ class ApiClientMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $currentUser = $this->userService->getCurrentUser();
-        $this->apiClient->setLocale($currentUser->getLocale())
-                        ->setEnabledModNames($currentUser->getEnabledModNames())
-                        ->setAuthorizationToken($currentUser->getApiAuthorizationToken());
+        try {
+            $currentUser = $this->userService->getCurrentUser();
+            $this->apiClient->setLocale($currentUser->getLocale())
+                            ->setEnabledModNames($currentUser->getEnabledModNames())
+                            ->setAuthorizationToken($currentUser->getApiAuthorizationToken());
 
-        $response = $handler->handle($request);
+            $response = $handler->handle($request);
 
-        $this->userService->getCurrentUser()->setApiAuthorizationToken($this->apiClient->getAuthorizationToken());
+            $this->userService->getCurrentUser()->setApiAuthorizationToken($this->apiClient->getAuthorizationToken());
+        } catch (ApiClientException $e) {
+            $response = new HtmlResponse($this->templateRenderer->render('error::503'), 503);
+        }
         return $response;
     }
 }

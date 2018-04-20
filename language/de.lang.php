@@ -12,6 +12,8 @@ return [
     'error 404 message' => 'Das, wonach du suchst, existiert nicht. Bist du sicher, dass du es so herstellen kannst?',
     'error 500 title' => '500 Internal Server Error',
     'error 500 message' => 'Irgendwas ist mächtig schiefgelaufen. Bitte besiege alle Beißer und versuche es noch einmal.',
+    'error 503 title' => '503 Service Unavailable',
+    'error 503 message' => 'Die Laser-Geschütztürme verbrauchen zu viel Energie, der Server antwortete nicht mehr. Versuche es einfach erneut.',
     'error js title' => 'Javascript deaktiviert',
     'error js message' => 'Für eine optimierte Automatisierung wird Javascript benötigt. Bitte stelle diese Ressource zur Verfügung.',
     'error page try-again' => 'Beim Laden der Daten ist ein Fehler aufgetreten. Klicke hier, um es erneut zu versuchen.',

@@ -97,8 +97,7 @@ class ItemDetailsHandler implements RequestHandlerInterface
                 'totalNumberOfIngredientRecipes' => $ingredientResponse->getTotalNumberOfResults(),
             ]));
         } catch (NotFoundException $e) {
-            $response = new HtmlResponse($this->templateRenderer->render('error::404'));
-            $response = $response->withStatus(404);
+            $response = new HtmlResponse($this->templateRenderer->render('error::404'), 404);
         }
         return $response;
     }

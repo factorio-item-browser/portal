@@ -12,6 +12,8 @@ return [
     'error 404 message' => 'The thing you are looking for does not exist. Are you sure you can craft it this way?',
     'error 500 title' => '500 Internal Server Error',
     'error 500 message' => 'Something went terribly wrong. Please make sure all biters are defeated and try again.',
+    'error 503 title' => '503 Service Unavailable',
+    'error 503 message' => 'The laser turrets use up too much energy, the server was no longer responding. Simply try again.',
     'error js title' => 'Javascript disabled',
     'error js message' => 'Javascript is required for an optimized automation. Please provide that resource.',
     'error page try-again' => 'An error occurred while loading the data. Click here to try again.',

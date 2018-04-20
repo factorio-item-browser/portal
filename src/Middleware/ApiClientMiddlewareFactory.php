@@ -7,6 +7,7 @@ namespace FactorioItemBrowser\Portal\Middleware;
 use FactorioItemBrowser\Api\Client\Client\Client;
 use FactorioItemBrowser\Portal\Database\Service\UserService;
 use Interop\Container\ContainerInterface;
+use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
@@ -28,9 +29,11 @@ class ApiClientMiddlewareFactory implements FactoryInterface
     {
         /* @var Client $apiClient */
         $apiClient = $container->get(Client::class);
+        /* @var TemplateRendererInterface $templateRenderer */
+        $templateRenderer = $container->get(TemplateRendererInterface::class);
         /* @var UserService $userService */
         $userService = $container->get(UserService::class);
 
-        return new ApiClientMiddleware($apiClient, $userService);
+        return new ApiClientMiddleware($apiClient, $templateRenderer, $userService);
     }
 }
