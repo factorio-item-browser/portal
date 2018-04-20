@@ -6,6 +6,7 @@ namespace FactorioItemBrowser\Portal\Handler\Recipe;
 
 use FactorioItemBrowser\Api\Client\Client\Client;
 use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
+use FactorioItemBrowser\Api\Client\Exception\ApiClientException;
 use FactorioItemBrowser\Api\Client\Request\Recipe\RecipeDetailsRequest;
 use FactorioItemBrowser\Api\Client\Response\Recipe\RecipeDetailsResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -60,27 +61,30 @@ class RecipeTooltipHandler implements RequestHandlerInterface
         $detailsRequest = new RecipeDetailsRequest();
         $detailsRequest->setNames([$name]);
 
-        /* @var RecipeDetailsResponse $detailsResponse */
-        $detailsResponse = $this->apiClient->send($detailsRequest);
+        try {
+            /* @var RecipeDetailsResponse $detailsResponse */
+            $detailsResponse = $this->apiClient->send($detailsRequest);
 
-        // @todo 404 if no recipe
-
-        $entity = new GenericEntityWithRecipes();
-        foreach ($detailsResponse->getRecipes() as $recipe) {
-            if (count($entity->getRecipes()) === 0) {
-                $entity->setType($recipe->getType())
-                       ->setName($recipe->getName())
-                       ->setLabel($recipe->getLabel())
-                       ->setDescription($recipe->getDescription());
+            $entity = new GenericEntityWithRecipes();
+            foreach ($detailsResponse->getRecipes() as $recipe) {
+                if (count($entity->getRecipes()) === 0) {
+                    $entity->setType($recipe->getType())
+                           ->setName($recipe->getName())
+                           ->setLabel($recipe->getLabel())
+                           ->setDescription($recipe->getDescription());
+                }
+                $entity->addRecipe($recipe);
             }
-            $entity->addRecipe($recipe);
-        }
 
-        return new JsonResponse([
-            'content' => $this->templateRenderer->render('portal::item/tooltip', [
-                'entity' => $entity,
-                'layout' => false
-            ])
-        ]);
+            $response = new JsonResponse([
+                'content' => $this->templateRenderer->render('portal::item/tooltip', [
+                    'entity' => $entity,
+                    'layout' => false
+                ])
+            ]);
+        } catch (ApiClientException $e) {
+            $response = new JsonResponse([]);
+        }
+        return $response;
     }
 }

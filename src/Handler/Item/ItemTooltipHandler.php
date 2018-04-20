@@ -6,6 +6,7 @@ namespace FactorioItemBrowser\Portal\Handler\Item;
 
 use FactorioItemBrowser\Api\Client\Client\Client;
 use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
+use FactorioItemBrowser\Api\Client\Exception\ApiClientException;
 use FactorioItemBrowser\Api\Client\Request\Item\ItemProductRequest;
 use FactorioItemBrowser\Api\Client\Response\Item\ItemProductResponse;
 use FactorioItemBrowser\Portal\Constant\Config;
@@ -61,27 +62,32 @@ class ItemTooltipHandler implements RequestHandlerInterface
                        ->setName($name)
                        ->setNumberOfResults(Config::TOOLTIP_RECIPES);
 
-        /* @var ItemProductResponse $productResponse */
-        $productResponse = $this->apiClient->send($productRequest);
+        try {
+            /* @var ItemProductResponse $productResponse */
+            $productResponse = $this->apiClient->send($productRequest);
 
-        $entity = new GenericEntityWithRecipes();
-        $entity->setType($productResponse->getItem()->getType())
-               ->setName($productResponse->getItem()->getName())
-               ->setLabel($productResponse->getItem()->getLabel())
-               ->setDescription($productResponse->getItem()->getDescription())
-               ->setTotalNumberOfRecipes($productResponse->getTotalNumberOfResults());
+            $entity = new GenericEntityWithRecipes();
+            $entity->setType($productResponse->getItem()->getType())
+                   ->setName($productResponse->getItem()->getName())
+                   ->setLabel($productResponse->getItem()->getLabel())
+                   ->setDescription($productResponse->getItem()->getDescription())
+                   ->setTotalNumberOfRecipes($productResponse->getTotalNumberOfResults());
 
-        foreach ($productResponse->getGroupedRecipes() as $groupedRecipe) {
-            foreach ($groupedRecipe->getRecipes() as $recipe) {
-                $entity->addRecipe($recipe);
+            foreach ($productResponse->getGroupedRecipes() as $groupedRecipe) {
+                foreach ($groupedRecipe->getRecipes() as $recipe) {
+                    $entity->addRecipe($recipe);
+                }
             }
-        }
 
-        return new JsonResponse([
-            'content' => $this->templateRenderer->render('portal::item/tooltip', [
-                'entity' => $entity,
-                'layout' => false
-            ])
-        ]);
+            $response = new JsonResponse([
+                'content' => $this->templateRenderer->render('portal::item/tooltip', [
+                    'entity' => $entity,
+                    'layout' => false
+                ])
+            ]);
+        } catch (ApiClientException $e) {
+            $response = new JsonResponse([]);
+        }
+        return $response;
     }
 }

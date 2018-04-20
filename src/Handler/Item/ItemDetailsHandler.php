@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Portal\Handler\Item;
 
 use FactorioItemBrowser\Api\Client\Client\Client;
+use FactorioItemBrowser\Api\Client\Exception\NotFoundException;
 use FactorioItemBrowser\Api\Client\Request\Item\ItemIngredientRequest;
 use FactorioItemBrowser\Api\Client\Request\Item\ItemProductRequest;
 use FactorioItemBrowser\Api\Client\Response\Item\ItemIngredientResponse;
 use FactorioItemBrowser\Api\Client\Response\Item\ItemProductResponse;
 use FactorioItemBrowser\Portal\Constant\Config;
 use FactorioItemBrowser\Portal\Database\Service\SidebarEntityService;
+use FactorioItemBrowser\Portal\Handler\Traits\NotFoundResponseTrait;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -25,6 +27,8 @@ use Zend\Expressive\Template\TemplateRendererInterface;
  */
 class ItemDetailsHandler implements RequestHandlerInterface
 {
+    use NotFoundResponseTrait;
+
     /**
      * The API client.
      * @var Client
@@ -86,14 +90,18 @@ class ItemDetailsHandler implements RequestHandlerInterface
         /* @var ItemIngredientResponse $ingredientResponse */
         $ingredientResponse = $this->apiClient->send($ingredientRequest);
 
-        $this->sidebarEntityService->add($productResponse->getItem());
-
-        return new HtmlResponse($this->templateRenderer->render('portal::item/details', [
-            'item' => $productResponse->getItem(),
-            'productRecipes' => $productResponse->getGroupedRecipes(),
-            'totalNumberOfProductRecipes' => $productResponse->getTotalNumberOfResults(),
-            'ingredientRecipes' => $ingredientResponse->getGroupedRecipes(),
-            'totalNumberOfIngredientRecipes' => $ingredientResponse->getTotalNumberOfResults(),
-        ]));
+        try {
+            $this->sidebarEntityService->add($productResponse->getItem());
+            $response = new HtmlResponse($this->templateRenderer->render('portal::item/details', [
+                'item' => $productResponse->getItem(),
+                'productRecipes' => $productResponse->getGroupedRecipes(),
+                'totalNumberOfProductRecipes' => $productResponse->getTotalNumberOfResults(),
+                'ingredientRecipes' => $ingredientResponse->getGroupedRecipes(),
+                'totalNumberOfIngredientRecipes' => $ingredientResponse->getTotalNumberOfResults(),
+            ]));
+        } catch (NotFoundException $e) {
+            $response = $this->createNotFoundResponse($this->templateRenderer);
+        }
+        return $response;
     }
 }
