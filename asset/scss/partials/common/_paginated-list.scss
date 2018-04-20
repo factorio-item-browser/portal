@@ -7,6 +7,12 @@
   max-width: 100%;
   width: 100%;
 
+  .error-wording {
+    @include font-icon($fa-var-exclamation-triangle, rem-calc(18));
+    &::before {
+      padding: 0 rem-calc(4);
+    }
+  }
   .loading-wording {
     @include font-icon($fa-var-spinner, rem-calc(18));
     display: none;
@@ -16,7 +22,7 @@
     }
   }
   &.loading {
-    .default-wording {
+    .default-wording, .error-wording {
       display: none;
     }
     .loading-wording {

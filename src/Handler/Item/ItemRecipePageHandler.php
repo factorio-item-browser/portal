@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Portal\Handler\Item;
 
 use FactorioItemBrowser\Api\Client\Client\Client;
+use FactorioItemBrowser\Api\Client\Exception\ApiClientException;
 use FactorioItemBrowser\Api\Client\Request\Item\ItemIngredientRequest;
 use FactorioItemBrowser\Api\Client\Request\Item\ItemProductRequest;
 use FactorioItemBrowser\Api\Client\Response\Item\ItemIngredientResponse;
@@ -65,18 +66,27 @@ class ItemRecipePageHandler implements RequestHandlerInterface
                       ->setNumberOfResults(Config::ITEM_RECIPE_PER_PAGE)
                       ->setIndexOfFirstResult(($page - 1) * Config::ITEM_RECIPE_PER_PAGE);
 
-        /* @var ItemIngredientResponse|ItemProductResponse $recipeResponse */
-        $recipeResponse = $this->apiClient->send($recipeRequest);
+        try {
+            /* @var ItemIngredientResponse|ItemProductResponse $recipeResponse */
+            $recipeResponse = $this->apiClient->send($recipeRequest);
 
-        return new JsonResponse([
-            'content' => $this->templateRenderer->render('portal::item/recipePage', [
-                'currentPage' => $page,
-                'item' => $recipeResponse->getItem(),
-                'recipeType' => $recipeType,
-                'recipes' => $recipeResponse->getGroupedRecipes(),
-                'totalNumberOfResults' => $recipeResponse->getTotalNumberOfResults(),
-                'layout' => false
-            ])
-        ]);
+            $response = new JsonResponse([
+                'content' => $this->templateRenderer->render('portal::item/recipePage', [
+                    'currentPage' => $page,
+                    'item' => $recipeResponse->getItem(),
+                    'recipeType' => $recipeType,
+                    'recipes' => $recipeResponse->getGroupedRecipes(),
+                    'totalNumberOfResults' => $recipeResponse->getTotalNumberOfResults(),
+                    'layout' => false
+                ])
+            ]);
+        } catch (ApiClientException $e) {
+            $response = new JsonResponse([
+                'content' => $this->templateRenderer->render('error::page', [
+                    'layout' => false
+                ])
+            ]);
+        }
+        return $response;
     }
 }

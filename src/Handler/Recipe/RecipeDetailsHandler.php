@@ -10,7 +10,6 @@ use FactorioItemBrowser\Api\Client\Exception\NotFoundException;
 use FactorioItemBrowser\Api\Client\Request\Recipe\RecipeDetailsRequest;
 use FactorioItemBrowser\Api\Client\Response\Recipe\RecipeDetailsResponse;
 use FactorioItemBrowser\Portal\Database\Service\SidebarEntityService;
-use FactorioItemBrowser\Portal\Handler\Traits\NotFoundResponseTrait;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -25,8 +24,6 @@ use Zend\Expressive\Template\TemplateRendererInterface;
  */
 class RecipeDetailsHandler implements RequestHandlerInterface
 {
-    use NotFoundResponseTrait;
-
     /**
      * The API client.
      * @var Client
@@ -88,7 +85,8 @@ class RecipeDetailsHandler implements RequestHandlerInterface
             }
 
             if (count($recipes) === 0) {
-                $response = $this->createNotFoundResponse($this->templateRenderer);
+                $response = new HtmlResponse($this->templateRenderer->render('error::404'));
+                $response = $response->withStatus(404);
             } else {
                 usort($recipes, function (Recipe $left, Recipe $right): int {
                     return $right->getMode() <=> $left->getMode();
@@ -99,7 +97,8 @@ class RecipeDetailsHandler implements RequestHandlerInterface
                 ]));
             }
         } catch (NotFoundException $e) {
-            $response = $this->createNotFoundResponse($this->templateRenderer);
+            $response = new HtmlResponse($this->templateRenderer->render('error::404'));
+            $response = $response->withStatus(404);
         }
         return $response;
     }

@@ -14,6 +14,8 @@ return [
     'error 500 message' => 'Irgendwas ist mächtig schiefgelaufen. Bitte besiege alle Beißer und versuche es noch einmal.',
     'error js title' => 'Javascript deaktiviert',
     'error js message' => 'Für eine optimierte Automatisierung wird Javascript benötigt. Bitte stelle diese Ressource zur Verfügung.',
+    'error page try-again' => 'Beim Laden der Daten ist ein Fehler aufgetreten. Klicke hier, um es erneut zu versuchen.',
+    'error page trying-again' => 'Lade Daten...',
 
     'footer copyright main' => '© %year% Factorio Item Browser',
     'footer copyright sub' => 'Alle Bilder sind Eigentum von <a href="https://www.factorio.com/" target="_blank" rel="nofollow">Wube Software</a> und der <a href="https://mods.factorio.com/" target="_blank" rel="nofollow">Mod-Authoren</a>.',

@@ -14,6 +14,8 @@ return [
     'error 500 message' => 'Something went terribly wrong. Please make sure all biters are defeated and try again.',
     'error js title' => 'Javascript disabled',
     'error js message' => 'Javascript is required for an optimized automation. Please provide that resource.',
+    'error page try-again' => 'An error occurred while loading the data. Click here to try again.',
+    'error page trying-again' => 'Load data...',
 
     'footer copyright main' => '© %year% Factorio Item Browser',
     'footer copyright sub' => 'All images are owned by <a href="https://www.factorio.com/" target="_blank" rel="nofollow">Wube Software</a> and the <a href="https://mods.factorio.com/" target="_blank" rel="nofollow">mod authors</a> respectively.',

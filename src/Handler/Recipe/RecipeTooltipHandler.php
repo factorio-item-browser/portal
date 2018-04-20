@@ -40,10 +40,7 @@ class RecipeTooltipHandler implements RequestHandlerInterface
      * @param Client $apiClient
      * @param TemplateRendererInterface $templateRenderer
      */
-    public function __construct(
-        Client $apiClient,
-        TemplateRendererInterface $templateRenderer
-    )
+    public function __construct(Client $apiClient, TemplateRendererInterface $templateRenderer)
     {
         $this->apiClient = $apiClient;
         $this->templateRenderer = $templateRenderer;
@@ -65,23 +62,27 @@ class RecipeTooltipHandler implements RequestHandlerInterface
             /* @var RecipeDetailsResponse $detailsResponse */
             $detailsResponse = $this->apiClient->send($detailsRequest);
 
-            $entity = new GenericEntityWithRecipes();
-            foreach ($detailsResponse->getRecipes() as $recipe) {
-                if (count($entity->getRecipes()) === 0) {
-                    $entity->setType($recipe->getType())
-                           ->setName($recipe->getName())
-                           ->setLabel($recipe->getLabel())
-                           ->setDescription($recipe->getDescription());
+            if (count($detailsResponse->getRecipes()) > 0) {
+                $entity = new GenericEntityWithRecipes();
+                foreach ($detailsResponse->getRecipes() as $recipe) {
+                    if (count($entity->getRecipes()) === 0) {
+                        $entity->setType($recipe->getType())
+                               ->setName($recipe->getName())
+                               ->setLabel($recipe->getLabel())
+                               ->setDescription($recipe->getDescription());
+                    }
+                    $entity->addRecipe($recipe);
                 }
-                $entity->addRecipe($recipe);
-            }
 
-            $response = new JsonResponse([
-                'content' => $this->templateRenderer->render('portal::item/tooltip', [
-                    'entity' => $entity,
-                    'layout' => false
-                ])
-            ]);
+                $response = new JsonResponse([
+                    'content' => $this->templateRenderer->render('portal::recipe/tooltip', [
+                        'entity' => $entity,
+                        'layout' => false
+                    ])
+                ]);
+            } else {
+                $response = new JsonResponse([]);
+            }
         } catch (ApiClientException $e) {
             $response = new JsonResponse([]);
         }

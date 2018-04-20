@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Portal\Handler\Search;
 
 use FactorioItemBrowser\Api\Client\Client\Client;
+use FactorioItemBrowser\Api\Client\Exception\ApiClientException;
 use FactorioItemBrowser\Api\Client\Request\Search\SearchQueryRequest;
 use FactorioItemBrowser\Api\Client\Response\Search\SearchQueryResponse;
 use FactorioItemBrowser\Portal\Constant\Config;
@@ -64,17 +65,26 @@ class SearchQueryPageHandler implements RequestHandlerInterface
                       ->setIndexOfFirstResult(($page - 1) * Config::SEARCH_RESULTS_PER_PAGE)
                       ->setNumberOfRecipesPerResult(Config::SEARCH_RECIPE_COUNT);
 
-        /* @var SearchQueryResponse $searchResponse */
-        $searchResponse = $this->apiClient->send($searchRequest);
+        try {
+            /* @var SearchQueryResponse $searchResponse */
+            $searchResponse = $this->apiClient->send($searchRequest);
 
-        return new JsonResponse([
-            'content' => $this->templateRenderer->render('portal::search/page', [
-                'query' => $query,
-                'results' => $searchResponse->getResults(),
-                'totalNumberOfResults' => $searchResponse->getTotalNumberOfResults(),
-                'currentPage' => $page,
-                'layout' => false
-            ])
-        ]);
+            $response = new JsonResponse([
+                'content' => $this->templateRenderer->render('portal::search/page', [
+                    'query' => $query,
+                    'results' => $searchResponse->getResults(),
+                    'totalNumberOfResults' => $searchResponse->getTotalNumberOfResults(),
+                    'currentPage' => $page,
+                    'layout' => false
+                ])
+            ]);
+        } catch (ApiClientException $e) {
+            $response = new JsonResponse([
+                'content' => $this->templateRenderer->render('error::page', [
+                    'layout' => false
+                ])
+            ]);
+        }
+        return $response;
     }
 }

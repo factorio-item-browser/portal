@@ -36,6 +36,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
         $middleware = $container->get(BaseUrlMiddleware::class);
         return $middleware($request, $response, $next);
     }, new Response()));
+    $app->pipe(RouteMiddleware::class);
     $app->pipe(ServerUrlMiddleware::class);
     $app->pipe(UrlHelperMiddleware::class);
     $app->pipe(MethodNotAllowedMiddleware::class);
@@ -47,7 +48,6 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->pipe(Middleware\ApiClientMiddleware::class);
 
     $app->pipe(BodyParamsMiddleware::class);
-    $app->pipe(RouteMiddleware::class);
     $app->pipe(Middleware\MetaDataRequestMiddleware::class);
     $app->pipe(Middleware\LayoutMiddleware::class);
 

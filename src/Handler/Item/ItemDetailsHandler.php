@@ -12,7 +12,6 @@ use FactorioItemBrowser\Api\Client\Response\Item\ItemIngredientResponse;
 use FactorioItemBrowser\Api\Client\Response\Item\ItemProductResponse;
 use FactorioItemBrowser\Portal\Constant\Config;
 use FactorioItemBrowser\Portal\Database\Service\SidebarEntityService;
-use FactorioItemBrowser\Portal\Handler\Traits\NotFoundResponseTrait;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -27,8 +26,6 @@ use Zend\Expressive\Template\TemplateRendererInterface;
  */
 class ItemDetailsHandler implements RequestHandlerInterface
 {
-    use NotFoundResponseTrait;
-
     /**
      * The API client.
      * @var Client
@@ -100,7 +97,8 @@ class ItemDetailsHandler implements RequestHandlerInterface
                 'totalNumberOfIngredientRecipes' => $ingredientResponse->getTotalNumberOfResults(),
             ]));
         } catch (NotFoundException $e) {
-            $response = $this->createNotFoundResponse($this->templateRenderer);
+            $response = new HtmlResponse($this->templateRenderer->render('error::404'));
+            $response = $response->withStatus(404);
         }
         return $response;
     }
