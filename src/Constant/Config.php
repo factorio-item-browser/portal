@@ -20,7 +20,7 @@ class Config
     /**
      * The number of recipes per page on the item pages.
      */
-    const ITEM_RECIPE_PER_PAGE = 12;
+    const ITEM_RECIPE_PER_PAGE = 24;
 
     /**
      * The number of search results to show per page.

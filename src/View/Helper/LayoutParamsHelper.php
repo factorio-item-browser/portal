@@ -20,10 +20,10 @@ class LayoutParamsHelper extends AbstractHelper
     protected $bodyClass = '';
 
     /**
-     * The search query.
-     * @var string
+     * The new sidebar entity which has been added.
+     * @var SidebarEntity|null
      */
-    protected $searchQuery = '';
+    protected $newSidebarEntity = null;
 
     /**
      * The number of available mods.
@@ -38,10 +38,16 @@ class LayoutParamsHelper extends AbstractHelper
     protected $numberOfEnabledMods = 0;
 
     /**
-     * The new sidebar entity which has been added.
-     * @var SidebarEntity|null
+     * The search query.
+     * @var string
      */
-    protected $newSidebarEntity = null;
+    protected $searchQuery = '';
+
+    /**
+     * The hash of the current user's settings.
+     * @var string
+     */
+    protected $settingsHash = '';
 
     /**
      * Sets the CSS class to use on the body.
@@ -64,23 +70,23 @@ class LayoutParamsHelper extends AbstractHelper
     }
 
     /**
-     * Sets the search query.
-     * @param string $searchQuery
+     * Sets the new sidebar entity which has been added.
+     * @param SidebarEntity|null $newSidebarEntity
      * @return $this Implementing fluent interface.
      */
-    public function setSearchQuery(string $searchQuery)
+    public function setNewSidebarEntity(SidebarEntity $newSidebarEntity)
     {
-        $this->searchQuery = $searchQuery;
+        $this->newSidebarEntity = $newSidebarEntity;
         return $this;
     }
 
     /**
-     * Returns the search query.
-     * @return string
+     * Returns the new sidebar entity which has been added.
+     * @return SidebarEntity|null
      */
-    public function getSearchQuery()
+    public function getNewSidebarEntity()
     {
-        return $this->searchQuery;
+        return $this->newSidebarEntity;
     }
 
     /**
@@ -124,22 +130,42 @@ class LayoutParamsHelper extends AbstractHelper
     }
 
     /**
-     * Sets the new sidebar entity which has been added.
-     * @param SidebarEntity|null $newSidebarEntity
+     * Sets the search query.
+     * @param string $searchQuery
      * @return $this Implementing fluent interface.
      */
-    public function setNewSidebarEntity(SidebarEntity $newSidebarEntity)
+    public function setSearchQuery(string $searchQuery)
     {
-        $this->newSidebarEntity = $newSidebarEntity;
+        $this->searchQuery = $searchQuery;
         return $this;
     }
 
     /**
-     * Returns the new sidebar entity which has been added.
-     * @return SidebarEntity|null
+     * Returns the search query.
+     * @return string
      */
-    public function getNewSidebarEntity()
+    public function getSearchQuery()
     {
-        return $this->newSidebarEntity;
+        return $this->searchQuery;
+    }
+
+    /**
+     * Sets the hash of the current user's settings.
+     * @param string $settingsHash
+     * @return $this
+     */
+    public function setSettingsHash(string $settingsHash)
+    {
+        $this->settingsHash = $settingsHash;
+        return $this;
+    }
+
+    /**
+     * Returns the hash of the current user's settings.
+     * @return string
+     */
+    public function getSettingsHash(): string
+    {
+        return $this->settingsHash;
     }
 }

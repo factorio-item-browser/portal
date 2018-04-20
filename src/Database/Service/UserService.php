@@ -108,6 +108,17 @@ class UserService extends AbstractDatabaseService
     }
 
     /**
+     * Returns a hash of the current user's settings.
+     * @return string
+     */
+    public function getSettingsHash()
+    {
+        return hash('crc32b', json_encode([
+            $this->currentUser->getApiAuthorizationToken()
+        ]));
+    }
+
+    /**
      * Cleans up old users of which the sessions have timed out.
      * @return $this
      */

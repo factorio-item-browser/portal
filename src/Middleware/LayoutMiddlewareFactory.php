@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Middleware;
 
+use FactorioItemBrowser\Portal\Database\Service\UserService;
 use FactorioItemBrowser\Portal\Session\Container\MetaSessionContainer;
 use FactorioItemBrowser\Portal\View\Helper\LayoutParamsHelper;
 use FactorioItemBrowser\Portal\View\Helper\SidebarHelper;
@@ -33,6 +34,8 @@ class LayoutMiddlewareFactory
         $metaSessionContainer = $container->get(MetaSessionContainer::class);
         /* @var TemplateRendererInterface $templateRenderer */
         $templateRenderer = $container->get(TemplateRendererInterface::class);
+        /* @var UserService $userService */
+        $userService = $container->get(UserService::class);
 
         /* @var HelperPluginManager $helperPluginManager */
         $helperPluginManager = $container->get(HelperPluginManager::class);
@@ -46,6 +49,7 @@ class LayoutMiddlewareFactory
         return new LayoutMiddleware(
             $metaSessionContainer,
             $templateRenderer,
+            $userService,
             $headTitleHelper,
             $layoutParamsHelper,
             $sidebarHelper

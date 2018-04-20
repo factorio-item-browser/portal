@@ -6,6 +6,7 @@ namespace FactorioItemBrowser\Portal\Middleware;
 
 use FactorioItemBrowser\Portal\Constant\Attribute;
 use FactorioItemBrowser\Portal\Database\Entity\SidebarEntity;
+use FactorioItemBrowser\Portal\Database\Service\UserService;
 use FactorioItemBrowser\Portal\Session\Container\MetaSessionContainer;
 use FactorioItemBrowser\Portal\View\Helper\LayoutParamsHelper;
 use FactorioItemBrowser\Portal\View\Helper\SidebarHelper;
@@ -38,6 +39,12 @@ class LayoutMiddleware implements MiddlewareInterface
     protected $templateRenderer;
 
     /**
+     * The database user service.
+     * @var UserService
+     */
+    protected $userService;
+
+    /**
      * The head title helper.
      * @var HeadTitle
      */
@@ -58,6 +65,7 @@ class LayoutMiddleware implements MiddlewareInterface
     /**
      * Initializes the middleware.
      * @param MetaSessionContainer $metaSessionContainer
+     * @param UserService $userService
      * @param TemplateRendererInterface $templateRenderer
      * @param HeadTitle $headTitleHelper
      * @param LayoutParamsHelper $layoutParamsHelper
@@ -66,6 +74,7 @@ class LayoutMiddleware implements MiddlewareInterface
     public function __construct(
         MetaSessionContainer $metaSessionContainer,
         TemplateRendererInterface $templateRenderer,
+        UserService $userService,
         HeadTitle $headTitleHelper,
         LayoutParamsHelper $layoutParamsHelper,
         SidebarHelper $sidebarHelper
@@ -73,6 +82,7 @@ class LayoutMiddleware implements MiddlewareInterface
     {
         $this->metaSessionContainer = $metaSessionContainer;
         $this->templateRenderer = $templateRenderer;
+        $this->userService = $userService;
         $this->headTitleHelper = $headTitleHelper;
         $this->layoutParamsHelper = $layoutParamsHelper;
         $this->sidebarHelper = $sidebarHelper;
@@ -92,8 +102,10 @@ class LayoutMiddleware implements MiddlewareInterface
             $this->templateRenderer->addDefaultParam(TemplateRendererInterface::TEMPLATE_ALL, 'layout', false);
         }
         $this->prepareTitle();
-        $this->layoutParamsHelper->setNumberOfAvailableMods($this->metaSessionContainer->getNumberOfAvailableMods());
-        $this->layoutParamsHelper->setNumberOfEnabledMods($this->metaSessionContainer->getNumberOfEnabledMods());
+        $this->layoutParamsHelper
+            ->setSettingsHash($this->userService->getSettingsHash())
+            ->setNumberOfAvailableMods($this->metaSessionContainer->getNumberOfAvailableMods())
+            ->setNumberOfEnabledMods($this->metaSessionContainer->getNumberOfEnabledMods());
 
         $response = $handler->handle($request);
 
@@ -135,8 +147,8 @@ class LayoutMiddleware implements MiddlewareInterface
         if (!$response instanceof JsonResponse) {
             $responseData = [
                 'content' => $response->getBody()->getContents(),
+                'settingsHash' => $this->userService->getSettingsHash(),
                 'title' => trim($this->headTitleHelper->renderTitle()),
-                // @todo Settings hash
             ];
 
             if (strlen($this->layoutParamsHelper->getBodyClass()) > 0) {
