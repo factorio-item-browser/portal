@@ -18,6 +18,7 @@ use ContainerInteropDoctrine\EntityManagerFactory;
 use Doctrine\ORM\EntityManager;
 use FactorioItemBrowser\Api\Client\Client\Client;
 use Zend\ServiceManager\Factory\InvokableFactory;
+use Zend\Stratigility\Middleware\ErrorHandler;
 
 return [
     'dependencies' => [
@@ -56,6 +57,11 @@ return [
             BaseUrlMiddleware::class => BaseUrlMiddlewareFactory::class,
             Client::class => Api\ClientFactory::class,
             EntityManager::class => EntityManagerFactory::class,
+        ],
+        'delegators' => [
+            ErrorHandler::class => [
+                ErrorListener\LoggingErrorListenerDelegatorFactory::class
+            ]
         ]
     ],
 ];
