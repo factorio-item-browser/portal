@@ -59,31 +59,35 @@ class SearchQueryPageHandler implements RequestHandlerInterface
         $query = rawurldecode($request->getAttribute('query'));
         $page = intval($request->getAttribute('page'));
 
-        $searchRequest = new SearchQueryRequest();
-        $searchRequest->setQuery($query)
-                      ->setNumberOfResults(Config::SEARCH_RESULTS_PER_PAGE)
-                      ->setIndexOfFirstResult(($page - 1) * Config::SEARCH_RESULTS_PER_PAGE)
-                      ->setNumberOfRecipesPerResult(Config::SEARCH_RECIPE_COUNT);
+        if (strlen($query) === 0) {
+            $response = new JsonResponse([]);
+        } else {
+            $searchRequest = new SearchQueryRequest();
+            $searchRequest->setQuery($query)
+                          ->setNumberOfResults(Config::SEARCH_RESULTS_PER_PAGE)
+                          ->setIndexOfFirstResult(($page - 1) * Config::SEARCH_RESULTS_PER_PAGE)
+                          ->setNumberOfRecipesPerResult(Config::SEARCH_RECIPE_COUNT);
 
-        try {
-            /* @var SearchQueryResponse $searchResponse */
-            $searchResponse = $this->apiClient->send($searchRequest);
+            try {
+                /* @var SearchQueryResponse $searchResponse */
+                $searchResponse = $this->apiClient->send($searchRequest);
 
-            $response = new JsonResponse([
-                'content' => $this->templateRenderer->render('portal::search/page', [
-                    'query' => $query,
-                    'results' => $searchResponse->getResults(),
-                    'totalNumberOfResults' => $searchResponse->getTotalNumberOfResults(),
-                    'currentPage' => $page,
-                    'layout' => false
-                ])
-            ]);
-        } catch (ApiClientException $e) {
-            $response = new JsonResponse([
-                'content' => $this->templateRenderer->render('error::page', [
-                    'layout' => false
-                ])
-            ]);
+                $response = new JsonResponse([
+                    'content' => $this->templateRenderer->render('portal::search/page', [
+                        'query' => $query,
+                        'results' => $searchResponse->getResults(),
+                        'totalNumberOfResults' => $searchResponse->getTotalNumberOfResults(),
+                        'currentPage' => $page,
+                        'layout' => false
+                    ])
+                ]);
+            } catch (ApiClientException $e) {
+                $response = new JsonResponse([
+                    'content' => $this->templateRenderer->render('error::page', [
+                        'layout' => false
+                    ])
+                ]);
+            }
         }
         return $response;
     }

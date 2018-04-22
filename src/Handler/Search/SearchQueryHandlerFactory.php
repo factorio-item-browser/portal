@@ -7,6 +7,7 @@ namespace FactorioItemBrowser\Portal\Handler\Search;
 use FactorioItemBrowser\Api\Client\Client\Client;
 use FactorioItemBrowser\Portal\View\Helper\LayoutParamsHelper;
 use Interop\Container\ContainerInterface;
+use Zend\Expressive\Helper\UrlHelper;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\View\HelperPluginManager;
@@ -32,12 +33,14 @@ class SearchQueryHandlerFactory implements FactoryInterface
         $apiClient = $container->get(Client::class);
         /* @var TemplateRendererInterface $templateRenderer */
         $templateRenderer = $container->get(TemplateRendererInterface::class);
+        /* @var UrlHelper $urlHelper */
+        $urlHelper = $container->get(UrlHelper::class);
 
         /* @var HelperPluginManager $helperPluginManager */
         $helperPluginManager = $container->get(HelperPluginManager::class);
         /* @var LayoutParamsHelper $layoutParamsHelper */
         $layoutParamsHelper = $helperPluginManager->get(LayoutParamsHelper::class);
 
-        return new SearchQueryHandler($apiClient, $layoutParamsHelper, $templateRenderer);
+        return new SearchQueryHandler($apiClient, $layoutParamsHelper, $templateRenderer, $urlHelper);
     }
 }
