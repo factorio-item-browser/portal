@@ -10,6 +10,7 @@ use FactorioItemBrowser\Portal\View\Helper\LayoutParamsHelper;
 use FactorioItemBrowser\Portal\View\Helper\SidebarHelper;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
+use Zend\I18n\Translator\TranslatorInterface;
 use Zend\View\Helper\HeadTitle;
 use Zend\View\HelperPluginManager;
 
@@ -34,6 +35,8 @@ class LayoutMiddlewareFactory
         $metaSessionContainer = $container->get(MetaSessionContainer::class);
         /* @var TemplateRendererInterface $templateRenderer */
         $templateRenderer = $container->get(TemplateRendererInterface::class);
+        /* @var TranslatorInterface $translator */
+        $translator = $container->get(TranslatorInterface::class);
         /* @var UserService $userService */
         $userService = $container->get(UserService::class);
 
@@ -49,6 +52,7 @@ class LayoutMiddlewareFactory
         return new LayoutMiddleware(
             $metaSessionContainer,
             $templateRenderer,
+            $translator,
             $userService,
             $headTitleHelper,
             $layoutParamsHelper,

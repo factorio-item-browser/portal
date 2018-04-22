@@ -16,6 +16,7 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\JsonResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
+use Zend\I18n\Translator\TranslatorInterface;
 use Zend\View\Helper\HeadTitle;
 
 /**
@@ -37,6 +38,12 @@ class LayoutMiddleware implements MiddlewareInterface
      * @var TemplateRendererInterface
      */
     protected $templateRenderer;
+
+    /**
+     * The translator.
+     * @var TranslatorInterface
+     */
+    protected $translator;
 
     /**
      * The database user service.
@@ -65,8 +72,9 @@ class LayoutMiddleware implements MiddlewareInterface
     /**
      * Initializes the middleware.
      * @param MetaSessionContainer $metaSessionContainer
-     * @param UserService $userService
      * @param TemplateRendererInterface $templateRenderer
+     * @param TranslatorInterface $translator
+     * @param UserService $userService
      * @param HeadTitle $headTitleHelper
      * @param LayoutParamsHelper $layoutParamsHelper
      * @param SidebarHelper $sidebarHelper
@@ -74,6 +82,7 @@ class LayoutMiddleware implements MiddlewareInterface
     public function __construct(
         MetaSessionContainer $metaSessionContainer,
         TemplateRendererInterface $templateRenderer,
+        TranslatorInterface $translator,
         UserService $userService,
         HeadTitle $headTitleHelper,
         LayoutParamsHelper $layoutParamsHelper,
@@ -82,6 +91,7 @@ class LayoutMiddleware implements MiddlewareInterface
     {
         $this->metaSessionContainer = $metaSessionContainer;
         $this->templateRenderer = $templateRenderer;
+        $this->translator = $translator;
         $this->userService = $userService;
         $this->headTitleHelper = $headTitleHelper;
         $this->layoutParamsHelper = $layoutParamsHelper;
@@ -133,7 +143,7 @@ class LayoutMiddleware implements MiddlewareInterface
     protected function prepareTitle()
     {
         $this->headTitleHelper->setSeparator(' - ');
-        $this->headTitleHelper->append('Factorio Item Browser');
+        $this->headTitleHelper->append($this->translator->translate('meta title'));
         return $this;
     }
 

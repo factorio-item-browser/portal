@@ -35,6 +35,9 @@ return [
     'item-details loading-more' => 'Loading more recipes...',
     'item-details product-of' => ['Result of %count% recipe', 'Result of %count% recipes'],
 
+    'meta title' => 'Factorio Item Browser',
+    'meta description' => 'Browse for thousands of items and recipes of over 100 mods of Factorio.',
+
     'mod author' => 'Author:',
     'mod name' => 'Name:',
     'mod version' => 'Version:',
