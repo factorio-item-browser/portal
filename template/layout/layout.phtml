@@ -8,16 +8,16 @@ $this->headMeta()->setCharset('utf-8')
                  ->appendName('viewport', 'width=device-width, initial-scale=1.0')
                  ->appendName('theme-color', '#165868')
                  ->appendName('msapplication-TileColor', '#165868')
-                 ->appendName('msapplication-TileImage', $this->basePath('asset/image/icon/tile-icon.png'))
+                 ->appendName('msapplication-TileImage', $this->assetPath('asset/image/icon/tile-icon.png'))
                  ->appendProperty('og:url', $this->serverUrl($this->url(RouteNames::INDEX)))
-                 ->appendProperty('og:image', $this->basePath('asset/image/icon/favicon.png'))
+                 ->appendProperty('og:image', $this->assetPath('asset/image/icon/favicon.png'))
                  ->appendProperty('og:site_name', $this->translate('meta title'))
                  ->appendProperty('og:type', 'website')
                  ->appendProperty('og:title', $this->headTitle()->renderTitle())
                  ->appendProperty('og:description', $this->translate('meta description'));
 
-$this->headLink()->appendRelation('icon', $this->basePath('asset/image/icon/favicon.png'))
-                 ->appendRelation('apple-touch-icon-precomposed', $this->basePath('asset/image/icon/apple-touch-icon.png'))
+$this->headLink()->appendRelation('icon', $this->assetPath('asset/image/icon/favicon.png'))
+                 ->appendRelation('apple-touch-icon-precomposed', $this->assetPath('asset/image/icon/apple-touch-icon.png'))
                  ->appendStylesheet($this->assetPath('asset/css/main.min.css'));
 $this->footLink()->appendStylesheet($this->assetPath('asset/css/images.min.css'));
 
