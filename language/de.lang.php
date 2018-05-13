@@ -36,7 +36,7 @@ return [
     'item-details product-of' => ['Ergebnis von %count% Rezept', 'Ergebnis von %count% Rezepten'],
 
     'meta title' => 'Factorio Item Browser',
-    'meta description' => 'Durchstöbere tausende von Items und Rezepten von über 100 Mods von Factorio.',
+    'meta description' => 'Durchstöbere tausende Items und Rezepten von über 700 Mods von Factorio.',
 
     'mod author' => 'Author:',
     'mod name' => 'Name:',
