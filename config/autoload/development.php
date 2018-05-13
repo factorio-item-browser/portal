@@ -35,6 +35,14 @@ return [
             ]
         ],
     ],
+    'factorio-item-browser' => [
+        'client' => [
+            'agent' => 'debug',
+            'accessKey' => 'factorio-item-browser',
+            'apiUrl' => 'http://localhost:8010',
+            'timeout' => 10
+        ],
+    ],
     'router' => [
         'fastroute' => [
             'cache_enabled' => false
