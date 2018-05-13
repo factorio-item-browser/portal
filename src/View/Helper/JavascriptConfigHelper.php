@@ -14,13 +14,13 @@ use Zend\View\Helper\AbstractHelper;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class JavascriptConfig extends AbstractHelper
+class JavascriptConfigHelper extends AbstractHelper
 {
     /**
-     * The version to use for the assets.
-     * @var string
+     * The asset path helper.
+     * @var AssetPathHelper
      */
-    protected $version;
+    protected $assetPathHelper;
 
     /**
      * The settings hash.
@@ -42,13 +42,13 @@ class JavascriptConfig extends AbstractHelper
 
     /**
      * Initializes the view helper.
-     * @param string $version
+     * @param AssetPathHelper $assetPathHelper
      * @param string $settingsHash
      * @param UrlHelper $urlHelper
      */
-    public function __construct(string $version, string $settingsHash, UrlHelper $urlHelper)
+    public function __construct(AssetPathHelper $assetPathHelper, string $settingsHash, UrlHelper $urlHelper)
     {
-        $this->version = $version;
+        $this->assetPathHelper = $assetPathHelper;
         $this->settingsHash = $settingsHash;
         $this->urlHelper = $urlHelper;
     }
@@ -85,6 +85,10 @@ class JavascriptConfig extends AbstractHelper
             'iconManager' => [
                 'url' => $this->urlHelper->generate(RouteNames::ICONS)
             ],
+            'script' => [
+                'default' => $this->assetPathHelper->__invoke('asset/js/main.min.js'),
+                'fallback' => $this->assetPathHelper->__invoke('asset/js/main.es5.min.js')
+            ],
             'settingsHash' => $this->settingsHash,
             'sidebar' => [
                 'numberOfUnpinnedEntities' => Config::SIDEBAR_UNPINNED_ENTITIES,
@@ -92,8 +96,7 @@ class JavascriptConfig extends AbstractHelper
                     'pin' => $this->urlHelper->generate(RouteNames::SIDEBAR_PIN, ['id' => 1234]),
                     'unpin' => $this->urlHelper->generate(RouteNames::SIDEBAR_UNPIN, ['id' => 1234])
                 ]
-            ],
-            'version' => $this->version
+            ]
         ]);
         return $this;
     }

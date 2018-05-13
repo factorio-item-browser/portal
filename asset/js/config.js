@@ -36,6 +36,24 @@
         },
 
         /**
+         * The scripts to load.
+         * @type {object}
+         */
+        script: {
+            /**
+             * The default script to load for ES6 compatible browsers.
+             * @type {string}
+             */
+            default: '',
+
+            /**
+             * The fallback script to load for ES6-incompatible browsers.
+             * @type {string}
+             */
+            fallback: ''
+        },
+
+        /**
          * The hash of the settings to detect any changes.
          * @type {string}
          */
@@ -70,12 +88,6 @@
                 unpin: ''
             }
         },
-
-        /**
-         * The version to use for the assets.
-         * @type {string}
-         */
-        version: '',
 
         /**
          * Changes the config to the specified values.

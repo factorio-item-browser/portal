@@ -5,8 +5,8 @@
     });
     try {
         eval('var bar = (x) => x + 1; class Foo {}; "foo".includes("bar");');
-        $.getScript('/asset/js/main.min.' + fib.config.version + '.js');
+        $.getScript(fib.config.script.default);
     } catch (e) {
-        $.getScript('/asset/js/main.es5.min.' + fib.config.version + '.js');
+        $.getScript(fib.config.script.fallback);
     }
 })(jQuery, factorioItemBrowser);

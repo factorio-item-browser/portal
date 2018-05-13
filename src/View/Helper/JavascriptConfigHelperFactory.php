@@ -13,27 +13,31 @@ use Zend\View\HelperPluginManager;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class JavascriptConfigFactory implements FactoryInterface
+class JavascriptConfigHelperFactory implements FactoryInterface
 {
     /**
      * Creates the view helper.
      * @param ContainerInterface $container
      * @param string $requestedName
      * @param null|array $options
-     * @return JavascriptConfig
+     * @return JavascriptConfigHelper
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $config = $container->get('config');
-
         /* @var UrlHelper $urlHelper */
         $urlHelper = $container->get(UrlHelper::class);
 
         /* @var HelperPluginManager $helperPluginManager */
         $helperPluginManager = $container->get(HelperPluginManager::class);
+        /* @var AssetPathHelper $assetPathHelper */
+        $assetPathHelper = $helperPluginManager->get(AssetPathHelper::class);
         /* @var LayoutParamsHelper $layoutParamsHelper */
         $layoutParamsHelper = $helperPluginManager->get(LayoutParamsHelper::class);
 
-        return new JavascriptConfig($config['version'], $layoutParamsHelper->getSettingsHash(), $urlHelper);
+        return new JavascriptConfigHelper(
+            $assetPathHelper,
+            $layoutParamsHelper->getSettingsHash(),
+            $urlHelper
+        );
     }
 }
