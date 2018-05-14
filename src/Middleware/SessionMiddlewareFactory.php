@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Middleware;
 
+use Blast\BaseUrl\BasePathHelper;
 use FactorioItemBrowser\Portal\Database\Service\UserService;
 use FactorioItemBrowser\Portal\Session\SessionManager;
 use Interop\Container\ContainerInterface;
@@ -25,11 +26,13 @@ class SessionMiddlewareFactory
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var UserService $userService */
-        $userService = $container->get(UserService::class);
+        /* @var BasePathHelper $basePathHelper */
+        $basePathHelper = $container->get(BasePathHelper::class);
         /* @var SessionManager $sessionManager */
         $sessionManager = $container->get(SessionManager::class);
+        /* @var UserService $userService */
+        $userService = $container->get(UserService::class);
 
-        return new SessionMiddleware($userService, $sessionManager);
+        return new SessionMiddleware($basePathHelper, $sessionManager, $userService);
     }
 }

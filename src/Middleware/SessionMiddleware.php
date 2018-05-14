@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Middleware;
 
+use Blast\BaseUrl\BasePathHelper;
 use DateTime;
 use Dflydev\FigCookies\FigRequestCookies;
 use Dflydev\FigCookies\FigResponseCookies;
@@ -26,10 +27,10 @@ use Psr\Http\Server\RequestHandlerInterface;
 class SessionMiddleware implements MiddlewareInterface
 {
     /**
-     * The user database service.
-     * @var UserService
+     * The base path helper.
+     * @var BasePathHelper
      */
-    protected $userService;
+    protected $basePathHelper;
 
     /**
      * The session manager.
@@ -38,14 +39,26 @@ class SessionMiddleware implements MiddlewareInterface
     protected $sessionManager;
 
     /**
-     * Initializes the middleware.
-     * @param UserService $userService
-     * @param SessionManager $sessionManager
+     * The user database service.
+     * @var UserService
      */
-    public function __construct(UserService $userService, SessionManager $sessionManager)
+    protected $userService;
+
+    /**
+     * Initializes the middleware.
+     * @param BasePathHelper $basePathHelper
+     * @param SessionManager $sessionManager
+     * @param UserService $userService
+     */
+    public function __construct(
+        BasePathHelper $basePathHelper,
+        SessionManager $sessionManager,
+        UserService $userService
+    )
     {
-        $this->userService = $userService;
+        $this->basePathHelper = $basePathHelper;
         $this->sessionManager = $sessionManager;
+        $this->userService = $userService;
     }
 
     /**
@@ -101,8 +114,8 @@ class SessionMiddleware implements MiddlewareInterface
                 Config::SESSION_COOKIE_NAME,
                 $this->userService->getCurrentUser()->getSessionId()
             );
-            $cookie = $cookie->withExpires(new DateTime('+'. Config::SESSION_LIFETIME . ' seconds'))
-                             ->withPath('/');
+            $cookie = $cookie->withExpires(new DateTime('+' . Config::SESSION_LIFETIME . ' seconds'))
+                             ->withPath(($this->basePathHelper)('/'));
             $response = FigResponseCookies::set($response, $cookie);
         }
         return $response;
