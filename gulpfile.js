@@ -17,6 +17,7 @@ let outputDirectories = {
     gulp = require('gulp'),
     modules = {
         babel: require('gulp-babel'),
+        base64: require('gulp-base64'),
         clean: require('gulp-clean'),
         concat: require('gulp-concat'),
         minify: require('gulp-minify'),
@@ -32,6 +33,10 @@ gulp.task('css-build', () => {
         .pipe(modules.sass({
             outputStyle: 'compressed',
             includePaths: ['node_modules']
+        }))
+        .pipe(modules.base64({
+            extensions: [/.*inline.*/],
+            maxImageSize: 1048576
         }))
         .pipe(modules.rename((path) => {
             path.extname = '.min.css'

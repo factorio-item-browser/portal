@@ -29,3 +29,7 @@
 @function set-lightness($color, $lightness) {
     @return hsl(hue($color), saturation($color), $lightness);
 }
+
+@function inline-image($path) {
+    @return '../image/inline/#{$path}';
+}
