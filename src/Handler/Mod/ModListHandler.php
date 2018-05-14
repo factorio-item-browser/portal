@@ -92,7 +92,7 @@ class ModListHandler implements RequestHandlerInterface
             } elseif ($right->getName() === 'base') {
                 $result = 1;
             } else {
-                $result = $left->getName() <=> $right->getName();
+                $result = strtolower($left->getName()) <=> strtolower($right->getName());
             }
             return $result;
         });
