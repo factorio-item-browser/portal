@@ -2,8 +2,8 @@
     RewriteEngine On
 
     # Force www subdomain on the URL.
-    RewriteCond %{HTTP_HOST} ^(?!www\.)?factorio-item-browser\.com$
-    RewriteRule ^(.*)$ https://www.factoio-item-browser.com$1
+    RewriteCond %{HTTP_HOST} ^factorio-item-browser\.com$
+    RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
     # Remove version number from asset files
     RewriteRule ^(.*\.)(\d+\.)(css|js|jpg|png)$ $1$3
