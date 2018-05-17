@@ -76,6 +76,9 @@ class UserService extends AbstractDatabaseService
         $user = new User();
         $user->setEnabledModNames(['base'])
              ->setSessionId($this->generateSessionId());
+
+        $this->entityManager->persist($user);
+        $this->entityManager->flush($user);
         return $user;
     }
 
