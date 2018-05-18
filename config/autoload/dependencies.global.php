@@ -11,9 +11,6 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal;
 
-use Blast\BaseUrl\BasePathHelper;
-use Blast\BaseUrl\BaseUrlMiddleware;
-use Blast\BaseUrl\BaseUrlMiddlewareFactory;
 use ContainerInteropDoctrine\EntityManagerFactory;
 use Doctrine\ORM\EntityManager;
 use FactorioItemBrowser\Api\Client\Client\Client;
@@ -53,8 +50,6 @@ return [
             Session\SessionManager::class => InvokableFactory::class,
 
             // Dependencies of other libraries
-            BasePathHelper::class => InvokableFactory::class,
-            BaseUrlMiddleware::class => BaseUrlMiddlewareFactory::class,
             Client::class => Api\ClientFactory::class,
             EntityManager::class => EntityManagerFactory::class,
         ],

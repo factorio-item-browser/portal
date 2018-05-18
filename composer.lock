@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "499c88e2d4d24c6fdab3eba2d5f90249",
+    "content-hash": "efb1f02199ac308026caf828f875320b",
     "packages": [
         {
             "name": "bluepsyduck/common",
@@ -836,16 +836,16 @@
         },
         {
             "name": "factorio-item-browser/api-client",
-            "version": "1.0.1",
+            "version": "dev-feature/machines",
             "source": {
                 "type": "git",
                 "url": "https://github.com/factorio-item-browser/api-client.git",
-                "reference": "ae66201baa00112d11a4e62dbc0deeea5da45823"
+                "reference": "ab1dd1046f1de01d7552f6328cbaf48e37b1846e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/factorio-item-browser/api-client/zipball/ae66201baa00112d11a4e62dbc0deeea5da45823",
-                "reference": "ae66201baa00112d11a4e62dbc0deeea5da45823",
+                "url": "https://api.github.com/repos/factorio-item-browser/api-client/zipball/ab1dd1046f1de01d7552f6328cbaf48e37b1846e",
+                "reference": "ab1dd1046f1de01d7552f6328cbaf48e37b1846e",
                 "shasum": ""
             },
             "require": {
@@ -854,7 +854,7 @@
                 "php": "^7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.0"
+                "phpunit/phpunit": "^6.0 || ^7.0"
             },
             "type": "library",
             "autoload": {
@@ -881,7 +881,7 @@
                 "api",
                 "client"
             ],
-            "time": "2018-04-14T16:53:59+00:00"
+            "time": "2018-05-18T13:04:18+00:00"
         },
         {
             "name": "fig/http-message-util",
@@ -935,24 +935,26 @@
         },
         {
             "name": "mtymek/blast-base-url",
-            "version": "0.2.0",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mtymek/blast-base-url.git",
-                "reference": "e301a4251f48a0fbc0d96aebe958e7e4a1974062"
+                "reference": "43c0cc0eb7ceff65909f8426521b590f3627149a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mtymek/blast-base-url/zipball/e301a4251f48a0fbc0d96aebe958e7e4a1974062",
-                "reference": "e301a4251f48a0fbc0d96aebe958e7e4a1974062",
+                "url": "https://api.github.com/repos/mtymek/blast-base-url/zipball/43c0cc0eb7ceff65909f8426521b590f3627149a",
+                "reference": "43c0cc0eb7ceff65909f8426521b590f3627149a",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.5 || ^7.0",
-                "psr/http-message": "^1.0"
+                "php": "^7.0",
+                "psr/http-message": "^1.0",
+                "psr/http-server-handler": "^1.0",
+                "psr/http-server-middleware": "^1.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.6",
+                "phpunit/phpunit": "^6.0",
                 "squizlabs/php_codesniffer": "^2.3",
                 "zendframework/zend-diactoros": "^1.3",
                 "zendframework/zend-expressive-helpers": "^1.4 || ^2.0",
@@ -960,6 +962,12 @@
                 "zendframework/zend-servicemanager": "^2.6"
             },
             "type": "library",
+            "extra": {
+                "zf": {
+                    "component": "Blast\\BaseUrl",
+                    "config-provider": "Blast\\BaseUrl\\ConfigProvider"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Blast\\BaseUrl\\": "src"
@@ -984,7 +992,7 @@
                 "psr-7",
                 "psr7"
             ],
-            "time": "2016-06-26T17:10:56+00:00"
+            "time": "2018-05-15T14:41:46+00:00"
         },
         {
             "name": "nikic/fast-route",
@@ -2072,16 +2080,16 @@
         },
         {
             "name": "zendframework/zend-i18n",
-            "version": "2.8.0",
+            "version": "2.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-i18n.git",
-                "reference": "cfdb658121e0d7eb969a498c2f67f1eacaab9c63"
+                "reference": "6d69af5a04e1a4de7250043cb1322f077a0cdb7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-i18n/zipball/cfdb658121e0d7eb969a498c2f67f1eacaab9c63",
-                "reference": "cfdb658121e0d7eb969a498c2f67f1eacaab9c63",
+                "url": "https://api.github.com/repos/zendframework/zend-i18n/zipball/6d69af5a04e1a4de7250043cb1322f077a0cdb7f",
+                "reference": "6d69af5a04e1a4de7250043cb1322f077a0cdb7f",
                 "shasum": ""
             },
             "require": {
@@ -2113,8 +2121,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.8.x-dev",
-                    "dev-develop": "2.9.x-dev"
+                    "dev-master": "2.9.x-dev",
+                    "dev-develop": "2.10.x-dev"
                 },
                 "zf": {
                     "component": "Zend\\I18n",
@@ -2136,7 +2144,7 @@
                 "i18n",
                 "zf"
             ],
-            "time": "2018-04-25T19:32:43+00:00"
+            "time": "2018-05-16T16:39:13+00:00"
         },
         {
             "name": "zendframework/zend-loader",
@@ -2525,7 +2533,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "factorio-item-browser/api-client": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
