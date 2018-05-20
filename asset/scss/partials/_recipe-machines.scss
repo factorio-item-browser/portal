@@ -1,0 +1,35 @@
+@import '../modules/all';
+
+.machines-list {
+  @include box-list();
+}
+
+.machine-data {
+  @include flex-grid-row();
+  @include flex-align($x: center);
+
+  line-height: 1.3;
+
+  .name, .value {
+    @include gutter(0.25, padding-left padding-right);
+  }
+
+  .name {
+    @include flex-grid-column($columns: 6, $gutters: $margin-large);
+
+    text-align: right;
+  }
+  .value {
+    @include flex-grid-column($columns: 6, $gutters: $margin-large);
+
+    font-weight: bold;
+  }
+
+  &:nth-child(2) {
+    @include box-border-top();
+    @include gutter(0.25, padding-top);
+  }
+  &:last-child {
+    @include gutter(0.25, padding-bottom);
+  }
+}

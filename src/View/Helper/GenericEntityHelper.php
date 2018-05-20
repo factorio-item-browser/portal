@@ -104,6 +104,22 @@ class GenericEntityHelper extends AbstractHelper
     }
 
     /**
+     * Formats and returns the specified energy usage.
+     * @param int $energyUsage
+     * @return string
+     */
+    public function formatEnergyUsage(int $energyUsage): string
+    {
+        if ($energyUsage > 1000000) {
+            return round($energyUsage / 1000000, 2) . 'MW';
+        } elseif ($energyUsage > 1000) {
+            return round($energyUsage / 1000, 2) . 'kW';
+        } else {
+            return $energyUsage . 'W';
+        }
+    }
+
+    /**
      * Renders the specified entity to a box.
      * @param GenericEntity $entity
      * @return string

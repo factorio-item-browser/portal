@@ -61,6 +61,11 @@ return [
     'recipe-details headline expensive' => 'Expensive recipe: %name%',
     'recipe-details headline normal' => 'Recipe: %name%',
     'recipe-details ingredients' => 'Ingredients',
+    'recipe-details machine crafting-speed' => 'Crafting speed:',
+    'recipe-details machine energy-usage' => 'Energy usage:',
+    'recipe-details machine headline' => ['Producible in %count% machine', 'Producible in %count% machines'],
+    'recipe-details machine ingredient-slots' => 'Supported ingredients:',
+    'recipe-details machine module-slots' => 'Supported modules:',
     'recipe-details products' => 'Results',
     'recipe-details time' => 'Time',
 

@@ -23,3 +23,7 @@ foreach ($recipes as $recipe) { ?>
         </div>
     </div>
 <?php }
+
+if (count($this->machines) > 0) {
+    echo $this->render('portal::recipe/partial/machines');
+}
