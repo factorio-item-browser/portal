@@ -8,8 +8,6 @@
 @import '../../module/all';
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
-    line-height: 1.25;
     height: 100%;
     min-width: 320px;
 }
@@ -21,12 +19,18 @@ html, body {
 }
 
 #content-wrapper {
+    @include flex-container();
+
     padding-top: $spacing-default;
     padding-bottom: 6rem;
 
     @include breakpoint(medium) {
         padding-bottom: 5rem;
     }
+}
+
+#content {
+    @include flex-item($grow: 1);
 }
 
 a, a:hover, a:active {

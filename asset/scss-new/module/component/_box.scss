@@ -1,0 +1,46 @@
+/**
+ * File styling the basic box.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../variable/all';
+@import '../helper/all';
+
+/**
+ * Styles the current selector as a generic box.
+ * @param {color} $color The base color to use.
+ * @param {number} $alpha The alpha value of the background.
+ */
+@mixin box($color: $color-box-default, $alpha: 1) {
+    @if ($alpha == 1) {
+        background: color($color, $lightness-box-background);
+    } @else {
+        background: rgba(color($color, $lightness-box-background), $alpha);
+    }
+
+    box-shadow: $shadow-box;
+    color: color($color, $lightness-text-primary);
+    display: block;
+}
+
+/**
+ * Styles the current selector as a label with an icon to the left.
+ * @param {string} $label-class The CSS class representing the label element.
+ * @param {string} $icon-class The CSS class representing the icon element.
+ */
+@mixin label-with-icon($spacing: small, $label-class: '.label', $icon-class: '.icon') {
+    @include flex-container();
+    @include flex-container-align($vertical: center);
+    @include dynamic-spacing(padding, $spacing);
+
+    #{$icon-class} {
+        @include flex-item($shrink: 1);
+    }
+
+    #{$label-class} {
+        @include flex-item($grow: 1);
+        @include dynamic-spacing(padding-left, $spacing)
+    }
+}

@@ -1,0 +1,28 @@
+/**
+ * File defining the style for the loading circle.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../module/all';
+
+.loading-circle {
+    @include flex-container();
+    @include flex-container-align(center, center);
+
+    background: rgba(color($color-box-default, $lightness-box-background), 0.5);
+    pointer-events: none;
+    position: absolute;
+    z-index: $zIndex-loading-circle;
+}
+
+.loading-circle-icon {
+    @include flex-item($shrink: 1);
+    @include font-icon($fa-var-spinner, px-to-rem(30));
+
+    animation: fa-spin 2s infinite linear;
+    color: color($color-box-default, $lightness-text-primary);
+    height: 32px;
+    width: 32px;
+}

@@ -75,9 +75,8 @@ body.index-page .header-search {
     }
 }
 
-.header-search-icon {
+.header-search-icon, .header-sidebar-icon {
     @include flex-item($shrink: 1);
-    @include font-icon($fa-var-search, $size-header-search-text);
 
     color: white;
     cursor: pointer;
@@ -96,13 +95,17 @@ body.index-page .header-search {
     @include breakpoint(large) {
         display: none;
     }
-
-    label {
-        display: none;
-    }
+}
+.header-search-icon {
+    @include font-icon($fa-var-search, $size-header-search-text);
+}
+.header-sidebar-icon {
+    @include font-icon($fa-var-bars, $size-header-search-text);
 }
 
-body.index-page .header-search-icon, body.index-page .header-search-box-close-icon {
+body.index-page .header-search-icon,
+body.index-page .header-search-box-close-icon,
+body.index-page .header-sidebar-icon {
     display: none;
 }
 

@@ -1,23 +1,29 @@
-@import '../../../modules/all';
+/**
+ * File defining the basic style of the sidebar.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
 
-$sidebar-headline-size: rem-calc(24);
+@import '../../../module/all';
 
 #sidebar {
-    // images/inline/layout/concrete.jpg
-    background-color: $color-concrete;
-    flex: 0 0 $sidebar-width;
-    max-width: $sidebar-max-width;
-    padding: $margin-large $margin-default;
-    width: $sidebar-width;
+    @include flex-item($shrink: 1);
 
-    @include breakpoint(medium down) {
+    background-color: $color-concrete;
+    box-sizing: border-box;
+    max-width: $size-sidebar-width;
+    padding: $spacing-large $spacing-default;
+    width: $size-sidebar-width;
+
+    @include breakpoint-until(large) {
         @include transition-default(transform);
 
         bottom: 0;
         box-shadow: $shadow-box-tooltip;
         left: 0;
         max-width: 100%;
-        padding-top: 2rem;
+        padding-top: $spacing-huge;
         position: fixed;
         overflow-y: auto;
         transform: translate(-110%, 0);
@@ -26,39 +32,35 @@ $sidebar-headline-size: rem-calc(24);
     }
 
     h3 {
+        @include section-headline($size-sidebar-headline-text, 0);
         @include section-headline-underline();
 
-        color: $section-headline-color;
-        font-size: $sidebar-headline-size;
-        font-weight: bold;
-        margin-top: $margin-default;
-        position: relative;
-        text-shadow: $shadow-text;
+        margin-top: $spacing-default;
     }
 
     .sidebar-close {
         @include font-icon($fa-var-times);
 
-        color: $section-headline-color;
+        color: $color-section-headline;
         cursor: pointer;
         display: none;
-        font-size: $sidebar-headline-size;
+        font-size: $size-sidebar-headline-text;
         font-weight: bold;
-        padding: 0 $margin-default;
+        padding: 0 $spacing-default;
         position: absolute;
         right: 0;
         text-shadow: $shadow-text;
         top: 0;
         z-index: $zIndex-icon;
 
-        @include breakpoint(medium down) {
+        @include breakpoint-until(large) {
             display: block;
         }
     }
 }
 
-#toggle-sidebar:checked ~ #sidebar {
-    @include breakpoint(medium down) {
+@include breakpoint-until(large) {
+    #toggle-sidebar:checked ~ #sidebar {
         transform: translate(0, 0);
     }
 }
