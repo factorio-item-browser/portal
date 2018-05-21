@@ -11,7 +11,6 @@
     @include flex-item($shrink: 1);
 
     background-color: $color-concrete;
-    box-sizing: border-box;
     max-width: $size-sidebar-width;
     padding: $spacing-large $spacing-default;
     width: $size-sidebar-width;

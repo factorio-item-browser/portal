@@ -26,11 +26,43 @@
 }
 
 /**
+ * Adds a top border to the current selector.
+ * @param {color} $color
+ */
+@mixin box-border-top($color: $color-box-default) {
+    position: relative;
+
+    &:before {
+        background: rgba(color($color, $lightness-box-border), $alpha-box-border);
+        content: '';
+        height: px-to-rem(1);
+        left: 0;
+        position: absolute;
+        width: 100%;
+        top: 0;
+    }
+}
+
+/**
+ * Styles the current selector to be a label in the lower right corner of a box.
+ * @param {color} $color
+ */
+@mixin box-corner-label($color: $color-box-default) {
+    bottom: 0;
+    color: rgba(color($color, $lightness-text-primary), $alpha-box-label);
+    font-size: px-to-rem(12);
+    padding: $spacing-tiny $spacing-small;
+    position: absolute;
+    right: 0;
+    text-transform: uppercase;
+}
+
+/**
  * Styles the current selector as a label with an icon to the left.
  * @param {string} $label-class The CSS class representing the label element.
  * @param {string} $icon-class The CSS class representing the icon element.
  */
-@mixin label-with-icon($spacing: small, $label-class: '.label', $icon-class: '.icon') {
+@mixin label-with-icon($spacing: default, $label-class: '.label', $icon-class: '.icon') {
     @include flex-container();
     @include flex-container-align($vertical: center);
     @include dynamic-spacing(padding, $spacing);
@@ -43,4 +75,19 @@
         @include flex-item($grow: 1);
         @include dynamic-spacing(padding-left, $spacing)
     }
+}
+
+/**
+ * Attaches the current selector as label to the parent element.
+ * @param {color} $color
+ */
+@mixin attached-label($color: $color-box-default) {
+    color: color($color, $lightness-shadowed-label-text);
+    font-size: 1rem;
+    font-weight: bolder;
+    left: px-to-rem(-12);
+    pointer-events: none;
+    position: absolute;
+    text-shadow: color($color, $lightness-shadowed-label-shadow) px-to-rem(1) px-to-rem(1) px-to-rem(2);
+    top: px-to-rem(-10);
 }

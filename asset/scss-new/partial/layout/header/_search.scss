@@ -9,7 +9,7 @@
 
 .header-search {
     @include flex-item($grow: 1);
-    @include dynamic-spacing(margin, default);
+    @include dynamic-spacing(margin, large);
 
     position: relative;
 }
@@ -26,7 +26,6 @@ body.index-page .header-search {
     border: 0;
     border-radius: 0;
     box-shadow: $shadow-box;
-    box-sizing: border-box;
     font-size: $size-header-search-text;
     opacity: $alpha-input-default;
     padding: $spacing-default (2 * $spacing-default + $size-header-search-text);

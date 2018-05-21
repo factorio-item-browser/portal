@@ -20,8 +20,8 @@
         @if (map-has-key($spacings, $size)) {
             $size: map-get($spacings, $size);
         }
-        $spacings-small: append($spacings-small, $size);
-        $spacings-large: append($spacings-large, $size * $dynamic-spacing-factor-large);
+        $spacings-small: append($spacings-small, $size * $dynamic-spacing-factor-small);
+        $spacings-large: append($spacings-large, $size);
     }
 
     @if (length($spacings-small) > 1 or (length($spacings-small) == 1 and nth($spacings-small, 1) != 0)) {

@@ -13,7 +13,7 @@
  * @param {number} $size The size of the text to use.
  * @param {number} $spacing The spacing used as margin.
  */
-@mixin section-headline($size: $size-section-headline, $spacing: default) {
+@mixin section-headline($size: $size-section-headline, $spacing: large) {
     @include dynamic-spacing(margin, $spacing);
 
     color: $color-section-headline;

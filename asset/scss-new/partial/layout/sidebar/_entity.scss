@@ -1,0 +1,62 @@
+/**
+ * File defining the style of the entities in the sidebar.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../../module/all';
+
+.sidebar-entity {
+    @include box($color-box-sidebar, $alpha-box-content);
+    @include label-with-icon($spacing: 0);
+    @include transition-default(background);
+    @include dynamic-spacing(padding, small default);
+
+    margin: $spacing-default 0;
+    position: relative;
+
+    .label {
+        @include dynamic-spacing(padding-left, default);
+
+        font-weight: bold;
+    }
+
+    .actions {
+        color: color($color-box-sidebar, $lightness-text-secondary);
+        cursor: pointer;
+        margin: $spacing-tiny;
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        .pin, .unpin {
+            height: px-to-rem(24);
+            text-align: center;
+            width: px-to-rem(24);
+
+            &:hover {
+                color: color($color-box-sidebar, $lightness-text-primary);
+            }
+        }
+        .pin {
+            @include font-icon($fa-var-thumb-tack);
+        }
+        .unpin {
+            @include font-icon($fa-var-trash);
+        }
+    }
+
+    .type {
+        @include box-corner-label();
+    }
+
+    &:hover {
+        background: color($color-box-sidebar, $lightness-box-background);
+    }
+}
+
+.sidebar-pinned-entity-list .actions .pin,
+.sidebar-unpinned-entity-list .actions .unpin {
+    display: none;
+}
