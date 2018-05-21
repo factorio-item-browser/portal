@@ -1,4 +1,11 @@
-@import '../../modules/all';
+/**
+ * File defining the style for the toggle elements.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../module/all';
 
 .toggle-overlay {
     background: rgba(black, 0.5);

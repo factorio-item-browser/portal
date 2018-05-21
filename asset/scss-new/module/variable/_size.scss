@@ -5,7 +5,16 @@
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-$size-button-text: 1.125rem; // 18px
+$size-text-button: 1.125rem; // 18px
+$size-text-footer: 0.75rem; // 12px
+
+$size-header-logo-width: 15rem; // 240px
+$size-header-logo-original-width: 50rem; // 800px
+$size-header-search-text: 2rem;
+$size-header-mod-teaser-text: 1.75rem; // 28px
+
+$size-sidebar-width-max: 35%;
+$size-sidebar-width: 24rem;
 
 $spacing-default: 0.5rem;
 $spacing-huge: $spacing-default * 4;

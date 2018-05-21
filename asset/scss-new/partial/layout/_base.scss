@@ -1,49 +1,37 @@
-@import '../../modules/all';
+/**
+ * File defining basic layout styles.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../module/all';
 
 html, body {
+    font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
+    line-height: 1.25;
     height: 100%;
-    margin: 0;
     min-width: 320px;
-    padding: 0;
-}
-
-body.hasOverlay {
-    overflow: hidden;
 }
 
 #wrapper {
-    // images/inline/layout/concrete.jpg
     background-color: $color-concrete;
     min-height: 100%;
     position: relative;
 }
 
 #content-wrapper {
-    @include flex-grid-row($gutters: 0);
-
-    padding-top: $margin-default;
+    padding-top: $spacing-default;
     padding-bottom: 6rem;
+
     @include breakpoint(medium) {
         padding-bottom: 5rem;
     }
 }
 
-#content {
-    @include flex-grid-column($columns: expand, $gutters: 0);
-}
-
 a, a:hover, a:active {
     text-decoration: none;
     color: inherit;
-}
-
-h1, h2, h3, h4, h5, h6, ul, p, dl, dd, dt {
-    margin: 0;
-    padding: 0;
-}
-
-ul {
-    list-style: none;
 }
 
 .hidden {

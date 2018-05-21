@@ -1,25 +1,32 @@
-@import '../../../modules/all';
+/**
+ * File defining the main header style.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../../module/all';
 
 header {
-    // images/inline/layout/water.jpg
-
-    @include flex-grid-row($wrap: false);
-    @include flex-align(center, middle);
-    @include gutter(1, padding-top padding-bottom);
+    @include flex-container();
+    @include flex-container-align(center, center);
 
     background-color: $color-water;
-    min-height: rem-calc(80);
+    min-height: 5rem;
     position: relative;
 
     &::after {
-        // images/inline/layout/border/header.png
-        bottom: rem-calc(-12);
+        bottom: px-to-rem(-12);
         content: '';
         display: block;
         pointer-events: none;
         position: absolute;
         left: 0;
         right: 0;
+    }
+
+    @include breakpoint(large) {
+        min-height: 6rem;
     }
 }
 

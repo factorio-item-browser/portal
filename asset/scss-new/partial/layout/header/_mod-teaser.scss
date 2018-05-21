@@ -1,0 +1,39 @@
+/**
+ * File defining the main header style.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../../module/all';
+
+.header-mod-teaser {
+    display: none;
+}
+
+body.index-page .header-mod-teaser {
+    display: block;
+
+    span {
+        color: white;
+        display: inline-block;
+        font-size: $size-header-mod-teaser-text;
+        font-weight: bold;
+        opacity: 0.5;
+        padding: $spacing-default;
+        text-shadow: $shadow-text;
+    }
+
+    a {
+        @include button($color-button-primary);
+        @include font-icon($fa-var-sitemap);
+
+        display: inline-block;
+        font-size: $size-header-mod-teaser-text;
+        padding: $spacing-default $spacing-large;
+
+        &::before {
+            padding-right: $spacing-large;
+        }
+    }
+}

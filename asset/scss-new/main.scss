@@ -9,12 +9,20 @@
 @import 'module/helper/all';
 @import 'module/component/all';
 
-@import 'reset-css/_reset.scss';
+@import 'vendor/reset';
+@import 'vendor/font-awesome';
 
-html {
-    line-height: 1.25;
-    font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
-}
+@import 'partial/common/toggle';
+
+@import 'partial/layout/base';
+@import 'partial/layout/footer';
+@import 'partial/layout/header/header';
+@import 'partial/layout/header/logo';
+@import 'partial/layout/header/mod-teaser';
+@import 'partial/layout/header/search';
+
+
+
 
 .fancy-button {
     @include button($color-button-primary);

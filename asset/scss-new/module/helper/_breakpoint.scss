@@ -16,8 +16,28 @@
     @if (map-has-key($breakpoints, $name)) {
         $width: map-get($breakpoints, $name);
     }
+
     @if ($width > 0) {
         @media screen and (min-width: $width) {
+            @content
+        }
+    } @else {
+        @content
+    }
+}
+
+/**
+ * Adds a breakpoint with the content until the specified name.
+ * @param $name The name of the breakpoint until which to add the style (not including the breakpoint itself).
+ */
+@mixin breakpoint-until($name) {
+    $width: 0;
+    @if (map-has-key($breakpoints, $name)) {
+        $width: map-get($breakpoints, $name);
+    }
+
+    @if ($width > 0) {
+        @media screen and (max-width: ($width - 1px)) {
             @content
         }
     } @else {
