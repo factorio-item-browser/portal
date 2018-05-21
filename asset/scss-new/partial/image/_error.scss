@@ -1,4 +1,11 @@
-@import '../../modules/all';
+/**
+ * File containing all error related inline images.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../module/all';
 
 .error-icon-404, .error-icon-503, .error-icon-js {
     background: url(inline-image('error/machine.png')) no-repeat;

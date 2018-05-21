@@ -1,0 +1,22 @@
+/**
+ * Stylesheet defining the main style.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import 'module/variable/all';
+@import 'module/helper/all';
+@import 'module/component/all';
+
+@import 'reset-css/_reset.scss';
+
+html {
+    line-height: 1.25;
+    font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
+}
+
+.fancy-button {
+    @include button($color-button-primary);
+    @include dynamic-spacing(margin, default);
+}

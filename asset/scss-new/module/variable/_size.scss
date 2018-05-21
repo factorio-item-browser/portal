@@ -1,0 +1,24 @@
+/**
+ * File containing variables to sizes of elements.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+$size-button-text: 1.125rem; // 18px
+
+$spacing-default: 0.5rem;
+$spacing-huge: $spacing-default * 4;
+$spacing-large: $spacing-default * 2;
+$spacing-small: $spacing-default / 2;
+$spacing-tiny: $spacing-default / 4;
+
+$spacings: (
+    huge: $spacing-huge,
+    large: $spacing-large,
+    default: $spacing-default,
+    small: $spacing-small,
+    tiny: $spacing-tiny
+);
+
+$dynamic-spacing-factor-large: 2;

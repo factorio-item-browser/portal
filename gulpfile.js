@@ -29,7 +29,7 @@ let outputDirectories = {
 
 // Builds the CSS files from the SCSS source.
 gulp.task('css-build', () => {
-    gulp.src('asset/scss/*.scss')
+    gulp.src('asset/scss-new/*.scss')
         .pipe(modules.sass({
             outputStyle: 'compressed',
             includePaths: ['node_modules']
