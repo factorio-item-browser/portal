@@ -1,9 +1,16 @@
-@import '../modules/all';
+/**
+ * File defining the style of the error boxes.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../module/all';
 
 .error-box {
     @include box($color-box-error);
-    @include label-with-icon('.error-message', '.error-icon-box');
-    @include gutter(1, margin);
+    @include label-with-icon($label-class: '.error-message', $icon-class: '.error-icon-box');
+    @include dynamic-spacing(margin, large);
 }
 
 .error-icon {
@@ -20,22 +27,26 @@
         top: 40px;
         width: 48px;
     }
+
+    @include breakpoint-until(medium) {
+        display: none;
+    }
 }
 
 .error-message {
-    color: set-lightness($color-box-error, $lightness-text-primary);
+    color: color($color-box-error, $lightness-text-primary);
     font-weight: bold;
 
     h2 {
-        @include grid-column-margin();
-        font-size: rem-calc(28);
+        font-size: px-to-rem(28);
+        margin-bottom: $spacing-default;
         position: relative;
 
         &::after {
-            background: set-lightness($color-box-error, $lightness-text-primary);
+            background: color($color-box-error, $lightness-text-primary);
             content: '';
             display: block;
-            height: rem-calc(2);
+            height: px-to-rem(2);
             left: 0;
             position: absolute;
             right: 0;
@@ -46,37 +57,37 @@
 .simple-error {
     @include box();
 
-    color: set-lightness($color-box-default, $lightness-text-secondary);
-    font-size: rem-calc(12);
-    padding: $margin-default;
+    color: color($color-box-default, $lightness-text-secondary);
+    font-size: px-to-rem(12);
+    padding: $spacing-default;
 
     h3 {
-        color: set-lightness($color-box-default, $lightness-text-primary);
-        font-size: rem-calc(18);
+        color: color($color-box-default, $lightness-text-primary);
+        font-size: px-to-rem(18);
         font-weight: bold;
     }
 }
 
 .debug-info {
     @include box();
-    @include gutter(1, margin);
+    @include dynamic-spacing(margin, large);
 
     overflow: auto;
-    padding: $margin-default;
+    padding: $spacing-default;
 
     dl {
         dt {
             display: block;
             font-weight: bold;
             float: left;
-            padding: 0 $margin-default;
+            padding: 0 $spacing-default;
             text-align: right;
             width: 10rem;
         }
         dd {
             display: block;
             margin-left: 10rem;
-            padding: 0 $margin-default;
+            padding: 0 $spacing-default;
         }
     }
 }

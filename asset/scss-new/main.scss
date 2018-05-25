@@ -27,9 +27,4 @@
 @import 'partial/layout/sidebar/mod-link';
 @import 'partial/layout/sidebar/sidebar';
 
-
-.headline-with-icon {
-    @include box();
-    @include label-with-icon();
-    @include dynamic-spacing(margin, large);
-}
+@import 'partial/error';
