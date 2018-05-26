@@ -20,11 +20,9 @@ echo $this->render('portal::mod/partial/upload');
 
     <form class="mod-list-form" action="<?php echo $this->escapeHtmlAttr($this->url(RouteNames::MOD_LIST_SAVE)); ?>" method="post">
         <ul class="mod-list">
-            <?php foreach ($mods as $mod) { ?>
-                <li><?php
-                    echo $this->partial('portal::mod/partial/mod', ['mod' => $mod]);
-                ?></li>
-            <?php } ?>
+            <?php foreach ($mods as $mod) {
+                echo $this->partial('portal::mod/partial/mod', ['mod' => $mod]);
+             } ?>
         </ul>
 
         <div class="button-save-mods hidden">

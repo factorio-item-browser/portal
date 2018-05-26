@@ -1,35 +1,42 @@
-@import '../../modules/all';
+/**
+ * File defining the style of the mod-list upload form.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../../module/all';
 
 $filter-font-size: 1.5rem;
 
 .mod-list-filter-box {
-    @include gutter(0.5, margin);
-    @include grid-column-margin();
+    @include dynamic-spacing(margin, large large default large);
 
     position: relative;
 }
 
 .mod-list-filter {
     @include transition-default(opacity);
+
     border: none;
     border-radius: 0;
     box-shadow: $shadow-box;
     box-sizing: border-box;
     font-size: $filter-font-size;
-    opacity: 0.5;
-    padding: $margin-default (2 * $margin-default + $filter-font-size);
+    opacity: $alpha-input-default;
+    padding: $spacing-default (2 * $spacing-default + $filter-font-size);
     width: 100%;
 
     &:hover, &:active, &:focus {
-        opacity: 0.75;
+        opacity: $alpha-input-focused;
     }
 }
 
 .mod-list-filter-icon {
     @include font-icon($fa-var-filter, $filter-font-size);
 
-    opacity: 0.5;
-    padding: rem-calc(10);
+    opacity: $alpha-input-default;
+    padding: $spacing-default;
     pointer-events: none;
     position: absolute;
     z-index: $zIndex-icon;
@@ -39,8 +46,8 @@ $filter-font-size: 1.5rem;
     @include font-icon($fa-var-times, $filter-font-size);
 
     cursor: pointer;
-    opacity: 0.5;
-    padding: rem-calc(10);
+    opacity: $alpha-input-default;
+    padding: $spacing-default;
     position: absolute;
     right: 0;
     top: 0;

@@ -1,8 +1,15 @@
-@import '../../modules/all';
+/**
+ * File defining the style of the mod-list upload form.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../../module/all';
 
 .mod-upload-form {
-    @include button-box($color-button-primary);
-    @include gutter(0.5, margin);
+    @include button($color-button-primary);
+    @include dynamic-spacing(margin, large);
 
     font-weight: normal;
     padding: 0;
@@ -10,12 +17,12 @@
     label {
         cursor: pointer;
         display: none;
-        font-size: rem-calc(20);
-        padding: $margin-large;
+        font-size: px-to-rem(20);
+        padding: $spacing-large;
         text-align: center;
 
         @include breakpoint(large) {
-            font-size: rem-calc(28);
+            font-size: px-to-rem(28);
         }
     }
 
@@ -24,23 +31,23 @@
     }
 
     label.simple-upload, label.advanced-upload {
-        @include font-icon($fa-var-upload, rem-calc(28));
+        @include font-icon($fa-var-upload, px-to-rem(28));
         &::before {
-            padding: 0 rem-calc(4);
+            padding: 0 $spacing-tiny;
         }
     }
 
     label.uploading {
-        @include font-icon($fa-var-spinner, rem-calc(28));
+        @include font-icon($fa-var-spinner, px-to-rem(28));
         &::before {
             animation: fa-spin 2s infinite linear;
-            padding: 0 rem-calc(4);
+            padding: 0 $spacing-tiny;
         }
     }
     label.dragover {
-        @include font-icon($fa-var-arrow-down, rem-calc(28));
+        @include font-icon($fa-var-arrow-down, px-to-rem(28));
         &::before {
-            padding: 0 rem-calc(4);
+            padding: 0 $spacing-tiny;
         }
     }
 
@@ -61,7 +68,7 @@
         }
     }
     &.is-dragover {
-        background: set-lightness($color-button-primary, $lightness-button-background-hover);
+        background: color($color-button-primary, $lightness-button-background-hover);
 
         label.dragover {
             display: block;
