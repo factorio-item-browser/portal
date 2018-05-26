@@ -24,7 +24,7 @@
         color: color($color-message-success, $lightness-text-primary);
 
         .icon {
-            @include font-icon($fa-var-check, px-to-rem(32));
+            @include font-icon($fa-var-check, $icon-size-default);
         }
     }
     &.warning {
@@ -32,7 +32,7 @@
         color: color($color-message-warning, $lightness-text-primary);
 
         .icon {
-            @include font-icon($fa-var-exclamation-triangle, px-to-rem(32));
+            @include font-icon($fa-var-exclamation-triangle, $icon-size-default);
         }
     }
     &.error {
@@ -40,7 +40,7 @@
         color: color($color-message-error, $lightness-text-primary);
 
         .icon {
-            @include font-icon($fa-var-times, px-to-rem(32));
+            @include font-icon($fa-var-times, $icon-size-default);
         }
     }
 }

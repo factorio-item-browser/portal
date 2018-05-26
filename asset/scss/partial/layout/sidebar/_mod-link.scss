@@ -18,33 +18,13 @@
         @include dynamic-spacing(padding-left, default);
     }
     .mod-link-icon {
-        @include font-icon($fa-var-sitemap, px-to-rem(24));
+        @include font-icon($fa-var-sitemap, $text-size-headline-small);
 
         &::before {
-            height: px-to-rem(32);
-            line-height: px-to-rem(32);
+            height: $icon-size-default;
+            line-height: $icon-size-default;
             text-align: center;
-            width: px-to-rem(32);
+            width: $icon-size-default;
         }
     }
 }
-
-//.sidebar-mod-link {
-//    @include label-with-icon($icon-class: '.mod-link-icon');
-//    @include transition-default(background);
-//
-//    padding: $margin-small $margin-default;
-//    background: set-lightness($color-button-primary, $lightness-button-background);
-//    box-shadow: $shadow-box;
-//    color: set-lightness($color-button-primary, $lightness-button-text);
-//
-//    &:hover {
-//        background: set-lightness($color-button-primary, $lightness-button-background-hover);
-//        color: set-lightness($color-button-primary, $lightness-button-text);
-//    }
-//
-//    .label {
-//        font-weight: bold;
-//    }
-
-//}

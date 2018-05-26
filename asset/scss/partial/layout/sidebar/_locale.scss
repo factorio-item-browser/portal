@@ -30,13 +30,13 @@
         font-weight: bold;
     }
     .locale-icon {
-        @include font-icon($fa-var-globe, px-to-rem(24));
+        @include font-icon($fa-var-globe, $text-size-headline-small);
 
         &::before {
-            height: px-to-rem(32);
-            line-height: px-to-rem(32);
+            height: $icon-size-default;
+            line-height: $icon-size-default;
             text-align: center;
-            width: px-to-rem(32);
+            width: $icon-size-default;
         }
     }
 }

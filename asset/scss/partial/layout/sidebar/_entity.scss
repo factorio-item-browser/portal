@@ -31,9 +31,9 @@
         top: 0;
 
         .pin, .unpin {
-            height: px-to-rem(24);
+            height: $icon-size-small;
             text-align: center;
-            width: px-to-rem(24);
+            width: $icon-size-small;
 
             &:hover {
                 color: color($color-box-sidebar, $lightness-text-primary);

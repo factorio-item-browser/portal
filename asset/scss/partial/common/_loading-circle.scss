@@ -23,6 +23,6 @@
 
     animation: fa-spin 2s infinite linear;
     color: color($color-box-default, $lightness-text-primary);
-    height: 32px;
-    width: 32px;
+    height: $icon-size-default;
+    width: $icon-size-default;
 }

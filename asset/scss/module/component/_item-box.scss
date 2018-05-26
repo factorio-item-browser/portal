@@ -45,20 +45,20 @@
         }
 
         .separator {
-            @include font-icon($fa-var-chevron-right, px-to-rem(32));
+            @include font-icon($fa-var-chevron-right, $icon-size-default);
 
             color: color($color-box-default, $lightness-text-primary);
-            height: px-to-rem(32);
+            height: $icon-size-default;
             position: relative;
             text-align: center;
-            width: px-to-rem(32);
+            width: $icon-size-default;
 
             .time {
                 @include attached-label($color-box-default);
 
                 bottom: px-to-rem(-5);
-                left: px-to-rem(-16);
-                right: px-to-rem(-16);
+                left: ($icon-size-default / -2);
+                right: ($icon-size-default / -2);
 
                 @include breakpoint(large) {
                     bottom: px-to-rem(-10);

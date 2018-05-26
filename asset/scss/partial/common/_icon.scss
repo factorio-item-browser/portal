@@ -8,7 +8,7 @@
 @import '../../module/all';
 
 $icon-border-width: px-to-rem(1);
-$icon-size: px-to-rem(32);
+$icon-size: $icon-size-default;
 $icon-text-color: white;
 
 .icon {

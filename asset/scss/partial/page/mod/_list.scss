@@ -8,8 +8,6 @@
 @import '../../../module/all';
 
 
-$mod-checkbox-size: px-to-rem(32);
-
 .mod-list {
     @include box-list('.mod');
 }
@@ -22,18 +20,18 @@ $mod-checkbox-size: px-to-rem(32);
     position: relative;
 
     .check-icon {
-        @include font-icon($fa-var-square-o, $mod-checkbox-size);
+        @include font-icon($fa-var-square-o, $icon-size-default);
         @include dynamic-spacing(right top, default);
 
         position: absolute;
 
         &::before {
-            width: $mod-checkbox-size;
+            width: $icon-size-default;
         }
     }
 
     .head {
-        padding-right: calc(#{$mod-checkbox-size} + #{$spacing-tiny});
+        padding-right: calc(#{$icon-size-default} + #{$spacing-tiny});
     }
 
     label {

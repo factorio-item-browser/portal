@@ -5,6 +5,9 @@
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
+$icon-size-default: 2rem; // 32px
+$icon-size-small: 1.5rem; // 24px
+
 $size-header-logo-width: 15rem; // 240px
 $size-header-logo-original-width: 50rem; // 800px
 
@@ -13,6 +16,10 @@ $size-sidebar-width: 24rem;
 
 $size-section-headline-underline: 0.125rem; // 2px
 
+$tooltip-content-width: 24rem;
+$tooltip-chevron-size: 2rem;
+
+// Spacings
 $spacing-default: 0.5rem;
 $spacing-huge: $spacing-default * 4;
 $spacing-large: $spacing-default * 2;
@@ -28,9 +35,6 @@ $spacings: (
 );
 
 $dynamic-spacing-factor-small: 0.5;
-
-$tooltip-content-width: 24rem;
-$tooltip-chevron-size: 2rem;
 
 // Text sizes
 $text-size-huge: 2rem; // 32px
