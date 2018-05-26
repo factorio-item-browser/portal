@@ -32,7 +32,7 @@
 
     .recipe {
         @include box-border-top($color);
-        @include flex-container();
+        @include flex-container($wrap: wrap);
         @include flex-container-align($horizontal: center, $vertical: center);
 
         .icon, .separator {
