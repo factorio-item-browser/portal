@@ -42,13 +42,13 @@ $mod-checkbox-size: px-to-rem(32);
 
     p {
         color: color($color-box-mod-disabled, $lightness-text-secondary);
-        font-size: px-to-rem(12);
+        font-size: $text-size-small;
     }
 
     dl {
         @include flex-container($wrap: wrap);
         @include dynamic-spacing(margin-top, default);
-        font-size: px-to-rem(12);
+        font-size: $text-size-small;
 
         dt {
             @include flex-item($shrink: 0, $basis: 25%);

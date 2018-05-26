@@ -50,7 +50,7 @@
 @mixin box-corner-label($color: $color-box-default) {
     bottom: 0;
     color: rgba(color($color, $lightness-text-primary), $alpha-box-label);
-    font-size: px-to-rem(12);
+    font-size: $text-size-small;
     padding: $spacing-tiny $spacing-small;
     position: absolute;
     right: 0;
@@ -83,7 +83,7 @@
  */
 @mixin attached-label($color: $color-box-default) {
     color: color($color, $lightness-shadowed-label-text);
-    font-size: 1rem;
+    font-size: $text-size-label;
     font-weight: bolder;
     pointer-events: none;
     position: absolute;

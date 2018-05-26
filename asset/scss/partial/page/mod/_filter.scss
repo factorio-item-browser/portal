@@ -7,8 +7,6 @@
 
 @import '../../../module/all';
 
-$filter-font-size: 1.5rem;
-
 .mod-list-filter-box {
     @include dynamic-spacing(margin, large large default large);
 
@@ -22,9 +20,9 @@ $filter-font-size: 1.5rem;
     border-radius: 0;
     box-shadow: $shadow-box;
     box-sizing: border-box;
-    font-size: $filter-font-size;
+    font-size: $text-size-filter-input;
     opacity: $alpha-input-default;
-    padding: $spacing-default (2 * $spacing-default + $filter-font-size);
+    padding: $spacing-default (2 * $spacing-default + $text-size-filter-input);
     width: 100%;
 
     &:hover, &:active, &:focus {
@@ -33,7 +31,7 @@ $filter-font-size: 1.5rem;
 }
 
 .mod-list-filter-icon {
-    @include font-icon($fa-var-filter, $filter-font-size);
+    @include font-icon($fa-var-filter, $text-size-filter-input);
 
     opacity: $alpha-input-default;
     padding: $spacing-default;
@@ -43,7 +41,7 @@ $filter-font-size: 1.5rem;
 }
 
 .mod-list-filter-reset-icon {
-    @include font-icon($fa-var-times, $filter-font-size);
+    @include font-icon($fa-var-times, $text-size-filter-input);
 
     cursor: pointer;
     opacity: $alpha-input-default;

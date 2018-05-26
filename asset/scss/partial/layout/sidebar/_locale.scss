@@ -68,5 +68,5 @@ ul.sidebar-locale-list {
     @include dynamic-spacing(padding, small default);
 
     background: color($color-box-default, $lightness-box-background);
-    font-size: px-to-rem(14);
+    font-size: $text-size-small;
 }

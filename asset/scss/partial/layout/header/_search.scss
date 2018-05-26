@@ -26,9 +26,9 @@ body.index-page .header-search {
     border: 0;
     border-radius: 0;
     box-shadow: $shadow-box;
-    font-size: $size-header-search-text;
+    font-size: $text-size-header-search;
     opacity: $alpha-input-default;
-    padding: $spacing-default (2 * $spacing-default + $size-header-search-text);
+    padding: $spacing-default (2 * $spacing-default + $text-size-header-search);
     width: 100%;
 
     &:hover, &:active, &:focus {
@@ -37,7 +37,7 @@ body.index-page .header-search {
 }
 
 .header-search-box-icon {
-    @include font-icon($fa-var-search, $size-header-search-text);
+    @include font-icon($fa-var-search, $text-size-header-search);
 
     opacity: $alpha-input-default;
     padding: ($spacing-default + $spacing-tiny);
@@ -46,7 +46,7 @@ body.index-page .header-search {
     z-index: $zIndex-icon;
 
     &.loading {
-        @include font-icon($fa-var-spinner, $size-header-search-text);
+        @include font-icon($fa-var-spinner, $text-size-header-search);
 
         animation: fa-spin 2s infinite linear;
     }
@@ -54,7 +54,7 @@ body.index-page .header-search {
 
 
 .header-search-box-close-icon {
-    @include font-icon($fa-var-times, $size-header-search-text);
+    @include font-icon($fa-var-times, $text-size-header-search);
     @include transition-default(opacity);
 
     cursor: pointer;
@@ -96,10 +96,10 @@ body.index-page .header-search {
     }
 }
 .header-search-icon {
-    @include font-icon($fa-var-search, $size-header-search-text);
+    @include font-icon($fa-var-search, $text-size-header-search);
 }
 .header-sidebar-icon {
-    @include font-icon($fa-var-bars, $size-header-search-text);
+    @include font-icon($fa-var-bars, $text-size-header-search);
 }
 
 body.index-page .header-search-icon,

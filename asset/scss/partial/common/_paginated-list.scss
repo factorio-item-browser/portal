@@ -15,25 +15,28 @@
     width: 100%;
 
     .error-wording {
-    @include font-icon($fa-var-exclamation-triangle, px-to-rem(18));
+        @include font-icon($fa-var-exclamation-triangle, $text-size-button);
+
         &::before {
             padding: 0 $spacing-small;
         }
     }
+
     .loading-wording {
-    @include font-icon($fa-var-spinner, px-to-rem(18));
-    display: none;
-    &::before {
-      animation: fa-spin 2s infinite linear;
-      padding: 0 $spacing-small;
+        @include font-icon($fa-var-spinner, $text-size-button);
+        display: none;
+        &::before {
+            animation: fa-spin 2s infinite linear;
+            padding: 0 $spacing-small;
+        }
     }
-    }
+
     &.loading {
-    .default-wording, .error-wording {
-      display: none;
-    }
-    .loading-wording {
-      display: inline-block;
-    }
+        .default-wording, .error-wording {
+            display: none;
+        }
+        .loading-wording {
+            display: inline-block;
+        }
     }
 }

@@ -31,7 +31,7 @@
     }
 
     h3 {
-        @include section-headline($size-sidebar-headline-text, 0);
+        @include section-headline($text-size-headline-small, 0);
         @include section-headline-underline();
 
         margin-top: $spacing-default;
@@ -43,7 +43,7 @@
         color: $color-section-headline;
         cursor: pointer;
         display: none;
-        font-size: $size-sidebar-headline-text;
+        font-size: $text-size-headline-small;
         font-weight: bold;
         padding: 0 $spacing-default;
         position: absolute;

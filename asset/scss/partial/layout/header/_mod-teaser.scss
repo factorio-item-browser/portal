@@ -17,7 +17,7 @@ body.index-page .header-mod-teaser {
     span {
         color: white;
         display: inline-block;
-        font-size: $size-header-mod-teaser-text;
+        font-size: $text-size-large;
         font-weight: bold;
         opacity: 0.5;
         padding: $spacing-default;
@@ -29,7 +29,7 @@ body.index-page .header-mod-teaser {
         @include font-icon($fa-var-sitemap);
 
         display: inline-block;
-        font-size: $size-header-mod-teaser-text;
+        font-size: $text-size-large;
         padding: $spacing-default $spacing-large;
 
         &::before {

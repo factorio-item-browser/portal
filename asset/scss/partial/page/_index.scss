@@ -30,7 +30,7 @@
 }
 
 .random-item-motivator {
-    font-size: px-to-rem(16);
+    font-size: $text-size-default;
     &::before {
         content: ' — '; // &mdash;
     }

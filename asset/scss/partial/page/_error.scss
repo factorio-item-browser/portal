@@ -38,7 +38,7 @@
     font-weight: bold;
 
     h2 {
-        font-size: px-to-rem(28);
+        font-size: $text-size-headline;
         margin-bottom: $spacing-default;
         position: relative;
 
@@ -58,12 +58,12 @@
     @include box();
 
     color: color($color-box-default, $lightness-text-secondary);
-    font-size: px-to-rem(12);
+    font-size: $text-size-small;
     padding: $spacing-default;
 
     h3 {
         color: color($color-box-default, $lightness-text-primary);
-        font-size: px-to-rem(18);
+        font-size: $text-size-default;
         font-weight: bold;
     }
 }

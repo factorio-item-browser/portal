@@ -21,11 +21,11 @@
 
         background: color($color, $lightness-box-background);
         color: color($color, $lightness-text-secondary);
-        font-size: px-to-rem(12);
+        font-size: $text-size-small;
 
         h3 {
             color: color($color, $lightness-text-primary);
-            font-size: px-to-rem(18);
+            font-size: $text-size-default;
             font-weight: bold;
         }
     }
@@ -90,7 +90,7 @@
         @include box-border-top();
 
         display: block;
-        font-size: px-to-rem(12);
+        font-size: $text-size-small;
         font-weight: bold;
         padding: $spacing-tiny;
         text-align: center;

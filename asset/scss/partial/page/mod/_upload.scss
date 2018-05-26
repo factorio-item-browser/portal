@@ -15,14 +15,15 @@
     padding: 0;
 
     label {
+        @include dynamic-spacing(padding, large);
+
         cursor: pointer;
         display: none;
-        font-size: px-to-rem(20);
-        padding: $spacing-large;
+        font-size: $text-size-headline-small;
         text-align: center;
 
         @include breakpoint(large) {
-            font-size: px-to-rem(28);
+            font-size: $text-size-large;
         }
     }
 
@@ -31,21 +32,21 @@
     }
 
     label.simple-upload, label.advanced-upload {
-        @include font-icon($fa-var-upload, px-to-rem(28));
+        @include font-icon($fa-var-upload);
         &::before {
             padding: 0 $spacing-tiny;
         }
     }
 
     label.uploading {
-        @include font-icon($fa-var-spinner, px-to-rem(28));
+        @include font-icon($fa-var-spinner);
         &::before {
             animation: fa-spin 2s infinite linear;
             padding: 0 $spacing-tiny;
         }
     }
     label.dragover {
-        @include font-icon($fa-var-arrow-down, px-to-rem(28));
+        @include font-icon($fa-var-arrow-down);
         &::before {
             padding: 0 $spacing-tiny;
         }
