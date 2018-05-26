@@ -29,7 +29,7 @@ let outputDirectories = {
 
 // Builds the CSS files from the SCSS source.
 gulp.task('css-build', () => {
-    gulp.src('asset/scss-new/*.scss')
+    gulp.src('asset/scss/*.scss')
         .pipe(modules.sass({
             outputStyle: 'compressed',
             includePaths: ['node_modules']
@@ -126,7 +126,7 @@ gulp.task('js-clean', () => {
 
 // Watches you.
 gulp.task('watch', () => {
-    gulp.watch('asset/scss-new/**', ['css-build']);
+    gulp.watch('asset/scss/**', ['css-build']);
     gulp.watch('asset/image/**', ['image-copy']);
     gulp.watch('asset/js/**/*.js', ['js-build']); // We are not building the fallback on watch. Do it manually.
 });
