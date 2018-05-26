@@ -85,25 +85,21 @@
     color: color($color, $lightness-shadowed-label-text);
     font-size: 1rem;
     font-weight: bolder;
-    left: px-to-rem(-12);
     pointer-events: none;
     position: absolute;
     text-shadow: color($color, $lightness-shadowed-label-shadow) px-to-rem(1) px-to-rem(1) px-to-rem(2);
-    top: px-to-rem(-10);
 }
 
 /**
  * Formats the current selector as a list of boxes.
  * @param {string} $child-selector The selector for the actual boxes.
- * @param {color} $color The color to use for the boxes.
  */
-@mixin box-list($child-selector: 'li', $color: $color-box-default) {
+@mixin box-list($child-selector: 'li') {
     @include dynamic-spacing(padding, 0 default);
     @include flex-container($wrap: wrap);
     @include flex-container-align($vertical: flex-start);
 
     & > #{$child-selector} {
-        @include box($color);
         @include dynamic-spacing(margin, default);
 
         @include flex-item($grow: 0, $shrink: 0, $basis: calc(100% - 2 * #{$spacing-small}));

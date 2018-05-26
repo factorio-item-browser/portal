@@ -15,6 +15,7 @@ $mod-checkbox-size: px-to-rem(32);
 }
 
 .mod {
+    @include box();
     @include dynamic-spacing(padding, default);
 
     cursor: pointer;

@@ -14,9 +14,9 @@ if (count($recipes) > 0) { ?>
         )); ?></h2>
 
         <ul class="item-products-list">
-            <?php foreach ($recipes as $recipe) { ?>
-                <li><?php echo $genericEntityHelper->renderBox($recipe); ?></li>
-            <?php }
+            <?php foreach ($recipes as $recipe) {
+                echo $genericEntityHelper->renderBox($recipe, 'product-recipe', 'li');
+            }
             echo $this->render('portal::item/partial/moreRecipes', [
                 'currentPage' => 1,
                 'item' => $this->item,

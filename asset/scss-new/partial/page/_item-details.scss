@@ -1,0 +1,28 @@
+/**
+ * File defining the style of the item details page.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../module/all';
+
+.item-details-head {
+    @include section-headline-with-icon();
+}
+
+.item-ingredients-list {
+    @include box-list('.ingredient-recipe');
+
+    .ingredient-recipe {
+        @include item-box();
+    }
+}
+
+.item-products-list {
+    @include box-list('.product-recipe');
+
+    .product-recipe {
+        @include item-box();
+    }
+}
