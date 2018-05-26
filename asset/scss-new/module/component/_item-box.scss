@@ -85,4 +85,14 @@
             }
         }
     }
+
+    .more-recipes {
+        @include box-border-top();
+
+        display: block;
+        font-size: px-to-rem(12);
+        font-weight: bold;
+        padding: $spacing-tiny;
+        text-align: center;
+    }
 }

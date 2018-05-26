@@ -1,5 +1,0 @@
-@import '../modules/all';
-
-.search-result-list {
-    @include box-list('li:not(.paginated-list-button)');
-}
