@@ -13,8 +13,8 @@
  * Styles the current selector to be an item box including recipes to craft it.
  * @param {color} $color
  */
-@mixin item-box($color: $color-box-default) {
-    @include box($color, $alpha-box-content);
+@mixin item-box($color: $color-box-default, $alpha-content: $alpha-box-content) {
+    @include box($color, $alpha-content);
 
     .head {
         @include label-with-icon($spacing: default);
