@@ -106,8 +106,11 @@
         @include box($color);
         @include dynamic-spacing(margin, default);
 
-        @include flex-item($grow: 0, $shrink: 0, $basis: calc(100% - 2 * #{$spacing-default}));
+        @include flex-item($grow: 0, $shrink: 0, $basis: calc(100% - 2 * #{$spacing-small}));
         @include breakpoint(medium) {
+            @include flex-item($grow: 0, $shrink: 0, $basis: calc(50% - 2 * #{$spacing-small}));
+        }
+        @include breakpoint(large) {
             @include flex-item($grow: 0, $shrink: 0, $basis: calc(50% - 2 * #{$spacing-default}));
         }
         @include breakpoint(huge) {

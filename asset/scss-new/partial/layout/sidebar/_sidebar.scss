@@ -8,7 +8,7 @@
 @import '../../../module/all';
 
 #sidebar {
-    @include flex-item($shrink: 1);
+    @include flex-item($shrink: 0);
 
     background-color: $color-concrete;
     max-width: $size-sidebar-width;

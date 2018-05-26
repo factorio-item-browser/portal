@@ -18,10 +18,7 @@
     }
 
     @include breakpoint(large) {
-        @include flex-item($shrink: 1);
-
-        max-width: $size-sidebar-width-max;
-        width: $size-sidebar-width;
+        @include flex-item($shrink: 0, $basis: $size-sidebar-width);
     }
 }
 
