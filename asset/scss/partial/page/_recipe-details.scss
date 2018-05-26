@@ -22,7 +22,7 @@
         @include flex-item($shrink: 0, $basis: 100%);
 
         @include breakpoint(medium) {
-            @include flex-item($grow: 1, $shrink: 0);
+            @include flex-item($grow: 1, $shrink: 0, $basis: 0);
         }
 
         h3 {
@@ -58,14 +58,15 @@
         .amount {
             @include flex-item($grow: 0, $shrink: 0, $basis: 4rem);
 
+            padding-right: $spacing-default;
             text-align: right;
         }
         .icon {
-            @include flex-item($shrink: 1);
-            margin: 0 $spacing-default;
+            @include flex-item($shrink: 0);
         }
         .name {
-            @include flex-item($grow: 1, $shrink: 0);
+            @include flex-item($grow: 1, $basis: 0);
+            padding-left: $spacing-default;
         }
     }
 }

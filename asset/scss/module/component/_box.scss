@@ -68,7 +68,7 @@
     @include dynamic-spacing(padding, $spacing);
 
     #{$icon-class} {
-        @include flex-item($shrink: 1);
+        @include flex-item($shrink: 0);
     }
 
     #{$label-class} {

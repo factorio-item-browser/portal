@@ -50,11 +50,15 @@
 
         dt {
             @include flex-item($shrink: 0, $basis: 25%);
+
+            padding: 0 $spacing-tiny;
             text-align: right;
         }
         dd {
             @include flex-item($shrink: 0, $basis: 75%);
+
             font-weight: bold;
+            padding: 0 $spacing-tiny;
         }
     }
 }

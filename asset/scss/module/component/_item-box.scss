@@ -52,6 +52,7 @@
             position: relative;
             text-align: center;
             width: $icon-size-default;
+            z-index: $zIndex-icon;
 
             .time {
                 @include attached-label($color-box-default);
