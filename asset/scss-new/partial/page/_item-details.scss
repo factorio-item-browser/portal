@@ -11,18 +11,10 @@
     @include section-headline-with-icon();
 }
 
-.item-ingredients-list {
-    @include box-list('.ingredient-recipe');
+.item-ingredients-list, .item-products-list {
+    @include box-list('.item-recipe');
 
-    .ingredient-recipe {
-        @include item-box();
-    }
-}
-
-.item-products-list {
-    @include box-list('.product-recipe');
-
-    .product-recipe {
+    .item-recipe {
         @include item-box();
     }
 }

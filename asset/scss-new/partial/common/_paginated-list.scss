@@ -1,0 +1,39 @@
+/**
+ * File defining the style for the button of paginated lists.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../module/all';
+
+.paginated-list-button {
+    @include button($color-button-primary);
+    @include dynamic-spacing(margin, default);
+
+    max-width: 100%;
+    width: 100%;
+
+    .error-wording {
+    @include font-icon($fa-var-exclamation-triangle, px-to-rem(18));
+        &::before {
+            padding: 0 $spacing-small;
+        }
+    }
+    .loading-wording {
+    @include font-icon($fa-var-spinner, px-to-rem(18));
+    display: none;
+    &::before {
+      animation: fa-spin 2s infinite linear;
+      padding: 0 $spacing-small;
+    }
+    }
+    &.loading {
+    .default-wording, .error-wording {
+      display: none;
+    }
+    .loading-wording {
+      display: inline-block;
+    }
+    }
+}
