@@ -1,0 +1,57 @@
+/**
+ * File defining the style of the mod-list upload form.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../../module/all';
+
+.mod-list-filter-box {
+    @include dynamic-spacing(margin, large large default large);
+
+    position: relative;
+}
+
+.mod-list-filter {
+    @include transition-default(opacity);
+
+    border: none;
+    border-radius: 0;
+    box-shadow: $shadow-box;
+    box-sizing: border-box;
+    font-size: $text-size-filter-input;
+    opacity: $alpha-input-default;
+    padding: $spacing-default (2 * $spacing-default + $text-size-filter-input);
+    width: 100%;
+
+    &:hover, &:active, &:focus {
+        opacity: $alpha-input-focused;
+    }
+}
+
+.mod-list-filter-icon {
+    @include font-icon($fa-var-filter, $text-size-filter-input);
+
+    opacity: $alpha-input-default;
+    padding: $spacing-default;
+    pointer-events: none;
+    position: absolute;
+    z-index: $zIndex-icon;
+}
+
+.mod-list-filter-reset-icon {
+    @include font-icon($fa-var-times, $text-size-filter-input);
+
+    cursor: pointer;
+    opacity: $alpha-input-default;
+    padding: $spacing-default;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: $zIndex-icon;
+}
+
+input.mod-list-filter:placeholder-shown ~ .mod-list-filter-reset-icon {
+    display: none;
+}

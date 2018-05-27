@@ -1,0 +1,16 @@
+/**
+ * File defining the style of the search results page.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../module/all';
+
+.search-result-list {
+    @include box-list('.search-result, .simple-error');
+
+    .search-result {
+        @include item-box();
+    }
+}

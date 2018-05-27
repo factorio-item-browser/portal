@@ -84,7 +84,7 @@
          * @private
          */
         _initializeMod(container) {
-            let checkbox = container.parent().find('input[type=checkbox]'),
+            let checkbox = container.prev('input[type=checkbox]'),
                 data = container.data('mod');
 
             if (container.length > 0 && checkbox.length > 0 && typeof(data) === 'object') {
@@ -142,8 +142,9 @@
          */
         _filterMods(searchTerm) {
             $.each(this._mods, (_, mod) => {
-                mod.container.parent().toggleClass('hidden', !this._matchFilterTerm(mod, searchTerm.toLowerCase()));
+                mod.container.toggleClass('hidden', !this._matchFilterTerm(mod, searchTerm.toLowerCase()));
             });
+            this._updateStickyButton();
         }
 
         /**

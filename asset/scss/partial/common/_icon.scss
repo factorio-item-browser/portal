@@ -1,0 +1,40 @@
+/**
+ * File defining the basic style for the icons.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../module/all';
+
+$icon-border-width: px-to-rem(1);
+$icon-size: $icon-size-default;
+$icon-text-color: white;
+
+.icon {
+    background-size: cover;
+    background-repeat: no-repeat;
+    box-sizing: content-box;
+    display: block;
+    height: $icon-size;
+    position: relative;
+    text-decoration: none;
+    width: $icon-size;
+
+    &.with-background {
+        border: $icon-border-width solid color($color-box-default, $lightness-box-border);
+        background-color: color($color-box-default, $lightness-icon-background);
+        box-shadow: $shadow-box;
+    }
+
+    .amount {
+        @include attached-label($color-box-default);
+
+        left: px-to-rem(-6);
+        top: px-to-rem(-5);
+        @include breakpoint(large) {
+            left: px-to-rem(-12);
+            top: px-to-rem(-10);
+        }
+    }
+}

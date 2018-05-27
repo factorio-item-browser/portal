@@ -22,7 +22,7 @@ $modData = [
     <?php if ($mod->getIsEnabled()) { ?>checked<?php } ?>
     class="mod-checkbox hidden"
 />
-<div class="mod" data-mod="<?php echo $this->escapeHtmlAttr(json_encode($modData)); ?>">
+<li class="mod" data-mod="<?php echo $this->escapeHtmlAttr(json_encode($modData)); ?>">
     <div class="check-icon"></div>
     <div class="head">
         <h3><label for="mod_<?php echo $this->escapeHtmlAttr($mod->getName()); ?>"><?php echo $this->escapeHtml($mod->getLabel() ?: $mod->getName()); ?></label></h3>
@@ -38,4 +38,4 @@ $modData = [
         <dt><?php echo $this->escapeHtml($this->translate('mod version')); ?></dt>
         <dd><?php echo $this->escapeHtml($mod->getVersion()); ?></dd>
     </dl>
-</div>
+</li>

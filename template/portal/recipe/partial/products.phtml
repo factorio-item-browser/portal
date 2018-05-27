@@ -7,11 +7,11 @@ $genericEntityHelper = $this->genericEntity();
 /* @var Recipe $recipe*/
 $recipe = $this->recipe;
 ?>
-<div class="recipe-products">
+<div class="products">
     <h3><?php echo $this->escapeHtml($this->translate('recipe-details products')); ?></h3>
     <?php foreach ($recipe->getProducts() as $product) { ?>
         <a
-            class="recipe-item"
+            class="item"
             href="<?php echo $this->escapeHtmlAttr($genericEntityHelper->getDetailsUrl($product)); ?>"
             data-link
             data-tooltip="<?php echo $this->escapeHtmlAttr($genericEntityHelper->getTooltip($product)); ?>"

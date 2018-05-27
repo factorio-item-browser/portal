@@ -1,0 +1,81 @@
+/**
+ * File defining the style of the mod-list upload form.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../../module/all';
+
+.mod-upload-form {
+    @include button($color-button-primary);
+    @include dynamic-spacing(margin, large);
+
+    font-weight: normal;
+    padding: 0;
+
+    label {
+        @include dynamic-spacing(padding, large);
+
+        cursor: pointer;
+        display: none;
+        font-size: $text-size-headline-small;
+        text-align: center;
+
+        @include breakpoint(large) {
+            font-size: $text-size-large;
+        }
+    }
+
+    label.simple-upload {
+        display: block;
+    }
+
+    label.simple-upload, label.advanced-upload {
+        @include font-icon($fa-var-upload);
+        &::before {
+            padding: 0 $spacing-tiny;
+        }
+    }
+
+    label.uploading {
+        @include font-icon($fa-var-spinner);
+        &::before {
+            animation: fa-spin 2s infinite linear;
+            padding: 0 $spacing-tiny;
+        }
+    }
+    label.dragover {
+        @include font-icon($fa-var-arrow-down);
+        &::before {
+            padding: 0 $spacing-tiny;
+        }
+    }
+
+    &.has-advanced-upload {
+        label.advanced-upload {
+            display: block;
+        }
+        label.simple-upload {
+            display: none;
+        }
+    }
+    &.is-uploading {
+        label.uploading {
+            display: block;
+        }
+        label.advanced-upload, label.simple-upload, label.dragover  {
+            display: none;
+        }
+    }
+    &.is-dragover {
+        background: color($color-button-primary, $lightness-button-background-hover);
+
+        label.dragover {
+            display: block;
+        }
+        label.advanced-upload, label.simple-upload  {
+            display: none;
+        }
+    }
+}

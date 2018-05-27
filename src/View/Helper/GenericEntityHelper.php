@@ -122,11 +122,17 @@ class GenericEntityHelper extends AbstractHelper
     /**
      * Renders the specified entity to a box.
      * @param GenericEntity $entity
+     * @param string $cssClass
+     * @param string $tagName
      * @return string
      */
-    public function renderBox(GenericEntity $entity): string
+    public function renderBox(GenericEntity $entity, string $cssClass = 'item', string $tagName = 'div'): string
     {
-        return $this->view->render('helper::genericEntity/box', ['entity' => $entity]);
+        return $this->view->render('helper::genericEntity/box', [
+            'cssClass' => $cssClass,
+            'entity' => $entity,
+            'tagName' => $tagName
+        ]);
     }
 
     /**

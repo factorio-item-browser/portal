@@ -1,5 +1,0 @@
-@import '../modules/all';
-
-.item-ingredients-list, .item-products-list {
-    @include box-list('li:not(.paginated-list-button)');
-}

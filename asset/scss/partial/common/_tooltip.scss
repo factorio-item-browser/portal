@@ -1,0 +1,53 @@
+/**
+ * File defining the style for the tooltip.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../module/all';
+
+.tooltip {
+    pointer-events: none;
+    position: absolute;
+    z-index: $zIndex-tooltip;
+
+    .tooltip-item {
+        @include item-box($color-tooltip, $alpha-box-content-tooltip);
+
+        max-width: $tooltip-content-width;
+        width: $tooltip-content-width;
+    }
+}
+
+.tooltip-content {
+    box-shadow: $shadow-box-tooltip;
+}
+
+.tooltip-chevron {
+    @include fa-icon();
+
+    color: color($color-tooltip, $lightness-box-background);
+    font-size: $tooltip-chevron-size;
+    height: $tooltip-chevron-size;
+    margin: 0 $spacing-default;
+    position: absolute;
+    text-align: center;
+    text-shadow: $shadow-box-tooltip;
+    width: $tooltip-chevron-size;
+
+    &.up {
+        top: -$tooltip-chevron-size;
+        &:before {
+            content: $fa-var-chevron-up;
+        }
+    }
+    &.down {
+        top: 100%;
+        margin-top: -0.33rem;
+        &:before {
+            content: $fa-var-chevron-down;
+        }
+    }
+}
+

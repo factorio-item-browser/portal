@@ -26,6 +26,6 @@ $recipe = $this->recipe;
     }
 
     if ($recipe->getMode() === RecipeMode::EXPENSIVE) { ?>
-        <div class="box-label"><?php echo $this->escapeHtml($this->translate('box-label expensive')); ?></div>
+        <div class="mode"><?php echo $this->escapeHtml($this->translate('box-label expensive')); ?></div>
     <?php } ?>
 </div>

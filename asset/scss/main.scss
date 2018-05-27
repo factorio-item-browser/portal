@@ -1,33 +1,41 @@
-@import 'modules/all';
+/**
+ * Stylesheet defining the main style.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
 
-@import 'partials/vendor/font-awesome';
-@import 'partials/vendor/foundation';
+@import 'module/variable/all';
+@import 'module/helper/all';
+@import 'module/component/all';
 
-@import 'partials/common/boxed-item';
-@import 'partials/common/icon';
-@import 'partials/common/message-box';
-@import 'partials/common/paginated-list';
-@import 'partials/common/section';
-@import 'partials/common/toggle';
-@import 'partials/error';
-@import 'partials/layout/base';
-@import 'partials/layout/footer';
-@import 'partials/layout/header/header';
-@import 'partials/layout/header/logo';
-@import 'partials/layout/header/mod-teaser';
-@import 'partials/layout/header/search';
-@import 'partials/layout/header/sidebar-icon';
-@import 'partials/layout/loading-circle';
-@import 'partials/layout/sidebar/entity';
-@import 'partials/layout/sidebar/locale';
-@import 'partials/layout/sidebar/mod-link';
-@import 'partials/layout/sidebar/sidebar';
-@import 'partials/index';
-@import 'partials/item-details';
-@import 'partials/mods/filter';
-@import 'partials/mods/list';
-@import 'partials/mods/upload';
-@import 'partials/recipe-details';
-@import 'partials/recipe-machines';
-@import 'partials/search-results';
-@import 'partials/tooltip';
+@import 'vendor/normalize';
+@import 'vendor/font-awesome';
+
+@import 'partial/common/icon';
+@import 'partial/common/loading-circle';
+@import 'partial/common/message-box';
+@import 'partial/common/paginated-list';
+@import 'partial/common/section';
+@import 'partial/common/toggle';
+@import 'partial/common/tooltip';
+
+@import 'partial/layout/base';
+@import 'partial/layout/footer';
+@import 'partial/layout/header/header';
+@import 'partial/layout/header/logo';
+@import 'partial/layout/header/mod-teaser';
+@import 'partial/layout/header/search';
+@import 'partial/layout/sidebar/entity';
+@import 'partial/layout/sidebar/locale';
+@import 'partial/layout/sidebar/mod-link';
+@import 'partial/layout/sidebar/sidebar';
+
+@import 'partial/page/mod/filter';
+@import 'partial/page/mod/list';
+@import 'partial/page/mod/upload';
+@import 'partial/page/error';
+@import 'partial/page/index';
+@import 'partial/page/item-details';
+@import 'partial/page/recipe-details';
+@import 'partial/page/search-results';

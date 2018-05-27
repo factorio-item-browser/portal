@@ -9,19 +9,15 @@ $firstRecipe = reset($recipes);
 $this->headTitle()->prepend($firstRecipe->getLabel() ?: $firstRecipe->getName());
 
 foreach ($recipes as $recipe) { ?>
-    <div class="recipe-details <?php echo $this->escapeHtmlAttr($recipe->getMode()); ?>">
+    <section class="recipe-details-container <?php echo $this->escapeHtmlAttr($recipe->getMode()); ?>">
         <?php echo $this->partial('portal::recipe/partial/head', ['recipe' => $recipe]); ?>
 
-        <div class="recipe-columns">
-            <div class="recipe-column">
-                <?php echo $this->partial('portal::recipe/partial/ingredients', ['recipe' => $recipe]); ?>
-            </div>
-            <div class="recipe-column-separator"></div>
-            <div class="recipe-column">
-                <?php echo $this->partial('portal::recipe/partial/products', ['recipe' => $recipe]); ?>
-            </div>
+        <div class="recipe-details">
+            <?php echo $this->partial('portal::recipe/partial/ingredients', ['recipe' => $recipe]); ?>
+            <div class="separator"></div>
+            <?php echo $this->partial('portal::recipe/partial/products', ['recipe' => $recipe]); ?>
         </div>
-    </div>
+    </section>
 <?php }
 
 if (count($this->machines) > 0) {

@@ -1,0 +1,46 @@
+/**
+ * File defining the style for the generic message boxes.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../module/all';
+
+.message-box {
+    @include box($color-box-default);
+    @include dynamic-spacing(margin, large);
+    @include label-with-icon();
+
+    color: color($color-box-default, $lightness-text-secondary);
+
+    .icon {
+        margin: $spacing-default;
+        text-align: center;
+    }
+
+    &.success {
+        background-color: color($color-message-success, $lightness-box-background);
+        color: color($color-message-success, $lightness-text-primary);
+
+        .icon {
+            @include font-icon($fa-var-check, $icon-size-default);
+        }
+    }
+    &.warning {
+        background-color: color($color-message-warning, $lightness-box-background);
+        color: color($color-message-warning, $lightness-text-primary);
+
+        .icon {
+            @include font-icon($fa-var-exclamation-triangle, $icon-size-default);
+        }
+    }
+    &.error {
+        background-color: color($color-message-error, $lightness-box-background);
+        color: color($color-message-error, $lightness-text-primary);
+
+        .icon {
+            @include font-icon($fa-var-times, $icon-size-default);
+        }
+    }
+}
