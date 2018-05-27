@@ -1,0 +1,15 @@
+@import 'font-awesome/scss/variables';
+@import 'font-awesome/scss/mixins';
+
+/**
+ * Adds an icon from font-awesome to the before element of the current selector.
+ * @param {string} $icon
+ * @param {number} $font-size
+ */
+@mixin font-icon($icon, $font-size: inherit) {
+    &::before {
+        @include fa-icon();
+        font-size: $font-size;
+        content: $icon;
+    }
+}

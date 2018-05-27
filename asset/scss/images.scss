@@ -1,5 +1,12 @@
-@import 'modules/all';
+/**
+ * Stylesheet defining all inline images.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
 
-@import 'partials/images/error';
-@import 'partials/images/icon';
-@import 'partials/images/layout';
+@import 'module/all';
+
+@import 'partial/image/error';
+@import 'partial/image/icon';
+@import 'partial/image/layout';

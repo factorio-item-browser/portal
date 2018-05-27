@@ -1,0 +1,102 @@
+/**
+ * File defining the style of the recipe details page.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../module/all';
+
+.recipe-details-head {
+    @include section-headline-with-icon();
+}
+
+.recipe-details {
+    @include flex-container($wrap: wrap);
+    @include flex-container-align($vertical: center);
+    @include dynamic-spacing(margin, large);
+
+    .ingredients, .products {
+        @include box($alpha: $alpha-box-content);
+        @include dynamic-spacing(margin-bottom, large);
+        @include flex-item($shrink: 0, $basis: 100%);
+
+        @include breakpoint(medium) {
+            @include flex-item($grow: 1, $shrink: 0, $basis: 0);
+        }
+
+        h3 {
+            @include dynamic-spacing(padding, default large);
+
+            background: color($color-box-default, $lightness-box-background);
+        }
+    }
+
+    .separator {
+        display: none;
+
+        @include breakpoint(medium) {
+            @include dynamic-spacing(margin, 0 large);
+            @include flex-item($shrink: 1);
+            @include font-icon($fa-var-chevron-right);
+
+            color: color($color-box-default, $lightness-box-background);
+            display: block;
+            font-size: $text-size-recipe-separator;
+            text-shadow: $shadow-box;
+        }
+    }
+
+    .item {
+        @include box-border-top();
+        @include dynamic-spacing(padding, small);
+        @include flex-container();
+        @include flex-container-align($vertical: center);
+
+        font-weight: bold;
+
+        .amount {
+            @include flex-item($grow: 0, $shrink: 0, $basis: 4rem);
+
+            padding-right: $spacing-default;
+            text-align: right;
+        }
+        .icon {
+            @include flex-item($shrink: 0);
+        }
+        .name {
+            @include flex-item($grow: 1, $basis: 0);
+            padding-left: $spacing-default;
+        }
+    }
+}
+
+.recipe-details-container.expensive {
+    .recipe-details-head {
+        color: color($color-recipe-expensive, $lightness-text-secondary);
+        background: color($color-recipe-expensive, $lightness-box-background);
+
+        h1 {
+            color: color($color-recipe-expensive, $lightness-text-primary);
+        }
+    }
+
+    .recipe-details {
+        .ingredients, .products {
+            background: rgba(color($color-recipe-expensive, $lightness-box-background), $alpha-box-content);
+            color: color($color-recipe-expensive, $lightness-text-primary);
+
+            h3 {
+                background: color($color-recipe-expensive, $lightness-box-background);
+            }
+        }
+
+        .separator {
+            color: color($color-recipe-expensive, $lightness-box-background);
+        }
+
+        .item::before {
+            background: rgba(color($color-recipe-expensive, $lightness-box-border), $alpha-box-border);
+        }
+    }
+}

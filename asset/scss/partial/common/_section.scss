@@ -1,0 +1,15 @@
+/**
+ * File defining the style for the sections.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../module/all';
+
+section {
+    h2 {
+        @include section-headline();
+        @include section-headline-underline();
+    }
+}

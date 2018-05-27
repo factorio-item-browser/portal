@@ -1,0 +1,30 @@
+/**
+ * File defining the style of the mod link in the sidebar.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../../module/all';
+
+.sidebar-mod-link {
+    @include button-color();
+    @include label-with-icon($spacing: 0, $icon-class: '.mod-link-icon');
+    @include dynamic-spacing(padding, small default);
+
+    font-weight: bold;
+
+    .label {
+        @include dynamic-spacing(padding-left, default);
+    }
+    .mod-link-icon {
+        @include font-icon($fa-var-sitemap, $text-size-headline-small);
+
+        &::before {
+            height: $icon-size-default;
+            line-height: $icon-size-default;
+            text-align: center;
+            width: $icon-size-default;
+        }
+    }
+}

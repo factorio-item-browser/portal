@@ -9,6 +9,6 @@ $recipes = $this->recipes;
 ?>
 
 <?php foreach ($recipes as $recipe) { ?>
-    <li><?php echo $genericEntityHelper->renderBox($recipe); ?></li>
+    <?php echo $genericEntityHelper->renderBox($recipe, 'item-recipe', 'li'); ?>
 <?php }
 echo $this->render('portal::item/partial/moreRecipes'); ?>

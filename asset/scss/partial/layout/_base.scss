@@ -1,0 +1,47 @@
+/**
+ * File defining basic layout styles.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../module/all';
+
+html, body {
+    height: 100%;
+    min-width: 320px;
+}
+
+#wrapper {
+    background-color: $color-concrete;
+    min-height: 100%;
+    position: relative;
+}
+
+#content-wrapper {
+    @include flex-container();
+
+    padding-top: $spacing-default;
+    padding-bottom: 6rem;
+
+    @include breakpoint(medium) {
+        padding-bottom: 5rem;
+    }
+}
+
+#content {
+    @include flex-item($grow: 1);
+}
+
+a, a:hover, a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.has-link {
+    cursor: pointer;
+}

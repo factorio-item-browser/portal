@@ -1,0 +1,104 @@
+/**
+ * File defining the style of the mods on the mod list.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../../module/all';
+
+
+.mod-list {
+    @include box-list('.mod');
+}
+
+.mod {
+    @include box();
+    @include dynamic-spacing(padding, default);
+
+    cursor: pointer;
+    position: relative;
+
+    .check-icon {
+        @include font-icon($fa-var-square-o, $icon-size-default);
+        @include dynamic-spacing(right top, default);
+
+        position: absolute;
+
+        &::before {
+            width: $icon-size-default;
+        }
+    }
+
+    .head {
+        padding-right: calc(#{$icon-size-default} + #{$spacing-tiny});
+    }
+
+    label {
+        cursor: pointer;
+    }
+
+    p {
+        color: color($color-box-mod-disabled, $lightness-text-secondary);
+        font-size: $text-size-small;
+    }
+
+    dl {
+        @include flex-container($wrap: wrap);
+        @include dynamic-spacing(margin-top, default);
+        font-size: $text-size-small;
+
+        dt {
+            @include flex-item($shrink: 0, $basis: 25%);
+
+            padding: 0 $spacing-tiny;
+            text-align: right;
+        }
+        dd {
+            @include flex-item($shrink: 0, $basis: 75%);
+
+            font-weight: bold;
+            padding: 0 $spacing-tiny;
+        }
+    }
+}
+
+.mod-checkbox:checked + .mod {
+    background: color($color-box-mod-enabled, $lightness-box-background);
+    color: color($color-box-mod-enabled, $lightness-text-primary);
+
+    .check-icon {
+        &::before {
+            content: $fa-var-check-square-o;
+        }
+    }
+
+    p {
+        color: color($color-box-mod-enabled, $lightness-text-secondary);
+    }
+}
+
+.button-save-mods {
+    @include dynamic-spacing(margin, default large);
+
+    button[type=submit] {
+        @include button($color-button-primary);
+        @include font-icon($fa-var-save);
+
+        border: 0;
+        max-width: 100%;
+        width: 100%;
+
+        &::before {
+            padding: 0 $spacing-default;
+        }
+    }
+
+    &.is-sticky {
+        bottom: 0;
+        left: 0;
+        position: fixed;
+        right: 0;
+        z-index: $zIndex-sticky-button;
+    }
+}

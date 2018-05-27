@@ -21,9 +21,9 @@ $genericEntity = $this->genericEntity;
 >
     <?php echo $genericEntityHelper->renderTransparentIcon($genericEntity, ['data-tooltip-anchor' => '']); ?>
     <div class="label"><?php echo $this->escapeHtml($entity->getLabel() ?: $entity->getName()); ?></div>
-    <div class="action-icons">
+    <div class="actions">
         <div class="pin" title="<?php echo $this->escapeHtml($this->translate('sidebar entity pin')); ?>"></div>
         <div class="unpin" title="<?php echo $this->escapeHtml($this->translate('sidebar entity unpin')); ?>"></div>
     </div>
-    <div class="box-label"><?php echo $this->escapeHtml($this->translate('box-label ' . $entity->getType())); ?></div>
+    <div class="type"><?php echo $this->escapeHtml($this->translate('box-label ' . $entity->getType())); ?></div>
 </a>

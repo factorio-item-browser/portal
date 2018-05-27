@@ -8,6 +8,6 @@ $genericEntityHelper = $this->genericEntity();
 $result = $this->result;
 ?>
 
-<li><?php
-    echo $genericEntityHelper->renderBox($result);
-?></li>
+<?php
+    echo $genericEntityHelper->renderBox($result, 'search-result', 'li');
+?>

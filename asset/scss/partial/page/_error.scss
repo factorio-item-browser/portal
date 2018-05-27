@@ -1,0 +1,100 @@
+/**
+ * File defining the style of the error boxes.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../module/all';
+
+.error-box {
+    @include box($color-box-error);
+    @include label-with-icon($label-class: '.error-message', $icon-class: '.error-icon-box');
+    @include dynamic-spacing(margin, large);
+}
+
+.error-icon {
+    height: 128px;
+    position: relative;
+    width: 128px;
+
+    &::before {
+        animation: error-layer 1s infinite;
+        content: '';
+        height: 48px;
+        left: 40px;
+        position: absolute;
+        top: 40px;
+        width: 48px;
+    }
+
+    @include breakpoint-until(medium) {
+        display: none;
+    }
+}
+
+.error-message {
+    color: color($color-box-error, $lightness-text-primary);
+    font-weight: bold;
+
+    h2 {
+        font-size: $text-size-headline;
+        margin-bottom: $spacing-default;
+        position: relative;
+
+        &::after {
+            background: color($color-box-error, $lightness-text-primary);
+            content: '';
+            display: block;
+            height: px-to-rem(2);
+            left: 0;
+            position: absolute;
+            right: 0;
+        }
+    }
+}
+
+.simple-error {
+    @include box();
+
+    color: color($color-box-default, $lightness-text-secondary);
+    font-size: $text-size-small;
+    padding: $spacing-default;
+
+    h3 {
+        color: color($color-box-default, $lightness-text-primary);
+        font-size: $text-size-default;
+        font-weight: bold;
+    }
+}
+
+.debug-info {
+    @include box();
+    @include dynamic-spacing(margin, large);
+
+    overflow: auto;
+    padding: $spacing-default;
+
+    dl {
+        dt {
+            display: block;
+            font-weight: bold;
+            float: left;
+            padding: 0 $spacing-default;
+            text-align: right;
+            width: 10rem;
+        }
+        dd {
+            display: block;
+            margin-left: 10rem;
+            padding: 0 $spacing-default;
+        }
+    }
+}
+
+@keyframes error-layer {
+    0%   { visibility: hidden; }
+    49%  { visibility: hidden; }
+    50%  { visibility: visible;  }
+    100% { visibility: visible;  }
+}

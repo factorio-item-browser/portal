@@ -1,0 +1,44 @@
+/**
+ * File defining the main header style.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../../module/all';
+
+header {
+    @include flex-container();
+    @include flex-container-align(center, center);
+
+    background-color: $color-water;
+    min-height: 5rem;
+    position: relative;
+
+    &::after {
+        bottom: px-to-rem(-12);
+        content: '';
+        display: block;
+        pointer-events: none;
+        position: absolute;
+        left: 0;
+        right: 0;
+    }
+
+    @include breakpoint(large) {
+        min-height: 6rem;
+    }
+}
+
+body.index-page header {
+    display: block;
+    padding: 4rem 1rem;
+    text-align: center;
+
+    @include breakpoint(medium) {
+        padding: 6rem 1rem;
+    }
+    @include breakpoint(large) {
+        padding: 8rem 1rem;
+    }
+}
