@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\View\Helper;
 
+use FactorioItemBrowser\Api\Client\Constant\EntityType;
 use FactorioItemBrowser\Api\Client\Entity\GenericEntity;
+use FactorioItemBrowser\Api\Client\Entity\Machine;
 use FactorioItemBrowser\Portal\Constant\RouteNames;
 use Zend\Expressive\Helper\UrlHelper;
 use Zend\View\Helper\AbstractHelper;
@@ -72,6 +74,19 @@ class GenericEntityHelper extends AbstractHelper
     public function getIcon(GenericEntity $entity): string
     {
         return $entity->getType() . '/' . $entity->getName();
+    }
+
+    /**
+     * Returns the linked entity of the specified machine.
+     * @param Machine $machine
+     * @return GenericEntity
+     */
+    public function getLinkedEntityOfMachine(Machine $machine): GenericEntity
+    {
+        $result = new GenericEntity();
+        $result->setType(EntityType::ITEM)
+               ->setName($machine->getName());
+        return $result;
     }
 
     /**

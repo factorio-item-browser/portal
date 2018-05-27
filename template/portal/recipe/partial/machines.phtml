@@ -11,29 +11,12 @@ $machines = $this->machines;
         ['count' => $this->totalNumberOfMachines]
     )); ?></h2>
     <ul class="machine-list">
-        <?php foreach ($machines as $machine) { ?>
-            <li class="machine">
-                <div class="head">
-                    <?php echo $this->genericEntity()->renderTransparentIcon($machine); ?>
-                    <div class="label">
-                        <h3><?php echo $this->escapeHtml($machine->getLabel() ?: $machine->getName()); ?></h3>
-                        <?php echo $this->escapeHtml($machine->getDescription()); ?>
-                    </div>
-                </div>
-                <dl>
-                    <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine crafting-speed')); ?></dt>
-                    <dd><?php echo $this->format()->craftingSpeed($machine->getCraftingSpeed()); ?></dd>
-
-                    <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine ingredient-slots')); ?></dt>
-                    <dd><?php echo $this->format()->number($machine->getNumberOfIngredientSlots()); ?></dd>
-
-                    <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine module-slots')); ?></dt>
-                    <dd><?php echo $this->format()->number($machine->getNumberOfModuleSlots()); ?></dd>
-
-                    <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine energy-usage')); ?></dt>
-                    <dd><?php echo $this->format()->energyUsage($machine->getEnergyUsage()); ?></dd>
-                </dl>
-            </li>
-        <?php } ?>
+        <?php foreach ($machines as $machine) {
+            if ($machine->getName() === 'player') {
+                echo $this->partial('portal::recipe/partial/machine/player', ['machine' => $machine]);
+            } else {
+                echo $this->partial('portal::recipe/partial/machine/machine', ['machine' => $machine]);
+            }
+        } ?>
     </ul>
 </section>

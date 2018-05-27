@@ -1,0 +1,36 @@
+<?php
+
+use FactorioItemBrowser\Api\Client\Entity\GenericEntity;
+use FactorioItemBrowser\Api\Client\Entity\Machine;
+
+/* @var Machine $machine */
+$machine = $this->machine;
+/* @var genericEntity $linkedEntity */
+$linkedEntity = $this->genericEntity()->getLinkedEntityOfMachine($machine);
+?>
+<li class="machine">
+    <a class="head"
+       href="<?php echo $this->escapeHtmlAttr($this->genericEntity()->getDetailsUrl($linkedEntity)); ?>"
+       data-link
+       data-tooltip="<?php echo $this->escapeHtmlAttr($this->genericEntity()->getTooltip($linkedEntity)); ?>"
+    >
+        <?php echo $this->genericEntity()->renderTransparentIcon($machine, ['data-tooltip-anchor' => '']); ?>
+        <div class="label">
+            <h3><?php echo $this->escapeHtml($machine->getLabel() ?: $machine->getName()); ?></h3>
+            <?php echo $this->escapeHtml($machine->getDescription()); ?>
+        </div>
+    </a>
+    <dl>
+        <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine crafting-speed')); ?></dt>
+        <dd><?php echo $this->format()->craftingSpeed($machine->getCraftingSpeed()); ?></dd>
+
+        <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine ingredient-slots')); ?></dt>
+        <dd><?php echo $this->format()->number($machine->getNumberOfIngredientSlots()); ?></dd>
+
+        <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine module-slots')); ?></dt>
+        <dd><?php echo $this->format()->number($machine->getNumberOfModuleSlots()); ?></dd>
+
+        <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine energy-usage')); ?></dt>
+        <dd><?php echo $this->format()->energyUsage($machine->getEnergyUsage()); ?></dd>
+    </dl>
+</li>

@@ -35,5 +35,12 @@
                 padding: 0 $spacing-tiny;
             }
         }
+
+        .player-notice {
+            @include box-border-top();
+            @include dynamic-spacing(padding, small default);
+
+            font-size: $text-size-small;
+        }
     }
 }
