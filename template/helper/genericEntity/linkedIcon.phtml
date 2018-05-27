@@ -17,7 +17,7 @@ $entity = $this->entity;
 >
     <?php if ($entity instanceof Item && $entity->getAmount() > 0) { ?>
         <span class="amount"><?php
-            echo $this->escapeHtml($genericEntityHelper->formatAmount($entity->getAmount()));
+            echo $this->escapeHtml($this->format()->amount($entity->getAmount()));
         ?></span>
     <?php } ?>
 </a>

@@ -18,6 +18,7 @@ return [
         'aliases' => [
             'assetPath' => View\Helper\AssetPathHelper::class,
             'footLink' => View\Helper\FootLinkHelper::class,
+            'format' => View\Helper\FormatHelper::class,
             'genericEntity' => View\Helper\GenericEntityHelper::class,
             'headLink' => View\Helper\HeadLinkHelper::class,
             'javascriptConfig' => View\Helper\JavascriptConfigHelper::class,
@@ -29,6 +30,7 @@ return [
         'factories' => [
             View\Helper\AssetPathHelper::class => View\Helper\AssetPathHelperFactory::class,
             View\Helper\FootLinkHelper::class => InvokableFactory::class,
+            View\Helper\FormatHelper::class => InvokableFactory::class,
             View\Helper\GenericEntityHelper::class => View\Helper\GenericEntityHelperFactory::class,
             View\Helper\HeadLinkHelper::class => InvokableFactory::class,
             View\Helper\JavascriptConfigHelper::class => View\Helper\JavascriptConfigHelperFactory::class,

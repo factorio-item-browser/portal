@@ -17,7 +17,7 @@ $recipe = $this->recipe;
     <div class="separator">
         <?php if ($recipe->getCraftingTime() > 0) { ?>
             <span class="time"><?php
-                echo $this->escapeHtml($genericEntityHelper->formatCraftingTime($recipe->getCraftingTime()));
+                echo $this->escapeHtml($this->format()->craftingTime($recipe->getCraftingTime()));
             ?></span>
         <?php } ?>
     </div>

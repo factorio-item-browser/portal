@@ -16,7 +16,7 @@ $recipe = $this->recipe;
             data-link
             data-tooltip="<?php echo $this->escapeHtmlAttr($genericEntityHelper->getTooltip($product)); ?>"
         >
-            <div class="amount"><?php echo $this->escapeHtml($genericEntityHelper->formatAmount($product->getAmount())); ?></div>
+            <div class="amount"><?php echo $this->escapeHtml($this->format()->amount($product->getAmount())); ?></div>
             <?php echo $genericEntityHelper->renderTransparentIcon($product, ['data-tooltip-anchor' => '']); ?>
             <div class="name"><?php echo $this->escapeHtml($product->getLabel() ?: $product->getName()); ?></div>
         </a>
