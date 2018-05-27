@@ -65,6 +65,7 @@ return [
     'recipe-details machine energy-usage' => 'Energieverbrauch:',
     'recipe-details machine headline' => ['Herstellbar in %count% Maschine', 'Herstellbar in %count% Maschinen'],
     'recipe-details machine ingredient-slots' => 'Unterstützte Zutaten:',
+    'recipe-details machine ingredient-slots unlimited' => 'Unbegrenzt',
     'recipe-details machine module-slots' => 'Unterstützte Module:',
     'recipe-details machine player-notice' => 'Dieses Rezept kann ohne zusätzliche Maschinen direkt in der Hand hergestellt werden, solange sich die benötigten Zutaten im Spieler-Inventar befinden.',
     'recipe-details products' => 'Ergebnisse',

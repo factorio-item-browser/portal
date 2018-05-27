@@ -65,6 +65,7 @@ return [
     'recipe-details machine energy-usage' => 'Energy usage:',
     'recipe-details machine headline' => ['Producible in %count% machine', 'Producible in %count% machines'],
     'recipe-details machine ingredient-slots' => 'Supported ingredients:',
+    'recipe-details machine ingredient-slots unlimited' => 'Unlimited',
     'recipe-details machine module-slots' => 'Supported modules:',
     'recipe-details machine player-notice' => 'This recipe can be crafted by hand without any additional machine as long as the required ingredients are in the player inventory.',
     'recipe-details products' => 'Results',

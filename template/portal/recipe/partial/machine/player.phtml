@@ -15,6 +15,9 @@ $machine = $this->machine;
     <dl>
         <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine crafting-speed')); ?></dt>
         <dd><?php echo $this->format()->craftingSpeed($machine->getCraftingSpeed()); ?></dd>
+
+        <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine ingredient-slots')); ?></dt>
+        <dd><?php echo $this->escapeHtmlAttr($this->translate('recipe-details machine ingredient-slots unlimited')); ?></dd>
     </dl>
     <p class="player-notice">
         <?php echo $this->escapeHtmlAttr($this->translate('recipe-details machine player-notice')); ?>

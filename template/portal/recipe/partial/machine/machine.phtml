@@ -25,7 +25,11 @@ $linkedEntity = $this->genericEntity()->getLinkedEntityOfMachine($machine);
         <dd><?php echo $this->format()->craftingSpeed($machine->getCraftingSpeed()); ?></dd>
 
         <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine ingredient-slots')); ?></dt>
-        <dd><?php echo $this->format()->number($machine->getNumberOfIngredientSlots()); ?></dd>
+        <dd><?php if ($machine->getNumberOfIngredientSlots() > 0) {
+            echo $this->format()->number($machine->getNumberOfIngredientSlots());
+        } else {
+            echo $this->escapeHtmlAttr($this->translate('recipe-details machine ingredient-slots unlimited'));
+        }?></dd>
 
         <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine module-slots')); ?></dt>
         <dd><?php echo $this->format()->number($machine->getNumberOfModuleSlots()); ?></dd>
