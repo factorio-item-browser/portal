@@ -1,0 +1,39 @@
+/**
+ * File defining the style of the machines on the recipe page.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../../module/all';
+
+.machine-list {
+    @include box-list('.machine');
+
+    .machine {
+        @include box($alpha: $alpha-box-content);
+
+        .head {
+            @include box-head-with-icon();
+        }
+
+        dl {
+            @include flex-container($wrap: wrap);
+            @include box-border-top();
+            @include dynamic-spacing(padding, small);
+
+            dt {
+                @include flex-item($shrink: 0, $basis: 60%);
+
+                padding: 0 $spacing-tiny;
+                text-align: right;
+            }
+            dd {
+                @include flex-item($shrink: 0, $basis: 40%);
+
+                font-weight: bold;
+                padding: 0 $spacing-tiny;
+            }
+        }
+    }
+}

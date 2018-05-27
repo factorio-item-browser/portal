@@ -10,34 +10,29 @@ $machines = $this->machines;
         $this->translatePlural('recipe-details machine headline', '', $this->totalNumberOfMachines),
         ['count' => $this->totalNumberOfMachines]
     )); ?></h2>
-    <ul class="machines-list">
+    <ul class="machine-list">
         <?php foreach ($machines as $machine) { ?>
-            <li>
-                <div class="boxed-item">
-                    <div class="item">
-                        <?php echo $this->genericEntity()->renderTransparentIcon($machine); ?>
-                        <div class="label">
-                            <h3><?php echo $this->escapeHtml($machine->getLabel() ?: $machine->getName()); ?></h3>
-                            <?php echo $this->escapeHtml($machine->getDescription()); ?>
-                        </div>
-                    </div>
-                    <div class="machine-data">
-                        <div class="name"><?php echo $this->escapeHtml($this->translate('recipe-details machine crafting-speed')); ?></div>
-                        <div class="value"><?php echo $machine->getCraftingSpeed(); ?>x</div>
-                    </div>
-                    <div class="machine-data">
-                        <div class="name"><?php echo $this->escapeHtml($this->translate('recipe-details machine ingredient-slots')); ?></div>
-                        <div class="value"><?php echo $machine->getNumberOfIngredientSlots(); ?></div>
-                    </div>
-                    <div class="machine-data">
-                        <div class="name"><?php echo $this->escapeHtml($this->translate('recipe-details machine module-slots')); ?></div>
-                        <div class="value"><?php echo $machine->getNumberOfModuleSlots(); ?></div>
-                    </div>
-                    <div class="machine-data">
-                        <div class="name"><?php echo $this->escapeHtml($this->translate('recipe-details machine energy-usage')); ?></div>
-                        <div class="value"><?php echo $this->genericEntity()->formatEnergyUsage($machine->getEnergyUsage()); ?></div>
+            <li class="machine">
+                <div class="head">
+                    <?php echo $this->genericEntity()->renderTransparentIcon($machine); ?>
+                    <div class="label">
+                        <h3><?php echo $this->escapeHtml($machine->getLabel() ?: $machine->getName()); ?></h3>
+                        <?php echo $this->escapeHtml($machine->getDescription()); ?>
                     </div>
                 </div>
+                <dl>
+                    <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine crafting-speed')); ?></dt>
+                    <dd><?php echo $machine->getCraftingSpeed(); ?>x</dd>
+
+                    <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine ingredient-slots')); ?></dt>
+                    <dd><?php echo $machine->getNumberOfIngredientSlots(); ?></dd>
+
+                    <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine module-slots')); ?></dt>
+                    <dd><?php echo $machine->getNumberOfModuleSlots(); ?></dd>
+
+                    <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine energy-usage')); ?></dt>
+                    <dd><?php echo $this->genericEntity()->formatEnergyUsage($machine->getEnergyUsage()); ?></dd>
+                </dl>
             </li>
         <?php } ?>
     </ul>

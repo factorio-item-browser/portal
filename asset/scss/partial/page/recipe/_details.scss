@@ -1,11 +1,11 @@
 /**
- * File defining the style of the recipe details page.
+ * File defining the style of the details on the recipe page.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-@import '../../module/all';
+@import '../../../module/all';
 
 .recipe-details-head {
     @include section-headline-with-icon();

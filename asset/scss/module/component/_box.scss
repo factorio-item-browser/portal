@@ -78,6 +78,24 @@
 }
 
 /**
+ * Styles the current selector to be a box-head with an icon to the left.
+ * @param {color} $color
+ * @param {string} $headline-class
+ */
+@mixin box-head-with-icon($color: $color-box-default, $headline-class: 'h3') {
+    @include label-with-icon();
+
+    background: color($color, $lightness-box-background);
+    color: color($color, $lightness-text-secondary);
+    font-size: $text-size-small;
+    #{$headline-class} {
+        color: color($color, $lightness-text-primary);
+        font-size: $text-size-default;
+        font-weight: bold;
+    }
+}
+
+/**
  * Attaches the current selector as label to the parent element.
  * @param {color} $color
  */
