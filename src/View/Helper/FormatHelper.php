@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\View\Helper;
 
+use Zend\I18n\Translator\TranslatorInterface;
 use Zend\View\Helper\AbstractHelper;
 
 /**
@@ -14,6 +15,21 @@ use Zend\View\Helper\AbstractHelper;
  */
 class FormatHelper extends AbstractHelper
 {
+    /**
+     * The translator interface.
+     * @var TranslatorInterface
+     */
+    protected $translator;
+
+    /**
+     * Initializes the view helper.
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     /**
      * Formats and returns the amount of an item.
      * @param float $amount
@@ -60,13 +76,13 @@ class FormatHelper extends AbstractHelper
      */
     public function energyUsage(int $energyUsage): string
     {
-        if ($energyUsage > 1000000) {
-            return round($energyUsage / 1000000, 2) . 'MW';
-        } elseif ($energyUsage > 1000) {
-            return round($energyUsage / 1000, 2) . 'kW';
-        } else {
-            return $energyUsage . 'W';
+        $units = ['W', 'kW', 'MW', 'GW', 'TW', 'PW'];
+        $currentUnit  = array_shift($units);
+        while ($energyUsage >= 1000 && count($units) > 0) {
+            $energyUsage /= 1000;
+            $currentUnit = array_shift($units);
         }
+        return round($energyUsage, 2) . $currentUnit;
     }
 
     /**
@@ -77,5 +93,22 @@ class FormatHelper extends AbstractHelper
     public function number(float $number): string
     {
         return (string) $number;
+    }
+
+    /**
+     * Formats and returns the number of slots of a machine.
+     * @param int $numberOfSlots
+     * @return string
+     */
+    public function machineSlots(int $numberOfSlots): string
+    {
+        if ($numberOfSlots === -1) {
+            $result = $this->translator->translate('recipe-details machine unlimited');
+        } elseif ($numberOfSlots === 0) {
+            $result = $this->translator->translate('recipe-details machine none');
+        } else {
+            $result = $this->number($numberOfSlots);
+        }
+        return $result;
     }
 }

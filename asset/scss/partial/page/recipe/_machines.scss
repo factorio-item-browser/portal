@@ -17,22 +17,22 @@
             @include box-head-with-icon();
         }
 
-        dl {
+        .stats {
             @include flex-container($wrap: wrap);
             @include box-border-top();
             @include dynamic-spacing(padding, small);
 
-            dt {
+            .label {
                 @include flex-item($shrink: 0, $basis: 60%);
 
-                padding: 0 $spacing-tiny;
-                text-align: right;
+                padding: 0 $spacing-small;
             }
-            dd {
+            .value {
                 @include flex-item($shrink: 0, $basis: 40%);
 
                 font-weight: bold;
-                padding: 0 $spacing-tiny;
+                padding: 0 $spacing-small;
+                text-align: right;
             }
         }
 

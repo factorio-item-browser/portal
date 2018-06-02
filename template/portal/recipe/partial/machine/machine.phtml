@@ -20,21 +20,26 @@ $linkedEntity = $this->genericEntity()->getLinkedEntityOfMachine($machine);
             <?php echo $this->escapeHtml($machine->getDescription()); ?>
         </div>
     </a>
-    <dl>
-        <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine crafting-speed')); ?></dt>
-        <dd><?php echo $this->format()->craftingSpeed($machine->getCraftingSpeed()); ?></dd>
+    <div class="stats">
+        <div class="value"><?php echo $this->format()->craftingSpeed($machine->getCraftingSpeed()); ?></div>
+        <div class="label"><?php echo $this->escapeHtml($this->translate('recipe-details machine crafting-speed')); ?></div>
 
-        <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine ingredient-slots')); ?></dt>
-        <dd><?php if ($machine->getNumberOfIngredientSlots() > 0) {
-            echo $this->format()->number($machine->getNumberOfIngredientSlots());
-        } else {
-            echo $this->escapeHtmlAttr($this->translate('recipe-details machine ingredient-slots unlimited'));
-        }?></dd>
+        <div class="value"><?php echo $this->format()->machineSlots($machine->getNumberOfItemSlots()); ?></div>
+        <div class="label"><?php
+            echo $this->escapeHtml($this->translatePlural('recipe-details machine ingredients', '', max($machine->getNumberOfItemSlots(), 0)));
+        ?></div>
 
-        <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine module-slots')); ?></dt>
-        <dd><?php echo $this->format()->number($machine->getNumberOfModuleSlots()); ?></dd>
+        <div class="value"><?php echo $this->format()->machineSlots($machine->getNumberOfFluidInputSlots()); ?></div>
+        <div class="label"><?php
+            echo $this->escapeHtml($this->translatePlural('recipe-details machine fluids', '', max($machine->getNumberOfFluidInputSlots(), 0)));
+        ?></div>
 
-        <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine energy-usage')); ?></dt>
-        <dd><?php echo $this->format()->energyUsage($machine->getEnergyUsage()); ?></dd>
-    </dl>
+        <div class="value"><?php echo $this->format()->machineSlots($machine->getNumberOfModuleSlots()); ?></div>
+        <div class="label"><?php
+            echo $this->escapeHtml($this->translatePlural('recipe-details machine modules', '', max($machine->getNumberOfModuleSlots(), 0)));
+        ?></div>
+
+        <div class="value"><?php echo $this->format()->energyUsage($machine->getEnergyUsage()); ?></div>
+        <div class="label"><?php echo $this->escapeHtml($this->translate('recipe-details machine energy-usage')); ?></div>
+    </div>
 </li>
