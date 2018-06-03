@@ -13,20 +13,16 @@ $machine = $this->machine;
         </div>
     </div>
 
-    <div class="stats">
-        <div class="value"><?php echo $this->format()->craftingSpeed($machine->getCraftingSpeed()); ?></div>
-        <div class="label"><?php echo $this->escapeHtml($this->translate('recipe-details machine crafting-speed')); ?></div>
+    <dl>
+        <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine crafting-speed')); ?></dt>
+        <dd><?php echo $this->format()->craftingSpeed($machine->getCraftingSpeed()); ?></dd>
 
-        <div class="value"><?php echo $this->format()->machineSlots($machine->getNumberOfItemSlots()); ?></div>
-        <div class="label"><?php
-            echo $this->escapeHtml($this->translatePlural('recipe-details machine ingredients', '', max($machine->getNumberOfItemSlots(), 0)));
-        ?></div>
+        <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine ingredients')); ?></dt>
+        <dd><?php echo $this->format()->machineSlots($machine->getNumberOfItemSlots()); ?></dd>
 
-        <div class="value"><?php echo $this->format()->machineSlots($machine->getNumberOfFluidInputSlots()); ?></div>
-        <div class="label"><?php
-            echo $this->escapeHtml($this->translatePlural('recipe-details machine fluids', '', max($machine->getNumberOfFluidInputSlots(), 0)));
-        ?></div>
-    </div>
+        <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine fluids')); ?></dt>
+        <dd><?php echo $this->format()->machineSlots($machine->getNumberOfFluidInputSlots()); ?></dd>
+    </dl>
 
     <p class="player-notice">
         <?php echo $this->escapeHtmlAttr($this->translate('recipe-details machine player-notice')); ?>
