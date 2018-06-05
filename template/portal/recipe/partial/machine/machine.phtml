@@ -34,6 +34,6 @@ $linkedEntity = $this->genericEntity()->getLinkedEntityOfMachine($machine);
         <dd><?php echo $this->format()->machineSlots($machine->getNumberOfModuleSlots()); ?></dd>
 
         <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine energy-usage')); ?></dt>
-        <dd><?php echo $this->format()->energyUsage($machine->getEnergyUsage()); ?></dd>
+        <dd><?php echo $this->format()->energyUsage($machine->getEnergyUsage(), $machine->getEnergyUsageUnit()); ?></dd>
     </dl>
 </li>

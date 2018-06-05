@@ -71,18 +71,13 @@ class FormatHelper extends AbstractHelper
 
     /**
      * Formats and returns the specified energy usage.
-     * @param int $energyUsage
+     * @param float $energyUsage
+     * @param string $energyUsageUnit
      * @return string
      */
-    public function energyUsage(int $energyUsage): string
+    public function energyUsage(float $energyUsage, string $energyUsageUnit): string
     {
-        $units = ['W', 'kW', 'MW', 'GW', 'TW', 'PW'];
-        $currentUnit  = array_shift($units);
-        while ($energyUsage >= 1000 && count($units) > 0) {
-            $energyUsage /= 1000;
-            $currentUnit = array_shift($units);
-        }
-        return round($energyUsage, 2) . $currentUnit;
+        return round($energyUsage, 3) . $energyUsageUnit;
     }
 
     /**
