@@ -44,8 +44,8 @@ class GenericEntityHelper extends AbstractHelper
         return $this->urlHelper->generate(
             RouteNames::GENERIC_DETAILS,
             [
-                'type' => $entity->getType(),
-                'name' => $entity->getName()
+                'type' => rawurlencode($entity->getType()),
+                'name' => rawurlencode($entity->getName())
             ]
         );
     }
@@ -60,8 +60,8 @@ class GenericEntityHelper extends AbstractHelper
         return $this->urlHelper->generate(
             RouteNames::GENERIC_TOOLTIP,
             [
-                'type' => $entity->getType(),
-                'name' => $entity->getName()
+                'type' => rawurlencode($entity->getType()),
+                'name' => rawurlencode($entity->getName())
             ]
         );
     }
@@ -74,6 +74,16 @@ class GenericEntityHelper extends AbstractHelper
     public function getIcon(GenericEntity $entity): string
     {
         return $entity->getType() . '/' . $entity->getName();
+    }
+
+    /**
+     * Returns the CSS class name to use for the icon of the specified entity.
+     * @param GenericEntity $entity
+     * @return string
+     */
+    public function getIconClass(GenericEntity $entity): string
+    {
+        return 'icon-' . str_replace(' ', '_', $entity->getType() . '-' . $entity->getName());
     }
 
     /**
