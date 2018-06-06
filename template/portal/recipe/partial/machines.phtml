@@ -11,12 +11,11 @@ $machines = $this->machines;
         ['count' => $this->totalNumberOfMachines]
     )); ?></h2>
     <ul class="machine-list">
-        <?php foreach ($machines as $machine) {
-            if ($machine->getName() === 'player') {
-                echo $this->partial('portal::recipe/partial/machine/player', ['machine' => $machine]);
-            } else {
-                echo $this->partial('portal::recipe/partial/machine/machine', ['machine' => $machine]);
-            }
-        } ?>
+        <?php echo $this->partial('portal::recipe/machinePage', [
+            'currentPage' => 1,
+            'machines' => $this->machines,
+            'recipeName' => reset($this->recipes)->getName(),
+            'totalNumberOfMachines' => $this->totalNumberOfMachines
+        ]); ?>
     </ul>
 </section>

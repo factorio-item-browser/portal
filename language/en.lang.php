@@ -66,6 +66,8 @@ return [
     'recipe-details machine headline' => ['Producible in %count% machine', 'Producible in %count% machines'],
     'recipe-details machine ingredients' => 'Ingredients:',
     'recipe-details machine fluids' => 'Fluids:',
+    'recipe-details machine load-more' => 'Load more machines',
+    'recipe-details machine loading-more' => 'Loading more machines...',
     'recipe-details machine modules' => 'Modules:',
     'recipe-details machine none' => 'none',
     'recipe-details machine player-notice' => 'This recipe can be crafted by hand without any additional machine as long as the required ingredients are in the player inventory.',

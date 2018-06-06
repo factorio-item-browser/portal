@@ -25,6 +25,7 @@ class RouteNames {
     const MOD_LIST_UPLOAD = 'mod.list.upload';
 
     const RECIPE_DETAILS = 'recipe.details';
+    const RECIPE_MACHINE_PAGE = 'recipe.machine.page';
     const RECIPE_TOOLTIP = 'recipe.tooltip';
 
     const SEARCH_QUERY  = 'search.query';

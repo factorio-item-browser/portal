@@ -66,6 +66,8 @@ return [
     'recipe-details machine headline' => ['Herstellbar in %count% Maschine', 'Herstellbar in %count% Maschinen'],
     'recipe-details machine ingredients' => 'Zutaten:',
     'recipe-details machine fluids' => 'Flüssigkeiten:',
+    'recipe-details machine load-more' => 'Weitere Maschinen laden',
+    'recipe-details machine loading-more' => 'Lade weitere Maschinen...',
     'recipe-details machine modules' => 'Module:',
     'recipe-details machine none' => 'keine',
     'recipe-details machine player-notice' => 'Dieses Rezept kann ohne zusätzliche Maschinen direkt in der Hand hergestellt werden, solange sich die benötigten Zutaten im Spieler-Inventar befinden.',
