@@ -8,7 +8,10 @@ use FactorioItemBrowser\Api\Client\Client\Client;
 use FactorioItemBrowser\Api\Client\Entity\Recipe;
 use FactorioItemBrowser\Api\Client\Exception\NotFoundException;
 use FactorioItemBrowser\Api\Client\Request\Recipe\RecipeDetailsRequest;
+use FactorioItemBrowser\Api\Client\Request\Recipe\RecipeMachinesRequest;
 use FactorioItemBrowser\Api\Client\Response\Recipe\RecipeDetailsResponse;
+use FactorioItemBrowser\Api\Client\Response\Recipe\RecipeMachinesResponse;
+use FactorioItemBrowser\Portal\Constant\Config;
 use FactorioItemBrowser\Portal\Database\Service\SidebarEntityService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -70,10 +73,15 @@ class RecipeDetailsHandler implements RequestHandlerInterface
 
         $detailsRequest = new RecipeDetailsRequest();
         $detailsRequest->setNames([$name]);
+        $machinesRequest = new RecipeMachinesRequest();
+        $machinesRequest->setName($name)
+                        ->setNumberOfResults(Config::MACHINE_PER_PAGE);
 
         try {
             /* @var RecipeDetailsResponse $detailsResponse */
             $detailsResponse = $this->apiClient->send($detailsRequest);
+            /* @var RecipeMachinesResponse $machinesResponse */
+            $machinesResponse = $this->apiClient->send($machinesRequest);
 
             $recipes = [];
             foreach ($detailsResponse->getRecipes() as $recipe) {
@@ -85,15 +93,16 @@ class RecipeDetailsHandler implements RequestHandlerInterface
             }
 
             if (count($recipes) === 0) {
-                $response = new HtmlResponse($this->templateRenderer->render('error::404'));
-                $response = $response->withStatus(404);
+                $response = new HtmlResponse($this->templateRenderer->render('error::404'), 404);
             } else {
                 usort($recipes, function (Recipe $left, Recipe $right): int {
                     return $right->getMode() <=> $left->getMode();
                 });
 
                 $response = new HtmlResponse($this->templateRenderer->render('portal::recipe/details', [
-                    'recipes' => $recipes
+                    'machines' => $machinesResponse->getMachines(),
+                    'recipes' => $recipes,
+                    'totalNumberOfMachines' => $machinesResponse->getTotalNumberOfResults()
                 ]));
             }
         } catch (NotFoundException $e) {

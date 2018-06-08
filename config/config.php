@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal;
 
+use Blast;
 use Zend\ConfigAggregator\ArrayProvider;
 use Zend\ConfigAggregator\ConfigAggregator;
 use Zend\ConfigAggregator\PhpFileProvider;
@@ -32,6 +33,7 @@ $aggregator = new ConfigAggregator([
     Zend\HttpHandlerRunner\ConfigProvider::class,
     Zend\I18n\ConfigProvider::class,
     Zend\Log\ConfigProvider::class,
+    Blast\BaseUrl\ConfigProvider::class,
 
     // Load application config in a pre-defined order in such a way that local settings
     // overwrite global settings. (Loaded as first to last):

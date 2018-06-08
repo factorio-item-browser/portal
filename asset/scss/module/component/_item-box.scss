@@ -17,17 +17,7 @@
     @include box($color, $alpha-content);
 
     .head {
-        @include label-with-icon($spacing: default);
-
-        background: color($color, $lightness-box-background);
-        color: color($color, $lightness-text-secondary);
-        font-size: $text-size-small;
-
-        h3 {
-            color: color($color, $lightness-text-primary);
-            font-size: $text-size-default;
-            font-weight: bold;
-        }
+        @include box-head-with-icon($color: $color);
     }
 
     .recipe {

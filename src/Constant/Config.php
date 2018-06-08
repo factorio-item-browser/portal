@@ -23,6 +23,11 @@ class Config
     const ITEM_RECIPE_PER_PAGE = 24;
 
     /**
+     * The number of machines to show per page on the recipe details.
+     */
+    const MACHINE_PER_PAGE = 12;
+
+    /**
      * The number of search results to show per page.
      */
     const SEARCH_RESULTS_PER_PAGE = 24;

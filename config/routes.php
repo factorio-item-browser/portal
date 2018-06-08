@@ -26,6 +26,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->route('/mods/upload', Handler\Mod\ModListUploadHandler::class, ['POST'], RouteNames::MOD_LIST_UPLOAD);
 
     $app->route('/recipe/{name}', Handler\Recipe\RecipeDetailsHandler::class, ['GET', 'POST'], RouteNames::RECIPE_DETAILS);
+    $app->route('/recipe/{name}/machine/page/{page}', Handler\Recipe\RecipeMachinePageHandler::class, ['POST'], RouteNames::RECIPE_MACHINE_PAGE);
     $app->route('/recipe/{name}/tooltip', Handler\Recipe\RecipeTooltipHandler::class, ['GET', 'POST'], RouteNames::RECIPE_TOOLTIP);
 
     $app->route('/search/page/{page:\d+}/{query:.*}', Handler\Search\SearchQueryPageHandler::class, ['GET', 'POST'], RouteNames::SEARCH_QUERY_PAGE);

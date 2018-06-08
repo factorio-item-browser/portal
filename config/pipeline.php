@@ -13,7 +13,6 @@ namespace FactorioItemBrowser\Portal;
 
 use Blast\BaseUrl\BaseUrlMiddleware;
 use Psr\Container\ContainerInterface;
-use Zend\Diactoros\Response;
 use Zend\Expressive\Application;
 use Zend\Expressive\Handler\NotFoundHandler;
 use Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware;
@@ -25,17 +24,13 @@ use Zend\Expressive\Router\Middleware\ImplicitHeadMiddleware;
 use Zend\Expressive\Router\Middleware\ImplicitOptionsMiddleware;
 use Zend\Expressive\Router\Middleware\MethodNotAllowedMiddleware;
 use Zend\Expressive\Router\Middleware\RouteMiddleware;
-use Zend\Stratigility\Middleware\DoublePassMiddlewareDecorator;
 use Zend\Stratigility\Middleware\ErrorHandler;
 
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
     $app->pipe(ErrorHandler::class);
     $app->pipe(Middleware\CleanupMiddleware::class);
 
-    $app->pipe(new DoublePassMiddlewareDecorator(function ($request, $response, $next) use ($container) {
-        $middleware = $container->get(BaseUrlMiddleware::class);
-        return $middleware($request, $response, $next);
-    }, new Response()));
+    $app->pipe(BaseUrlMiddleware::class);
     $app->pipe(RouteMiddleware::class);
     $app->pipe(ServerUrlMiddleware::class);
     $app->pipe(UrlHelperMiddleware::class);

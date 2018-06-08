@@ -11,9 +11,6 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal;
 
-use Blast\BaseUrl\BasePathHelper;
-use Blast\BaseUrl\BaseUrlMiddleware;
-use Blast\BaseUrl\BaseUrlMiddlewareFactory;
 use ContainerInteropDoctrine\EntityManagerFactory;
 use Doctrine\ORM\EntityManager;
 use FactorioItemBrowser\Api\Client\Client\Client;
@@ -34,6 +31,7 @@ return [
             Handler\Mod\ModListHandler::class => Handler\Mod\ModListHandlerFactory::class,
             Handler\Mod\ModListSaveHandler::class => Handler\Mod\AbstractModListChangeHandlerFactory::class,
             Handler\Mod\ModListUploadHandler::class => Handler\Mod\AbstractModListChangeHandlerFactory::class,
+            Handler\Recipe\RecipeMachinePageHandler::class => Handler\Recipe\RecipeMachinePageHandlerFactory::class,
             Handler\Recipe\RecipeDetailsHandler::class => Handler\Recipe\RecipeDetailsHandlerFactory::class,
             Handler\Recipe\RecipeTooltipHandler::class => Handler\Recipe\RecipeTooltipHandlerFactory::class,
             Handler\Search\SearchQueryHandler::class => Handler\Search\SearchQueryHandlerFactory::class,
@@ -53,8 +51,6 @@ return [
             Session\SessionManager::class => InvokableFactory::class,
 
             // Dependencies of other libraries
-            BasePathHelper::class => InvokableFactory::class,
-            BaseUrlMiddleware::class => BaseUrlMiddlewareFactory::class,
             Client::class => Api\ClientFactory::class,
             EntityManager::class => EntityManagerFactory::class,
         ],
