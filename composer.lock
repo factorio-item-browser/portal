@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "efb1f02199ac308026caf828f875320b",
+    "content-hash": "6c51bd872b521bea81bd456eb6b8fc1e",
     "packages": [
         {
             "name": "bluepsyduck/common",
@@ -836,16 +836,16 @@
         },
         {
             "name": "factorio-item-browser/api-client",
-            "version": "dev-feature/machines",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/factorio-item-browser/api-client.git",
-                "reference": "fc727d4fc8970e49c3c92396707ffcc6c1268750"
+                "reference": "c2b9126ff937489904d667e023e7f651570037a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/factorio-item-browser/api-client/zipball/fc727d4fc8970e49c3c92396707ffcc6c1268750",
-                "reference": "fc727d4fc8970e49c3c92396707ffcc6c1268750",
+                "url": "https://api.github.com/repos/factorio-item-browser/api-client/zipball/c2b9126ff937489904d667e023e7f651570037a7",
+                "reference": "c2b9126ff937489904d667e023e7f651570037a7",
                 "shasum": ""
             },
             "require": {
@@ -881,7 +881,7 @@
                 "api",
                 "client"
             ],
-            "time": "2018-06-05T15:55:39+00:00"
+            "time": "2018-06-08T15:47:31+00:00"
         },
         {
             "name": "fig/http-message-util",
