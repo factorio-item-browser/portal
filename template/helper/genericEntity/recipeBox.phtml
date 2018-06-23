@@ -1,0 +1,15 @@
+<?php
+use FactorioItemBrowser\Api\Client\Entity\Recipe;
+use FactorioItemBrowser\Api\Client\Entity\RecipeWithExpensiveVersion;
+
+/* @var Recipe $recipe */
+$recipe = $this->recipe;
+?>
+<<?php echo $this->tagName; ?> class="<?php echo $this->escapeHtmlAttr($this->cssClass); ?>"><?php
+    echo $this->partial('helper::genericEntity/partial/head', ['entity' => $recipe]);
+    echo $this->partial('helper::genericEntity/partial/recipe', ['recipe' => $recipe]);
+
+    if ($recipe instanceof RecipeWithExpensiveVersion && $recipe->hasExpensiveVersion()) {
+        echo $this->partial('helper::genericEntity/partial/recipe', ['recipe' => $recipe->getExpensiveVersion()]);
+    }
+?></<?php echo $this->tagName; ?>>

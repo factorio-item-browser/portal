@@ -90,11 +90,8 @@ class ItemDetailsHandler implements RequestHandlerInterface
         try {
             $this->sidebarEntityService->add($productResponse->getItem());
             $response = new HtmlResponse($this->templateRenderer->render('portal::item/details', [
-                'item' => $productResponse->getItem(),
-                'productRecipes' => $productResponse->getGroupedRecipes(),
-                'totalNumberOfProductRecipes' => $productResponse->getTotalNumberOfResults(),
-                'ingredientRecipes' => $ingredientResponse->getGroupedRecipes(),
-                'totalNumberOfIngredientRecipes' => $ingredientResponse->getTotalNumberOfResults(),
+                'itemWithIngredients' => $ingredientResponse->getItem(),
+                'itemWithProducts' => $productResponse->getItem(),
             ]));
         } catch (NotFoundException $e) {
             $response = new HtmlResponse($this->templateRenderer->render('error::404'), 404);

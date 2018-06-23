@@ -7,6 +7,7 @@ namespace FactorioItemBrowser\Portal\View\Helper;
 use FactorioItemBrowser\Api\Client\Constant\EntityType;
 use FactorioItemBrowser\Api\Client\Entity\GenericEntity;
 use FactorioItemBrowser\Api\Client\Entity\Machine;
+use FactorioItemBrowser\Api\Client\Entity\Recipe;
 use FactorioItemBrowser\Portal\Constant\RouteNames;
 use Zend\Expressive\Helper\UrlHelper;
 use Zend\View\Helper\AbstractHelper;
@@ -111,6 +112,22 @@ class GenericEntityHelper extends AbstractHelper
         return $this->view->render('helper::genericEntity/box', [
             'cssClass' => $cssClass,
             'entity' => $entity,
+            'tagName' => $tagName
+        ]);
+    }
+
+    /**
+     * Renders a recipe to a box.
+     * @param Recipe $recipe
+     * @param string $cssClass
+     * @param string $tagName
+     * @return string
+     */
+    public function renderRecipeBox(Recipe $recipe, string $cssClass = 'item', string $tagName = 'div'): string
+    {
+        return $this->view->render('helper::genericEntity/recipeBox', [
+            'cssClass' => $cssClass,
+            'recipe' => $recipe,
             'tagName' => $tagName
         ]);
     }

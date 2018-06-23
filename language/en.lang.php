@@ -70,7 +70,7 @@ return [
     'recipe-details machine loading-more' => 'Loading more machines...',
     'recipe-details machine modules' => 'Modules:',
     'recipe-details machine none' => 'none',
-    'recipe-details machine player-notice' => 'This recipe can be crafted by hand without any additional machine as long as the required ingredients are in the player inventory.',
+    'recipe-details machine player-notice' => 'This recipe can be crafted by hand without additional machines as long as the required ingredients are in the player inventory.',
     'recipe-details machine unlimited' => 'unlimited',
     'recipe-details products' => 'Results',
     'recipe-details time' => 'Time',

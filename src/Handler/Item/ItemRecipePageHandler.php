@@ -75,8 +75,6 @@ class ItemRecipePageHandler implements RequestHandlerInterface
                     'currentPage' => $page,
                     'item' => $recipeResponse->getItem(),
                     'recipeType' => $recipeType,
-                    'recipes' => $recipeResponse->getGroupedRecipes(),
-                    'totalNumberOfResults' => $recipeResponse->getTotalNumberOfResults(),
                     'layout' => false
                 ])
             ]);
