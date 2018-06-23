@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "062f1fb9949e0e75865b3439a0812969",
+    "content-hash": "6c51bd872b521bea81bd456eb6b8fc1e",
     "packages": [
         {
             "name": "bluepsyduck/common",
@@ -837,16 +837,16 @@
         },
         {
             "name": "factorio-item-browser/api-client",
-            "version": "dev-bug/inconsistent-numbers-of-recipes",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/factorio-item-browser/api-client.git",
-                "reference": "af10a3d9d978b9e943bdeec837dba955c41e5695"
+                "reference": "06ce10304a56931331bd2b379c52d52f6c974633"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/factorio-item-browser/api-client/zipball/af10a3d9d978b9e943bdeec837dba955c41e5695",
-                "reference": "af10a3d9d978b9e943bdeec837dba955c41e5695",
+                "url": "https://api.github.com/repos/factorio-item-browser/api-client/zipball/06ce10304a56931331bd2b379c52d52f6c974633",
+                "reference": "06ce10304a56931331bd2b379c52d52f6c974633",
                 "shasum": ""
             },
             "require": {
@@ -883,7 +883,7 @@
                 "api",
                 "client"
             ],
-            "time": "2018-06-19T18:45:41+00:00"
+            "time": "2018-06-23T11:40:56+00:00"
         },
         {
             "name": "fig/http-message-util",
