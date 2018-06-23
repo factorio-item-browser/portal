@@ -8,10 +8,10 @@ use FactorioItemBrowser\Api\Client\Client\Client;
 use FactorioItemBrowser\Api\Client\Entity\Mod;
 use FactorioItemBrowser\Api\Client\Request\Mod\ModListRequest;
 use FactorioItemBrowser\Api\Client\Response\Mod\ModListResponse;
+use FactorioItemBrowser\Portal\Handler\AbstractRenderHandler;
 use FactorioItemBrowser\Portal\Session\Container\ModListSessionContainer;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
@@ -21,25 +21,13 @@ use Zend\Expressive\Template\TemplateRendererInterface;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class ModListHandler implements RequestHandlerInterface
+class ModListHandler extends AbstractRenderHandler
 {
-    /**
-     * The API client.
-     * @var Client
-     */
-    protected $apiClient;
-
     /**
      * The mod list session container.
      * @var ModListSessionContainer
      */
     protected $modListSessionContainer;
-
-    /**
-     * The template renderer.
-     * @var TemplateRendererInterface
-     */
-    protected $templateRenderer;
 
     /**
      * Initializes the request handler.
@@ -53,9 +41,8 @@ class ModListHandler implements RequestHandlerInterface
         TemplateRendererInterface $templateRenderer
     )
     {
-        $this->apiClient = $apiClient;
+        parent::__construct($apiClient, $templateRenderer);
         $this->modListSessionContainer = $modListSessionContainer;
-        $this->templateRenderer = $templateRenderer;
     }
 
     /**
