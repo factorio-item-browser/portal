@@ -6,6 +6,7 @@ namespace FactorioItemBrowser\Portal\Handler;
 
 use FactorioItemBrowser\Api\Client\Client\Client;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\JsonResponse;
@@ -41,6 +42,13 @@ abstract class AbstractRenderHandler implements RequestHandlerInterface
         $this->apiClient = $apiClient;
         $this->templateRenderer = $templateRenderer;
     }
+
+    /**
+     * Handles the request and return a response.
+     * @param ServerRequestInterface $request
+     * @return ResponseInterface
+     */
+    abstract public function handle(ServerRequestInterface $request): ResponseInterface;
 
     /**
      * Renders the Not Found page.

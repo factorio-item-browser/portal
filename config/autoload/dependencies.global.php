@@ -36,6 +36,7 @@ return [
             Handler\Recipe\RecipeTooltipHandler::class => Handler\AbstractRenderHandlerFactory::class,
             Handler\Search\SearchQueryHandler::class => Handler\Search\SearchQueryHandlerFactory::class,
             Handler\Search\SearchQueryPageHandler::class => Handler\AbstractRenderHandlerFactory::class,
+            Handler\Settings\SettingsListHandler::class => Handler\AbstractRenderHandlerFactory::class,
             Handler\Sidebar\SidebarPinHandler::class => Handler\Sidebar\AbstractSidebarRequestHandlerFactory::class,
             Handler\Sidebar\SidebarUnpinHandler::class => Handler\Sidebar\AbstractSidebarRequestHandlerFactory::class,
 
