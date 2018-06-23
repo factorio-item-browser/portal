@@ -14,7 +14,7 @@ $machines = $this->machines;
         <?php echo $this->partial('portal::recipe/machinePage', [
             'currentPage' => 1,
             'machines' => $this->machines,
-            'recipeName' => reset($this->recipes)->getName(),
+            'recipeName' => $this->recipe->getName(),
             'totalNumberOfMachines' => $this->totalNumberOfMachines
         ]); ?>
     </ul>
