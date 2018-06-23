@@ -52,6 +52,7 @@ return [
     'mod-list message failed' => 'Upload of the mod-list.json failed.',
     'mod-list message error invalidFile' => 'An invalid file was uploaded. Please make sure to select the mod-list.json file.',
     'mod-list message error missingFile' => 'An error occurred during the upload. Please try again.',
+    'mod-list page-title' => 'Mods',
     'mod-list upload-file' => 'Upload your mod-list.json',
     'mod-list upload-file label advanced' => 'Select your <strong>mod-list.json</strong> file or drag it here.',
     'mod-list upload-file label dragover' => 'Drop it here.',
@@ -83,6 +84,8 @@ return [
     'search-results loading-more' => 'Loading more results...',
     'search-results no-results' => 'No results found',
 
+    'settings page-title' => 'Settings',
+
     'sidebar entity pin' => 'Pin the element to the top.',
     'sidebar entity unpin' => 'Unpin the element from the top.',
     'sidebar headline last-viewed' => 'Last viewed',
@@ -90,4 +93,5 @@ return [
     'sidebar locale label' => 'Language: %locale%',
     'sidebar locale disclaimer' => 'Languages are only supported if the mods provide translations for them. Missing translations fall back to English.',
     'sidebar mod-link label' => 'Enabled mods: %number% of %count%',
+    'sidebar settings-link label' => 'Settings',
 ];
