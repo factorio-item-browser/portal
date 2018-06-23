@@ -1,24 +1,16 @@
 <?php
 use FactorioItemBrowser\Api\Client\Entity\Recipe;
+use FactorioItemBrowser\Api\Client\Entity\RecipeWithExpensiveVersion;
 
-/* @var Recipe[] $recipes */
-$recipes = $this->recipes;
+/* @var Recipe $recipe */
+$recipe = $this->recipe;
 
-$firstRecipe = reset($recipes);
+$this->headTitle()->prepend($recipe->getLabel() ?: $recipe->getName());
 
-$this->headTitle()->prepend($firstRecipe->getLabel() ?: $firstRecipe->getName());
-
-foreach ($recipes as $recipe) { ?>
-    <section class="recipe-details-container <?php echo $this->escapeHtmlAttr($recipe->getMode()); ?>">
-        <?php echo $this->partial('portal::recipe/partial/head', ['recipe' => $recipe]); ?>
-
-        <div class="recipe-details">
-            <?php echo $this->partial('portal::recipe/partial/ingredients', ['recipe' => $recipe]); ?>
-            <div class="separator"></div>
-            <?php echo $this->partial('portal::recipe/partial/products', ['recipe' => $recipe]); ?>
-        </div>
-    </section>
-<?php }
+echo $this->partial('portal::recipe/partial/recipe', ['recipe' => $recipe]);
+if ($recipe instanceof RecipeWithExpensiveVersion && $recipe->hasExpensiveVersion()) {
+    echo $this->partial('portal::recipe/partial/recipe', ['recipe' => $recipe->getExpensiveVersion()]);
+}
 
 if (count($this->machines) > 0) {
     echo $this->render('portal::recipe/partial/machines');

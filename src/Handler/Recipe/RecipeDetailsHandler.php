@@ -72,7 +72,7 @@ class RecipeDetailsHandler implements RequestHandlerInterface
         $name = rawurldecode($request->getAttribute('name'));
 
         $detailsRequest = new RecipeDetailsRequest();
-        $detailsRequest->setNames([$name]);
+        $detailsRequest->addName($name);
         $machinesRequest = new RecipeMachinesRequest();
         $machinesRequest->setName($name)
                         ->setNumberOfResults(Config::MACHINE_PER_PAGE);
@@ -83,27 +83,17 @@ class RecipeDetailsHandler implements RequestHandlerInterface
             /* @var RecipeMachinesResponse $machinesResponse */
             $machinesResponse = $this->apiClient->send($machinesRequest);
 
-            $recipes = [];
-            foreach ($detailsResponse->getRecipes() as $recipe) {
-                if (count($recipes) === 0) {
-                    $this->sidebarEntityService->add($recipe);
-                }
-
-                $recipes[] = $recipe;
-            }
-
-            if (count($recipes) === 0) {
-                $response = new HtmlResponse($this->templateRenderer->render('error::404'), 404);
-            } else {
-                usort($recipes, function (Recipe $left, Recipe $right): int {
-                    return $right->getMode() <=> $left->getMode();
-                });
+            $recipe = reset($detailsResponse->getRecipes()) ?: null;
+            if ($recipe instanceof Recipe) {
+                $this->sidebarEntityService->add($recipe);
 
                 $response = new HtmlResponse($this->templateRenderer->render('portal::recipe/details', [
                     'machines' => $machinesResponse->getMachines(),
-                    'recipes' => $recipes,
+                    'recipe' => $recipe,
                     'totalNumberOfMachines' => $machinesResponse->getTotalNumberOfResults()
                 ]));
+            } else {
+                $response = new HtmlResponse($this->templateRenderer->render('error::404'), 404);
             }
         } catch (NotFoundException $e) {
             $response = new HtmlResponse($this->templateRenderer->render('error::404'), 404);

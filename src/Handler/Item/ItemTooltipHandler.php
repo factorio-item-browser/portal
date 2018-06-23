@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Portal\Handler\Item;
 
 use FactorioItemBrowser\Api\Client\Client\Client;
-use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
 use FactorioItemBrowser\Api\Client\Exception\ApiClientException;
 use FactorioItemBrowser\Api\Client\Request\Item\ItemProductRequest;
 use FactorioItemBrowser\Api\Client\Response\Item\ItemProductResponse;
@@ -66,22 +65,9 @@ class ItemTooltipHandler implements RequestHandlerInterface
             /* @var ItemProductResponse $productResponse */
             $productResponse = $this->apiClient->send($productRequest);
 
-            $entity = new GenericEntityWithRecipes();
-            $entity->setType($productResponse->getItem()->getType())
-                   ->setName($productResponse->getItem()->getName())
-                   ->setLabel($productResponse->getItem()->getLabel())
-                   ->setDescription($productResponse->getItem()->getDescription())
-                   ->setTotalNumberOfRecipes($productResponse->getTotalNumberOfResults());
-
-            foreach ($productResponse->getGroupedRecipes() as $groupedRecipe) {
-                foreach ($groupedRecipe->getRecipes() as $recipe) {
-                    $entity->addRecipe($recipe);
-                }
-            }
-
             $response = new JsonResponse([
                 'content' => $this->templateRenderer->render('portal::item/tooltip', [
-                    'entity' => $entity,
+                    'item' => $productResponse->getItem(),
                     'layout' => false
                 ])
             ]);
