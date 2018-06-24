@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
+use FactorioItemBrowser\Portal\Constant\RecipeMode;
 
 /**
  * The entity holding the user data.
@@ -46,6 +47,14 @@ class User
      * @var array|string[]
      */
     protected $enabledModNames = [];
+
+    /**
+     * @ORM\Column(name="recipeMode")
+     *
+     * The recipe mode the user wants to use.
+     * @var string
+     */
+    protected $recipeMode = RecipeMode::HYBRID;
 
     /**
      * @ORM\Column(name="lastVisit", type="datetime")
@@ -162,6 +171,26 @@ class User
     public function getEnabledModNames(): array
     {
         return $this->enabledModNames;
+    }
+
+    /**
+     * Sets the recipe mode the user wants to use.
+     * @param string $recipeMode
+     * @return $this
+     */
+    public function setRecipeMode(string $recipeMode)
+    {
+        $this->recipeMode = $recipeMode;
+        return $this;
+    }
+
+    /**
+     * Returns the recipe mode the user wants to use.
+     * @return string
+     */
+    public function getRecipeMode(): string
+    {
+        return $this->recipeMode;
     }
 
     /**

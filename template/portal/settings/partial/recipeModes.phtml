@@ -1,13 +1,21 @@
+<?php
+use FactorioItemBrowser\Portal\View\Helper\SettingsHelper;
+
+/* @var SettingsHelper $settingsHelper */
+$settingsHelper = $this->settings();
+?>
+
 <section>
     <h2><?php echo $this->escapeHtml($this->translate('settings recipe-mode headline')); ?></h2>
 
     <div class="recipe-modes-list">
-        <?php foreach (['hybrid', 'normal', 'expensive'] as $recipeMode) { ?>
+        <?php foreach ($settingsHelper->getRecipeModes() as $recipeMode) { ?>
             <input
                 id="recipeMode_<?php echo $this->escapeHtmlAttr($recipeMode); ?>"
                 name="recipeMode"
                 value="<?php echo $this->escapeHtmlAttr($recipeMode); ?>"
                 type="radio"
+                <?php if ($recipeMode === $settingsHelper->getCurrentRecipeMode()) { ?>checked<?php } ?>
                 class="recipe-mode-radio hidden"
             />
             <div class="recipe-mode" data-label-for="recipeMode_<?php echo $this->escapeHtmlAttr($recipeMode); ?>">

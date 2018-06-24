@@ -1,0 +1,12 @@
+<?php
+use FactorioItemBrowser\Portal\Constant\RouteNames;
+
+$this->headTitle()->prepend($this->translate('settings page-title'));
+?>
+
+<form class="settings-form" action="<?php echo $this->escapeHtmlAttr($this->url(RouteNames::SETTINGS_SAVE)); ?>" method="post"><?php
+    echo $this->render('portal::settings/partial/recipeModes');
+    echo $this->render('portal::settings/partial/locales');
+    ?>
+    <button type="submit"><?php echo $this->escapeHtml($this->translate('mod-list button save')); ?></button>
+</form>

@@ -13,6 +13,16 @@ namespace FactorioItemBrowser\Portal\Constant;
 class Config
 {
     /**
+     * The default locale to use.
+     */
+    const DEFAULT_LOCALE = 'en';
+
+    /**
+     * The default recipe mode to use.
+     */
+    const DEFAULT_RECIPE_MODE = RecipeMode::HYBRID;
+
+    /**
      * The number of random items to show on the index page.
      */
     const INDEX_RANDOM_ITEMS = 12;

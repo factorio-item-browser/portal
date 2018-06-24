@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\View\Helper;
 
+use FactorioItemBrowser\Portal\Constant\RecipeMode;
 use FactorioItemBrowser\Portal\Database\Entity\User;
 use Zend\View\Helper\AbstractHelper;
 
@@ -64,5 +65,27 @@ class SettingsHelper extends AbstractHelper
     public function getCurrentLocale(): string
     {
         return $this->currentUser->getLocale();
+    }
+
+    /**
+     * Returns the recipe modes available in the browser.
+     * @return array
+     */
+    public function getRecipeModes(): array
+    {
+        return [
+            RecipeMode::HYBRID,
+            RecipeMode::NORMAL,
+            RecipeMode::EXPENSIVE
+        ];
+    }
+
+    /**
+     * Returns the recipe mode currently selected by the user.
+     * @return string
+     */
+    public function getCurrentRecipeMode(): string
+    {
+        return $this->currentUser->getRecipeMode();
     }
 }

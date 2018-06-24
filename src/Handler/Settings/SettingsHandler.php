@@ -10,12 +10,12 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 
 /**
- * The handler showing the list of available settings to be changed.
+ * The handler showing available settings to be changed.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class SettingsListHandler extends AbstractRenderHandler
+class SettingsHandler extends AbstractRenderHandler
 {
     /**
      * Handles the request and return a response.
@@ -24,6 +24,6 @@ class SettingsListHandler extends AbstractRenderHandler
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        return new HtmlResponse($this->templateRenderer->render('portal::settings/list'));
+        return new HtmlResponse($this->templateRenderer->render('portal::settings/settings'));
     }
 }
