@@ -1,0 +1,57 @@
+/**
+ * File defining the style of the recipe modes on the settings page.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../../module/all';
+
+.recipe-modes-list {
+    @include box-list('.recipe-mode');
+
+    .recipe-mode {
+        @include box($color-box-setting);
+        @include dynamic-spacing(padding, default);
+        @include flex-container();
+        @include transition-default(background);
+
+        cursor: pointer;
+
+        .check-icon {
+            @include flex-item($shrink: 0);
+            @include font-icon($fa-var-check, $icon-size-default);
+            @include dynamic-spacing(right top, default);
+
+            visibility: hidden;
+        }
+
+        label {
+            @include flex-item($grow: 1);
+            @include dynamic-spacing(padding-right, default);
+
+            color: color($color-box-setting, $lightness-text-secondary);
+            cursor: pointer;
+            font-size: $text-size-small;
+
+            h3 {
+                color: color($color-box-setting, $lightness-text-primary);
+                font-size: $text-size-default;
+            }
+        }
+
+        &:hover {
+            background: color($color-box-setting-enabled, $lightness-box-background);
+            color: color($color-box-setting-enabled, $lightness-text-primary);
+        }
+    }
+
+    .recipe-mode-radio:checked + .recipe-mode {
+        background: color($color-box-setting-enabled, $lightness-box-background);
+        color: color($color-box-setting-enabled, $lightness-text-primary);
+
+        .check-icon {
+            visibility: visible;
+        }
+    }
+}

@@ -17,7 +17,7 @@ return [
     'error js title' => 'Javascript disabled',
     'error js message' => 'Javascript is required for an optimized automation. Please provide that resource.',
     'error page try-again' => 'An error occurred while loading the data. Click here to try again.',
-    'error page trying-again' => 'Load data...',
+    'error page trying-again' => 'Loading data...',
 
     'footer copyright main' => '© %year% Factorio Item Browser',
     'footer copyright sub' => 'All images are owned by <a href="https://www.factorio.com/" target="_blank" rel="nofollow">Wube Software</a> and the <a href="https://mods.factorio.com/" target="_blank" rel="nofollow">mod authors</a> respectively.',
@@ -87,6 +87,13 @@ return [
     'settings locale disclaimer' => 'Languages are only supported if the mods provide translations for them. Missing translations fall back to English.',
     'settings locale headline' => 'Language',
     'settings page-title' => 'Settings',
+    'settings recipe-mode headline' => 'Recipe mode',
+    'settings recipe-mode hybrid label' => 'Hybrid mode',
+    'settings recipe-mode hybrid description' => 'All variants of the recipes will be displayed. Expensive variants will be highlighted in red.',
+    'settings recipe-mode normal label' => 'Normal mode',
+    'settings recipe-mode normal description' => 'Only normal variants of the recipes will be displayed. Expensive ones will be hidden.',
+    'settings recipe-mode expensive label' => 'Expensive mode',
+    'settings recipe-mode expensive description' => 'If a recipe has both a normal and an expensive variant only the expensive one will be displayed.',
 
     'sidebar entity pin' => 'Pin the element to the top.',
     'sidebar entity unpin' => 'Unpin the element from the top.',

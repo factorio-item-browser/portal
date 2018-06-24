@@ -87,6 +87,13 @@ return [
     'settings locale disclaimer' => 'Die Sprachen werden nur unterstützt, wenn die Mods entsprechende Übersetzungen liefern. Fehlende Übersetzungen werden durch Englisch ersetzt.',
     'settings locale headline' => 'Sprache',
     'settings page-title' => 'Einstellungen',
+    'settings recipe-mode headline' => 'Rezept-Modus',
+    'settings recipe-mode hybrid label' => 'Hybrid-Modus',
+    'settings recipe-mode hybrid description' => 'Alle Varianten der Rezepte werden angezeigt. Teure Varianten werden rot hervorgehoben.',
+    'settings recipe-mode normal label' => 'Normaler Modus',
+    'settings recipe-mode normal description' => 'Nur normale Varianten der Rezepte werden angezeigt. Teure Varianten werden ausgeblendet.',
+    'settings recipe-mode expensive label' => 'Teurer Modus',
+    'settings recipe-mode expensive description' => 'Besitzt ein Rezept eine normale und eine teure Variante, so wird nur letztere angezeigt.',
 
     'sidebar entity pin' => 'Element oben anheften.',
     'sidebar entity unpin' => 'Element von oben abheften.',
