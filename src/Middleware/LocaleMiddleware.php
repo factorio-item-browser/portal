@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Middleware;
 
-use FactorioItemBrowser\Portal\Constant\Attribute;
+use FactorioItemBrowser\Portal\Constant\Config;
 use FactorioItemBrowser\Portal\Database\Service\UserService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -65,25 +65,13 @@ class LocaleMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $newLocale = $this->userService->getCurrentUser()->getLocale();
-
-        // First check if the parameter to change the locale is present.
-        $queryLocale = $request->getQueryParams()['locale'] ?? '';
-        if (strlen($queryLocale) > 0 && in_array($queryLocale, $this->enabledLocales)) {
-            $newLocale = $queryLocale;
-        }
-
-        // We are still missing a locale, so detect it from the request headers.
         if (strlen($newLocale) === 0) {
             $newLocale = $this->detectLocaleFromRequest($request);
         }
 
-        if ($newLocale !== $this->userService->getCurrentUser()->getLocale()) {
-            $this->userService->getCurrentUser()->setLocale($newLocale);
-            $request = $request->withAttribute(Attribute::LOCALE_CHANGED, true);
-        }
-
+        $this->userService->getCurrentUser()->setLocale($newLocale);
         $this->translator->setLocale($newLocale)
-                         ->setFallbackLocale(self::DEFAULT_LOCALE);
+                         ->setFallbackLocale(Config::DEFAULT_LOCALE);
         return $handler->handle($request);
     }
 

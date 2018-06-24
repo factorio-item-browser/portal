@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
-use FactorioItemBrowser\Portal\Constant\RecipeMode;
+use FactorioItemBrowser\Portal\Constant\Config;
 
 /**
  * The entity holding the user data.
@@ -38,7 +38,7 @@ class User
      * The locale the user uses.
      * @var string
      */
-    protected $locale = '';
+    protected $locale = Config::DEFAULT_LOCALE;
 
     /**
      * @ORM\Column(name="enabledModNames", type="json")
@@ -54,7 +54,7 @@ class User
      * The recipe mode the user wants to use.
      * @var string
      */
-    protected $recipeMode = RecipeMode::HYBRID;
+    protected $recipeMode = Config::DEFAULT_RECIPE_MODE;
 
     /**
      * @ORM\Column(name="lastVisit", type="datetime")

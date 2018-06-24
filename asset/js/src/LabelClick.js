@@ -28,9 +28,11 @@
          * @private
          */
         _initializeElements() {
-            $('[data-label-for]').on('click', (event) => {
-                $('#' + $(event.currentTarget).data('label-for')).trigger('click');
-            });
+            $('[data-label-for]')
+                .off('click.label-click')
+                .on('click.label-click', (event) => {
+                    $('#' + $(event.currentTarget).data('label-for')).trigger('click');
+                });
         }
     }
 
