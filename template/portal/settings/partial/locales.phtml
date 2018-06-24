@@ -1,5 +1,30 @@
+<?php
+use FactorioItemBrowser\Portal\View\Helper\SettingsHelper;
+
+/* @var SettingsHelper $settingsHelper */
+$settingsHelper = $this->settings();
+?>
+
 <section>
-    <h2>Language</h2>
+    <h2><?php echo $this->escapeHtml($this->translate('settings locale headline')); ?></h2>
+    <div class="locale-disclaimer"><?php echo $this->escapeHtml($this->translate('settings locale disclaimer')); ?></div>
 
-
+    <div class="locale-list">
+        <?php foreach ($settingsHelper->getLocales() as $locale) { ?>
+            <input
+                id="locale_<?php echo $this->escapeHtmlAttr($locale); ?>"
+                name="locale"
+                value="<?php echo $this->escapeHtmlAttr($locale); ?>"
+                type="radio"
+                <?php if ($locale === $settingsHelper->getCurrentLocale()) { ?>checked<?php } ?>
+                class="locale-radio hidden"
+            />
+            <div class="locale">
+                <label for="locale_<?php echo $this->escapeHtmlAttr($locale); ?>">
+                    <?php echo $this->escapeHtml($settingsHelper->getLocaleLabel($locale)); ?>
+                </label>
+                <div class="check-icon"></div>
+            </div>
+        <?php } ?>
+    </div>
 </section>

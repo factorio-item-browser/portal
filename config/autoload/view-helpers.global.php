@@ -25,6 +25,7 @@ return [
             'locale' => View\Helper\LocaleHelper::class,
             'layoutParams' => View\Helper\LayoutParamsHelper::class,
             'replace' => View\Helper\ReplaceHelper::class,
+            'settings' => View\Helper\SettingsHelper::class,
             'sidebar' => View\Helper\SidebarHelper::class,
         ],
         'factories' => [
@@ -37,6 +38,7 @@ return [
             View\Helper\LayoutParamsHelper::class => InvokableFactory::class,
             View\Helper\LocaleHelper::class => View\Helper\LocaleHelperFactory::class,
             View\Helper\ReplaceHelper::class => InvokableFactory::class,
+            View\Helper\SettingsHelper::class => View\Helper\SettingsHelperFactory::class,
             View\Helper\SidebarHelper::class => View\Helper\SidebarHelperFactory::class,
         ],
     ]

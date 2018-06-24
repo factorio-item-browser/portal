@@ -1,0 +1,60 @@
+/**
+ * File defining the style of the locales on the settings page.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../../module/all';
+
+.locale-disclaimer {
+    @include box($color-box-default, $alpha-box-content);
+    @include dynamic-spacing(margin, large large default large);
+    @include dynamic-spacing(padding, small default);
+
+    color: color($color-box-default, $lightness-text-primary);
+}
+
+.locale-list {
+    @include box-list('.locale');
+
+    .locale {
+        @include box($color-box-setting);
+        @include dynamic-spacing(padding, small default);
+        @include flex-container();
+        @include flex-container-align($vertical: center);
+        @include transition-default(background);
+
+        cursor: pointer;
+        font-size: $text-size-default;
+
+        .check-icon {
+            @include flex-item($shrink: 0);
+            @include font-icon($fa-var-check, $icon-size-default);
+            @include dynamic-spacing(right top, default);
+
+            visibility: hidden;
+        }
+
+        label {
+            @include flex-item($grow: 1);
+
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        &:hover {
+            background: color($color-box-setting-enabled, $lightness-box-background);
+            color: color($color-box-setting-enabled, $lightness-text-primary);
+        }
+    }
+
+    .locale-radio:checked + .locale {
+        background: color($color-box-setting-enabled, $lightness-box-background);
+        color: color($color-box-setting-enabled, $lightness-text-primary);
+
+        .check-icon {
+            visibility: visible;
+        }
+    }
+}

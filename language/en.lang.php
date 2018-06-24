@@ -84,6 +84,8 @@ return [
     'search-results loading-more' => 'Loading more results...',
     'search-results no-results' => 'No results found',
 
+    'settings locale disclaimer' => 'Languages are only supported if the mods provide translations for them. Missing translations fall back to English.',
+    'settings locale headline' => 'Language',
     'settings page-title' => 'Settings',
 
     'sidebar entity pin' => 'Pin the element to the top.',
