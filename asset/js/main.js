@@ -8,6 +8,7 @@
 
         // Global features
         fib.iconManager = new fib.IconManager();
+        fib.labelClick = new fib.LabelClick();
         fib.paginatedList = new fib.PaginatedList();
         fib.loadingCircle = new fib.LoadingCircle($('#loading-circle'));
         fib.searchBox = new fib.SearchBox($('#search-box'));

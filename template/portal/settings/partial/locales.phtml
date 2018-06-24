@@ -19,7 +19,7 @@ $settingsHelper = $this->settings();
                 <?php if ($locale === $settingsHelper->getCurrentLocale()) { ?>checked<?php } ?>
                 class="locale-radio hidden"
             />
-            <div class="locale">
+            <div class="locale" data-label-for="locale_<?php echo $this->escapeHtmlAttr($locale); ?>">
                 <label for="locale_<?php echo $this->escapeHtmlAttr($locale); ?>">
                     <?php echo $this->escapeHtml($settingsHelper->getLocaleLabel($locale)); ?>
                 </label>

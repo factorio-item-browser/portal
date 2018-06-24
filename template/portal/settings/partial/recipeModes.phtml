@@ -10,7 +10,7 @@
                 type="radio"
                 class="recipe-mode-radio hidden"
             />
-            <div class="recipe-mode">
+            <div class="recipe-mode" data-label-for="recipeMode_<?php echo $this->escapeHtmlAttr($recipeMode); ?>">
                 <label for="recipeMode_<?php echo $this->escapeHtmlAttr($recipeMode); ?>">
                     <h3><?php echo $this->escapeHtml($this->translate('settings recipe-mode ' . $recipeMode . ' label')); ?></h3>
                     <?php echo $this->escapeHtml($this->translate('settings recipe-mode ' . $recipeMode . ' description')); ?>

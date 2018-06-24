@@ -10,7 +10,7 @@
 .locale-disclaimer {
     @include box($color-box-default, $alpha-box-content);
     @include dynamic-spacing(margin, large large default large);
-    @include dynamic-spacing(padding, small default);
+    @include dynamic-spacing(padding, default);
 
     color: color($color-box-default, $lightness-text-primary);
 }
