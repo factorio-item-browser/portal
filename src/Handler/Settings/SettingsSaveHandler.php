@@ -9,6 +9,7 @@ use FactorioItemBrowser\Portal\Constant\Config;
 use FactorioItemBrowser\Portal\Constant\RouteNames;
 use FactorioItemBrowser\Portal\Database\Entity\User;
 use FactorioItemBrowser\Portal\Database\Service\SidebarEntityService;
+use FactorioItemBrowser\Portal\Session\Container\SettingsSessionContainer;
 use FactorioItemBrowser\Portal\View\Helper\SettingsHelper;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -43,6 +44,12 @@ class SettingsSaveHandler implements RequestHandlerInterface
     protected $settingsHelper;
 
     /**
+     * The session container of the settings.
+     * @var SettingsSessionContainer
+     */
+    protected $settingsSessionContainer;
+
+    /**
      * The database sidebar entity service.
      * @var SidebarEntityService
      */
@@ -59,6 +66,7 @@ class SettingsSaveHandler implements RequestHandlerInterface
      * @param Client $apiClient
      * @param User $currentUser
      * @param SettingsHelper $settingsHelper
+     * @param SettingsSessionContainer $settingsSessionContainer
      * @param SidebarEntityService $sidebarEntityService
      * @param UrlHelper $urlHelper
      */
@@ -66,12 +74,14 @@ class SettingsSaveHandler implements RequestHandlerInterface
         Client $apiClient,
         User $currentUser,
         SettingsHelper $settingsHelper,
+        SettingsSessionContainer $settingsSessionContainer,
         SidebarEntityService $sidebarEntityService,
         UrlHelper $urlHelper
     ) {
         $this->apiClient = $apiClient;
         $this->currentUser = $currentUser;
         $this->settingsHelper = $settingsHelper;
+        $this->settingsSessionContainer = $settingsSessionContainer;
         $this->sidebarEntityService = $sidebarEntityService;
         $this->urlHelper = $urlHelper;
     }
@@ -98,6 +108,7 @@ class SettingsSaveHandler implements RequestHandlerInterface
 
         $this->apiClient->setLocale($this->currentUser->getLocale());
         $this->sidebarEntityService->refresh();
+        $this->settingsSessionContainer->setShowSuccessMessage(true);
         return new RedirectResponse($this->urlHelper->generate(RouteNames::SETTINGS));
     }
 }

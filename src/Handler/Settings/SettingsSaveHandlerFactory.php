@@ -7,6 +7,7 @@ namespace FactorioItemBrowser\Portal\Handler\Settings;
 use FactorioItemBrowser\Api\Client\Client\Client;
 use FactorioItemBrowser\Portal\Database\Service\SidebarEntityService;
 use FactorioItemBrowser\Portal\Database\Service\UserService;
+use FactorioItemBrowser\Portal\Session\Container\SettingsSessionContainer;
 use FactorioItemBrowser\Portal\View\Helper\SettingsHelper;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Helper\UrlHelper;
@@ -38,6 +39,8 @@ class SettingsSaveHandlerFactory implements FactoryInterface
         $helperPluginManager = $container->get(HelperPluginManager::class);
         /* @var SettingsHelper $settingsHelper */
         $settingsHelper = $helperPluginManager->get(SettingsHelper::class);
+        /* @var SettingsSessionContainer $settingsSessionContainer */
+        $settingsSessionContainer = $container->get(SettingsSessionContainer::class);
         /* @var SidebarEntityService $sidebarEntityService */
         $sidebarEntityService = $container->get(SidebarEntityService::class);
         /* @var UrlHelper $urlHelper */
@@ -47,6 +50,7 @@ class SettingsSaveHandlerFactory implements FactoryInterface
             $apiClient,
             $userService->getCurrentUser(),
             $settingsHelper,
+            $settingsSessionContainer,
             $sidebarEntityService,
             $urlHelper
         );

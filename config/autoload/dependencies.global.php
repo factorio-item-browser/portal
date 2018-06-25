@@ -36,7 +36,7 @@ return [
             Handler\Recipe\RecipeTooltipHandler::class => Handler\AbstractRenderHandlerFactory::class,
             Handler\Search\SearchQueryHandler::class => Handler\Search\SearchQueryHandlerFactory::class,
             Handler\Search\SearchQueryPageHandler::class => Handler\AbstractRenderHandlerFactory::class,
-            Handler\Settings\SettingsHandler::class => Handler\AbstractRenderHandlerFactory::class,
+            Handler\Settings\SettingsHandler::class => Handler\Settings\SettingsHandlerFactory::class,
             Handler\Settings\SettingsSaveHandler::class => Handler\Settings\SettingsSaveHandlerFactory::class,
             Handler\Sidebar\SidebarPinHandler::class => Handler\Sidebar\AbstractSidebarRequestHandlerFactory::class,
             Handler\Sidebar\SidebarUnpinHandler::class => Handler\Sidebar\AbstractSidebarRequestHandlerFactory::class,
@@ -50,6 +50,7 @@ return [
 
             Session\Container\MetaSessionContainer::class => Session\Container\AbstractSessionContainerFactory::class,
             Session\Container\ModListSessionContainer::class => Session\Container\AbstractSessionContainerFactory::class,
+            Session\Container\SettingsSessionContainer::class => Session\Container\AbstractSessionContainerFactory::class,
             Session\SessionManager::class => InvokableFactory::class,
 
             // Dependencies of other libraries

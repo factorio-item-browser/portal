@@ -2,6 +2,8 @@
 use FactorioItemBrowser\Portal\Constant\RouteNames;
 
 $this->headTitle()->prepend($this->translate('settings page-title'));
+
+echo $this->render('portal::settings/partial/message');
 ?>
 
 <form class="settings-form" action="<?php echo $this->escapeHtmlAttr($this->url(RouteNames::SETTINGS_SAVE)); ?>" method="post"><?php
