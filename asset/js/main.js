@@ -13,6 +13,7 @@
         fib.loadingCircle = new fib.LoadingCircle($('#loading-circle'));
         fib.searchBox = new fib.SearchBox($('#search-box'));
         fib.sidebar = new fib.Sidebar($('#sidebar'));
+        fib.stickySubmitButton = new fib.StickySubmitButton();
         fib.tooltip = new fib.Tooltip($('#tooltip'));
 
         // Local features

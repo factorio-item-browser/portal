@@ -31,7 +31,7 @@
             $('[data-label-for]')
                 .off('click.label-click')
                 .on('click.label-click', (event) => {
-                    $('#' + $(event.currentTarget).data('label-for')).trigger('click');
+                    $('#' + $(event.currentTarget).data('label-for')).trigger('click').trigger('change');
                 });
         }
     }

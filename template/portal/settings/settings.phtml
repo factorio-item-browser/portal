@@ -8,5 +8,7 @@ $this->headTitle()->prepend($this->translate('settings page-title'));
     echo $this->render('portal::settings/partial/recipeModes');
     echo $this->render('portal::settings/partial/locales');
     ?>
-    <button type="submit"><?php echo $this->escapeHtml($this->translate('mod-list button save')); ?></button>
+    <div class="sticky-submit-button hidden">
+        <button type="submit"><?php echo $this->escapeHtml($this->translate('settings button save')); ?></button>
+    </div>
 </form>

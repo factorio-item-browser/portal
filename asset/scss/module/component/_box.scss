@@ -128,7 +128,7 @@
             @include flex-item($grow: 0, $shrink: 0, $basis: calc(50% - 2 * #{$spacing-default}));
         }
         @include breakpoint(huge) {
-            @include flex-item($grow: 0, $shrink: 0, $basis: calc(33.3% - 2 * #{$spacing-default}));
+            @include flex-item($grow: 0, $shrink: 0, $basis: calc(33.33% - 2 * #{$spacing-default}));
         }
     }
 }

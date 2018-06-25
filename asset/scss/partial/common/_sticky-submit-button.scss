@@ -1,0 +1,33 @@
+/**
+ * File defining the style for the sticky submit button.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../module/all';
+
+.sticky-submit-button {
+    @include dynamic-spacing(margin, default large);
+
+    button[type=submit] {
+        @include button($color-button-primary);
+        @include font-icon($fa-var-save);
+
+        border: 0;
+        max-width: 100%;
+        width: 100%;
+
+        &::before {
+            padding: 0 $spacing-default;
+        }
+    }
+
+    &.is-sticky {
+        bottom: 0;
+        left: 0;
+        position: fixed;
+        right: 0;
+        z-index: $zIndex-sticky-button;
+    }
+}

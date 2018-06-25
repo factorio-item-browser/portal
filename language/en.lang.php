@@ -43,7 +43,6 @@ return [
     'mod version' => 'Version:',
 
     'mod-list available' => 'Available mods',
-    'mod-list button save' => 'Save changes',
     'mod-list filter placeholder' => 'Filter mods...',
     'mod-list message saved' => 'The list of enabled mods has been saved.',
     'mod-list message start-search' => 'Go ahead and start searching for items and recipes.',
@@ -84,6 +83,7 @@ return [
     'search-results loading-more' => 'Loading more results...',
     'search-results no-results' => 'No results found',
 
+    'settings button save' => 'Save changes',
     'settings locale disclaimer' => 'Languages are only supported if the mods provide translations for them. Missing translations fall back to English.',
     'settings locale headline' => 'Language',
     'settings page-title' => 'Settings',
