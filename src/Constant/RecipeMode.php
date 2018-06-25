@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Constant;
 
+use FactorioItemBrowser\Api\Client\Constant\RecipeMode as ClientRecipeMode;
+
 /**
  * Class holding the values of the recipe mode.
  *
@@ -20,10 +22,10 @@ class RecipeMode
     /**
      * The normal mode is used, expensive variants are ignored.
      */
-    const NORMAL = 'normal';
+    const NORMAL = ClientRecipeMode::NORMAL;
 
     /**
      * The expensive mode is used, normal variants get overwritten by expensive ones.
      */
-    const EXPENSIVE = 'expensive';
+    const EXPENSIVE = ClientRecipeMode::EXPENSIVE;
 }

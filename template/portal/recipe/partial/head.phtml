@@ -1,9 +1,12 @@
 <?php
 use FactorioItemBrowser\Api\Client\Entity\Recipe;
 use FactorioItemBrowser\Portal\View\Helper\GenericEntityHelper;
+use FactorioItemBrowser\Portal\View\Helper\RecipeHelper;
 
 /* @var GenericEntityHelper $genericEntityHelper */
 $genericEntityHelper = $this->genericEntity();
+/* @var RecipeHelper $recipeHelper */
+$recipeHelper = $this->recipe();
 /* @var Recipe $recipe*/
 $recipe = $this->recipe;
 ?>
@@ -11,7 +14,7 @@ $recipe = $this->recipe;
     <?php echo $genericEntityHelper->renderTransparentIcon($recipe); ?>
     <div class="label">
         <h1><?php echo $this->escapeHtml($this->replace(
-            $this->translate('recipe-details headline ' . $recipe->getMode()),
+            $this->translate('recipe-details headline ' . $recipeHelper->getRecipeMode($recipe)),
             ['name' => $recipe->getLabel() ?: $recipe->getName()]
         )); ?></h1>
         <?php echo $this->escapeHtml($recipe->getDescription()); ?>
