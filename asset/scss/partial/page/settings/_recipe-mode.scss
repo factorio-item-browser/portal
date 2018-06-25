@@ -19,14 +19,6 @@
 
         cursor: pointer;
 
-        .check-icon {
-            @include flex-item($shrink: 0);
-            @include font-icon($fa-var-check, $icon-size-default);
-            @include dynamic-spacing(right top, default);
-
-            visibility: hidden;
-        }
-
         label {
             @include flex-item($grow: 1);
             @include dynamic-spacing(padding-right, default);
@@ -41,16 +33,29 @@
             }
         }
 
-        &:hover {
-            background: color($color-box-setting-enabled, $lightness-box-background);
-            color: color($color-box-setting-enabled, $lightness-text-primary);
+        .check-icon {
+            @include flex-item($shrink: 0);
+            @include font-icon($fa-var-check, $icon-size-default);
+            @include dynamic-spacing(right top, default);
+
+            visibility: hidden;
+        }
+    }
+
+    .recipe-mode-radio:checked + .recipe-mode, .recipe-mode:hover {
+        background: color($color-box-setting-enabled, $lightness-box-background);
+        color: color($color-box-setting-enabled, $lightness-text-primary);
+
+        label {
+            color: color($color-box-setting-enabled, $lightness-text-secondary);
+
+            h3 {
+                color: color($color-box-setting-enabled, $lightness-text-primary);
+            }
         }
     }
 
     .recipe-mode-radio:checked + .recipe-mode {
-        background: color($color-box-setting-enabled, $lightness-box-background);
-        color: color($color-box-setting-enabled, $lightness-text-primary);
-
         .check-icon {
             visibility: visible;
         }
