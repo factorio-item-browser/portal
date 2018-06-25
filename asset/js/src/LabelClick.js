@@ -32,6 +32,10 @@
                 .off('click.label-click')
                 .on('click.label-click', (event) => {
                     $('#' + $(event.currentTarget).data('label-for')).trigger('click').trigger('change');
+
+                    event.preventDefault();
+                    event.stopPropagation();
+                    return false;
                 });
         }
     }

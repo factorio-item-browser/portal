@@ -22,7 +22,10 @@ $modData = [
     <?php if ($mod->getIsEnabled()) { ?>checked<?php } ?>
     class="mod-checkbox hidden"
 />
-<li class="mod" data-mod="<?php echo $this->escapeHtmlAttr(json_encode($modData)); ?>">
+<li class="mod"
+    data-mod="<?php echo $this->escapeHtmlAttr(json_encode($modData)); ?>"
+    data-label-for="mod_<?php echo $this->escapeHtmlAttr($mod->getName()); ?>"
+>
     <label for="mod_<?php echo $this->escapeHtmlAttr($mod->getName()); ?>">
         <h3><?php echo $this->escapeHtml($mod->getLabel() ?: $mod->getName()); ?></h3>
         <?php echo $this->escapeHtml($mod->getDescription()); ?>

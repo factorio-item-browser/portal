@@ -85,13 +85,6 @@
                 mod.checkbox = checkbox;
 
                 this._mods[mod.name] = mod;
-
-                container.on('click', (event) => {
-                    checkbox.trigger('click').trigger('change');
-                    event.preventDefault();
-                    event.stopPropagation();
-                    return false;
-                });
             }
         }
 
