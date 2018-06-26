@@ -31,6 +31,9 @@ class RouteNames {
     const SEARCH_QUERY  = 'search.query';
     const SEARCH_QUERY_PAGE  = 'search.query.page';
 
+    const SETTINGS = 'settings';
+    const SETTINGS_SAVE = 'settings.save';
+
     const SIDEBAR_PIN = 'sidebar.pin';
     const SIDEBAR_UNPIN = 'sidebar.unpin';
 }

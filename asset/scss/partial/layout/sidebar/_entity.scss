@@ -20,6 +20,7 @@
         @include dynamic-spacing(padding-left, default);
 
         font-weight: bold;
+        padding-right: $spacing-large;
     }
 
     .actions {

@@ -9,10 +9,10 @@ use FactorioItemBrowser\Api\Client\Request\Search\SearchQueryRequest;
 use FactorioItemBrowser\Api\Client\Response\Search\SearchQueryResponse;
 use FactorioItemBrowser\Portal\Constant\Config;
 use FactorioItemBrowser\Portal\Constant\RouteNames;
+use FactorioItemBrowser\Portal\Handler\AbstractRenderHandler;
 use FactorioItemBrowser\Portal\View\Helper\LayoutParamsHelper;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Helper\UrlHelper;
@@ -24,25 +24,13 @@ use Zend\Expressive\Template\TemplateRendererInterface;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class SearchQueryHandler implements RequestHandlerInterface
+class SearchQueryHandler extends AbstractRenderHandler
 {
-    /**
-     * The API client.
-     * @var Client
-     */
-    protected $apiClient;
-
     /**
      * The layout params helper.
      * @var LayoutParamsHelper
      */
     protected $layoutParamsHelper;
-
-    /**
-     * The template renderer.
-     * @var TemplateRendererInterface
-     */
-    protected $templateRenderer;
 
     /**
      * The URL helper.
@@ -64,9 +52,8 @@ class SearchQueryHandler implements RequestHandlerInterface
         UrlHelper $urlHelper
     )
     {
-        $this->apiClient = $apiClient;
+        parent::__construct($apiClient, $templateRenderer);
         $this->layoutParamsHelper = $layoutParamsHelper;
-        $this->templateRenderer = $templateRenderer;
         $this->urlHelper = $urlHelper;
     }
 

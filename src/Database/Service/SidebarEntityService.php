@@ -198,7 +198,7 @@ class SidebarEntityService extends AbstractDatabaseService
                 $key = $entity->getType() . '/' . $entity->getName();
                 if (isset($entities[$key])) {
                     $entities[$key]->setLabel($entity->getLabel())
-                        ->setDescription($entity->getDescription());
+                                   ->setDescription($entity->getDescription());
                     unset($entities[$key]);
                 }
             }

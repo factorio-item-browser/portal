@@ -25,13 +25,6 @@
             this._modList = $();
 
             /**
-             * The save button which may be stickied to the bottom.
-             * @type {jQuery}
-             * @private
-             */
-            this._saveButton = $();
-
-            /**
              * The filter element of the mod list.
              * @type {jQuery}
              * @private
@@ -69,7 +62,6 @@
 
             this._mods = {};
             if (this._modList.length > 0) {
-                this._saveButton = $('.button-save-mods');
                 this._filterElement = $('.mod-list-filter');
 
                 this._modList.find('[data-mod]').each((_, element) => {
@@ -93,45 +85,6 @@
                 mod.checkbox = checkbox;
 
                 this._mods[mod.name] = mod;
-
-                container.on('click', (event) => {
-                    checkbox.trigger('click');
-                    this._initializeStickyButton();
-                    event.preventDefault();
-                    event.stopPropagation();
-                    return false;
-                });
-            }
-        }
-
-        /**
-         * Initializes the sticky button.
-         * @private
-         */
-        _initializeStickyButton() {
-            this._saveButton.removeClass('hidden');
-            $(window).on('scroll.modList resize.modList', () => {
-                this._updateStickyButton();
-            });
-            this._updateStickyButton();
-        }
-
-        /**
-         * Updates the position of the sticky button.
-         * @private
-         */
-        _updateStickyButton() {
-            if (this._modList.length > 0) {
-                let modListOffset = this._modList.offset(),
-                    modListBottom = modListOffset.top + this._modList.height(),
-                    buttonHeight = this._saveButton.height(),
-                    buttonBottom = modListBottom + buttonHeight + fib.helper.convertRemToPixel(10 / 32),
-                    windowBottom = $(window).scrollTop() + $(window).height(),
-                    isSticky = buttonBottom > windowBottom;
-
-                this._saveButton.toggleClass('is-sticky', isSticky)
-                                .css('left', parseInt(modListOffset.left, 10) + 'px');
-                this._modList.css('margin-bottom', (isSticky ? buttonHeight : 0) + 'px');
             }
         }
 
@@ -144,7 +97,7 @@
             $.each(this._mods, (_, mod) => {
                 mod.container.toggleClass('hidden', !this._matchFilterTerm(mod, searchTerm.toLowerCase()));
             });
-            this._updateStickyButton();
+            fib.stickySubmitButton.refresh();
         }
 
         /**

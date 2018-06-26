@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Handler\Recipe;
 
-use FactorioItemBrowser\Api\Client\Client\Client;
 use FactorioItemBrowser\Api\Client\Exception\ApiClientException;
 use FactorioItemBrowser\Api\Client\Request\Recipe\RecipeMachinesRequest;
 use FactorioItemBrowser\Api\Client\Response\Recipe\RecipeMachinesResponse;
 use FactorioItemBrowser\Portal\Constant\Config;
+use FactorioItemBrowser\Portal\Handler\AbstractRenderHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\JsonResponse;
-use Zend\Expressive\Template\TemplateRendererInterface;
 
 /**
  * The request handler of the recipe machine pages.
@@ -21,31 +19,8 @@ use Zend\Expressive\Template\TemplateRendererInterface;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class RecipeMachinePageHandler implements RequestHandlerInterface
+class RecipeMachinePageHandler extends AbstractRenderHandler
 {
-    /**
-     * The API client.
-     * @var Client
-     */
-    protected $apiClient;
-
-    /**
-     * The template renderer.
-     * @var TemplateRendererInterface
-     */
-    protected $templateRenderer;
-
-    /**
-     * Initializes the request handler.
-     * @param Client $apiClient
-     * @param TemplateRendererInterface $templateRenderer
-     */
-    public function __construct(Client $apiClient, TemplateRendererInterface $templateRenderer)
-    {
-        $this->apiClient = $apiClient;
-        $this->templateRenderer = $templateRenderer;
-    }
-
     /**
      * Handle the request and return a response.
      * @param ServerRequestInterface $request
@@ -75,7 +50,7 @@ class RecipeMachinePageHandler implements RequestHandlerInterface
                 ])
             ]);
         } catch (ApiClientException $e) {
-            $response = new JsonResponse([]);
+            $response = $this->renderPaginatedListError();
         }
         return $response;
     }

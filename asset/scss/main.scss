@@ -17,6 +17,7 @@
 @import 'partial/common/message-box';
 @import 'partial/common/paginated-list';
 @import 'partial/common/section';
+@import 'partial/common/sticky-submit-button';
 @import 'partial/common/toggle';
 @import 'partial/common/tooltip';
 
@@ -27,16 +28,18 @@
 @import 'partial/layout/header/mod-teaser';
 @import 'partial/layout/header/search';
 @import 'partial/layout/sidebar/entity';
-@import 'partial/layout/sidebar/locale';
 @import 'partial/layout/sidebar/mod-link';
+@import 'partial/layout/sidebar/settings-link';
 @import 'partial/layout/sidebar/sidebar';
 
-@import 'partial/page/mod/filter';
-@import 'partial/page/mod/list';
-@import 'partial/page/mod/upload';
 @import 'partial/page/error';
 @import 'partial/page/index';
 @import 'partial/page/item-details';
+@import 'partial/page/mod/filter';
+@import 'partial/page/mod/list';
+@import 'partial/page/mod/upload';
 @import 'partial/page/recipe/details';
 @import 'partial/page/recipe/machines';
 @import 'partial/page/search-results';
+@import 'partial/page/settings/locale';
+@import 'partial/page/settings/recipe-mode';

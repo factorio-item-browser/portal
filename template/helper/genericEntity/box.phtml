@@ -1,8 +1,10 @@
 <?php
 use FactorioItemBrowser\Api\Client\Entity\GenericEntity;
 use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
-use FactorioItemBrowser\Api\Client\Entity\RecipeWithExpensiveVersion;
+use FactorioItemBrowser\Portal\View\Helper\RecipeHelper;
 
+/* @var RecipeHelper $recipeHelper */
+$recipeHelper = $this->recipe();
 /* @var GenericEntity $entity */
 $entity = $this->entity;
 ?>
@@ -10,9 +12,9 @@ $entity = $this->entity;
     echo $this->render('helper::genericEntity/partial/head');
     if ($entity instanceof GenericEntityWithRecipes) {
         foreach ($entity->getRecipes() as $recipe) {
-            echo $this->partial('helper::genericEntity/partial/recipe', ['recipe' => $recipe]);
-            if ($recipe instanceof RecipeWithExpensiveVersion && $recipe->hasExpensiveVersion()) {
-                echo $this->partial('helper::genericEntity/partial/recipe', ['recipe' => $recipe->getExpensiveVersion()]);
+            echo $this->partial('helper::genericEntity/partial/recipe', ['recipe' => $recipeHelper->getPrimaryRecipe($recipe)]);
+            if ($recipeHelper->hasSecondaryRecipe($recipe)) {
+                echo $this->partial('helper::genericEntity/partial/recipe', ['recipe' => $recipeHelper->getSecondaryRecipe($recipe)]);
             }
         }
         echo $this->render('helper::genericEntity/partial/omittedRecipes');

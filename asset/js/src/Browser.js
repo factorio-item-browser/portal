@@ -74,12 +74,6 @@
                 event.stopPropagation();
                 return false;
             });
-
-            $('li[data-locale]').on('click', (event) => {
-                this.redirectTo('', {
-                    locale: $(event.currentTarget).data('locale')
-                });
-            });
         }
 
         /**

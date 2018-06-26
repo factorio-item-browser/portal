@@ -7,8 +7,6 @@ namespace FactorioItemBrowser\Portal\Middleware;
 use FactorioItemBrowser\Api\Client\Client\Client;
 use FactorioItemBrowser\Api\Client\Request\Mod\ModMetaRequest;
 use FactorioItemBrowser\Api\Client\Response\Mod\ModMetaResponse;
-use FactorioItemBrowser\Portal\Constant\Attribute;
-use FactorioItemBrowser\Portal\Database\Service\SidebarEntityService;
 use FactorioItemBrowser\Portal\Session\Container\MetaSessionContainer;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -36,26 +34,16 @@ class MetaDataRequestMiddleware implements MiddlewareInterface
     protected $metaSessionContainer;
 
     /**
-     * The database sidebar entity service.
-     * @var SidebarEntityService
-     */
-    protected $sidebarEntityService;
-
-    /**
      * Initializes the middleware.
      * @param Client $apiClient
      * @param MetaSessionContainer $metaSessionContainer
-     * @param SidebarEntityService $sidebarEntityService
      */
     public function __construct(
         Client $apiClient,
-        MetaSessionContainer $metaSessionContainer,
-        SidebarEntityService $sidebarEntityService
-    )
-    {
+        MetaSessionContainer $metaSessionContainer
+    ) {
         $this->apiClient = $apiClient;
         $this->metaSessionContainer = $metaSessionContainer;
-        $this->sidebarEntityService = $sidebarEntityService;
     }
 
 
@@ -72,9 +60,6 @@ class MetaDataRequestMiddleware implements MiddlewareInterface
             $modMetaResponse = $this->apiClient->send(new ModMetaRequest());
             $this->metaSessionContainer->setNumberOfAvailableMods($modMetaResponse->getNumberOfAvailableMods())
                                        ->setNumberOfEnabledMods($modMetaResponse->getNumberOfEnabledMods());
-        }
-        if ($request->getAttribute(Attribute::LOCALE_CHANGED, false)) {
-            $this->sidebarEntityService->refresh();
         }
 
         return $handler->handle($request);

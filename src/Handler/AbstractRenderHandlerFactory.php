@@ -2,26 +2,27 @@
 
 declare(strict_types=1);
 
-namespace FactorioItemBrowser\Portal\Handler\Index;
+namespace FactorioItemBrowser\Portal\Handler;
 
 use FactorioItemBrowser\Api\Client\Client\Client;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
- * The factory of the index handler.
+ * The abstract factory of the render handlers.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class IndexHandlerFactory
+class AbstractRenderHandlerFactory implements FactoryInterface
 {
     /**
      * Creates the request handler.
      * @param  ContainerInterface $container
      * @param  string $requestedName
      * @param  null|array $options
-     * @return IndexHandler
+     * @return AbstractRenderHandler
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
@@ -30,6 +31,6 @@ class IndexHandlerFactory
         /* @var TemplateRendererInterface $templateRenderer */
         $templateRenderer = $container->get(TemplateRendererInterface::class);
 
-        return new IndexHandler($apiClient, $templateRenderer);
+        return new $requestedName($apiClient, $templateRenderer);
     }
 }
