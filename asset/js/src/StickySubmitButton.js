@@ -15,7 +15,7 @@
              * @type {jQuery|null}
              * @private
              */
-            this._button = null;
+            this._button = $();
 
             /**
              * Whether the button is currently visible.
@@ -51,8 +51,6 @@
                 element.closest('form').find('input').on('change.sticky-submit-button', () => {
                     this.show();
                 });
-            } else {
-                this._button = null;
             }
             this._isButtonVisible = false;
         }
