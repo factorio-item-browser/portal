@@ -38,8 +38,7 @@ return [
             Handler\Search\SearchQueryPageHandler::class => Handler\AbstractRenderHandlerFactory::class,
             Handler\Settings\SettingsHandler::class => Handler\Settings\SettingsHandlerFactory::class,
             Handler\Settings\SettingsSaveHandler::class => Handler\Settings\SettingsSaveHandlerFactory::class,
-            Handler\Sidebar\SidebarPinHandler::class => Handler\Sidebar\AbstractSidebarRequestHandlerFactory::class,
-            Handler\Sidebar\SidebarUnpinHandler::class => Handler\Sidebar\AbstractSidebarRequestHandlerFactory::class,
+            Handler\Sidebar\SidebarPinnedHandler::class => Handler\Sidebar\SidebarPinnedHandlerFactory::class,
 
             Middleware\ApiClientMiddleware::class => Middleware\ApiClientMiddlewareFactory::class,
             Middleware\CleanupMiddleware::class => Middleware\CleanupMiddlewareFactory::class,

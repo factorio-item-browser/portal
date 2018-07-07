@@ -22,7 +22,7 @@ $this->headLink()->appendRelation('icon', $this->assetPath('asset/image/icon/fav
 $this->footLink()->appendStylesheet($this->assetPath('asset/css/images.min.css'));
 
 $this->javascriptConfig()->render();
-$this->headScript()->appendFile($this->assetPath('asset/js/jquery.min.js'), '')
+$this->headScript()->appendFile($this->assetPath('asset/js/vendor.min.js'), '')
                    ->appendFile($this->assetPath('asset/js/load.min.js'), '');
 
 $bodyClass = $this->layoutParams()->getBodyClass();

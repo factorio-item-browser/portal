@@ -35,8 +35,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->route('/settings', Handler\Settings\SettingsHandler::class, ['GET', 'POST'], RouteNames::SETTINGS);
     $app->route('/settings/save', Handler\Settings\SettingsSaveHandler::class, ['POST'], RouteNames::SETTINGS_SAVE);
 
-    $app->route('/sidebar/pin/{id:\d+}', Handler\Sidebar\SidebarPinHandler::class, ['GET', 'POST'], RouteNames::SIDEBAR_PIN);
-    $app->route('/sidebar/unpin/{id:\d+}', Handler\Sidebar\SidebarUnpinHandler::class, ['GET', 'POST'], RouteNames::SIDEBAR_UNPIN);
+    $app->route('/sidebar/pinned', Handler\Sidebar\SidebarPinnedHandler::class, ['POST'], RouteNames::SIDEBAR_PINNED);
 
     // Generic routes for items and fluids, but also used to abstract from the recipe routes.
     $app->route('/{type:fluid|item|recipe}/{name}', Handler\Item\ItemDetailsHandler::class, ['GET', 'POST'], RouteNames::ITEM_DETAILS);

@@ -24,7 +24,7 @@
         mediaQuery: {
             /**
              * The breakpoints known to the page.
-             * Must stay in sync with SCSS config at module/Portal/assets/scss/modules/vars/_foundation.scss
+             * Must stay in sync with SCSS config at /asset/scss/module/variable/_breakpoint.scss
              * @type {object}
              */
             breakpoints: {
@@ -71,22 +71,10 @@
             numberOfUnpinnedEntities: 10,
 
             /**
-             * The URLs used by the sidebar.
-             * @type {Object}
+             * The URL to set the order of pinned entities.
+             * @type {string}
              */
-            urls: {
-                /**
-                 * The URL to pin an entity to the top of the sidebar.
-                 * @type {string}
-                 */
-                pin: '',
-
-                /**
-                 * The URL to unpin an entity from the sidebar.
-                 * @type {string}
-                 */
-                unpin: ''
-            }
+            pinnedUrl: ''
         },
 
         /**

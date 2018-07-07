@@ -18,6 +18,7 @@ $genericEntity = $this->genericEntity;
     data-view-time="<?php echo intval($entity->getLastViewTime()->getTimestamp()); ?>"
     data-link
     data-tooltip="<?php echo $this->escapeHtmlAttr($genericEntityHelper->getTooltip($genericEntity)); ?>"
+    draggable="true"
 >
     <?php echo $genericEntityHelper->renderTransparentIcon($genericEntity, ['data-tooltip-anchor' => '']); ?>
     <div class="label"><?php echo $this->escapeHtml($entity->getLabel() ?: $entity->getName()); ?></div>

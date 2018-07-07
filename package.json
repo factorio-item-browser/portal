@@ -22,11 +22,13 @@
     "gulp-base64": "^0.1.3",
     "gulp-clean": "^0.4.0",
     "gulp-concat": "^2.6.1",
-    "gulp-minify": "^2.1.0",
-    "gulp-rename": "^1.2.3",
+    "gulp-minify": "^3.1.0",
+    "gulp-rename": "^1.3.0",
     "gulp-sass": "^4.0.1",
     "gulp-sequence": "^1.0.0",
+    "hammerjs": "^2.0.8",
     "jquery": "^3.3.1",
-    "normalize-scss": "^7.0.1"
+    "normalize-scss": "^7.0.1",
+    "sortablejs": "^1.7.0"
   }
 }
