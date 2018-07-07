@@ -24,7 +24,7 @@
         mediaQuery: {
             /**
              * The breakpoints known to the page.
-             * Must stay in sync with SCSS config at module/Portal/assets/scss/modules/vars/_foundation.scss
+             * Must stay in sync with SCSS config at /asset/scss/module/variable/_breakpoint.scss
              * @type {object}
              */
             breakpoints: {

@@ -1,4 +1,4 @@
-(($, fib) => {
+(($, fib, Hammer, Sortable) => {
     /**
      * The class managing the sidebar with its pinned or unpinned entities.
      *
@@ -40,6 +40,13 @@
                 unpinned: null
             };
 
+            /**
+             * The hammer manager.
+             * @type {Hammer.Manager}
+             * @private
+             */
+            this._hammerManager = null;
+
             this._initialize();
         }
 
@@ -51,6 +58,7 @@
             this._initializeEntities(this._elements.pinnedContainer, true);
             this._initializeEntities(this._elements.unpinnedContainer, false);
             this._initializeSortables();
+            this._initializeHammer();
             this._registerEvents();
             this._updatePinnedContainerVisibility();
         }
@@ -121,6 +129,23 @@
         }
 
         /**
+         * Initializes the Hammer feature.
+         * @private
+         */
+        _initializeHammer() {
+            delete Hammer.defaults.cssProps.userSelect;
+            this._hammerManager = new Hammer.Manager($('#wrapper')[0], {
+                enable: fib.mediaQuery.isBreakpointOrLowerActive('medium'),
+                recognizers: [
+                    [Hammer.Swipe, {direction: Hammer.DIRECTION_HORIZONTAL}]
+                ]
+            });
+            this._hammerManager.on('swipe', (event) => {
+                this._elements.toggle.prop('checked', event.direction === Hammer.DIRECTION_RIGHT);
+            });
+        }
+
+        /**
          * Registers the events of the sidebar.
          * @private
          */
@@ -144,6 +169,11 @@
             $(fib.browser).on('page-change', () => {
                 this._elements.toggle.prop('checked', false);
                 $(document.body).removeClass('hasOverlay');
+            });
+            $(fib.mediaQuery).on('breakpoint-change.sidebar', () => {
+                this._hammerManager.set({
+                    enable: fib.mediaQuery.isBreakpointOrLowerActive('medium')
+                });
             });
             this._elements.toggle.on('change', () => {
                 $(document.body).toggleClass('hasOverlay', this._elements.toggle.prop('checked'));
@@ -285,4 +315,4 @@
     }
 
     fib.Sidebar = Sidebar;
-})(jQuery, factorioItemBrowser);
+})(jQuery, factorioItemBrowser, Hammer, Sortable);

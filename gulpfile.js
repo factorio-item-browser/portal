@@ -13,6 +13,7 @@ let outputDirectories = {
     libraryFiles = {
         'vendor.min.js': [
             'node_modules/jquery/dist/jquery.min.js',
+            'node_modules/hammerjs/hammer.min.js',
             'node_modules/sortablejs/Sortable.min.js'
         ]
     },
