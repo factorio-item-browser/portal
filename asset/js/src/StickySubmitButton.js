@@ -35,9 +35,7 @@
             $(fib.browser).on('page-change.sticky-submit-button', () => {
                 this._initializeElements();
             });
-            $(window).on('scroll.sticky-submit-button resize.sticky-submit-button', () => {
-                this.refresh();
-            });
+            this._updateEvents();
         }
 
         /**
@@ -53,6 +51,20 @@
                 });
             }
             this._isButtonVisible = false;
+            this._updateEvents();
+        }
+
+        /**
+         * Updates the events which may not always be needed.
+         * @private
+         */
+        _updateEvents() {
+            $(window).off('scroll.sticky-submit-button resize.sticky-submit-button');
+            if (this._button.length > 0 && this._isButtonVisible) {
+                $(window).on('scroll.sticky-submit-button resize.sticky-submit-button', () => {
+                    this.refresh();
+                });
+            }
         }
 
         /**
@@ -81,6 +93,7 @@
                 this._button.removeClass('hidden');
                 this._isButtonVisible = true;
                 this._refreshStickyButton();
+                this._updateEvents();
             }
         }
 
