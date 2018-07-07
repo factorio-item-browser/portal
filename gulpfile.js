@@ -11,7 +11,10 @@ let outputDirectories = {
         'main.min.js': ['asset/js/src/**/*.js', 'asset/js/main.js']
     },
     libraryFiles = {
-        'jquery.min.js': ['node_modules/jquery/dist/jquery.min.js']
+        'vendor.min.js': [
+            'node_modules/jquery/dist/jquery.min.js',
+            'node_modules/sortablejs/Sortable.min.js'
+        ]
     },
 
     gulp = require('gulp'),
@@ -113,7 +116,7 @@ gulp.task('js-build-fallback', () => {
 gulp.task('js-copy-lib', () => {
     for (let destinationFileName in libraryFiles) {
         gulp.src(libraryFiles[destinationFileName])
-            .pipe(modules.rename(destinationFileName))
+            .pipe(modules.concat(destinationFileName))
             .pipe(gulp.dest(outputDirectories.js));
     }
 });

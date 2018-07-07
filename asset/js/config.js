@@ -71,22 +71,10 @@
             numberOfUnpinnedEntities: 10,
 
             /**
-             * The URLs used by the sidebar.
-             * @type {Object}
+             * The URL to set the order of pinned entities.
+             * @type {string}
              */
-            urls: {
-                /**
-                 * The URL to pin an entity to the top of the sidebar.
-                 * @type {string}
-                 */
-                pin: '',
-
-                /**
-                 * The URL to unpin an entity from the sidebar.
-                 * @type {string}
-                 */
-                unpin: ''
-            }
+            pinnedUrl: ''
         },
 
         /**

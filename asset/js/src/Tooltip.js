@@ -131,17 +131,17 @@
                 this._elements.content.html(content);
                 this._elements.container.removeClass('hidden');
 
-                this._updateDimensions(anchor.length === 0 ? target : anchor);
+                this._updatePosition(anchor.length === 0 ? target : anchor);
                 fib.browser.notifyPartialPageChange();
             }
         }
 
         /**
-         * Updates the dimensions and position of the tooltip.
+         * Updates the position of the tooltip.
          * @param {jQuery} target
          * @private
          */
-        _updateDimensions(target) {
+        _updatePosition(target) {
             let targetDimensions = Tooltip._getDimensions(target),
                 windowDimensions = Tooltip._getWindowDimensions(),
                 isTooltipAbove = false,

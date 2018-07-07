@@ -92,10 +92,7 @@ class JavascriptConfigHelper extends AbstractHelper
             'settingsHash' => $this->settingsHash,
             'sidebar' => [
                 'numberOfUnpinnedEntities' => Config::SIDEBAR_UNPINNED_ENTITIES,
-                'urls' => [
-                    'pin' => $this->urlHelper->generate(RouteNames::SIDEBAR_PIN, ['id' => 1234]),
-                    'unpin' => $this->urlHelper->generate(RouteNames::SIDEBAR_UNPIN, ['id' => 1234])
-                ]
+                'pinnedUrl' => $this->urlHelper->generate(RouteNames::SIDEBAR_PINNED)
             ]
         ]);
         return $this;

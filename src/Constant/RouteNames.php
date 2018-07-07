@@ -34,6 +34,5 @@ class RouteNames {
     const SETTINGS = 'settings';
     const SETTINGS_SAVE = 'settings.save';
 
-    const SIDEBAR_PIN = 'sidebar.pin';
-    const SIDEBAR_UNPIN = 'sidebar.unpin';
+    const SIDEBAR_PINNED = 'sidebar.pinned';
 }
