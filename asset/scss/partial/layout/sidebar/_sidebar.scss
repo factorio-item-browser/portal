@@ -64,6 +64,6 @@
     }
 }
 
-body.index-page #sidebar {
+body.index-page #sidebar, body.index-page #sidebar ~ .toggle-overlay {
     display: none;
 }
