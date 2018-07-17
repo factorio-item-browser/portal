@@ -39,8 +39,7 @@ class ModListHandler extends AbstractRenderHandler
         Client $apiClient,
         ModListSessionContainer $modListSessionContainer,
         TemplateRendererInterface $templateRenderer
-    )
-    {
+    ) {
         parent::__construct($apiClient, $templateRenderer);
         $this->modListSessionContainer = $modListSessionContainer;
     }

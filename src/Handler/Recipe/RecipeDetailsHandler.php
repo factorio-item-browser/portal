@@ -43,8 +43,7 @@ class RecipeDetailsHandler extends AbstractRenderHandler
         Client $apiClient,
         SidebarEntityService $sidebarEntityService,
         TemplateRendererInterface $templateRenderer
-    )
-    {
+    ) {
         parent::__construct($apiClient, $templateRenderer);
         $this->sidebarEntityService = $sidebarEntityService;
     }

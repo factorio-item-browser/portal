@@ -54,8 +54,7 @@ class SessionMiddleware implements MiddlewareInterface
         BasePathHelper $basePathHelper,
         SessionManager $sessionManager,
         UserService $userService
-    )
-    {
+    ) {
         $this->basePathHelper = $basePathHelper;
         $this->sessionManager = $sessionManager;
         $this->userService = $userService;
@@ -119,6 +118,5 @@ class SessionMiddleware implements MiddlewareInterface
             $response = FigResponseCookies::set($response, $cookie);
         }
         return $response;
-
     }
 }

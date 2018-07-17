@@ -8,7 +8,8 @@ namespace FactorioItemBrowser\Portal\Constant;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class RouteNames {
+class RouteNames
+{
     const GENERIC_DETAILS = 'item.details'; // Used to build links to any generic entity.
     const GENERIC_TOOLTIP = 'item.tooltip'; // Used to build tooltip routes to any generic entity.
 

@@ -87,8 +87,7 @@ class LayoutMiddleware implements MiddlewareInterface
         HeadTitle $headTitleHelper,
         LayoutParamsHelper $layoutParamsHelper,
         SidebarHelper $sidebarHelper
-    )
-    {
+    ) {
         $this->metaSessionContainer = $metaSessionContainer;
         $this->templateRenderer = $templateRenderer;
         $this->translator = $translator;

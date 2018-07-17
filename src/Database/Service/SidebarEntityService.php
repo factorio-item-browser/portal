@@ -60,8 +60,7 @@ class SidebarEntityService extends AbstractDatabaseService
         Client $apiClient,
         LayoutParamsHelper $layoutParamsHelper,
         UserService $userService
-    )
-    {
+    ) {
         parent::__construct($entityManager);
         $this->apiClient = $apiClient;
         $this->layoutParamsHelper = $layoutParamsHelper;

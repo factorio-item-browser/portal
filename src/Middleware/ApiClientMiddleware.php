@@ -50,8 +50,7 @@ class ApiClientMiddleware implements MiddlewareInterface
         Client $apiClient,
         TemplateRendererInterface $templateRenderer,
         UserService $userService
-    )
-    {
+    ) {
         $this->apiClient = $apiClient;
         $this->templateRenderer = $templateRenderer;
         $this->userService = $userService;

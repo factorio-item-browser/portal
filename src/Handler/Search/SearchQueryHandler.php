@@ -50,8 +50,7 @@ class SearchQueryHandler extends AbstractRenderHandler
         LayoutParamsHelper $layoutParamsHelper,
         TemplateRendererInterface $templateRenderer,
         UrlHelper $urlHelper
-    )
-    {
+    ) {
         parent::__construct($apiClient, $templateRenderer);
         $this->layoutParamsHelper = $layoutParamsHelper;
         $this->urlHelper = $urlHelper;
