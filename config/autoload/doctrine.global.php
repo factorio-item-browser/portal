@@ -16,6 +16,12 @@ use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 
 return [
     'doctrine' => [
+        'configuration' => [
+            'orm_default' => [
+                'metadata_cache' => 'filesystem',
+                'query_cache' => 'filesystem',
+            ]
+        ],
         'driver' => [
             'orm_default' => [
                 'class' => MappingDriverChain::class,
@@ -26,7 +32,7 @@ return [
 
             'fib-portal' => [
                 'class' => AnnotationDriver::class,
-                'cache' => 'array',
+                'cache' => 'filesystem',
                 'paths' => [
                     __DIR__ . '/../../src/Database/Entity',
                 ]
