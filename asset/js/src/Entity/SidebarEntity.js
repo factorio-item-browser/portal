@@ -23,10 +23,28 @@
             this.id = 0;
 
             /**
+             * The label of the sidebar entitiy.
+             * @type {string}
+             */
+            this.label = '';
+
+            /**
+             * The link of the sidebar entity.
+             * @type {string}
+             */
+            this.link = '';
+
+            /**
              * The timestamp of when the entity has last been viewed, used for sorting.
              * @type {number}
              */
             this.viewTime = 0;
+
+            /**
+             * Whether the entity is currently pinned to the sidebar.
+             * @type {boolean}
+             */
+            this.isPinned = false;
         }
 
         /**
@@ -35,6 +53,24 @@
          */
         get isValid() {
             return this.id > 0 && this.viewTime > 0;
+        }
+
+        /**
+         * Creates a new instance from the specified element.
+         * @param {jQuery} element
+         * @returns {SidebarEntity}
+         */
+        static createFromElement(element) {
+            let entity = new this();
+
+            entity.element = element;
+            entity.id = parseInt(element.data('id') || 0, 10);
+            entity.viewTime = parseInt(element.data('view-time') || 0, 10);
+            entity.label = element.find('.label').text() || '';
+            entity.link = element.attr('href') || '';
+
+            element.data('entity', entity);
+            return entity;
         }
     }
 

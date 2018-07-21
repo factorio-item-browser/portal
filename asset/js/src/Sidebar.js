@@ -1,4 +1,4 @@
-(($, fib) => {
+(($, fib, Hammer, Sortable) => {
     /**
      * The class managing the sidebar with its pinned or unpinned entities.
      *
@@ -24,22 +24,125 @@
             };
 
             /**
-             * The pinned entities which are managed by the user.
-             * @type {Array|SidebarEntity[]}
+             * All the entities of the sidebar.
+             * @type {Object<number,SidebarEntity>}
              * @private
              */
-            this._pinnedEntities = this._fetchInitialEntities(this._elements.pinnedContainer);
+            this._entities = {};
 
             /**
-             * The unpinned entities which get updated automatically.
-             * @type {Array|SidebarEntity[]}
+             * The sortable instances.
+             * @type {{pinned: Sortable, unpinned: Sortable}}
              * @private
              */
-            this._unpinnedEntities = this._fetchInitialEntities(this._elements.unpinnedContainer);
+            this._sortables = {
+                pinned: null,
+                unpinned: null
+            };
 
+            /**
+             * The hammer manager.
+             * @type {Hammer.Manager}
+             * @private
+             */
+            this._hammerManager = null;
 
+            this._initialize();
+        }
+
+        /**
+         * Initializes all the features of the sidebar.
+         * @private
+         */
+        _initialize() {
+            this._initializeEntities(this._elements.pinnedContainer, true);
+            this._initializeEntities(this._elements.unpinnedContainer, false);
+            this._initializeSortables();
+            this._initializeHammer();
             this._registerEvents();
             this._updatePinnedContainerVisibility();
+        }
+
+        /**
+         * Initializes the entities of the specified container.
+         * @param {jQuery} container
+         * @param {boolean} isPinned
+         * @private
+         */
+        _initializeEntities(container, isPinned) {
+            container.find('.sidebar-entity').each((_, element) => {
+                let entity = fib.Entity.SidebarEntity.createFromElement($(element));
+                if (entity.isValid) {
+                    entity.isPinned = isPinned;
+                    this._entities[entity.id] = entity;
+                }
+            });
+        }
+
+        /**
+         * Initializes the sortable instances of the sidebar.
+         * @private
+         */
+        _initializeSortables() {
+            this._sortables.pinned = new Sortable(this._elements.pinnedContainer[0], {
+                group: {
+                    name: 'sidebar-entities',
+                    put: true,
+                    pull: false
+                },
+                draggable: '.sidebar-entity',
+                animation: 100,
+                onStart: () => {
+                    fib.tooltip.isEnabled = false;
+                },
+                onEnd: () => {
+                    fib.tooltip.isEnabled = true;
+                },
+                onSort: () => {
+                    this._sendPinnedEntitiesToServer();
+                }
+            });
+
+            this._sortables.unpinned = new Sortable(this._elements.unpinnedContainer[0], {
+                group: {
+                    name: 'sidebar-entities',
+                    put: false,
+                    pull: true
+                },
+                sort: false,
+                draggable: '.sidebar-entity',
+                animation: 100,
+                onStart: () => {
+                    fib.tooltip.isEnabled = false;
+                },
+                onEnd: () => {
+                    fib.tooltip.isEnabled = true;
+                },
+                onRemove: (event) => {
+                    let entity = $(event.item).data('entity');
+                    if (entity instanceof fib.Entity.SidebarEntity) {
+                        entity.isPinned = true;
+                        this._updatePinnedContainerVisibility();
+                    }
+                }
+            });
+        }
+
+        /**
+         * Initializes the Hammer feature.
+         * @private
+         */
+        _initializeHammer() {
+            delete Hammer.defaults.cssProps.userSelect;
+            this._hammerManager = new Hammer.Manager($('#wrapper')[0], {
+                enable: fib.mediaQuery.isBreakpointOrLowerActive('medium'),
+                recognizers: [
+                    [Hammer.Swipe, {direction: Hammer.DIRECTION_HORIZONTAL}]
+                ]
+            });
+            this._hammerManager.on('swipe', (event) => {
+                this._elements.toggle.prop('checked', event.direction === Hammer.DIRECTION_RIGHT);
+            });
         }
 
         /**
@@ -48,22 +151,29 @@
          */
         _registerEvents() {
             this._elements.pinnedContainer.on('click.sidebar', '.unpin', (event) => {
+                this._handleUnpin($(event.currentTarget).closest('.sidebar-entity'));
+                fib.tooltip.hide();
+
                 event.preventDefault();
                 event.stopPropagation();
-                this._handleUnpin($(event.currentTarget).closest('.sidebar-entity').data('id') || 0);
-                fib.tooltip.hide();
                 return false;
             });
             this._elements.unpinnedContainer.on('click.sidebar', '.pin', (event) => {
+                this._handlePin($(event.currentTarget).closest('.sidebar-entity'));
+                fib.tooltip.hide();
+
                 event.preventDefault();
                 event.stopPropagation();
-                this._handlePin($(event.currentTarget).closest('.sidebar-entity').data('id') || 0);
-                fib.tooltip.hide();
                 return false;
             });
             $(fib.browser).on('page-change', () => {
                 this._elements.toggle.prop('checked', false);
                 $(document.body).removeClass('hasOverlay');
+            });
+            $(fib.mediaQuery).on('breakpoint-change.sidebar', () => {
+                this._hammerManager.set({
+                    enable: fib.mediaQuery.isBreakpointOrLowerActive('medium')
+                });
             });
             this._elements.toggle.on('change', () => {
                 $(document.body).toggleClass('hasOverlay', this._elements.toggle.prop('checked'));
@@ -71,44 +181,14 @@
         }
 
         /**
-         * Fetches the initial entities of the page..
-         * @returns {Array<SidebarEntity>}
-         * @private
-         */
-        _fetchInitialEntities(container) {
-            let entities = [];
-
-            container.find('.sidebar-entity').each((_, element) => {
-                let entity = Sidebar._createEntityFromElement($(element));
-                if (entity.isValid) {
-                    entities.push(entity);
-                }
-            });
-            return entities;
-        }
-
-        /**
-         * Creates and returns an entity based on the specified element.
-         * @param {jQuery} element
-         * @returns {SidebarEntity}
-         * @private
-         */
-        static _createEntityFromElement(element) {
-            let entity = new fib.Entity.SidebarEntity();
-
-            entity.element = element;
-            entity.id = element.data('id') || 0;
-            entity.viewTime = element.data('view-time') || 0;
-
-            return entity;
-        }
-
-        /**
          * Updates the visibility of the container holding the pinned entities.
          * @private
          */
         _updatePinnedContainerVisibility() {
-            this._elements.pinnedContainer.toggleClass('hidden', this._pinnedEntities.length === 0);
+            this._elements.pinnedContainer.toggleClass(
+                'hidden',
+                this._elements.pinnedContainer.find('.sidebar-entity').length === 0
+            );
         }
 
         /**
@@ -116,52 +196,22 @@
          * @param {string} html The raw HTML of the new entity.
          */
         addNewEntity(html) {
-            let element = $(html),
-                entity = Sidebar._createEntityFromElement(element),
-                key;
+            let entity = fib.Entity.SidebarEntity.createFromElement($(html));
 
             if (entity.isValid) {
-                key = this._getKeyOfEntityById(this._pinnedEntities, entity.id);
-                if (key !== -1) {
-                    this._pinnedEntities[key].viewTime = entity.viewTime;
-                } else {
-                    // The entity is not pinned, so we can add it to the unpinned list.
-                    this._removeEntityWithId(this._unpinnedEntities, entity.id);
+                if (typeof(this._entities[entity.id]) === 'undefined') {
+                    this._entities[entity.id] = entity;
                     this._addUnpinnedEntity(entity);
-                    this._limitUnpinnedEntities();
+                } else {
+                    if (this._entities[entity.id].isPinned) {
+                        // Entity already pinned, so simply update the view time.
+                        this._entities[entity.id].viewTime = entity.viewTime;
+                    } else {
+                        this._entities[entity.id].viewTime = entity.viewTime;
+                        this._entities[entity.id].element.detach();
+                        this._addUnpinnedEntity(this._entities[entity.id]);
+                    }
                 }
-            }
-        }
-
-        /**
-         * Searches for the specified entity id, and returns its key within the array.
-         * @param {Array<SidebarEntity>} entities
-         * @param {number} entityId
-         * @returns {number}
-         * @private
-         */
-        _getKeyOfEntityById(entities, entityId) {
-            let result = -1;
-            $.each(entities, (key, entity) => {
-                if (entity.id === entityId) {
-                    result = key;
-                }
-                return result === -1;
-            });
-            return result;
-        }
-
-        /**
-         * Removes an unpinned entity with the specified id, if present.
-         * @param {Array<SidebarEntity>} entities
-         * @param {number} entityId
-         * @private
-         */
-        _removeEntityWithId(entities, entityId) {
-            let key = this._getKeyOfEntityById(entities, entityId);
-            if (key !== -1) {
-                entities[key].element.remove();
-                entities.splice(key, 1);
             }
         }
 
@@ -171,21 +221,22 @@
          * @private
          */
         _addUnpinnedEntity(newEntity) {
-            let nextEntityKey = -1;
-            $.each(this._unpinnedEntities, (key, entity) => {
-                if (entity.viewTime < newEntity.viewTime) {
-                    nextEntityKey = key;
+            let lastEntity = null;
+            $.each(this._entities, (id, entity) => {
+                if (!entity.isPinned && entity.id !== newEntity.id && entity.viewTime < newEntity.viewTime
+                    && (lastEntity === null || entity.viewTime > lastEntity.viewTime)
+                ) {
+                    lastEntity = entity;
                 }
-                return nextEntityKey === -1;
             });
 
-            if (nextEntityKey === -1) {
+            if (lastEntity === null) {
                 this._elements.unpinnedContainer.append(newEntity.element);
-                this._unpinnedEntities.unshift(newEntity);
             } else {
-                this._unpinnedEntities[nextEntityKey].element.before(newEntity.element);
-                this._unpinnedEntities.splice(nextEntityKey, 0, newEntity);
+                lastEntity.element.before(newEntity.element);
             }
+
+            this._limitUnpinnedEntities();
         }
 
         /**
@@ -193,60 +244,75 @@
          * @private
          */
         _limitUnpinnedEntities() {
-            let entity;
-
-            while (this._unpinnedEntities.length > fib.config.sidebar.numberOfUnpinnedEntities) {
-                entity = this._unpinnedEntities.pop();
-                entity.element.remove();
-            }
+            this._elements.unpinnedContainer
+                .find('.sidebar-entity')
+                .slice(fib.config.sidebar.numberOfUnpinnedEntities)
+                .each((_, element) => {
+                    let entity = $(element).data('entity');
+                    if (entity instanceof fib.Entity.SidebarEntity) {
+                        entity.element.remove();
+                        delete this._entities[entity.id];
+                    }
+                });
         }
 
         /**
-         * Handles pinning of the entity with the specified id.
-         * @param {number} entityId
+         * Handles pinning of the specified entity element.
+         * @param {jQuery} element
          * @private
          */
-        _handlePin(entityId) {
-            let key = this._getKeyOfEntityById(this._unpinnedEntities, entityId);
-            if (key !== -1) {
-                let entity = this._unpinnedEntities[key];
-                this._removeEntityWithId(this._unpinnedEntities, entityId);
-                this._pinnedEntities.push(entity);
+        _handlePin(element) {
+            let entity = element.data('entity');
+            if (entity instanceof fib.Entity.SidebarEntity && !entity.isPinned) {
+                entity.element.detach();
                 this._elements.pinnedContainer.append(entity.element);
 
-                $.ajax({
-                    url: fib.config.sidebar.urls.pin.replace(1234, entityId),
-                    method: 'POST',
-                    dataType: 'json'
-                });
-
+                entity.isPinned = true;
                 this._updatePinnedContainerVisibility();
+                this._sendPinnedEntitiesToServer();
             }
         }
 
         /**
-         * Handles unpinning of the entity with the specified id.
-         * @param {number} entityId
+         * Handles unpinning of the specified entity element.
+         * @param {jQuery} element
          * @private
          */
-        _handleUnpin(entityId) {
-            let key = this._getKeyOfEntityById(this._pinnedEntities, entityId);
-            if (key !== -1) {
-                let entity = this._pinnedEntities[key];
-                this._removeEntityWithId(this._pinnedEntities, entityId);
+        _handleUnpin(element) {
+            let entity = element.data('entity');
+            if (entity instanceof fib.Entity.SidebarEntity && entity.isPinned) {
+                entity.element.detach();
                 this._addUnpinnedEntity(entity);
-                this._limitUnpinnedEntities();
 
-                $.ajax({
-                    url: fib.config.sidebar.urls.unpin.replace(1234, entityId),
-                    method: 'POST',
-                    dataType: 'json'
-                });
-
+                entity.isPinned = false;
                 this._updatePinnedContainerVisibility();
+                this._sendPinnedEntitiesToServer();
             }
+        }
+
+        /**
+         * Sends the currently pinned elements and their order to the server.
+         * @private
+         */
+        _sendPinnedEntitiesToServer() {
+            let pinnedEntityIds = [];
+            this._elements.pinnedContainer.find('.sidebar-entity').each((_, element) => {
+                let entity = $(element).data('entity');
+                if (entity instanceof fib.Entity.SidebarEntity && entity.isPinned) {
+                    pinnedEntityIds.push(entity.id);
+                }
+            });
+
+            $.ajax({
+                url: fib.config.sidebar.pinnedUrl,
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    pinnedEntityIds: pinnedEntityIds
+                }
+            });
         }
     }
 
     fib.Sidebar = Sidebar;
-})(jQuery, factorioItemBrowser);
+})(jQuery, factorioItemBrowser, Hammer, Sortable);

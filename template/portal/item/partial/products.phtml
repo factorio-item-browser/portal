@@ -4,24 +4,24 @@ use FactorioItemBrowser\Portal\View\Helper\GenericEntityHelper;
 
 /* @var GenericEntityHelper $genericEntityHelper */
 $genericEntityHelper = $this->genericEntity();
-/* @var array|GenericEntityWithRecipes[] $recipes */
-$recipes = $this->productRecipes;
-if (count($recipes) > 0) { ?>
+/* @var GenericEntityWithRecipes $item */
+$item = $this->itemWithProducts;
+
+if (count($item->getRecipes()) > 0) { ?>
     <section>
         <h2><?php echo $this->escapeHtml($this->replace(
-            $this->translatePlural('item-details product-of', '', $this->totalNumberOfProductRecipes),
-            ['count' => $this->totalNumberOfProductRecipes]
+            $this->translatePlural('item-details product-of', '', $item->getTotalNumberOfRecipes()),
+            ['count' => $item->getTotalNumberOfRecipes()]
         )); ?></h2>
 
         <ul class="item-products-list">
-            <?php foreach ($recipes as $recipe) { ?>
-                <li><?php echo $genericEntityHelper->renderBox($recipe); ?></li>
-            <?php }
+            <?php foreach ($item->getRecipes() as $recipe) {
+                echo $genericEntityHelper->renderRecipeBox($recipe, 'item-recipe', 'li');
+            }
             echo $this->render('portal::item/partial/moreRecipes', [
                 'currentPage' => 1,
-                'item' => $this->item,
+                'item' => $item,
                 'recipeType' => 'product',
-                'totalNumberOfResults' => $this->totalNumberOfProductRecipes
             ]); ?>
         </ul>
     </section>

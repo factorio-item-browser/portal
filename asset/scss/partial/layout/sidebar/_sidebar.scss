@@ -1,0 +1,69 @@
+/**
+ * File defining the basic style of the sidebar.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../../module/all';
+
+#sidebar {
+    @include flex-item($shrink: 0);
+
+    background-color: $color-concrete;
+    max-width: $size-sidebar-width;
+    padding: $spacing-large $spacing-default;
+    width: $size-sidebar-width;
+
+    @include breakpoint-until(large) {
+        @include transition-default(transform);
+
+        bottom: 0;
+        box-shadow: $shadow-box-tooltip;
+        left: 0;
+        max-width: 100%;
+        padding-top: $spacing-huge;
+        position: fixed;
+        overflow-y: auto;
+        transform: translate(-110%, 0);
+        top: 0;
+        z-index: $zIndex-overlay-contentLayer;
+    }
+
+    h3 {
+        @include section-headline($text-size-headline-small, 0);
+        @include section-headline-underline();
+
+        margin-top: $spacing-default;
+    }
+
+    .sidebar-close {
+        @include font-icon($fa-var-times);
+
+        color: $color-section-headline;
+        cursor: pointer;
+        display: none;
+        font-size: $text-size-headline-small;
+        font-weight: bold;
+        padding: 0 $spacing-default;
+        position: absolute;
+        right: 0;
+        text-shadow: $shadow-text;
+        top: 0;
+        z-index: $zIndex-icon;
+
+        @include breakpoint-until(large) {
+            display: block;
+        }
+    }
+}
+
+@include breakpoint-until(large) {
+    #toggle-sidebar:checked ~ #sidebar {
+        transform: translate(0, 0);
+    }
+}
+
+body.index-page #sidebar, body.index-page #sidebar ~ .toggle-overlay {
+    display: none;
+}

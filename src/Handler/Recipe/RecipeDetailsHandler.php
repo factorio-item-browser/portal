@@ -8,11 +8,14 @@ use FactorioItemBrowser\Api\Client\Client\Client;
 use FactorioItemBrowser\Api\Client\Entity\Recipe;
 use FactorioItemBrowser\Api\Client\Exception\NotFoundException;
 use FactorioItemBrowser\Api\Client\Request\Recipe\RecipeDetailsRequest;
+use FactorioItemBrowser\Api\Client\Request\Recipe\RecipeMachinesRequest;
 use FactorioItemBrowser\Api\Client\Response\Recipe\RecipeDetailsResponse;
+use FactorioItemBrowser\Api\Client\Response\Recipe\RecipeMachinesResponse;
+use FactorioItemBrowser\Portal\Constant\Config;
 use FactorioItemBrowser\Portal\Database\Service\SidebarEntityService;
+use FactorioItemBrowser\Portal\Handler\AbstractRenderHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
@@ -22,25 +25,13 @@ use Zend\Expressive\Template\TemplateRendererInterface;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class RecipeDetailsHandler implements RequestHandlerInterface
+class RecipeDetailsHandler extends AbstractRenderHandler
 {
-    /**
-     * The API client.
-     * @var Client
-     */
-    protected $apiClient;
-
     /**
      * The sidebar entity database service.
      * @var SidebarEntityService
      */
     protected $sidebarEntityService;
-
-    /**
-     * The template renderer.
-     * @var TemplateRendererInterface
-     */
-    protected $templateRenderer;
 
     /**
      * Initializes the request handler.
@@ -52,11 +43,9 @@ class RecipeDetailsHandler implements RequestHandlerInterface
         Client $apiClient,
         SidebarEntityService $sidebarEntityService,
         TemplateRendererInterface $templateRenderer
-    )
-    {
-        $this->apiClient = $apiClient;
+    ) {
+        parent::__construct($apiClient, $templateRenderer);
         $this->sidebarEntityService = $sidebarEntityService;
-        $this->templateRenderer = $templateRenderer;
     }
 
     /**
@@ -69,35 +58,31 @@ class RecipeDetailsHandler implements RequestHandlerInterface
         $name = rawurldecode($request->getAttribute('name'));
 
         $detailsRequest = new RecipeDetailsRequest();
-        $detailsRequest->setNames([$name]);
+        $detailsRequest->addName($name);
+        $machinesRequest = new RecipeMachinesRequest();
+        $machinesRequest->setName($name)
+                        ->setNumberOfResults(Config::MACHINE_PER_PAGE);
 
         try {
             /* @var RecipeDetailsResponse $detailsResponse */
             $detailsResponse = $this->apiClient->send($detailsRequest);
+            /* @var RecipeMachinesResponse $machinesResponse */
+            $machinesResponse = $this->apiClient->send($machinesRequest);
 
-            $recipes = [];
-            foreach ($detailsResponse->getRecipes() as $recipe) {
-                if (count($recipes) === 0) {
-                    $this->sidebarEntityService->add($recipe);
-                }
-
-                $recipes[] = $recipe;
-            }
-
-            if (count($recipes) === 0) {
-                $response = new HtmlResponse($this->templateRenderer->render('error::404'));
-                $response = $response->withStatus(404);
-            } else {
-                usort($recipes, function (Recipe $left, Recipe $right): int {
-                    return $right->getMode() <=> $left->getMode();
-                });
+            $recipe = reset($detailsResponse->getRecipes()) ?: null;
+            if ($recipe instanceof Recipe) {
+                $this->sidebarEntityService->add($recipe);
 
                 $response = new HtmlResponse($this->templateRenderer->render('portal::recipe/details', [
-                    'recipes' => $recipes
+                    'machines' => $machinesResponse->getMachines(),
+                    'recipe' => $recipe,
+                    'totalNumberOfMachines' => $machinesResponse->getTotalNumberOfResults()
                 ]));
+            } else {
+                $response = $this->renderNotFoundPage();
             }
         } catch (NotFoundException $e) {
-            $response = new HtmlResponse($this->templateRenderer->render('error::404'), 404);
+            $response = $this->renderNotFoundPage();
         }
         return $response;
     }

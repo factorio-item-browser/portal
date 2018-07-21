@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Portal\Middleware;
 
 use FactorioItemBrowser\Api\Client\Client\Client;
-use FactorioItemBrowser\Portal\Database\Service\SidebarEntityService;
 use FactorioItemBrowser\Portal\Session\Container\MetaSessionContainer;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
@@ -31,9 +30,7 @@ class MetaDataRequestMiddlewareFactory implements FactoryInterface
         $apiClient = $container->get(Client::class);
         /* @var MetaSessionContainer $metaSessionContainer */
         $metaSessionContainer = $container->get(MetaSessionContainer::class);
-        /* @var SidebarEntityService $sidebarEntityService */
-        $sidebarEntityService = $container->get(SidebarEntityService::class);
 
-        return new MetaDataRequestMiddleware($apiClient, $metaSessionContainer, $sidebarEntityService);
+        return new MetaDataRequestMiddleware($apiClient, $metaSessionContainer);
     }
 }

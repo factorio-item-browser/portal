@@ -1,0 +1,119 @@
+/**
+ * File defining the style of the search input field.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../../module/all';
+
+.header-search {
+    @include flex-item($grow: 1);
+    @include dynamic-spacing(margin, large);
+
+    position: relative;
+}
+
+body.index-page .header-search {
+    display: block;
+    margin: $spacing-huge auto;
+    max-width: 64rem;
+}
+
+.header-search-input {
+    @include transition-default(opacity);
+
+    border: 0;
+    border-radius: 0;
+    box-shadow: $shadow-box;
+    font-size: $text-size-header-search;
+    opacity: $alpha-input-default;
+    padding: $spacing-default (2 * $spacing-default + $text-size-header-search);
+    width: 100%;
+
+    &:hover, &:active, &:focus {
+        opacity: $alpha-input-focused;
+    }
+}
+
+.header-search-box-icon {
+    @include font-icon($fa-var-search, $text-size-header-search);
+
+    opacity: $alpha-input-default;
+    padding: ($spacing-default + $spacing-tiny);
+    pointer-events: none;
+    position: absolute;
+    z-index: $zIndex-icon;
+
+    &.loading {
+        @include font-icon($fa-var-spinner, $text-size-header-search);
+
+        animation: fa-spin 2s infinite linear;
+    }
+}
+
+
+.header-search-box-close-icon {
+    @include font-icon($fa-var-times, $text-size-header-search);
+    @include transition-default(opacity);
+
+    cursor: pointer;
+    opacity: $alpha-input-default;
+    padding: ($spacing-default + $spacing-tiny);
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: $zIndex-icon;
+
+    &:hover {
+        opacity: $alpha-input-focused;
+    }
+
+    @include breakpoint(large) {
+        display: none;
+    }
+}
+
+.header-search-icon, .header-sidebar-icon {
+    @include flex-item($shrink: 1);
+
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    opacity: $alpha-input-default;
+    padding: $spacing-default;
+    position: relative;
+    text-align: center;
+    text-shadow: $shadow-text;
+
+    &:hover, &:active, &:focus {
+        color: white;
+        opacity: $alpha-input-focused;
+    }
+
+    @include breakpoint(large) {
+        display: none;
+    }
+}
+.header-search-icon {
+    @include font-icon($fa-var-search, $text-size-header-search);
+}
+.header-sidebar-icon {
+    @include font-icon($fa-var-bars, $text-size-header-search);
+}
+
+body.index-page .header-search-icon,
+body.index-page .header-search-box-close-icon,
+body.index-page .header-sidebar-icon {
+    display: none;
+}
+
+// Toggle the header with the hidden checkbox.
+body:not(.index-page) #toggle-search-box:checked ~ .header-logo,
+body:not(.index-page) #toggle-search-box:checked ~ .header-search-icon,
+body:not(.index-page) #toggle-search-box:checked ~ .header-sidebar-icon,
+body:not(.index-page) #toggle-search-box:not(:checked) ~ .header-search {
+    @include breakpoint-until(large) {
+        display: none;
+    }
+}

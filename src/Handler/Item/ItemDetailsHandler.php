@@ -12,9 +12,9 @@ use FactorioItemBrowser\Api\Client\Response\Item\ItemIngredientResponse;
 use FactorioItemBrowser\Api\Client\Response\Item\ItemProductResponse;
 use FactorioItemBrowser\Portal\Constant\Config;
 use FactorioItemBrowser\Portal\Database\Service\SidebarEntityService;
+use FactorioItemBrowser\Portal\Handler\AbstractRenderHandler;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
@@ -24,25 +24,13 @@ use Zend\Expressive\Template\TemplateRendererInterface;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class ItemDetailsHandler implements RequestHandlerInterface
+class ItemDetailsHandler extends AbstractRenderHandler
 {
-    /**
-     * The API client.
-     * @var Client
-     */
-    protected $apiClient;
-
     /**
      * The sidebar entity database service.
      * @var SidebarEntityService
      */
     protected $sidebarEntityService;
-
-    /**
-     * The template renderer.
-     * @var TemplateRendererInterface
-     */
-    protected $templateRenderer;
 
     /**
      * Initializes the request handler.
@@ -54,11 +42,9 @@ class ItemDetailsHandler implements RequestHandlerInterface
         Client $apiClient,
         SidebarEntityService $sidebarEntityService,
         TemplateRendererInterface $templateRenderer
-    )
-    {
-        $this->apiClient = $apiClient;
+    ) {
+        parent::__construct($apiClient, $templateRenderer);
         $this->sidebarEntityService = $sidebarEntityService;
-        $this->templateRenderer = $templateRenderer;
     }
 
     /**
@@ -90,14 +76,11 @@ class ItemDetailsHandler implements RequestHandlerInterface
         try {
             $this->sidebarEntityService->add($productResponse->getItem());
             $response = new HtmlResponse($this->templateRenderer->render('portal::item/details', [
-                'item' => $productResponse->getItem(),
-                'productRecipes' => $productResponse->getGroupedRecipes(),
-                'totalNumberOfProductRecipes' => $productResponse->getTotalNumberOfResults(),
-                'ingredientRecipes' => $ingredientResponse->getGroupedRecipes(),
-                'totalNumberOfIngredientRecipes' => $ingredientResponse->getTotalNumberOfResults(),
+                'itemWithIngredients' => $ingredientResponse->getItem(),
+                'itemWithProducts' => $productResponse->getItem(),
             ]));
         } catch (NotFoundException $e) {
-            $response = new HtmlResponse($this->templateRenderer->render('error::404'), 404);
+            $response = $this->renderNotFoundPage();
         }
         return $response;
     }

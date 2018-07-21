@@ -1,0 +1,134 @@
+/**
+ * File styling the basic box.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../variable/all';
+@import '../helper/all';
+
+/**
+ * Styles the current selector as a generic box.
+ * @param {color} $color The base color to use.
+ * @param {number} $alpha The alpha value of the background.
+ */
+@mixin box($color: $color-box-default, $alpha: 1) {
+    @if ($alpha == 1) {
+        background: color($color, $lightness-box-background);
+    } @else {
+        background: rgba(color($color, $lightness-box-background), $alpha);
+    }
+
+    box-shadow: $shadow-box;
+    color: color($color, $lightness-text-primary);
+    display: block;
+}
+
+/**
+ * Adds a top border to the current selector.
+ * @param {color} $color
+ */
+@mixin box-border-top($color: $color-box-default) {
+    position: relative;
+
+    &:before {
+        background: rgba(color($color, $lightness-box-border), $alpha-box-border);
+        content: '';
+        height: px-to-rem(1);
+        left: 0;
+        position: absolute;
+        width: 100%;
+        top: 0;
+    }
+}
+
+/**
+ * Styles the current selector to be a label in the lower right corner of a box.
+ * @param {color} $color
+ */
+@mixin box-corner-label($color: $color-box-default) {
+    bottom: 0;
+    color: rgba(color($color, $lightness-text-primary), $alpha-box-label);
+    font-size: $text-size-small;
+    padding: $spacing-tiny $spacing-small;
+    position: absolute;
+    right: 0;
+    text-transform: uppercase;
+}
+
+/**
+ * Styles the current selector as a label with an icon to the left.
+ * @param {string} $label-class The CSS class representing the label element.
+ * @param {string} $icon-class The CSS class representing the icon element.
+ */
+@mixin label-with-icon($spacing: default, $label-class: '.label', $icon-class: '.icon') {
+    @include flex-container();
+    @include flex-container-align($vertical: center);
+    @include dynamic-spacing(padding, $spacing);
+
+    #{$icon-class} {
+        @include flex-item($shrink: 0);
+    }
+
+    #{$label-class} {
+        @include flex-item($grow: 1);
+        @include dynamic-spacing(padding-left, $spacing)
+    }
+}
+
+/**
+ * Styles the current selector to be a box-head with an icon to the left.
+ * @param {color} $color
+ * @param {string} $headline-class
+ */
+@mixin box-head-with-icon($color: $color-box-default, $headline-class: 'h3') {
+    @include label-with-icon();
+
+    background: color($color, $lightness-box-background);
+    color: color($color, $lightness-text-secondary);
+    font-size: $text-size-small;
+    #{$headline-class} {
+        color: color($color, $lightness-text-primary);
+        font-size: $text-size-default;
+        font-weight: bold;
+    }
+}
+
+/**
+ * Attaches the current selector as label to the parent element.
+ * @param {color} $color
+ */
+@mixin attached-label($color: $color-box-default) {
+    color: color($color, $lightness-shadowed-label-text);
+    font-size: $text-size-label;
+    font-weight: bolder;
+    pointer-events: none;
+    position: absolute;
+    text-shadow: color($color, $lightness-shadowed-label-shadow) px-to-rem(1) px-to-rem(1) px-to-rem(2);
+}
+
+/**
+ * Formats the current selector as a list of boxes.
+ * @param {string} $child-selector The selector for the actual boxes.
+ */
+@mixin box-list($child-selector: 'li') {
+    @include dynamic-spacing(padding, 0 default);
+    @include flex-container($wrap: wrap);
+    @include flex-container-align($vertical: flex-start);
+
+    & > #{$child-selector} {
+        @include dynamic-spacing(margin, default);
+
+        @include flex-item($grow: 0, $shrink: 0, $basis: calc(100% - 2 * #{$spacing-small}));
+        @include breakpoint(medium) {
+            @include flex-item($grow: 0, $shrink: 0, $basis: calc(50% - 2 * #{$spacing-small}));
+        }
+        @include breakpoint(large) {
+            @include flex-item($grow: 0, $shrink: 0, $basis: calc(50% - 2 * #{$spacing-default}));
+        }
+        @include breakpoint(huge) {
+            @include flex-item($grow: 0, $shrink: 0, $basis: calc(33.33% - 2 * #{$spacing-default}));
+        }
+    }
+}

@@ -1,0 +1,34 @@
+/**
+ * File defining the header logo style.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../../module/all';
+
+.header-logo {
+    @include flex-item($grow: 1);
+
+    position: relative;
+    text-align: center;
+
+    img {
+        width: $size-header-logo-width;
+    }
+
+    @include breakpoint(large) {
+        @include flex-item($shrink: 0, $basis: $size-sidebar-width);
+    }
+}
+
+body.index-page .header-logo {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    width: $size-header-logo-original-width;
+
+    img {
+        width: 100%;
+    }
+}

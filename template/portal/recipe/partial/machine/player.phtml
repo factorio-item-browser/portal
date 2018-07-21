@@ -1,0 +1,30 @@
+<?php
+use FactorioItemBrowser\Api\Client\Entity\Machine;
+
+/* @var Machine $machine */
+$machine = $this->machine;
+?>
+<li class="machine">
+    <div class="head">
+        <?php echo $this->genericEntity()->renderTransparentIcon($machine); ?>
+        <div class="label">
+            <h3><?php echo $this->escapeHtml($machine->getLabel() ?: $machine->getName()); ?></h3>
+            <?php echo $this->escapeHtml($machine->getDescription()); ?>
+        </div>
+    </div>
+
+    <dl>
+        <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine crafting-speed')); ?></dt>
+        <dd><?php echo $this->format()->craftingSpeed($machine->getCraftingSpeed()); ?></dd>
+
+        <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine ingredients')); ?></dt>
+        <dd><?php echo $this->format()->machineSlots($machine->getNumberOfItemSlots()); ?></dd>
+
+        <dt><?php echo $this->escapeHtml($this->translate('recipe-details machine fluids')); ?></dt>
+        <dd><?php echo $this->format()->machineSlots($machine->getNumberOfFluidInputSlots()); ?></dd>
+    </dl>
+
+    <p class="player-notice">
+        <?php echo $this->escapeHtmlAttr($this->translate('recipe-details machine player-notice')); ?>
+    </p>
+</li>

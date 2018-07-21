@@ -1,25 +1,19 @@
 <?php
 use FactorioItemBrowser\Api\Client\Entity\Recipe;
+use FactorioItemBrowser\Portal\View\Helper\RecipeHelper;
 
-/* @var Recipe[] $recipes */
-$recipes = $this->recipes;
+/* @var RecipeHelper $recipeHelper */
+$recipeHelper = $this->recipe();
+/* @var Recipe $recipe */
+$recipe = $this->recipe;
 
-$firstRecipe = reset($recipes);
+$this->headTitle()->prepend($recipe->getLabel() ?: $recipe->getName());
 
-$this->headTitle()->prepend($firstRecipe->getLabel() ?: $firstRecipe->getName());
+echo $this->partial('portal::recipe/partial/recipe', ['recipe' => $recipeHelper->getPrimaryRecipe($recipe)]);
+if ($recipeHelper->hasSecondaryRecipe($recipe)) {
+    echo $this->partial('portal::recipe/partial/recipe', ['recipe' => $recipeHelper->getSecondaryRecipe($recipe)]);
+}
 
-foreach ($recipes as $recipe) { ?>
-    <div class="recipe-details <?php echo $this->escapeHtmlAttr($recipe->getMode()); ?>">
-        <?php echo $this->partial('portal::recipe/partial/head', ['recipe' => $recipe]); ?>
-
-        <div class="recipe-columns">
-            <div class="recipe-column">
-                <?php echo $this->partial('portal::recipe/partial/ingredients', ['recipe' => $recipe]); ?>
-            </div>
-            <div class="recipe-column-separator"></div>
-            <div class="recipe-column">
-                <?php echo $this->partial('portal::recipe/partial/products', ['recipe' => $recipe]); ?>
-            </div>
-        </div>
-    </div>
-<?php }
+if (count($this->machines) > 0) {
+    echo $this->render('portal::recipe/partial/machines');
+}

@@ -81,8 +81,7 @@ abstract class AbstractModListChangeHandler implements RequestHandlerInterface
         ModListSessionContainer $modListSessionContainer,
         SidebarEntityService $sidebarEntityService,
         UrlHelper $urlHelper
-    )
-    {
+    ) {
         $this->apiClient = $apiClient;
         $this->currentUser = $currentUser;
         $this->metaSessionContainer = $metaSessionContainer;

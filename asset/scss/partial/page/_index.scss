@@ -1,0 +1,41 @@
+/**
+ * File defining the style of the index page.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../module/all';
+
+.random-item-list {
+    @include dynamic-spacing(padding, 0 default);
+    @include flex-container($wrap: wrap);
+    @include flex-container-align($vertical: flex-start);
+
+    .random-item {
+        @include item-box();
+        @include dynamic-spacing(margin, default);
+
+        @include flex-item($grow: 0, $shrink: 0, $basis: calc(100% - 2 * #{$spacing-small}));
+        @include breakpoint(medium) {
+            @include flex-item($grow: 0, $shrink: 0, $basis: calc(50% - 2 * #{$spacing-small}));
+        }
+        @include breakpoint(large) {
+            @include flex-item($grow: 0, $shrink: 0, $basis: calc(33.33% - 2 * #{$spacing-default}));
+        }
+        @include breakpoint(huge) {
+            @include flex-item($grow: 0, $shrink: 0, $basis: calc(25% - 2 * #{$spacing-default}));
+        }
+    }
+}
+
+.random-item-motivator {
+    font-size: $text-size-default;
+    &::before {
+        content: ' — '; // &mdash;
+    }
+
+    @include breakpoint-until(medium) {
+        display: none;
+    }
+}

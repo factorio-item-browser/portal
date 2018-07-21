@@ -10,14 +10,14 @@ $entity = $this->entity;
 ?>
 <a
     href="<?php echo $this->escapeHtmlAttr($genericEntityHelper->getDetailsUrl($entity)); ?>"
-    class="icon with-background icon-<?php echo $this->escapeHtmlAttr($entity->getType() . '-' . $entity->getName()); ?>"
+    class="icon with-background <?php echo $this->escapeHtmlAttr($genericEntityHelper->getIconClass($entity)); ?>"
     data-icon="<?php echo $this->escapeHtmlAttr($genericEntityHelper->getIcon($entity)); ?>"
     data-tooltip="<?php echo $this->escapeHtmlAttr($genericEntityHelper->getTooltip($entity)); ?>"
     data-link
 >
     <?php if ($entity instanceof Item && $entity->getAmount() > 0) { ?>
         <span class="amount"><?php
-            echo $this->escapeHtml($genericEntityHelper->formatAmount($entity->getAmount()));
+            echo $this->escapeHtml($this->format()->amount($entity->getAmount()));
         ?></span>
     <?php } ?>
 </a>

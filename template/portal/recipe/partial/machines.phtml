@@ -1,0 +1,21 @@
+<?php
+use FactorioItemBrowser\Api\Client\Entity\Machine;
+
+/* @var Machine[] $machines */
+$machines = $this->machines;
+?>
+
+<section>
+    <h2><?php echo $this->escapeHtml($this->replace(
+        $this->translatePlural('recipe-details machine headline', '', $this->totalNumberOfMachines),
+        ['count' => $this->totalNumberOfMachines]
+    )); ?></h2>
+    <ul class="machine-list">
+        <?php echo $this->partial('portal::recipe/machinePage', [
+            'currentPage' => 1,
+            'machines' => $this->machines,
+            'recipeName' => $this->recipe->getName(),
+            'totalNumberOfMachines' => $this->totalNumberOfMachines
+        ]); ?>
+    </ul>
+</section>

@@ -1,13 +1,14 @@
 <?php
-use FactorioItemBrowser\Api\Client\Entity\Item;
+
+use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
 use FactorioItemBrowser\Portal\View\Helper\GenericEntityHelper;
 
 /* @var GenericEntityHelper $genericEntityHelper */
 $genericEntityHelper = $this->genericEntity();
-/* @var Item $item */
-$item = $this->item;
+/* @var GenericEntityWithRecipes $item */
+$item = $this->itemWithProducts;
 ?>
-<div class="headline-with-icon">
+<div class="item-details-head">
     <?php echo $genericEntityHelper->renderTransparentIcon($item); ?>
     <div class="label">
         <h1><?php echo $this->escapeHtml($this->replace(

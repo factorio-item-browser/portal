@@ -60,8 +60,7 @@ class SidebarEntityService extends AbstractDatabaseService
         Client $apiClient,
         LayoutParamsHelper $layoutParamsHelper,
         UserService $userService
-    )
-    {
+    ) {
         parent::__construct($entityManager);
         $this->apiClient = $apiClient;
         $this->layoutParamsHelper = $layoutParamsHelper;
@@ -141,36 +140,26 @@ class SidebarEntityService extends AbstractDatabaseService
     }
 
     /**
-     * Pins the specified entity to the sidebar.
-     * @param SidebarEntity $sidebarEntity
+     * Sets the order of the pinned entities.
+     * @param array|int[] $pinnedEntityIds
      * @return $this
      */
-    public function pin(SidebarEntity $sidebarEntity)
+    public function setPinnedEntityOrder(array $pinnedEntityIds)
     {
-        if ($sidebarEntity->getPinnedPosition() === 0) {
-            $newPosition = $this->sidebarEntityRepository->getMaxPinnedPosition($sidebarEntity->getUser()) + 1;
-            $sidebarEntity->setPinnedPosition($newPosition);
-            $this->entityManager->flush($sidebarEntity);
+        $orderIds = array_flip(array_values($pinnedEntityIds));
+        foreach ($this->userService->getCurrentUser()->getSidebarEntities() as $sidebarEntity) {
+            if (isset($orderIds[$sidebarEntity->getId()])) {
+                $sidebarEntity->setPinnedPosition($orderIds[$sidebarEntity->getId()] + 1);
+            } else {
+                $sidebarEntity->setPinnedPosition(0);
+            }
         }
-        return $this;
-    }
 
-    /**
-     * Unpins the specified entity from the sidebar.
-     * @param SidebarEntity $sidebarEntity
-     * @return $this
-     */
-    public function unpin(SidebarEntity $sidebarEntity)
-    {
-        if ($sidebarEntity->getPinnedPosition() > 0) {
-            $sidebarEntity->setPinnedPosition(0);
-            $this->entityManager->flush($sidebarEntity);
-
-            $this->sidebarEntityRepository->cleanUnpinnedEntities(
-                $this->userService->getCurrentUser(),
-                Config::SIDEBAR_UNPINNED_ENTITIES
-            );
-        }
+        $this->sidebarEntityRepository->cleanUnpinnedEntities(
+            $this->userService->getCurrentUser(),
+            Config::SIDEBAR_UNPINNED_ENTITIES
+        );
+        $this->entityManager->flush();
         return $this;
     }
 
@@ -198,7 +187,7 @@ class SidebarEntityService extends AbstractDatabaseService
                 $key = $entity->getType() . '/' . $entity->getName();
                 if (isset($entities[$key])) {
                     $entities[$key]->setLabel($entity->getLabel())
-                        ->setDescription($entity->getDescription());
+                                   ->setDescription($entity->getDescription());
                     unset($entities[$key]);
                 }
             }

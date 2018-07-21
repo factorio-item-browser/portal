@@ -26,13 +26,16 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->route('/mods/upload', Handler\Mod\ModListUploadHandler::class, ['POST'], RouteNames::MOD_LIST_UPLOAD);
 
     $app->route('/recipe/{name}', Handler\Recipe\RecipeDetailsHandler::class, ['GET', 'POST'], RouteNames::RECIPE_DETAILS);
+    $app->route('/recipe/{name}/machine/page/{page}', Handler\Recipe\RecipeMachinePageHandler::class, ['POST'], RouteNames::RECIPE_MACHINE_PAGE);
     $app->route('/recipe/{name}/tooltip', Handler\Recipe\RecipeTooltipHandler::class, ['GET', 'POST'], RouteNames::RECIPE_TOOLTIP);
 
     $app->route('/search/page/{page:\d+}/{query:.*}', Handler\Search\SearchQueryPageHandler::class, ['GET', 'POST'], RouteNames::SEARCH_QUERY_PAGE);
     $app->route('/search/{query:.*}', Handler\Search\SearchQueryHandler::class, ['GET', 'POST'], RouteNames::SEARCH_QUERY);
 
-    $app->route('/sidebar/pin/{id:\d+}', Handler\Sidebar\SidebarPinHandler::class, ['GET', 'POST'], RouteNames::SIDEBAR_PIN);
-    $app->route('/sidebar/unpin/{id:\d+}', Handler\Sidebar\SidebarUnpinHandler::class, ['GET', 'POST'], RouteNames::SIDEBAR_UNPIN);
+    $app->route('/settings', Handler\Settings\SettingsHandler::class, ['GET', 'POST'], RouteNames::SETTINGS);
+    $app->route('/settings/save', Handler\Settings\SettingsSaveHandler::class, ['POST'], RouteNames::SETTINGS_SAVE);
+
+    $app->route('/sidebar/pinned', Handler\Sidebar\SidebarPinnedHandler::class, ['POST'], RouteNames::SIDEBAR_PINNED);
 
     // Generic routes for items and fluids, but also used to abstract from the recipe routes.
     $app->route('/{type:fluid|item|recipe}/{name}', Handler\Item\ItemDetailsHandler::class, ['GET', 'POST'], RouteNames::ITEM_DETAILS);

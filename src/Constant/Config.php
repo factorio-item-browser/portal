@@ -13,6 +13,16 @@ namespace FactorioItemBrowser\Portal\Constant;
 class Config
 {
     /**
+     * The default locale to use.
+     */
+    const DEFAULT_LOCALE = 'en';
+
+    /**
+     * The default recipe mode to use.
+     */
+    const DEFAULT_RECIPE_MODE = RecipeMode::HYBRID;
+
+    /**
      * The number of random items to show on the index page.
      */
     const INDEX_RANDOM_ITEMS = 12;
@@ -21,6 +31,11 @@ class Config
      * The number of recipes per page on the item pages.
      */
     const ITEM_RECIPE_PER_PAGE = 24;
+
+    /**
+     * The number of machines to show per page on the recipe details.
+     */
+    const MACHINE_PER_PAGE = 12;
 
     /**
      * The number of search results to show per page.

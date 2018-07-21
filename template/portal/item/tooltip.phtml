@@ -4,7 +4,7 @@ use FactorioItemBrowser\Portal\View\Helper\GenericEntityHelper;
 
 /* @var GenericEntityHelper $genericEntityHelper */
 $genericEntityHelper = $this->genericEntity();
-/* @var GenericEntityWithRecipes $entity */
-$entity = $this->entity;
+/* @var GenericEntityWithRecipes $item */
+$item = $this->item;
 
-echo $genericEntityHelper->renderBox($entity);
+echo $genericEntityHelper->renderBox($item, 'tooltip-item');

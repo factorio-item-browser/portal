@@ -8,7 +8,7 @@ $genericEntityHelper = $this->genericEntity();
 $entity = $this->entity;
 ?>
 <div
-    class="icon icon-<?php echo $this->escapeHtmlAttr($entity->getType() . '-' . $entity->getName()); ?>"
+    class="icon <?php echo $this->escapeHtmlAttr($genericEntityHelper->getIconClass($entity)); ?>"
     data-icon="<?php echo $this->escapeHtmlAttr($genericEntityHelper->getIcon($entity)); ?>"
     <?php foreach ($this->attributes as $name => $value) {
         echo $this->escapeHtml($name);

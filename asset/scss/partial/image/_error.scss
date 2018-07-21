@@ -1,0 +1,28 @@
+/**
+ * File containing all error related inline images.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../module/all';
+
+.error-icon-404, .error-icon-503, .error-icon-js {
+    background: url(inline-image('error/machine.png')) no-repeat;
+}
+
+.error-icon-500 {
+    background: url(inline-image('error/remnant.png')) no-repeat;
+}
+
+.error-icon-404::before, .error-icon-503::before {
+    background: url(inline-image('error/electricity.png')) no-repeat;
+}
+
+.error-icon-500::before {
+    background: url(inline-image('error/destroyed.png')) no-repeat;
+}
+
+.error-icon-js::before {
+    background: url(inline-image('error/unplugged.png')) no-repeat;
+}

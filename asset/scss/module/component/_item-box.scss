@@ -1,0 +1,89 @@
+/**
+ * File styling the generic item box.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../variable/all';
+@import '../helper/all';
+@import 'box';
+
+/**
+ * Styles the current selector to be an item box including recipes to craft it.
+ * @param {color} $color
+ */
+@mixin item-box($color: $color-box-default, $alpha-content: $alpha-box-content) {
+    @include box($color, $alpha-content);
+
+    .head {
+        @include box-head-with-icon($color: $color);
+    }
+
+    .recipe {
+        @include box-border-top($color);
+        @include flex-container($wrap: wrap);
+        @include flex-container-align($horizontal: center, $vertical: center);
+
+        .icon, .separator {
+            @include flex-item($shrink: 1);
+            @include dynamic-spacing(margin, default);
+        }
+
+        .icon {
+            z-index: $zIndex-icon;
+        }
+
+        .separator {
+            @include font-icon($fa-var-chevron-right, $icon-size-default);
+
+            color: color($color-box-default, $lightness-text-primary);
+            height: $icon-size-default;
+            position: relative;
+            text-align: center;
+            width: $icon-size-default;
+            z-index: $zIndex-icon;
+
+            .time {
+                @include attached-label($color-box-default);
+
+                bottom: px-to-rem(-5);
+                left: ($icon-size-default / -2);
+                right: ($icon-size-default / -2);
+
+                @include breakpoint(large) {
+                    bottom: px-to-rem(-10);
+                }
+            }
+        }
+
+        .mode {
+            @include box-corner-label();
+        }
+
+        &.expensive {
+            background-color: rgba(
+                color($color-recipe-expensive, $lightness-box-background),
+                $alpha-box-content-expensive
+            );
+
+            .separator {
+                color: color($color-recipe-expensive, $lightness-text-primary);
+            }
+
+            .mode {
+                color: rgba(color($color-recipe-expensive, $lightness-text-primary), $alpha-box-label);
+            }
+        }
+    }
+
+    .more-recipes {
+        @include box-border-top();
+
+        display: block;
+        font-size: $text-size-small;
+        font-weight: bold;
+        padding: $spacing-tiny;
+        text-align: center;
+    }
+}

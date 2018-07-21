@@ -117,7 +117,9 @@ class UserService extends AbstractDatabaseService
     public function getSettingsHash()
     {
         return hash('crc32b', json_encode([
-            $this->currentUser->getApiAuthorizationToken()
+            $this->currentUser->getApiAuthorizationToken(),
+            $this->currentUser->getLocale(),
+            $this->currentUser->getRecipeMode()
         ]));
     }
 

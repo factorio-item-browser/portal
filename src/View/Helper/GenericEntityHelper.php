@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\View\Helper;
 
+use FactorioItemBrowser\Api\Client\Constant\EntityType;
 use FactorioItemBrowser\Api\Client\Entity\GenericEntity;
+use FactorioItemBrowser\Api\Client\Entity\Machine;
+use FactorioItemBrowser\Api\Client\Entity\Recipe;
 use FactorioItemBrowser\Portal\Constant\RouteNames;
 use Zend\Expressive\Helper\UrlHelper;
 use Zend\View\Helper\AbstractHelper;
@@ -42,8 +45,8 @@ class GenericEntityHelper extends AbstractHelper
         return $this->urlHelper->generate(
             RouteNames::GENERIC_DETAILS,
             [
-                'type' => $entity->getType(),
-                'name' => $entity->getName()
+                'type' => rawurlencode($entity->getType()),
+                'name' => rawurlencode($entity->getName())
             ]
         );
     }
@@ -58,8 +61,8 @@ class GenericEntityHelper extends AbstractHelper
         return $this->urlHelper->generate(
             RouteNames::GENERIC_TOOLTIP,
             [
-                'type' => $entity->getType(),
-                'name' => $entity->getName()
+                'type' => rawurlencode($entity->getType()),
+                'name' => rawurlencode($entity->getName())
             ]
         );
     }
@@ -75,42 +78,58 @@ class GenericEntityHelper extends AbstractHelper
     }
 
     /**
-     * Formats and returns the amount of an item.
-     * @param float $amount
+     * Returns the CSS class name to use for the icon of the specified entity.
+     * @param GenericEntity $entity
      * @return string
      */
-    public function formatAmount(float $amount): string
+    public function getIconClass(GenericEntity $entity): string
     {
-        if ($amount == 0) {
-            $result = '';
-        } elseif ($amount > 1000) {
-            $result = round($amount / 1000, 1) . 'k';
-        } elseif ($amount < 1) {
-            $result = round($amount * 100, 1) . '%';
-        } else {
-            $result = $amount . 'x';
-        }
-        return $result;
+        return 'icon-' . str_replace(' ', '_', $entity->getType() . '-' . $entity->getName());
     }
 
     /**
-     * Formats and returns the specified crafting time.
-     * @param float $craftingTime
-     * @return string
+     * Returns the linked entity of the specified machine.
+     * @param Machine $machine
+     * @return GenericEntity
      */
-    public function formatCraftingTime(float $craftingTime): string
+    public function getLinkedEntityOfMachine(Machine $machine): GenericEntity
     {
-        return round($craftingTime, 2) . 's';
+        $result = new GenericEntity();
+        $result->setType(EntityType::ITEM)
+               ->setName($machine->getName());
+        return $result;
     }
 
     /**
      * Renders the specified entity to a box.
      * @param GenericEntity $entity
+     * @param string $cssClass
+     * @param string $tagName
      * @return string
      */
-    public function renderBox(GenericEntity $entity): string
+    public function renderBox(GenericEntity $entity, string $cssClass = 'item', string $tagName = 'div'): string
     {
-        return $this->view->render('helper::genericEntity/box', ['entity' => $entity]);
+        return $this->view->render('helper::genericEntity/box', [
+            'cssClass' => $cssClass,
+            'entity' => $entity,
+            'tagName' => $tagName
+        ]);
+    }
+
+    /**
+     * Renders a recipe to a box.
+     * @param Recipe $recipe
+     * @param string $cssClass
+     * @param string $tagName
+     * @return string
+     */
+    public function renderRecipeBox(Recipe $recipe, string $cssClass = 'item', string $tagName = 'div'): string
+    {
+        return $this->view->render('helper::genericEntity/recipeBox', [
+            'cssClass' => $cssClass,
+            'recipe' => $recipe,
+            'tagName' => $tagName
+        ]);
     }
 
     /**

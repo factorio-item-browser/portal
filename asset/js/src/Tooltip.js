@@ -48,6 +48,12 @@
              */
             this._runningAjax = null;
 
+            /**
+             * Whether the tooltips are currently enabled.
+             * @type {boolean}
+             */
+            this._isEnabled = true;
+
             this._calculateChevronDimensions();
             this._registerEventListeners();
         }
@@ -93,28 +99,61 @@
         }
 
         /**
+         * Returns whether the tooltips are currently enabled.
+         * @returns {boolean}
+         */
+        get isEnabled() {
+            return this._isEnabled;
+        }
+
+        /**
+         * Sets whether the tooltips are currently enabled.
+         * @param {boolean} isEnabled
+         */
+        set isEnabled(isEnabled) {
+            if (isEnabled !== this._isEnabled) {
+                this._isEnabled = isEnabled;
+                if (!isEnabled) {
+                    this.hide();
+                }
+            }
+        }
+
+        /**
          * Shows the tooltip for the specified target.
          * @param {jQuery} target The target to show the tooltip for.
          * @param {string} content The actual content use for the tooltip.
          */
         show(target, content) {
-            let anchor = target.find('[data-tooltip-anchor]'),
-                targetDimensions = Tooltip._getDimensions(anchor.length === 0 ? target : anchor),
+            let anchor = target.find('[data-tooltip-anchor]');
+
+            if (this._isEnabled) {
+                this._elements.content.html(content);
+                this._elements.container.removeClass('hidden');
+
+                this._updatePosition(anchor.length === 0 ? target : anchor);
+                fib.browser.notifyPartialPageChange();
+            }
+        }
+
+        /**
+         * Updates the position of the tooltip.
+         * @param {jQuery} target
+         * @private
+         */
+        _updatePosition(target) {
+            let targetDimensions = Tooltip._getDimensions(target),
                 windowDimensions = Tooltip._getWindowDimensions(),
-                isTooltipOnTop = false,
+                isTooltipAbove = false,
                 contentDimensions,
                 calculatedTop,
                 calculatedLeft;
 
-            this._elements.content.html(content);
-            this._elements.container.removeClass('hidden');
-
             contentDimensions = Tooltip._getDimensions(this._elements.content);
-
             calculatedTop = targetDimensions.top + targetDimensions.height + this._distances.chevronHeight;
             if (calculatedTop + contentDimensions.height + this._distances.chevronHeight > windowDimensions.bottom) {
                 calculatedTop = targetDimensions.top - contentDimensions.height - this._distances.chevronHeight;
-                isTooltipOnTop = true;
+                isTooltipAbove = true;
             }
             calculatedLeft = targetDimensions.left + targetDimensions.width / 2
                 - this._distances.chevronWidth / 2 - this._distances.chevronOffset;
@@ -127,20 +166,20 @@
                 this._elements.chevron.css({right: 'auto'});
             }
 
-            this._elements.chevron.toggleClass('up', !isTooltipOnTop)
-                .toggleClass('down', isTooltipOnTop);
+            this._elements.chevron.toggleClass('up', !isTooltipAbove)
+                                  .toggleClass('down', isTooltipAbove);
 
             this._elements.container.css({
                 top: calculatedTop,
                 left: calculatedLeft
             });
-            fib.browser.notifyPartialPageChange();
         }
 
         /**
          * Hides the tooltip if it is currently shown.
          */
         hide() {
+            this._abortRunningAjax();
             this._elements.container.addClass('hidden');
         }
 
@@ -155,6 +194,7 @@
                 route = target.data('tooltip');
             }
             if (typeof(route) === 'string' && route.length > 0
+                && this._isEnabled
                 && fib.mediaQuery.isBreakpointOrGreaterActive('medium')
             ) {
                 let cacheValue = fib.cache.read('tooltip', route);
@@ -163,28 +203,44 @@
                     this.show(target, cacheValue);
                 } else {
                     this.hide();
-                    if (this._runningAjax !== null) {
-                        this._runningAjax.abort();
-                        this._runningAjax = null;
-                    }
-
-                    this._runningAjax = $.ajax({
-                        url: route,
-                        method: 'POST',
-                        dataType: 'json',
-                        success: (response) => {
-                            if (typeof(response) === 'object' && typeof(response.content) === 'string') {
-                                fib.cache.write('tooltip', route, response.content);
-                                if (target.hasClass('has-tooltip')) {
-                                    this.show(target, response.content);
-                                }
-                            }
-                        },
-                        complete: () => {
-                            this._runningAjax = null;
-                        }
-                    });
+                    this._abortRunningAjax();
+                    this._startAjax(target, route);
                 }
+            }
+        }
+
+        /**
+         * Starts an AJAX request attaching its result to the target.
+         * @param {jQuery} target
+         * @param {string} route
+         * @private
+         */
+        _startAjax(target, route) {
+            this._runningAjax = $.ajax({
+                url: route,
+                method: 'POST',
+                dataType: 'json',
+                success: (response) => {
+                    if (typeof(response) === 'object' && typeof(response.content) === 'string') {
+                        fib.cache.write('tooltip', route, response.content);
+                        if (target.hasClass('has-tooltip')) {
+                            this.show(target, response.content);
+                        }
+                    }
+                },
+                complete: () => {
+                    this._runningAjax = null;
+                }
+            });
+        }
+
+        /**
+         * Aborts the AJAX request if there is currently one running.
+         */
+        _abortRunningAjax() {
+            if (this._runningAjax !== null) {
+                this._runningAjax.abort();
+                this._runningAjax = null;
             }
         }
 

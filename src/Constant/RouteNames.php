@@ -8,7 +8,8 @@ namespace FactorioItemBrowser\Portal\Constant;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class RouteNames {
+class RouteNames
+{
     const GENERIC_DETAILS = 'item.details'; // Used to build links to any generic entity.
     const GENERIC_TOOLTIP = 'item.tooltip'; // Used to build tooltip routes to any generic entity.
 
@@ -25,11 +26,14 @@ class RouteNames {
     const MOD_LIST_UPLOAD = 'mod.list.upload';
 
     const RECIPE_DETAILS = 'recipe.details';
+    const RECIPE_MACHINE_PAGE = 'recipe.machine.page';
     const RECIPE_TOOLTIP = 'recipe.tooltip';
 
     const SEARCH_QUERY  = 'search.query';
     const SEARCH_QUERY_PAGE  = 'search.query.page';
 
-    const SIDEBAR_PIN = 'sidebar.pin';
-    const SIDEBAR_UNPIN = 'sidebar.unpin';
+    const SETTINGS = 'settings';
+    const SETTINGS_SAVE = 'settings.save';
+
+    const SIDEBAR_PINNED = 'sidebar.pinned';
 }

@@ -1,0 +1,85 @@
+/**
+ * File defining the style of the mods on the mod list.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../../module/all';
+
+
+.mod-list {
+    @include box-list('.mod');
+
+    .mod {
+        @include box($color-box-setting);
+        @include dynamic-spacing(padding, default);
+        @include transition-default(background);
+
+        cursor: pointer;
+        position: relative;
+
+        label {
+            color: color($color-box-setting, $lightness-text-secondary);
+            cursor: pointer;
+            display: block;
+            font-size: $text-size-small;
+            padding-right: calc(#{$icon-size-default} + #{$spacing-tiny});
+
+            h3 {
+                color: color($color-box-setting, $lightness-text-primary);
+                font-size: $text-size-default;
+            }
+        }
+
+        .check-icon {
+            @include font-icon($fa-var-check, $icon-size-default);
+            @include dynamic-spacing(right top, default);
+
+            position: absolute;
+            visibility: hidden;
+
+            &::before {
+                width: $icon-size-default;
+            }
+        }
+
+        dl {
+            @include flex-container($wrap: wrap);
+            @include dynamic-spacing(margin-top, default);
+            font-size: $text-size-small;
+
+            dt {
+                @include flex-item($shrink: 0, $basis: 25%);
+
+                padding: 0 $spacing-tiny;
+                text-align: right;
+            }
+            dd {
+                @include flex-item($shrink: 0, $basis: 75%);
+
+                font-weight: bold;
+                padding: 0 $spacing-tiny;
+            }
+        }
+    }
+
+    .mod-checkbox:checked + .mod, .mod:hover {
+        background: color($color-box-setting-enabled, $lightness-box-background);
+        color: color($color-box-setting-enabled, $lightness-text-primary);
+
+        label {
+            color: color($color-box-setting-enabled, $lightness-text-secondary);
+
+            h3 {
+                color: color($color-box-setting-enabled, $lightness-text-primary);
+            }
+        }
+    }
+
+    .mod-checkbox:checked + .mod {
+        .check-icon {
+            visibility: visible;
+        }
+    }
+}

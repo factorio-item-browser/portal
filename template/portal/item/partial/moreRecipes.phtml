@@ -1,11 +1,12 @@
 <?php
-use FactorioItemBrowser\Api\Client\Entity\Item;
+
+use FactorioItemBrowser\Api\Client\Entity\GenericEntityWithRecipes;
 use FactorioItemBrowser\Portal\Constant\Config;
 use FactorioItemBrowser\Portal\Constant\RouteNames;
 
-/* @var Item $item */
+/* @var GenericEntityWithRecipes $item */
 $item = $this->item;
-if ($this->currentPage < $this->totalNumberOfResults / Config::ITEM_RECIPE_PER_PAGE) { ?>
+if ($this->currentPage < $item->getTotalNumberOfRecipes() / Config::ITEM_RECIPE_PER_PAGE) { ?>
     <li class="paginated-list-button"
         data-paginated-list="<?php echo $this->escapeHtmlAttr($this->url(RouteNames::ITEM_RECIPE_PAGE, [
             'type' => $item->getType(),

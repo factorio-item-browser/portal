@@ -1,0 +1,20 @@
+<?php
+
+use FactorioItemBrowser\Api\Client\Entity\Recipe;
+use FactorioItemBrowser\Portal\View\Helper\RecipeHelper;
+
+/* @var RecipeHelper $recipeHelper */
+$recipeHelper = $this->recipe();
+/* @var Recipe $recipe */
+$recipe = $this->recipe;
+?>
+
+<section class="recipe-details-container <?php echo $this->escapeHtmlAttr($recipeHelper->getRecipeMode($recipe)); ?>">
+    <?php echo $this->partial('portal::recipe/partial/head', ['recipe' => $recipe]); ?>
+
+    <div class="recipe-details">
+        <?php echo $this->partial('portal::recipe/partial/ingredients', ['recipe' => $recipe]); ?>
+        <div class="separator"></div>
+        <?php echo $this->partial('portal::recipe/partial/products', ['recipe' => $recipe]); ?>
+    </div>
+</section>

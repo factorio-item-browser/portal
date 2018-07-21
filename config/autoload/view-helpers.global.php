@@ -11,8 +11,6 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal;
 
-use Blast\BaseUrl\BasePathViewHelper;
-use Blast\BaseUrl\BasePathViewHelperFactory;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
@@ -20,30 +18,30 @@ return [
         'aliases' => [
             'assetPath' => View\Helper\AssetPathHelper::class,
             'footLink' => View\Helper\FootLinkHelper::class,
+            'format' => View\Helper\FormatHelper::class,
             'genericEntity' => View\Helper\GenericEntityHelper::class,
             'headLink' => View\Helper\HeadLinkHelper::class,
             'javascriptConfig' => View\Helper\JavascriptConfigHelper::class,
             'locale' => View\Helper\LocaleHelper::class,
             'layoutParams' => View\Helper\LayoutParamsHelper::class,
+            'recipe' => View\Helper\RecipeHelper::class,
             'replace' => View\Helper\ReplaceHelper::class,
+            'settings' => View\Helper\SettingsHelper::class,
             'sidebar' => View\Helper\SidebarHelper::class,
-
-            // 3rd-party helpers
-            'basePath' => BasePathViewHelper::class,
         ],
         'factories' => [
             View\Helper\AssetPathHelper::class => View\Helper\AssetPathHelperFactory::class,
             View\Helper\FootLinkHelper::class => InvokableFactory::class,
+            View\Helper\FormatHelper::class => View\Helper\FormatHelperFactory::class,
             View\Helper\GenericEntityHelper::class => View\Helper\GenericEntityHelperFactory::class,
             View\Helper\HeadLinkHelper::class => InvokableFactory::class,
             View\Helper\JavascriptConfigHelper::class => View\Helper\JavascriptConfigHelperFactory::class,
             View\Helper\LayoutParamsHelper::class => InvokableFactory::class,
             View\Helper\LocaleHelper::class => View\Helper\LocaleHelperFactory::class,
+            View\Helper\RecipeHelper::class => View\Helper\RecipeHelperFactory::class,
             View\Helper\ReplaceHelper::class => InvokableFactory::class,
+            View\Helper\SettingsHelper::class => View\Helper\SettingsHelperFactory::class,
             View\Helper\SidebarHelper::class => View\Helper\SidebarHelperFactory::class,
-
-            // 3rd-party helpers
-            BasePathViewHelper::class => BasePathViewHelperFactory::class,
         ],
     ]
 ];

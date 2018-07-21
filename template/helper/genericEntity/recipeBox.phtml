@@ -1,0 +1,16 @@
+<?php
+use FactorioItemBrowser\Api\Client\Entity\Recipe;
+use FactorioItemBrowser\Portal\View\Helper\RecipeHelper;
+
+/* @var RecipeHelper $recipeHelper */
+$recipeHelper = $this->recipe();
+/* @var Recipe $recipe */
+$recipe = $this->recipe;
+?>
+<<?php echo $this->tagName; ?> class="<?php echo $this->escapeHtmlAttr($this->cssClass); ?>"><?php
+    echo $this->partial('helper::genericEntity/partial/head', ['entity' => $recipe]);
+    echo $this->partial('helper::genericEntity/partial/recipe', ['recipe' => $recipeHelper->getPrimaryRecipe($recipe)]);
+    if ($recipeHelper->hasSecondaryRecipe($recipe)) {
+        echo $this->partial('helper::genericEntity/partial/recipe', ['recipe' => $recipeHelper->getSecondaryRecipe($recipe)]);
+    }
+?></<?php echo $this->tagName; ?>>

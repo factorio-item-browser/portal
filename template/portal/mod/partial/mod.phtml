@@ -22,12 +22,15 @@ $modData = [
     <?php if ($mod->getIsEnabled()) { ?>checked<?php } ?>
     class="mod-checkbox hidden"
 />
-<div class="mod" data-mod="<?php echo $this->escapeHtmlAttr(json_encode($modData)); ?>">
+<li class="mod"
+    data-mod="<?php echo $this->escapeHtmlAttr(json_encode($modData)); ?>"
+    data-label-for="mod_<?php echo $this->escapeHtmlAttr($mod->getName()); ?>"
+>
+    <label for="mod_<?php echo $this->escapeHtmlAttr($mod->getName()); ?>">
+        <h3><?php echo $this->escapeHtml($mod->getLabel() ?: $mod->getName()); ?></h3>
+        <?php echo $this->escapeHtml($mod->getDescription()); ?>
+    </label>
     <div class="check-icon"></div>
-    <div class="head">
-        <h3><label for="mod_<?php echo $this->escapeHtmlAttr($mod->getName()); ?>"><?php echo $this->escapeHtml($mod->getLabel() ?: $mod->getName()); ?></label></h3>
-        <p><?php echo $this->escapeHtml($mod->getDescription()); ?></p>
-    </div>
     <dl>
         <dt><?php echo $this->escapeHtml($this->translate('mod name')); ?></dt>
         <dd><?php echo $this->escapeHtml($mod->getName()); ?></dd>
@@ -38,4 +41,4 @@ $modData = [
         <dt><?php echo $this->escapeHtml($this->translate('mod version')); ?></dt>
         <dd><?php echo $this->escapeHtml($mod->getVersion()); ?></dd>
     </dl>
-</div>
+</li>

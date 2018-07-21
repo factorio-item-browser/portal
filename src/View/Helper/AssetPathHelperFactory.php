@@ -29,7 +29,7 @@ class AssetPathHelperFactory implements FactoryInterface
         /* @var HelperPluginManager $helperPluginManager */
         $helperPluginManager = $container->get(HelperPluginManager::class);
         /* @var BasePathViewHelper $basePathHelper */
-        $basePathHelper = $helperPluginManager->get(BasePathViewHelper::class);
+        $basePathHelper = $helperPluginManager->get('basePath');
 
         return new AssetPathHelper($config['version'], $basePathHelper);
     }

@@ -4,11 +4,11 @@ use FactorioItemBrowser\Portal\View\Helper\GenericEntityHelper;
 
 /* @var GenericEntityHelper $genericEntityHelper */
 $genericEntityHelper = $this->genericEntity();
-/* @var array|GenericEntityWithRecipes[] $recipes */
-$recipes = $this->recipes;
+/* @var GenericEntityWithRecipes $item */
+$item = $this->item;
 ?>
 
-<?php foreach ($recipes as $recipe) { ?>
-    <li><?php echo $genericEntityHelper->renderBox($recipe); ?></li>
+<?php foreach ($item->getRecipes() as $recipe) { ?>
+    <?php echo $genericEntityHelper->renderRecipeBox($recipe, 'item-recipe', 'li'); ?>
 <?php }
 echo $this->render('portal::item/partial/moreRecipes'); ?>

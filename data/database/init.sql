@@ -4,6 +4,7 @@ CREATE TABLE `User` (
   `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'The ID of the user.',
   `locale` VARCHAR(5) NOT NULL COMMENT 'The locale the user uses.',
   `enabledModNames` TEXT NOT NULL COMMENT 'The mods the user wants to have enabled.',
+  `recipeMode` ENUM('hybrid','normal','expensive') NOT NULL DEFAULT 'hybrid' COMMENT 'The recipe mode the user wants to use.',
   `lastVisit` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'The timestamp when the user last visited.',
   `isFirstVisit` BIT(1) NOT NULL COMMENT 'Whether this is the first visit of the user.',
   `sessionId` CHAR(32) NOT NULL COMMENT 'The session ID for the user.',

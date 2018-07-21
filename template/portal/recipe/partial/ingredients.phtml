@@ -7,11 +7,11 @@ $genericEntityHelper = $this->genericEntity();
 /* @var Recipe $recipe*/
 $recipe = $this->recipe;
 ?>
-<div class="recipe-ingredients">
+<div class="ingredients">
     <h3><?php echo $this->escapeHtml($this->translate('recipe-details ingredients')); ?></h3>
     <?php if ($recipe->getCraftingTime() > 0) { ?>
-    <div class="recipe-item">
-        <div class="amount"><?php echo $this->escapeHtml($genericEntityHelper->formatCraftingTime($recipe->getCraftingTime())); ?></div>
+    <div class="item">
+        <div class="amount"><?php echo $this->escapeHtml($this->format()->craftingTime($recipe->getCraftingTime())); ?></div>
         <div class="icon icon-clock"></div>
         <div class="name"><?php echo $this->escapeHtml($this->translate('recipe-details time')); ?></div>
     </div>
@@ -19,12 +19,12 @@ $recipe = $this->recipe;
 
     foreach ($recipe->getIngredients() as $ingredient) { ?>
         <a
-            class="recipe-item"
+            class="item"
             href="<?php echo $this->escapeHtmlAttr($genericEntityHelper->getDetailsUrl($ingredient)); ?>"
             data-link
             data-tooltip="<?php echo $this->escapeHtmlAttr($genericEntityHelper->getTooltip($ingredient)); ?>"
         >
-            <div class="amount"><?php echo $this->escapeHtml($genericEntityHelper->formatAmount($ingredient->getAmount())); ?></div>
+            <div class="amount"><?php echo $this->escapeHtml($this->format()->amount($ingredient->getAmount())); ?></div>
             <?php echo $genericEntityHelper->renderTransparentIcon($ingredient, ['data-tooltip-anchor' => '']); ?>
             <div class="name"><?php echo $this->escapeHtml($ingredient->getLabel() ?: $ingredient->getName()); ?></div>
         </a>

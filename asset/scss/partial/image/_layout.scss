@@ -1,0 +1,36 @@
+/**
+ * File containing all layout related inline images.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+@import '../../module/all';
+
+header, footer {
+    background: $color-water url(inline-image('layout/water.jpg')) repeat;
+    background-size: px-to-rem(1024) px-to-rem(256);
+}
+
+#wrapper, #sidebar {
+    background: $color-concrete url(inline-image('layout/concrete.jpg')) repeat;
+    background-size: px-to-rem(1024) px-to-rem(512);
+}
+
+@include breakpoint(large) {
+    #sidebar {
+        background: none;
+    }
+}
+
+header::after {
+    background: url(inline-image('layout/border/header.png')) repeat-x;
+    background-size: px-to-rem(512);
+    height: px-to-rem(24);
+}
+
+footer::before {
+    background: url(inline-image('layout/border/footer.png')) repeat-x;
+    background-size: px-to-rem(512);
+    height: px-to-rem(64);
+}

@@ -1,0 +1,12 @@
+/**
+ * File setting up the font-awesome css.
+ *
+ * @author BluePsyduck <bluepsyduck@gmx.com>
+ * @license http://opensource.org/licenses/GPL-3.0 GPL v3
+ */
+
+$fa-font-path: "../font";
+
+@import 'font-awesome/scss/variables';
+@import 'font-awesome/scss/path';
+@import 'font-awesome/scss/animated';
