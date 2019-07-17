@@ -14,6 +14,8 @@
   "minimum-stability": "stable",
   "require": {
     "php": "^7.2",
+    "ext-json": "*",
+    "ext-pdo": "*",
     "dasprid/container-interop-doctrine": "^1.1",
     "dflydev/fig-cookies": "^1.0",
     "doctrine/orm": "^2.6",
@@ -39,6 +41,11 @@
     }
   },
   "scripts": {
+    "build-cache": [
+      "rm -rf data/cache/*",
+      "bin/build-cache.php",
+      "chown -R www-data:www-data data/cache/*"
+    ],
     "phpcbf": "phpcbf -p --colors",
     "phpcs": "phpcs -p --colors",
     "post-autoload-dump": [

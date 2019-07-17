@@ -23,11 +23,11 @@ return [
             'orm_default' => [
                 'driverClass' => PDOMySqlDriver::class,
                 'params' => [
-                    'host'     => 'mysql',
+                    'host'     => 'fib-po-mysql',
                     'port'     => '3306',
-                    'user'     => 'factorio-item-browser',
-                    'password' => 'factorio-item-browser',
-                    'dbname'   => 'factorio-item-browser',
+                    'user'     => 'docker',
+                    'password' => 'docker',
+                    'dbname'   => 'docker',
                     'driverOptions' => [
                         PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
                     ]
@@ -39,7 +39,7 @@ return [
         'client' => [
             'agent' => 'debug',
             'accessKey' => 'factorio-item-browser',
-            'apiUrl' => 'http://localhost:8010',
+            'apiUrl' => 'http://fib-as-php',
             'timeout' => 10
         ],
     ],

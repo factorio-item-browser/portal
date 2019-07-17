@@ -3,15 +3,12 @@ language: php
 matrix:
   fast_finish: true
   include:
-    - php: 7.2
+    - php: '7.2'
+    - php: '7.3'
 
 install:
-  - composer update --no-interaction
+  - composer install --prefer-dist --no-interaction --no-suggest
 
 script:
-#  - vendor/bin/phpunit --coverage-clover=coverage.xml
+  - composer validate --strict
   - vendor/bin/phpcs -np --colors
-
-#after_success:
-#  - bash <(curl -s https://codecov.io/bash)
-
