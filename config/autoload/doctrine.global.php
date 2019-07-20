@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Api\Server;
 
 use Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain;
-use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Doctrine\ORM\Mapping\Driver\SimplifiedXmlDriver;
 
 return [
     'doctrine' => [
@@ -31,10 +31,10 @@ return [
             ],
 
             'fib-portal' => [
-                'class' => AnnotationDriver::class,
+                'class' => SimplifiedXmlDriver::class,
                 'cache' => 'filesystem',
                 'paths' => [
-                    __DIR__ . '/../../src/Database/Entity',
+                    __DIR__ . '/../doctrine' => 'FactorioItemBrowser\Portal\Database\Entity',
                 ],
             ],
         ],

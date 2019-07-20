@@ -8,7 +8,6 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
-use Doctrine\ORM\Mapping as ORM;
 use FactorioItemBrowser\Portal\Constant\Config;
 
 /**
@@ -16,89 +15,64 @@ use FactorioItemBrowser\Portal\Constant\Config;
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- *
- * @ORM\Entity(repositoryClass="FactorioItemBrowser\Portal\Database\Repository\UserRepository")
- * @ORM\Table(name="User")
  */
 class User
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\GeneratedValue
-     *
      * The id of the user.
      * @var int|null
      */
     protected $id;
 
     /**
-     * @ORM\Column(name="locale")
-     *
      * The locale the user uses.
      * @var string
      */
     protected $locale = Config::DEFAULT_LOCALE;
 
     /**
-     * @ORM\Column(name="enabledModNames", type="json")
-     *
      * The mods the user wants to have enabled.
      * @var array|string[]
      */
     protected $enabledModNames = [];
 
     /**
-     * @ORM\Column(name="recipeMode")
-     *
      * The recipe mode the user wants to use.
      * @var string
      */
     protected $recipeMode = Config::DEFAULT_RECIPE_MODE;
 
     /**
-     * @ORM\Column(name="lastVisit", type="datetime")
-     *
      * The timestamp when the user last visited.
      * @var DateTime
      */
     protected $lastVisit;
 
     /**
-     * @ORM\Column(name="isFirstVisit", type="boolean")
-     *
      * Whether this is the first visit of the user.
      * @var bool
      */
     protected $isFirstVisit = false;
 
     /**
-     * @ORM\Column(name="sessionId")
-     *
      * The session ID for the user.
      * @var string
      */
     protected $sessionId = '';
 
     /**
-     * @ORM\Column(name="apiAuthorizationToken")
-     *
      * The authorization token of the user.
      * @var string
      */
     protected $apiAuthorizationToken = '';
 
     /**
-     * @ORM\Column(name="sessionData", type="json")
-     *
      * The data of the user session.
      * @var array
      */
     protected $sessionData = [];
 
     /**
-     * @ORM\OneToMany(targetEntity="SidebarEntity", mappedBy="user", fetch="EAGER")
-     *
      * The entities in the sidebar of the user.
      * @var Collection|SidebarEntity[]
      */

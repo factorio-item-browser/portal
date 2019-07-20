@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "91edeeb1a3ab3d0919b74ab6af3cb3a9",
+    "content-hash": "2bb295ae0fd8db29946e4d304c5561e0",
     "packages": [
         {
             "name": "bluepsyduck/zend-autowire-factory",

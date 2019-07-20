@@ -31,6 +31,6 @@ class AssetPathHelperFactory implements FactoryInterface
         /* @var BasePathViewHelper $basePathHelper */
         $basePathHelper = $helperPluginManager->get('basePath');
 
-        return new AssetPathHelper($config['version'], $basePathHelper);
+        return new AssetPathHelper($config['factorio-item-browser']['portal']['version'], $basePathHelper);
     }
 }

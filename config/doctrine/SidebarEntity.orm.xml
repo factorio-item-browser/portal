@@ -1,0 +1,69 @@
+<doctrine-mapping
+    xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                        https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
+>
+    <entity
+        name="FactorioItemBrowser\Portal\Database\Entity\SidebarEntity"
+        repository-class="FactorioItemBrowser\Portal\Database\Repository\SidebarEntityRepository"
+    >
+        <options>
+            <option name="comment">The table holding the entities of the sidebar for the users.</option>
+        </options>
+
+        <indexes>
+            <index columns="userId" />
+        </indexes>
+
+        <id name="id" type="integer">
+            <generator />
+            <options>
+                <option name="unsigned">true</option>
+                <option name="comment">The ID of the sidebar entity.</option>
+            </options>
+        </id>
+
+        <many-to-one field="user" target-entity="FactorioItemBrowser\Portal\Database\Entity\User">
+            <join-column name="userId" />
+        </many-to-one>
+
+        <field name="type" column-definition="ENUM('item','fluid','recipe')">
+            <options>
+                <option name="comment">The type of the entity.</option>
+            </options>
+        </field>
+
+        <field name="name" length="255">
+            <options>
+                <option name="comment">The name of the entity.</option>
+            </options>
+        </field>
+
+        <field name="label" type="text">
+            <options>
+                <option name="comment">The translated label of the entity.</option>
+            </options>
+        </field>
+
+        <field name="description" type="text">
+            <options>
+                <option name="comment">The translated description of the entity.</option>
+            </options>
+        </field>
+
+        <field name="pinnedPosition" type="integer">
+            <options>
+                <option name="unsigned">true</option>
+                <option name="comment">The pinned position of the entity in the sidebar. 0 if not pinned.</option>
+            </options>
+        </field>
+        
+        <field name="lastViewTime" type="datetime" column-definition="TIMESTAMP">
+            <options>
+                <option name="default">CURRENT_TIMESTAMP</option>
+                <option name="comment">The time when the entity was last viewed.</option>
+            </options>
+        </field>
+    </entity>
+</doctrine-mapping>

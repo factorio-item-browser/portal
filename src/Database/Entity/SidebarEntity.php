@@ -5,81 +5,58 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Portal\Database\Entity;
 
 use DateTime;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * The entity holding the entities in the sidebar of the users.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
- *
- * @ORM\Entity(repositoryClass="FactorioItemBrowser\Portal\Database\Repository\SidebarEntityRepository")
- * @ORM\Table(name="SidebarEntity")
  */
 class SidebarEntity
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\GeneratedValue
-     *
      * The ID of the sidebar entity.
      * @var int|null
      */
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="sidebarEntities")
-     * @ORM\JoinColumn(name="userId", referencedColumnName="id")
-     *
      * The user owning the sidebar entity.
      * @var User
      */
     protected $user;
 
     /**
-     * @ORM\Column(name="type")
-     *
      * The type of the entity.
      * @var string
      */
     protected $type = '';
 
     /**
-     * @ORM\Column(name="name")
-     *
      * The name of the entity.
      * @var string
      */
     protected $name = '';
 
     /**
-     * @ORM\Column(name="label")
-     *
      * The translated label of the entity.
      * @var string
      */
     protected $label = '';
 
     /**
-     * @ORM\Column(name="description")
-     *
      * The translated description of the entity.
      * @var string
      */
     protected $description = '';
 
     /**
-     * @ORM\Column(name="pinnedPosition", type="integer")
-     *
      * The pinned position of the entity in the sidebar. 0 if not pinned.
      * @var int
      */
     protected $pinnedPosition = 0;
 
     /**
-     * @ORM\Column(name="lastViewTime", type="datetime")
-     *
      * The time when the entity was last viewed.
      * @var DateTime
      */
