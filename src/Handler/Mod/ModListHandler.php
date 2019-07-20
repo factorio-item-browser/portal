@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Handler\Mod;
 
-use FactorioItemBrowser\Api\Client\Client\Client;
+use FactorioItemBrowser\Api\Client\ApiClientInterface;
 use FactorioItemBrowser\Api\Client\Entity\Mod;
 use FactorioItemBrowser\Api\Client\Request\Mod\ModListRequest;
 use FactorioItemBrowser\Api\Client\Response\Mod\ModListResponse;
@@ -31,12 +31,12 @@ class ModListHandler extends AbstractRenderHandler
 
     /**
      * Initializes the request handler.
-     * @param Client $apiClient
+     * @param ApiClientInterface $apiClient
      * @param ModListSessionContainer $modListSessionContainer
      * @param TemplateRendererInterface $templateRenderer
      */
     public function __construct(
-        Client $apiClient,
+        ApiClientInterface $apiClient,
         ModListSessionContainer $modListSessionContainer,
         TemplateRendererInterface $templateRenderer
     ) {
@@ -53,7 +53,7 @@ class ModListHandler extends AbstractRenderHandler
     {
         $modListRequest = new ModListRequest();
         /* @var ModListResponse $modListResponse */
-        $modListResponse = $this->apiClient->send($modListRequest);
+        $modListResponse = $this->apiClient->fetchResponse($modListRequest);
 
         $response = new HtmlResponse($this->templateRenderer->render('portal::mod/list', [
             'mods' => $this->sortMods($modListResponse->getMods()),

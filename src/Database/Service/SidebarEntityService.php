@@ -6,7 +6,8 @@ namespace FactorioItemBrowser\Portal\Database\Service;
 
 use DateTime;
 use Doctrine\ORM\EntityManager;
-use FactorioItemBrowser\Api\Client\Client\Client;
+use FactorioItemBrowser\Api\Client\ApiClientInterface;
+use FactorioItemBrowser\Api\Client\Entity\Entity;
 use FactorioItemBrowser\Api\Client\Entity\GenericEntity;
 use FactorioItemBrowser\Api\Client\Request\Generic\GenericDetailsRequest;
 use FactorioItemBrowser\Api\Client\Response\Generic\GenericDetailsResponse;
@@ -26,7 +27,7 @@ class SidebarEntityService extends AbstractDatabaseService
 {
     /**
      * The API client.
-     * @var Client
+     * @var ApiClientInterface
      */
     protected $apiClient;
 
@@ -51,13 +52,13 @@ class SidebarEntityService extends AbstractDatabaseService
     /**
      * SidebarEntityService constructor.
      * @param EntityManager $entityManager
-     * @param Client $apiClient
+     * @param ApiClientInterface $apiClient
      * @param LayoutParamsHelper $layoutParamsHelper
      * @param UserService $userService
      */
     public function __construct(
         EntityManager $entityManager,
-        Client $apiClient,
+        ApiClientInterface $apiClient,
         LayoutParamsHelper $layoutParamsHelper,
         UserService $userService
     ) {
@@ -176,11 +177,15 @@ class SidebarEntityService extends AbstractDatabaseService
             $entities = [];
             foreach ($this->userService->getCurrentUser()->getSidebarEntities() as $sidebarEntity) {
                 $entities[$sidebarEntity->getType() . '/' . $sidebarEntity->getName()] = $sidebarEntity;
-                $detailsRequest->addEntity($sidebarEntity->getType(), $sidebarEntity->getName());
+
+                $entity = new Entity();
+                $entity->setType($sidebarEntity->getType())
+                       ->setName($sidebarEntity->getName());
+                $detailsRequest->addEntity($entity);
             }
 
             /* @var GenericDetailsResponse $detailsResponse */
-            $detailsResponse = $this->apiClient->send($detailsRequest);
+            $detailsResponse = $this->apiClient->fetchResponse($detailsRequest);
 
             // Update the labels and descriptions of entities which are still available.
             foreach ($detailsResponse->getEntities() as $entity) {

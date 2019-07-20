@@ -35,7 +35,7 @@ class RecipeTooltipHandler extends AbstractRenderHandler
 
         try {
             /* @var RecipeDetailsResponse $detailsResponse */
-            $detailsResponse = $this->apiClient->send($detailsRequest);
+            $detailsResponse = $this->apiClient->fetchResponse($detailsRequest);
 
             if (count($detailsResponse->getRecipes()) > 0) {
                 $entity = new GenericEntityWithRecipes();

@@ -38,7 +38,7 @@ class RecipeMachinePageHandler extends AbstractRenderHandler
 
         try {
             /* @var RecipeMachinesResponse $machineResponse */
-            $machineResponse = $this->apiClient->send($machineRequest);
+            $machineResponse = $this->apiClient->fetchResponse($machineRequest);
 
             $response = new JsonResponse([
                 'content' => $this->templateRenderer->render('portal::recipe/machinePage', [

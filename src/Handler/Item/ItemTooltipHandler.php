@@ -38,7 +38,7 @@ class ItemTooltipHandler extends AbstractRenderHandler
 
         try {
             /* @var ItemProductResponse $productResponse */
-            $productResponse = $this->apiClient->send($productRequest);
+            $productResponse = $this->apiClient->fetchResponse($productRequest);
 
             $response = new JsonResponse([
                 'content' => $this->templateRenderer->render('portal::item/tooltip', [

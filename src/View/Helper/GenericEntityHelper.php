@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\View\Helper;
 
-use FactorioItemBrowser\Api\Client\Constant\EntityType;
+use FactorioItemBrowser\Common\Constant\EntityType;
 use FactorioItemBrowser\Api\Client\Entity\GenericEntity;
 use FactorioItemBrowser\Api\Client\Entity\Machine;
 use FactorioItemBrowser\Api\Client\Entity\Recipe;

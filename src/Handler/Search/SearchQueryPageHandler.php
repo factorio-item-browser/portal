@@ -42,7 +42,7 @@ class SearchQueryPageHandler extends AbstractRenderHandler
 
             try {
                 /* @var SearchQueryResponse $searchResponse */
-                $searchResponse = $this->apiClient->send($searchRequest);
+                $searchResponse = $this->apiClient->fetchResponse($searchRequest);
 
                 $response = new JsonResponse([
                     'content' => $this->templateRenderer->render('portal::search/page', [

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Handler\Mod;
 
-use FactorioItemBrowser\Api\Client\Client\Client;
+use FactorioItemBrowser\Api\Client\ApiClientInterface;
 use FactorioItemBrowser\Portal\Database\Service\SidebarEntityService;
 use FactorioItemBrowser\Portal\Database\Service\UserService;
 use FactorioItemBrowser\Portal\Session\Container\MetaSessionContainer;
@@ -30,8 +30,8 @@ class AbstractModListChangeHandlerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var Client $apiClient */
-        $apiClient = $container->get(Client::class);
+        /* @var ApiClientInterface $apiClient */
+        $apiClient = $container->get(ApiClientInterface::class);
         /* @var UserService $userService */
         $userService = $container->get(UserService::class);
         /* @var MetaSessionContainer $metaSessionContainer */

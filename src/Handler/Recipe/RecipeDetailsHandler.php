@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Handler\Recipe;
 
-use FactorioItemBrowser\Api\Client\Client\Client;
+use FactorioItemBrowser\Api\Client\ApiClientInterface;
 use FactorioItemBrowser\Api\Client\Entity\Recipe;
 use FactorioItemBrowser\Api\Client\Exception\NotFoundException;
 use FactorioItemBrowser\Api\Client\Request\Recipe\RecipeDetailsRequest;
@@ -35,12 +35,12 @@ class RecipeDetailsHandler extends AbstractRenderHandler
 
     /**
      * Initializes the request handler.
-     * @param Client $apiClient
+     * @param ApiClientInterface $apiClient
      * @param SidebarEntityService $sidebarEntityService
      * @param TemplateRendererInterface $templateRenderer
      */
     public function __construct(
-        Client $apiClient,
+        ApiClientInterface $apiClient,
         SidebarEntityService $sidebarEntityService,
         TemplateRendererInterface $templateRenderer
     ) {
@@ -64,10 +64,13 @@ class RecipeDetailsHandler extends AbstractRenderHandler
                         ->setNumberOfResults(Config::MACHINE_PER_PAGE);
 
         try {
+            $this->apiClient->sendRequest($detailsRequest);
+            $this->apiClient->sendRequest($machinesRequest);
+
             /* @var RecipeDetailsResponse $detailsResponse */
-            $detailsResponse = $this->apiClient->send($detailsRequest);
+            $detailsResponse = $this->apiClient->fetchResponse($detailsRequest);
             /* @var RecipeMachinesResponse $machinesResponse */
-            $machinesResponse = $this->apiClient->send($machinesRequest);
+            $machinesResponse = $this->apiClient->fetchResponse($machinesRequest);
 
             $recipe = reset($detailsResponse->getRecipes()) ?: null;
             if ($recipe instanceof Recipe) {

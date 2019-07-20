@@ -11,5 +11,5 @@ foreach ($icons as $icon) {
     }
     $fullSelector = implode(',', $selectors);
 
-    echo $fullSelector . '{background-image:url(data:image/png;base64,' . $icon->getContent() . ');}' . PHP_EOL;
+    echo $fullSelector . '{background-image:url(data:image/png;base64,' . base64_encode($icon->getContent()) . ');}' . PHP_EOL;
 }

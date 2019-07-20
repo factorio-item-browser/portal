@@ -19,7 +19,6 @@ services:
   mysql:
     container_name: fib-po-mysql
     image: bluepsyduck/mysql
-    build: ./docker/mysql
     networks:
     - network-fib
     ports:

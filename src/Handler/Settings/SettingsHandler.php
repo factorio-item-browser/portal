@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Handler\Settings;
 
-use FactorioItemBrowser\Api\Client\Client\Client;
+use FactorioItemBrowser\Api\Client\ApiClientInterface;
 use FactorioItemBrowser\Portal\Handler\AbstractRenderHandler;
 use FactorioItemBrowser\Portal\Session\Container\SettingsSessionContainer;
 use Psr\Http\Message\ResponseInterface;
@@ -28,12 +28,12 @@ class SettingsHandler extends AbstractRenderHandler
 
     /**
      * SettingsHandler constructor.
-     * @param Client $apiClient
+     * @param ApiClientInterface $apiClient
      * @param SettingsSessionContainer $settingsSessionContainer
      * @param TemplateRendererInterface $templateRenderer
      */
     public function __construct(
-        Client $apiClient,
+        ApiClientInterface $apiClient,
         SettingsSessionContainer $settingsSessionContainer,
         TemplateRendererInterface $templateRenderer
     ) {

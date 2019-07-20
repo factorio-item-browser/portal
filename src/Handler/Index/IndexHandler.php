@@ -34,7 +34,7 @@ class IndexHandler extends AbstractRenderHandler
                            ->setNumberOfRecipesPerResult(Config::SEARCH_RECIPE_COUNT);
 
         /* @var ItemRandomResponse $randomItemsResponse */
-        $randomItemsResponse = $this->apiClient->send($randomItemsRequest);
+        $randomItemsResponse = $this->apiClient->fetchResponse($randomItemsRequest);
 
         return new HtmlResponse($this->templateRenderer->render('portal::index/index', [
             'randomItems' => $randomItemsResponse->getItems()

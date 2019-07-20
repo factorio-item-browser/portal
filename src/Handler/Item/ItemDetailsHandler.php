@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Handler\Item;
 
-use FactorioItemBrowser\Api\Client\Client\Client;
+use FactorioItemBrowser\Api\Client\ApiClientInterface;
 use FactorioItemBrowser\Api\Client\Exception\NotFoundException;
 use FactorioItemBrowser\Api\Client\Request\Item\ItemIngredientRequest;
 use FactorioItemBrowser\Api\Client\Request\Item\ItemProductRequest;
@@ -34,12 +34,12 @@ class ItemDetailsHandler extends AbstractRenderHandler
 
     /**
      * Initializes the request handler.
-     * @param Client $apiClient
+     * @param ApiClientInterface $apiClient
      * @param SidebarEntityService $sidebarEntityService
      * @param TemplateRendererInterface $templateRenderer
      */
     public function __construct(
-        Client $apiClient,
+        ApiClientInterface $apiClient,
         SidebarEntityService $sidebarEntityService,
         TemplateRendererInterface $templateRenderer
     ) {
@@ -61,17 +61,18 @@ class ItemDetailsHandler extends AbstractRenderHandler
         $productRequest->setType($type)
                        ->setName($name)
                        ->setNumberOfResults(Config::ITEM_RECIPE_PER_PAGE);
-
-        /* @var ItemProductResponse $productResponse */
-        $productResponse = $this->apiClient->send($productRequest);
+        $this->apiClient->sendRequest($productRequest);
 
         $ingredientRequest = new ItemIngredientRequest();
         $ingredientRequest->setType($type)
                           ->setName($name)
                           ->setNumberOfResults(Config::ITEM_RECIPE_PER_PAGE);
-        
+        $this->apiClient->sendRequest($ingredientRequest);
+
+        /* @var ItemProductResponse $productResponse */
+        $productResponse = $this->apiClient->fetchResponse($productRequest);
         /* @var ItemIngredientResponse $ingredientResponse */
-        $ingredientResponse = $this->apiClient->send($ingredientRequest);
+        $ingredientResponse = $this->apiClient->fetchResponse($ingredientRequest);
 
         try {
             $this->sidebarEntityService->add($productResponse->getItem());

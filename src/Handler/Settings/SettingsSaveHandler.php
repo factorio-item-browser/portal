@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Handler\Settings;
 
-use FactorioItemBrowser\Api\Client\Client\Client;
+use FactorioItemBrowser\Api\Client\ApiClientInterface;
 use FactorioItemBrowser\Portal\Constant\Config;
 use FactorioItemBrowser\Portal\Constant\RouteNames;
 use FactorioItemBrowser\Portal\Database\Entity\User;
@@ -27,7 +27,7 @@ class SettingsSaveHandler implements RequestHandlerInterface
 {
     /**
      * The API client.
-     * @var Client
+     * @var ApiClientInterface
      */
     protected $apiClient;
 
@@ -63,7 +63,7 @@ class SettingsSaveHandler implements RequestHandlerInterface
 
     /**
      * SettingsSaveHandler constructor.
-     * @param Client $apiClient
+     * @param ApiClientInterface $apiClient
      * @param User $currentUser
      * @param SettingsHelper $settingsHelper
      * @param SettingsSessionContainer $settingsSessionContainer
@@ -71,7 +71,7 @@ class SettingsSaveHandler implements RequestHandlerInterface
      * @param UrlHelper $urlHelper
      */
     public function __construct(
-        Client $apiClient,
+        ApiClientInterface $apiClient,
         User $currentUser,
         SettingsHelper $settingsHelper,
         SettingsSessionContainer $settingsSessionContainer,

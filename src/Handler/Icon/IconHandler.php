@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Handler\Icon;
 
+use FactorioItemBrowser\Api\Client\Entity\Entity;
 use FactorioItemBrowser\Api\Client\Request\Generic\GenericIconRequest;
 use FactorioItemBrowser\Api\Client\Response\Generic\GenericIconResponse;
 use FactorioItemBrowser\Portal\Handler\AbstractRenderHandler;
@@ -35,12 +36,15 @@ class IconHandler extends AbstractRenderHandler
             foreach ($entities as $entity) {
                 $parts = explode('/', $entity, 2);
                 if (count($parts) === 2 && strlen($parts[0]) > 0 && strlen($parts[1]) > 0) {
-                    $iconRequest->addEntity($parts[0], $parts[1]);
+                    $entity = new Entity();
+                    $entity->setType($parts[0])
+                           ->setName($parts[1]);
+                    $iconRequest->addEntity($entity);
                 }
             }
 
             /* @var GenericIconResponse $iconResponse */
-            $iconResponse = $this->apiClient->send($iconRequest);
+            $iconResponse = $this->apiClient->fetchResponse($iconRequest);
             $icons = $iconResponse->getIcons();
 
             $processedEntities = [];

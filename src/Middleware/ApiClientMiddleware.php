@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Middleware;
 
-use FactorioItemBrowser\Api\Client\Client\Client;
+use FactorioItemBrowser\Api\Client\ApiClientInterface;
 use FactorioItemBrowser\Api\Client\Exception\ApiClientException;
 use FactorioItemBrowser\Portal\Database\Service\UserService;
 use Psr\Http\Message\ResponseInterface;
@@ -24,7 +24,7 @@ class ApiClientMiddleware implements MiddlewareInterface
 {
     /**
      * The API client.
-     * @var Client
+     * @var ApiClientInterface
      */
     protected $apiClient;
 
@@ -42,12 +42,12 @@ class ApiClientMiddleware implements MiddlewareInterface
 
     /**
      * Initializes the middleware.
-     * @param Client $apiClient
+     * @param ApiClientInterface $apiClient
      * @param TemplateRendererInterface $templateRenderer
      * @param UserService $userService
      */
     public function __construct(
-        Client $apiClient,
+        ApiClientInterface $apiClient,
         TemplateRendererInterface $templateRenderer,
         UserService $userService
     ) {
@@ -66,9 +66,9 @@ class ApiClientMiddleware implements MiddlewareInterface
     {
         try {
             $currentUser = $this->userService->getCurrentUser();
-            $this->apiClient->setLocale($currentUser->getLocale())
-                            ->setEnabledModNames($currentUser->getEnabledModNames())
-                            ->setAuthorizationToken($currentUser->getApiAuthorizationToken());
+            $this->apiClient->setLocale($currentUser->getLocale());
+            $this->apiClient->setEnabledModNames($currentUser->getEnabledModNames());
+            $this->apiClient->setAuthorizationToken($currentUser->getApiAuthorizationToken());
 
             $response = $handler->handle($request);
 

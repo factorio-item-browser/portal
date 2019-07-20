@@ -11,13 +11,23 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal;
 
+use BluePsyduck\ZendAutoWireFactory\AutoWireFactory;
+use Zend\ConfigAggregator\ConfigAggregator;
+use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
 
 // Load configuration
-$config = require __DIR__ . '/config.php';
-
-$dependencies = $config['dependencies'];
-$dependencies['services']['config'] = $config;
+$config = require(__DIR__ . '/config.php');
 
 // Build container
-return new ServiceManager($dependencies);
+$container = new ServiceManager();
+(new Config($config['dependencies']))->configureServiceManager($container);
+
+// Inject config
+$container->setService('config', $config);
+
+if ($config[ConfigAggregator::ENABLE_CACHE] ?? false) {
+    AutoWireFactory::setCacheFile(__DIR__ . '/../data/cache/autowire-factory-cache.php');
+}
+
+return $container;

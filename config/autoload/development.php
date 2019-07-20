@@ -35,14 +35,6 @@ return [
             ]
         ],
     ],
-    'factorio-item-browser' => [
-        'client' => [
-            'agent' => 'debug',
-            'accessKey' => 'factorio-item-browser',
-            'apiUrl' => 'http://fib-as-php',
-            'timeout' => 10
-        ],
-    ],
     'router' => [
         'fastroute' => [
             'cache_enabled' => false

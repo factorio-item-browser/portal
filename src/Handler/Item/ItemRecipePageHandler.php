@@ -43,7 +43,7 @@ class ItemRecipePageHandler extends AbstractRenderHandler
 
         try {
             /* @var ItemIngredientResponse|ItemProductResponse $recipeResponse */
-            $recipeResponse = $this->apiClient->send($recipeRequest);
+            $recipeResponse = $this->apiClient->fetchResponse($recipeRequest);
 
             $response = new JsonResponse([
                 'content' => $this->templateRenderer->render('portal::item/recipePage', [

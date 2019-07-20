@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Middleware;
 
-use FactorioItemBrowser\Api\Client\Client\Client;
+use FactorioItemBrowser\Api\Client\ApiClientInterface;
 use FactorioItemBrowser\Api\Client\Request\Mod\ModMetaRequest;
 use FactorioItemBrowser\Api\Client\Response\Mod\ModMetaResponse;
 use FactorioItemBrowser\Portal\Session\Container\MetaSessionContainer;
@@ -23,7 +23,7 @@ class MetaDataRequestMiddleware implements MiddlewareInterface
 {
     /**
      * The API client.
-     * @var Client
+     * @var ApiClientInterface
      */
     protected $apiClient;
 
@@ -35,17 +35,16 @@ class MetaDataRequestMiddleware implements MiddlewareInterface
 
     /**
      * Initializes the middleware.
-     * @param Client $apiClient
+     * @param ApiClientInterface $apiClient
      * @param MetaSessionContainer $metaSessionContainer
      */
     public function __construct(
-        Client $apiClient,
+        ApiClientInterface $apiClient,
         MetaSessionContainer $metaSessionContainer
     ) {
         $this->apiClient = $apiClient;
         $this->metaSessionContainer = $metaSessionContainer;
     }
-
 
     /**
      * Process an incoming server request and return a response, optionally delegating response creation to a handler.
@@ -57,7 +56,7 @@ class MetaDataRequestMiddleware implements MiddlewareInterface
     {
         if ($this->metaSessionContainer->getNumberOfAvailableMods() === 0) {
             /* @var ModMetaResponse $modMetaResponse */
-            $modMetaResponse = $this->apiClient->send(new ModMetaRequest());
+            $modMetaResponse = $this->apiClient->fetchResponse(new ModMetaRequest());
             $this->metaSessionContainer->setNumberOfAvailableMods($modMetaResponse->getNumberOfAvailableMods())
                                        ->setNumberOfEnabledMods($modMetaResponse->getNumberOfEnabledMods());
         }

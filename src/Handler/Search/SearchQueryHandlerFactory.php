@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Handler\Search;
 
-use FactorioItemBrowser\Api\Client\Client\Client;
+use FactorioItemBrowser\Api\Client\ApiClientInterface;
 use FactorioItemBrowser\Portal\View\Helper\LayoutParamsHelper;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Helper\UrlHelper;
@@ -29,8 +29,8 @@ class SearchQueryHandlerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var Client $apiClient */
-        $apiClient = $container->get(Client::class);
+        /* @var ApiClientInterface $apiClient */
+        $apiClient = $container->get(ApiClientInterface::class);
         /* @var TemplateRendererInterface $templateRenderer */
         $templateRenderer = $container->get(TemplateRendererInterface::class);
         /* @var UrlHelper $urlHelper */

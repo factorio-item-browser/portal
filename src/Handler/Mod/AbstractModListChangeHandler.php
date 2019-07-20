@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Handler\Mod;
 
-use FactorioItemBrowser\Api\Client\Client\Client;
+use FactorioItemBrowser\Api\Client\ApiClientInterface;
 use FactorioItemBrowser\Api\Client\Entity\Mod;
 use FactorioItemBrowser\Api\Client\Request\Mod\ModListRequest;
 use FactorioItemBrowser\Api\Client\Request\Mod\ModMetaRequest;
@@ -31,7 +31,7 @@ abstract class AbstractModListChangeHandler implements RequestHandlerInterface
 {
     /**
      * The API client.
-     * @var Client
+     * @var ApiClientInterface
      */
     protected $apiClient;
 
@@ -67,7 +67,7 @@ abstract class AbstractModListChangeHandler implements RequestHandlerInterface
 
     /**
      * Initializes the request handler.
-     * @param Client $apiClient
+     * @param ApiClientInterface $apiClient
      * @param User $currentUser
      * @param MetaSessionContainer $metaSessionContainer
      * @param ModListSessionContainer $modListSessionContainer
@@ -75,7 +75,7 @@ abstract class AbstractModListChangeHandler implements RequestHandlerInterface
      * @param UrlHelper $urlHelper
      */
     public function __construct(
-        Client $apiClient,
+        ApiClientInterface $apiClient,
         User $currentUser,
         MetaSessionContainer $metaSessionContainer,
         ModListSessionContainer $modListSessionContainer,
@@ -100,13 +100,19 @@ abstract class AbstractModListChangeHandler implements RequestHandlerInterface
         $enabledModNames = $this->getEnabledModNamesFromRequest($request);
         if (count($enabledModNames) > 0) {
             $this->currentUser->setEnabledModNames($enabledModNames);
-            $this->apiClient->setEnabledModNames($enabledModNames)
-                            ->clearAuthorizationToken();
+            $this->apiClient->setEnabledModNames($enabledModNames);
+            $this->apiClient->clearAuthorizationToken();
+
+            $modMetaRequest = new ModMetaRequest();
+            $modListRequest = new ModListRequest();
+
+            $this->apiClient->sendRequest($modMetaRequest);
+            $this->apiClient->sendRequest($modListRequest);
 
             /* @var ModMetaResponse $modMetaResponse */
-            $modMetaResponse = $this->apiClient->send(new ModMetaRequest());
+            $modMetaResponse = $this->apiClient->fetchResponse($modMetaRequest);
             /* @var ModListResponse $modListResponse */
-            $modListResponse = $this->apiClient->send(new ModListRequest());
+            $modListResponse = $this->apiClient->fetchResponse($modListRequest);
             $this->sidebarEntityService->refresh();
 
             $this->metaSessionContainer->setNumberOfAvailableMods($modMetaResponse->getNumberOfAvailableMods())

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Handler;
 
-use FactorioItemBrowser\Api\Client\Client\Client;
+use FactorioItemBrowser\Api\Client\ApiClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -22,7 +22,7 @@ abstract class AbstractRenderHandler implements RequestHandlerInterface
 {
     /**
      * The API client.
-     * @var Client
+     * @var ApiClientInterface
      */
     protected $apiClient;
 
@@ -34,10 +34,10 @@ abstract class AbstractRenderHandler implements RequestHandlerInterface
 
     /**
      * Initializes the request handler.
-     * @param Client $apiClient
+     * @param ApiClientInterface $apiClient
      * @param TemplateRendererInterface $templateRenderer
      */
-    public function __construct(Client $apiClient, TemplateRendererInterface $templateRenderer)
+    public function __construct(ApiClientInterface $apiClient, TemplateRendererInterface $templateRenderer)
     {
         $this->apiClient = $apiClient;
         $this->templateRenderer = $templateRenderer;

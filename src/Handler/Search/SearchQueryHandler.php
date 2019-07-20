@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Handler\Search;
 
-use FactorioItemBrowser\Api\Client\Client\Client;
+use FactorioItemBrowser\Api\Client\ApiClientInterface;
 use FactorioItemBrowser\Api\Client\Request\Search\SearchQueryRequest;
 use FactorioItemBrowser\Api\Client\Response\Search\SearchQueryResponse;
 use FactorioItemBrowser\Portal\Constant\Config;
@@ -40,13 +40,13 @@ class SearchQueryHandler extends AbstractRenderHandler
 
     /**
      * Initializes the request handler.
-     * @param Client $apiClient
+     * @param ApiClientInterface $apiClient
      * @param LayoutParamsHelper $layoutParamsHelper
      * @param TemplateRendererInterface $templateRenderer
      * @param UrlHelper $urlHelper
      */
     public function __construct(
-        Client $apiClient,
+        ApiClientInterface $apiClient,
         LayoutParamsHelper $layoutParamsHelper,
         TemplateRendererInterface $templateRenderer,
         UrlHelper $urlHelper
@@ -83,7 +83,7 @@ class SearchQueryHandler extends AbstractRenderHandler
                 ->setNumberOfRecipesPerResult(Config::SEARCH_RECIPE_COUNT);
 
             /* @var SearchQueryResponse $searchResponse */
-            $searchResponse = $this->apiClient->send($searchRequest);
+            $searchResponse = $this->apiClient->fetchResponse($searchRequest);
 
             $response = new HtmlResponse($this->templateRenderer->render('portal::search/query', [
                 'query' => $query,
