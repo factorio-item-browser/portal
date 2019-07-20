@@ -57,8 +57,8 @@ return [
         ],
         'delegators' => [
             ErrorHandler::class => [
-                ErrorListener\LoggingErrorListenerDelegatorFactory::class
-            ]
-        ]
+                ErrorListener\LoggingErrorListenerDelegatorFactory::class,
+            ],
+        ],
     ],
 ];

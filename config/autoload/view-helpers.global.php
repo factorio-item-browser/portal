@@ -43,5 +43,5 @@ return [
             View\Helper\SettingsHelper::class => View\Helper\SettingsHelperFactory::class,
             View\Helper\SidebarHelper::class => View\Helper\SidebarHelperFactory::class,
         ],
-    ]
+    ],
 ];

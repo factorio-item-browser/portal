@@ -21,5 +21,5 @@ return [
                 'pattern'  => '%s.lang.php',
             ],
         ],
-    ]
+    ],
 ];

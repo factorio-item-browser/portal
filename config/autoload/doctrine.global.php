@@ -20,14 +20,14 @@ return [
             'orm_default' => [
                 'metadata_cache' => 'filesystem',
                 'query_cache' => 'filesystem',
-            ]
+            ],
         ],
         'driver' => [
             'orm_default' => [
                 'class' => MappingDriverChain::class,
                 'drivers' => [
                     'FactorioItemBrowser\Portal\Database\Entity' => 'fib-portal',
-                ]
+                ],
             ],
 
             'fib-portal' => [
@@ -35,8 +35,8 @@ return [
                 'cache' => 'filesystem',
                 'paths' => [
                     __DIR__ . '/../../src/Database/Entity',
-                ]
-            ]
+                ],
+            ],
         ],
-    ]
+    ],
 ];

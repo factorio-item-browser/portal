@@ -11,10 +11,12 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal;
 
+use FactorioItemBrowser\Portal\Constant\ConfigKey;
+
 return [
-    'factorio-item-browser' => [
-        'portal' => [
-            'locales' => [
+    ConfigKey::PROJECT => [
+        ConfigKey::PORTAL => [
+            ConfigKey::LOCALES => [
                 'af' => 'Afrikaans',
                 'ar' => 'العربية',
                 'be' => 'беларуская мова',
@@ -57,7 +59,8 @@ return [
                 'vi' => 'Tiếng Việt',
                 'zh-CN' => '简体中文',
                 'zh-TW' => '正體中文',
-            ]
-        ]
-    ]
+            ],
+            ConfigKey::VERSION => time(), // Will be cached on production with the config.
+        ],
+    ],
 ];

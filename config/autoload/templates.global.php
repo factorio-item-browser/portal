@@ -18,7 +18,7 @@ return [
             'error' => ['template/error'],
             'helper' => ['template/helper'],
             'layout' => ['template/layout'],
-            'portal' => ['template/portal']
-        ]
-    ]
+            'portal' => ['template/portal'],
+        ],
+    ],
 ];

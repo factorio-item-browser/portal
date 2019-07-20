@@ -18,10 +18,9 @@ return [
     'debug' => false,
     'router' => [
         'fastroute' => [
-            'cache_enabled' => true
-        ]
+            'cache_enabled' => true,
+        ],
     ],
-    'version' => time(), // Will be cached on production with the config.
     'zend-expressive' => [
         'programmatic_pipeline' => true,
         'error_handler' => [

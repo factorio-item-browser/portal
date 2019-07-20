@@ -19,10 +19,10 @@ return [
                     'name' => Stream::class,
                     'priority' => Logger::ERR,
                     'options' => [
-                        'stream' => 'php://stderr'
-                    ]
-                ]
-            ]
-        ]
-    ]
+                        'stream' => 'php://stderr',
+                    ],
+                ],
+            ],
+        ],
+    ],
 ];
