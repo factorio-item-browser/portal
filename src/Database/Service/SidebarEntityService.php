@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Portal\Database\Service;
 
 use DateTime;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use FactorioItemBrowser\Api\Client\ApiClientInterface;
 use FactorioItemBrowser\Api\Client\Entity\Entity;
 use FactorioItemBrowser\Api\Client\Entity\GenericEntity;
@@ -51,13 +51,13 @@ class SidebarEntityService extends AbstractDatabaseService
 
     /**
      * SidebarEntityService constructor.
-     * @param EntityManager $entityManager
+     * @param EntityManagerInterface $entityManager
      * @param ApiClientInterface $apiClient
      * @param LayoutParamsHelper $layoutParamsHelper
      * @param UserService $userService
      */
     public function __construct(
-        EntityManager $entityManager,
+        EntityManagerInterface $entityManager,
         ApiClientInterface $apiClient,
         LayoutParamsHelper $layoutParamsHelper,
         UserService $userService
@@ -70,10 +70,10 @@ class SidebarEntityService extends AbstractDatabaseService
 
     /**
      * Initializes the repositories needed by the service.
-     * @param EntityManager $entityManager
+     * @param EntityManagerInterface $entityManager
      * @return $this
      */
-    protected function initializeRepositories(EntityManager $entityManager)
+    protected function initializeRepositories(EntityManagerInterface $entityManager)
     {
         $this->sidebarEntityRepository = $entityManager->getRepository(SidebarEntity::class);
         return $this;
@@ -100,7 +100,7 @@ class SidebarEntityService extends AbstractDatabaseService
                       ->setDescription($entity->getDescription())
                       ->setLastViewTime(new DateTime());
 
-        $this->entityManager->flush($sidebarEntity);
+        $this->entityManager->flush();
         $this->sidebarEntityRepository->cleanUnpinnedEntities($user, Config::SIDEBAR_UNPINNED_ENTITIES);
 
         $this->layoutParamsHelper->setNewSidebarEntity($sidebarEntity);

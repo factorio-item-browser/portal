@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Database\Service;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * The abstract class of the database services.
@@ -16,15 +16,15 @@ abstract class AbstractDatabaseService
 {
     /**
      * The doctrine entity manager.
-     * @var EntityManager
+     * @var EntityManagerInterface
      */
     protected $entityManager;
 
     /**
      * Initializes the service.
-     * @param EntityManager $entityManager
+     * @param EntityManagerInterface $entityManager
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
         $this->initializeRepositories($entityManager);
@@ -32,8 +32,8 @@ abstract class AbstractDatabaseService
 
     /**
      * Initializes the repositories needed by the service.
-     * @param EntityManager $entityManager
+     * @param EntityManagerInterface $entityManager
      * @return $this
      */
-    abstract protected function initializeRepositories(EntityManager $entityManager);
+    abstract protected function initializeRepositories(EntityManagerInterface $entityManager);
 }

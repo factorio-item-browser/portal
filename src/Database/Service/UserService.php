@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Database\Service;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use FactorioItemBrowser\Portal\Database\Entity\User;
 use FactorioItemBrowser\Portal\Database\Repository\UserRepository;
 
@@ -30,10 +30,10 @@ class UserService extends AbstractDatabaseService
 
     /**
      * Initializes the repositories needed by the service.
-     * @param EntityManager $entityManager
+     * @param EntityManagerInterface $entityManager
      * @return $this
      */
-    protected function initializeRepositories(EntityManager $entityManager)
+    protected function initializeRepositories(EntityManagerInterface $entityManager)
     {
         $this->userRepository = $entityManager->getRepository(User::class);
         return $this;
@@ -78,7 +78,7 @@ class UserService extends AbstractDatabaseService
              ->setSessionId($this->generateSessionId());
 
         $this->entityManager->persist($user);
-        $this->entityManager->flush($user);
+        $this->entityManager->flush();
         return $user;
     }
 
@@ -105,7 +105,7 @@ class UserService extends AbstractDatabaseService
     {
         if ($this->currentUser instanceof User) {
             $this->entityManager->persist($this->currentUser);
-            $this->entityManager->flush($this->currentUser);
+            $this->entityManager->flush();
         }
         return $this;
     }
