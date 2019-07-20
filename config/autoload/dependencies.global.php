@@ -12,13 +12,18 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Portal;
 
 use BluePsyduck\ZendAutoWireFactory\AutoWireFactory;
+use function BluePsyduck\ZendAutoWireFactory\readConfig;
 use ContainerInteropDoctrine\EntityManagerFactory;
 use Doctrine\ORM\EntityManager;
+use FactorioItemBrowser\Portal\Constant\ConfigKey;
 use Zend\ServiceManager\Factory\InvokableFactory;
 use Zend\Stratigility\Middleware\ErrorHandler;
 
 return [
     'dependencies' => [
+        'abstract_factories' => [
+            Factory\AbstractViewHelperFactory::class,
+        ],
         'factories'  => [
             Database\Service\SidebarEntityService::class => Database\Service\SidebarEntityServiceFactory::class,
             Database\Service\UserService::class => Database\Service\UserServiceFactory::class,
@@ -54,6 +59,12 @@ return [
 
             // Dependencies of other libraries
             EntityManager::class => EntityManagerFactory::class,
+
+            // Auto-wire helpers
+            Database\Entity\User::class . ' $currentUser' => Factory\CurrentUserFactory::class,
+
+            'array $locales' => readConfig(ConfigKey::PROJECT, ConfigKey::PORTAL, ConfigKey::LOCALES),
+            'string $version' => readConfig(ConfigKey::PROJECT, ConfigKey::PORTAL, ConfigKey::VERSION),
         ],
         'delegators' => [
             ErrorHandler::class => [

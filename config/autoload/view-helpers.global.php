@@ -11,37 +11,35 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal;
 
-use Zend\ServiceManager\Factory\InvokableFactory;
+use BluePsyduck\ZendAutoWireFactory\AutoWireFactory;
 
 return [
     'view_helpers' => [
         'aliases' => [
-            'assetPath' => View\Helper\AssetPathHelper::class,
-            'footLink' => View\Helper\FootLinkHelper::class,
-            'format' => View\Helper\FormatHelper::class,
-            'genericEntity' => View\Helper\GenericEntityHelper::class,
-            'headLink' => View\Helper\HeadLinkHelper::class,
+            'assetPath'        => View\Helper\AssetPathHelper::class,
+            'footLink'         => View\Helper\FootLinkHelper::class,
+            'format'           => View\Helper\FormatHelper::class,
+            'genericEntity'    => View\Helper\GenericEntityHelper::class,
+            'headLink'         => View\Helper\HeadLinkHelper::class,
             'javascriptConfig' => View\Helper\JavascriptConfigHelper::class,
-            'locale' => View\Helper\LocaleHelper::class,
-            'layoutParams' => View\Helper\LayoutParamsHelper::class,
-            'recipe' => View\Helper\RecipeHelper::class,
-            'replace' => View\Helper\ReplaceHelper::class,
-            'settings' => View\Helper\SettingsHelper::class,
-            'sidebar' => View\Helper\SidebarHelper::class,
+            'layoutParams'     => View\Helper\LayoutParamsHelper::class,
+            'recipe'           => View\Helper\RecipeHelper::class,
+            'replace'          => View\Helper\ReplaceHelper::class,
+            'settings'         => View\Helper\SettingsHelper::class,
+            'sidebar'          => View\Helper\SidebarHelper::class,
         ],
         'factories' => [
-            View\Helper\AssetPathHelper::class => View\Helper\AssetPathHelperFactory::class,
-            View\Helper\FootLinkHelper::class => InvokableFactory::class,
-            View\Helper\FormatHelper::class => View\Helper\FormatHelperFactory::class,
-            View\Helper\GenericEntityHelper::class => View\Helper\GenericEntityHelperFactory::class,
-            View\Helper\HeadLinkHelper::class => InvokableFactory::class,
-            View\Helper\JavascriptConfigHelper::class => View\Helper\JavascriptConfigHelperFactory::class,
-            View\Helper\LayoutParamsHelper::class => InvokableFactory::class,
-            View\Helper\LocaleHelper::class => View\Helper\LocaleHelperFactory::class,
-            View\Helper\RecipeHelper::class => View\Helper\RecipeHelperFactory::class,
-            View\Helper\ReplaceHelper::class => InvokableFactory::class,
-            View\Helper\SettingsHelper::class => View\Helper\SettingsHelperFactory::class,
-            View\Helper\SidebarHelper::class => View\Helper\SidebarHelperFactory::class,
+            View\Helper\AssetPathHelper::class        => AutoWireFactory::class,
+            View\Helper\FootLinkHelper::class         => AutoWireFactory::class,
+            View\Helper\FormatHelper::class           => AutoWireFactory::class,
+            View\Helper\GenericEntityHelper::class    => AutoWireFactory::class,
+            View\Helper\HeadLinkHelper::class         => AutoWireFactory::class,
+            View\Helper\JavascriptConfigHelper::class => AutoWireFactory::class,
+            View\Helper\LayoutParamsHelper::class     => AutoWireFactory::class,
+            View\Helper\RecipeHelper::class           => AutoWireFactory::class,
+            View\Helper\ReplaceHelper::class          => AutoWireFactory::class,
+            View\Helper\SettingsHelper::class         => AutoWireFactory::class,
+            View\Helper\SidebarHelper::class          => AutoWireFactory::class,
         ],
     ],
 ];

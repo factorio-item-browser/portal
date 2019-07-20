@@ -23,10 +23,10 @@ class JavascriptConfigHelper extends AbstractHelper
     protected $assetPathHelper;
 
     /**
-     * The settings hash.
-     * @var string
+     * The layout params helper.
+     * @var LayoutParamsHelper
      */
-    protected $settingsHash;
+    protected $layoutParamsHelper;
 
     /**
      * The URL helper.
@@ -43,13 +43,16 @@ class JavascriptConfigHelper extends AbstractHelper
     /**
      * Initializes the view helper.
      * @param AssetPathHelper $assetPathHelper
-     * @param string $settingsHash
+     * @param LayoutParamsHelper $layoutParamsHelper
      * @param UrlHelper $urlHelper
      */
-    public function __construct(AssetPathHelper $assetPathHelper, string $settingsHash, UrlHelper $urlHelper)
-    {
+    public function __construct(
+        AssetPathHelper $assetPathHelper,
+        LayoutParamsHelper $layoutParamsHelper,
+        UrlHelper $urlHelper
+    ) {
         $this->assetPathHelper = $assetPathHelper;
-        $this->settingsHash = $settingsHash;
+        $this->layoutParamsHelper = $layoutParamsHelper;
         $this->urlHelper = $urlHelper;
     }
 
@@ -89,7 +92,7 @@ class JavascriptConfigHelper extends AbstractHelper
                 'default' => $this->assetPathHelper->__invoke('asset/js/main.min.js'),
                 'fallback' => $this->assetPathHelper->__invoke('asset/js/main.es5.min.js')
             ],
-            'settingsHash' => $this->settingsHash,
+            'settingsHash' => $this->layoutParamsHelper->getSettingsHash(),
             'sidebar' => [
                 'numberOfUnpinnedEntities' => Config::SIDEBAR_UNPINNED_ENTITIES,
                 'pinnedUrl' => $this->urlHelper->generate(RouteNames::SIDEBAR_PINNED)

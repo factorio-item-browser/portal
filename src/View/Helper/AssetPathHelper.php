@@ -2,7 +2,7 @@
 
 namespace FactorioItemBrowser\Portal\View\Helper;
 
-use Blast\BaseUrl\BasePathViewHelper;
+use Blast\BaseUrl\BasePathHelper;
 use Zend\View\Helper\AbstractHelper;
 
 /**
@@ -14,26 +14,26 @@ use Zend\View\Helper\AbstractHelper;
 class AssetPathHelper extends AbstractHelper
 {
     /**
+     * The base path helper.
+     * @var BasePathHelper
+     */
+    protected $basePathHelper;
+
+    /**
      * The version to use for the assets.
      * @var string
      */
     protected $version;
 
     /**
-     * The base path helper.
-     * @var BasePathViewHelper
-     */
-    protected $basePathHelper;
-
-    /**
      * Initializes the asset path helper.
+     * @param BasePathHelper $basePathHelper
      * @param string $version
-     * @param BasePathViewHelper $basePathHelper
      */
-    public function __construct(string $version, BasePathViewHelper $basePathHelper)
+    public function __construct(BasePathHelper $basePathHelper, string $version)
     {
-        $this->version = $version;
         $this->basePathHelper = $basePathHelper;
+        $this->version = $version;
     }
 
     /**

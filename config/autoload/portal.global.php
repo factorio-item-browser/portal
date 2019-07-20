@@ -60,7 +60,7 @@ return [
                 'zh-CN' => '简体中文',
                 'zh-TW' => '正體中文',
             ],
-            ConfigKey::VERSION => time(), // Will be cached on production with the config.
+            ConfigKey::VERSION => (string) time(), // Will be cached on production with the config.
         ],
     ],
 ];
