@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Database\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use FactorioItemBrowser\Portal\Database\Entity\SidebarEntity;
 use FactorioItemBrowser\Portal\Database\Entity\User;
 
@@ -14,8 +14,23 @@ use FactorioItemBrowser\Portal\Database\Entity\User;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class SidebarEntityRepository extends EntityRepository
+class SidebarEntityRepository
 {
+    /**
+     * The entity manager.
+     * @var EntityManagerInterface
+     */
+    protected $entityManager;
+
+    /**
+     * Initializes the repository.
+     * @param EntityManagerInterface $entityManager
+     */
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     /**
      * Returns the maximal pinned position currently in use for the specified player.
      * @param User $user
@@ -23,43 +38,63 @@ class SidebarEntityRepository extends EntityRepository
      */
     public function getMaxPinnedPosition(User $user): int
     {
-        $queryBuilder = $this->createQueryBuilder('s');
-        $queryBuilder->select('MAX(s.pinnedPosition)')
+        $queryBuilder = $this->entityManager->createQueryBuilder();
+        $queryBuilder->select('MAX(se.pinnedPosition)')
+                     ->from(SidebarEntity::class, 'se')
                      ->andWhere('s.user = :userId')
                      ->setParameter('userId', $user->getId());
 
-        return intval($queryBuilder->getQuery()->getSingleScalarResult());
+        return (int) $queryBuilder->getQuery()->getSingleScalarResult();
     }
 
     /**
      * Cleans unpinned entities if there are too many.
      * @param User $user
      * @param int $numberOfUnpinnedEntities
-     * @return $this
      */
-    public function cleanUnpinnedEntities(User $user, int $numberOfUnpinnedEntities)
+    public function cleanUnpinnedEntities(User $user, int $numberOfUnpinnedEntities): void
     {
-        $queryBuilder = $this->createQueryBuilder('s');
-        $queryBuilder->select('s.id')
-                     ->andWhere('s.user = :userId')
-                     ->andWhere('s.pinnedPosition = 0')
-                     ->addOrderBy('s.lastViewTime', 'DESC')
+        $sidebarEntityIds = $this->findOverflowingUnpinnedEntityIds($user, $numberOfUnpinnedEntities);
+        if ($sidebarEntityIds > 0) {
+            $this->removeIds($sidebarEntityIds);
+        }
+    }
+
+    /**
+     * Returns the ids of unpinned entities, which are overflowing the limit.
+     * @param User $user
+     * @param int $numberOfUnpinnedEntities
+     * @return array|int[]
+     */
+    protected function findOverflowingUnpinnedEntityIds(User $user, int $numberOfUnpinnedEntities): array
+    {
+        $queryBuilder = $this->entityManager->createQueryBuilder();
+        $queryBuilder->select('se.id')
+                     ->from(SidebarEntity::class, 'se')
+                     ->andWhere('se.user = :userId')
+                     ->andWhere('se.pinnedPosition = 0')
+                     ->addOrderBy('se.lastViewTime', 'DESC')
                      ->setFirstResult($numberOfUnpinnedEntities)
                      ->setParameter('userId', $user->getId());
 
-        $ids = [];
-        foreach ($queryBuilder->getQuery()->getResult() as $row) {
-            $ids[] = intval($row['id']);
+        $result = [];
+        foreach ($queryBuilder->getQuery()->getResult() as $data) {
+            $result[] = (int) $data['id'];
         }
+        return $result;
+    }
 
-        if (count($ids) > 0) {
-            $queryBuilder = $this->_em->createQueryBuilder();
-            $queryBuilder->delete(SidebarEntity::class, 's')
-                         ->andWhere('s.id IN (:ids)')
-                         ->setParameter('ids', array_values($ids));
-            $queryBuilder->getQuery()->execute();
-        }
+    /**
+     * Removes the sidebar entities with the specified isd.
+     * @param array|int[] $sidebarEntityIds
+     */
+    protected function removeIds(array $sidebarEntityIds): void
+    {
+        $queryBuilder = $this->entityManager->createQueryBuilder();
+        $queryBuilder->delete(SidebarEntity::class, 'se')
+                     ->andWhere('se.id IN (:sidebarEntityIds)')
+                     ->setParameter('sidebarEntityIds', array_values($sidebarEntityIds));
 
-        return $this;
+        $queryBuilder->getQuery()->execute();
     }
 }

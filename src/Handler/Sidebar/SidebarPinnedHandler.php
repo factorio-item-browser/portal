@@ -8,7 +8,7 @@ use FactorioItemBrowser\Portal\Database\Service\SidebarEntityService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zend\Diactoros\Response\JsonResponse;
+use Zend\Diactoros\Response\EmptyResponse;
 
 /**
  * The request handler for setting the pinned entities of the sidebar.
@@ -43,6 +43,6 @@ class SidebarPinnedHandler implements RequestHandlerInterface
         $pinnedEntityIds = array_map('intval', $request->getParsedBody()['pinnedEntityIds'] ?? []);
         $this->sidebarEntityService->setPinnedEntityOrder($pinnedEntityIds);
 
-        return new JsonResponse([]);
+        return new EmptyResponse();
     }
 }

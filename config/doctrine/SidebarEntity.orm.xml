@@ -4,10 +4,7 @@
     xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                         https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
 >
-    <entity
-        name="FactorioItemBrowser\Portal\Database\Entity\SidebarEntity"
-        repository-class="FactorioItemBrowser\Portal\Database\Repository\SidebarEntityRepository"
-    >
+    <entity name="FactorioItemBrowser\Portal\Database\Entity\SidebarEntity">
         <options>
             <option name="comment">The table holding the entities of the sidebar for the users.</option>
         </options>

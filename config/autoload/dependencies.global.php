@@ -24,8 +24,10 @@ return [
             Factory\AbstractViewHelperFactory::class,
         ],
         'factories'  => [
-            Database\Service\SidebarEntityService::class => AutoWireFactory::class,
-            Database\Service\UserService::class          => AutoWireFactory::class,
+            Database\Repository\SidebarEntityRepository::class => AutoWireFactory::class,
+            Database\Repository\UserRepository::class          => AutoWireFactory::class,
+            Database\Service\SidebarEntityService::class       => AutoWireFactory::class,
+            Database\Service\UserService::class                => AutoWireFactory::class,
 
             Handler\Icon\IconHandler::class                => AutoWireFactory::class,
             Handler\Index\IndexHandler::class              => AutoWireFactory::class,

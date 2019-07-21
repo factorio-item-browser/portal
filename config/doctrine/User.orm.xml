@@ -4,10 +4,7 @@
     xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                         https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
 >
-    <entity
-        name="FactorioItemBrowser\Portal\Database\Entity\User"
-        repository-class="FactorioItemBrowser\Portal\Database\Repository\UserRepository"
-    >
+    <entity name="FactorioItemBrowser\Portal\Database\Entity\User">
         <options>
             <option name="comment">The table holding the user data.</option>
         </options>

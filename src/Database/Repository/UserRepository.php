@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Portal\Database\Repository;
 
 use DateTime;
-use Doctrine\ORM\EntityRepository;
+use DateTimeInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use FactorioItemBrowser\Portal\Constant\Config;
 use FactorioItemBrowser\Portal\Database\Entity\SidebarEntity;
 use FactorioItemBrowser\Portal\Database\Entity\User;
@@ -16,8 +17,23 @@ use FactorioItemBrowser\Portal\Database\Entity\User;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class UserRepository extends EntityRepository
+class UserRepository
 {
+    /**
+     * The entity manager.
+     * @var EntityManagerInterface
+     */
+    protected $entityManager;
+
+    /**
+     * Initializes the repository.
+     * @param EntityManagerInterface $entityManager
+     */
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     /**
      * Finds the user with the specified session ID.
      * @param string $sessionId
@@ -25,52 +41,91 @@ class UserRepository extends EntityRepository
      */
     public function findBySessionId(string $sessionId): ?User
     {
-        $lifetime = new DateTime('-' . Config::SESSION_LIFETIME . ' seconds');
-
-        $queryBuilder = $this->createQueryBuilder('u');
-        $queryBuilder->andWhere('u.sessionId = :sessionId')
+        $queryBuilder = $this->entityManager->createQueryBuilder();
+        $queryBuilder->select('u')
+                     ->from(User::class, 'u')
+                     ->andWhere('u.sessionId = :sessionId')
                      ->andWhere('u.lastVisit >= :lifetime')
                      ->setParameter('sessionId', $sessionId)
-                     ->setParameter('lifetime', $lifetime->format('Y-m-d H:i:s'));
+                     ->setParameter('lifetime', $this->createLifetime(Config::SESSION_LIFETIME));
 
         return $queryBuilder->getQuery()->getOneOrNullResult();
     }
 
     /**
-     * Cleans up old users of which the sessions have timed out.
-     * @return $this
+     * Creates the lifetime datetime.
+     * @param int $numberOfSeconds
+     * @return DateTimeInterface
      */
-    public function cleanup()
+    protected function createLifetime(int $numberOfSeconds): DateTimeInterface
     {
-        $lifetime = new DateTime('-' . Config::SESSION_LIFETIME . ' seconds');
-        $lifetimeShort = new DateTime('-' . Config::SESSION_LIFETIME_SHORT . ' seconds');
+        return new DateTime('-' . $numberOfSeconds . 'seconds');
+    }
 
-        $queryBuilder = $this->createQueryBuilder('u');
-        $queryBuilder->select('u.id')
-                     ->orWhere('u.lastVisit < :lifetime')
-                     ->orWhere('(u.isFirstVisit = 1 AND u.lastVisit < :lifetimeShort)')
-                     ->setParameter('lifetime', $lifetime->format('Y-m-d H:i:s'))
-                     ->setParameter('lifetimeShort', $lifetimeShort->format('Y-m-d H:i:s'));
-
-        $userIds = [];
-        foreach ($queryBuilder->getQuery()->getResult() as $row) {
-            $userIds[] = $row['id'];
-        }
+    /**
+     * Cleans up old users of which the sessions have timed out.
+     */
+    public function cleanup(): void
+    {
+        $userIds = array_merge(
+            $this->findUserWithTimedOutSessions($this->createLifetime(Config::SESSION_LIFETIME), false),
+            $this->findUserWithTimedOutSessions($this->createLifetime(Config::SESSION_LIFETIME_SHORT), true)
+        );
 
         if (count($userIds) > 0) {
-            $queryBuilder = $this->_em->createQueryBuilder();
-            $queryBuilder->delete(SidebarEntity::class, 's')
-                         ->andWhere('s.user IN (:userIds)')
-                         ->setParameter('userIds', array_values($userIds));
-            $queryBuilder->getQuery()->execute();
-
-            $queryBuilder = $this->_em->createQueryBuilder();
-            $queryBuilder->delete(User::class, 'u')
-                         ->andWhere('u.id IN (:userIds)')
-                         ->setParameter('userIds', array_values($userIds));
-            $queryBuilder->getQuery()->execute();
+            $this->removeIds($userIds);
         }
+    }
 
-        return $this;
+    /**
+     * Finds users with already timed out sessions.
+     * @param DateTimeInterface $lifetime
+     * @param bool $isFirstVisit
+     * @return array
+     */
+    protected function findUserWithTimedOutSessions(DateTimeInterface $lifetime, bool $isFirstVisit): array
+    {
+        $queryBuilder = $this->entityManager->createQueryBuilder();
+        $queryBuilder->select('u.id')
+                     ->from(User::class, 'u')
+                     ->andWhere('u.lastVisit < :lifetime')
+                     ->andWhere('u.isFirstVisit = :isFirstVisit')
+                     ->setParameter('lifetime', $lifetime)
+                     ->setParameter('isFirstVisit', $isFirstVisit);
+
+        $result = [];
+        foreach ($queryBuilder->getQuery()->getResult() as $data) {
+            $result[] = (int) $data['id'];
+        }
+        return $result;
+    }
+
+    /**
+     * Removes the user with the specified ids from the database.
+     * @param array|int[] $userIds
+     */
+    protected function removeIds(array $userIds): void
+    {
+        $queryBuilder = $this->entityManager->createQueryBuilder();
+        $queryBuilder->delete(SidebarEntity::class, 'se')
+                     ->andWhere('se.user IN (:userIds')
+                     ->setParameter('userIds', array_values($userIds));
+        $queryBuilder->getQuery()->execute();
+
+        $queryBuilder = $this->entityManager->createQueryBuilder();
+        $queryBuilder->delete(User::class, 'u')
+                     ->andWhere('u.id IN (:userIds)')
+                     ->setParameter('userIds', array_values($userIds));
+        $queryBuilder->getQuery()->execute();
+    }
+
+    /**
+     * Persists the user entity into the database.
+     * @param User $user
+     */
+    public function persist(User $user): void
+    {
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
     }
 }

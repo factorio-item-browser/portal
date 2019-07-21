@@ -83,8 +83,6 @@ class SidebarEntityService extends AbstractDatabaseService
      * Adds an entity to the sidebar.
      * @param GenericEntity $entity
      * @return $this
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function add(GenericEntity $entity)
     {

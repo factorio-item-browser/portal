@@ -7,7 +7,7 @@
     fib.config = {
         /**
          * The config of the icon manager.
-         * @type {object}
+         * @type {Object}
          */
         iconManager: {
             /**
@@ -19,7 +19,7 @@
 
         /**
          * The config of the media queries.
-         * @type {object}
+         * @type {Object}
          */
         mediaQuery: {
             /**
@@ -37,7 +37,7 @@
 
         /**
          * The scripts to load.
-         * @type {object}
+         * @type {Object}
          */
         script: {
             /**

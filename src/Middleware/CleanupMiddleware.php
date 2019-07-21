@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Middleware;
 
-use FactorioItemBrowser\Portal\Database\Service\UserService;
+use FactorioItemBrowser\Portal\Constant\Config;
+use FactorioItemBrowser\Portal\Database\Repository\UserRepository;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -19,23 +20,18 @@ use Psr\Http\Server\RequestHandlerInterface;
 class CleanupMiddleware implements MiddlewareInterface
 {
     /**
-     * The factor to decide whether to actually run the cleanup.
+     * The user repository.
+     * @var UserRepository
      */
-    private const CLEANUP_FACTOR = 1000;
+    protected $userRepository;
 
     /**
-     * The database user service.
-     * @var UserService
+     * CleanupMiddleware constructor.
+     * @param UserRepository $userRepository
      */
-    protected $userService;
-
-    /**
-     * Initializes the middleware.
-     * @param UserService $userService
-     */
-    public function __construct(UserService $userService)
+    public function __construct(UserRepository $userRepository)
     {
-        $this->userService = $userService;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -47,8 +43,8 @@ class CleanupMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $response = $handler->handle($request);
-        if (mt_rand(0, self::CLEANUP_FACTOR) === 42) {
-            $this->userService->cleanup();
+        if (mt_rand(0, Config::CLEANUP_FACTOR) === 42) {
+            $this->userRepository->cleanup();
         }
         return $response;
     }

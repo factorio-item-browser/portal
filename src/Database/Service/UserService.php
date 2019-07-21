@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Database\Service;
 
-use Doctrine\ORM\EntityManagerInterface;
+use FactorioItemBrowser\Portal\Constant\Config;
 use FactorioItemBrowser\Portal\Database\Entity\User;
 use FactorioItemBrowser\Portal\Database\Repository\UserRepository;
 
@@ -14,7 +14,7 @@ use FactorioItemBrowser\Portal\Database\Repository\UserRepository;
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class UserService extends AbstractDatabaseService
+class UserService
 {
     /**
      * The repository of the users.
@@ -29,14 +29,12 @@ class UserService extends AbstractDatabaseService
     protected $currentUser;
 
     /**
-     * Initializes the repositories needed by the service.
-     * @param EntityManagerInterface $entityManager
-     * @return $this
+     * UserService constructor.
+     * @param UserRepository $userRepository
      */
-    protected function initializeRepositories(EntityManagerInterface $entityManager)
+    public function __construct(UserRepository $userRepository)
     {
-        $this->userRepository = $entityManager->getRepository(User::class);
-        return $this;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -74,11 +72,10 @@ class UserService extends AbstractDatabaseService
     public function createNewUser(): User
     {
         $user = new User();
-        $user->setEnabledModNames(['base'])
+        $user->setEnabledModNames(Config::DEFAULT_MODS)
              ->setSessionId($this->generateSessionId());
 
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
+        $this->userRepository->persist($user);
         return $user;
     }
 
@@ -104,8 +101,7 @@ class UserService extends AbstractDatabaseService
     public function persistCurrentUser()
     {
         if ($this->currentUser instanceof User) {
-            $this->entityManager->persist($this->currentUser);
-            $this->entityManager->flush();
+            $this->userRepository->persist($this->currentUser);
         }
         return $this;
     }
@@ -121,15 +117,5 @@ class UserService extends AbstractDatabaseService
             $this->currentUser->getLocale(),
             $this->currentUser->getRecipeMode()
         ]));
-    }
-
-    /**
-     * Cleans up old users of which the sessions have timed out.
-     * @return $this
-     */
-    public function cleanup()
-    {
-        $this->userRepository->cleanup();
-        return $this;
     }
 }

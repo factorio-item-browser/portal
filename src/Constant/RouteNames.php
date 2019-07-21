@@ -3,37 +3,37 @@
 namespace FactorioItemBrowser\Portal\Constant;
 
 /**
- * The class holding the route names as constants.
+ * The interface holding the route names as constants.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class RouteNames
+interface RouteNames
 {
-    const GENERIC_DETAILS = 'item.details'; // Used to build links to any generic entity.
-    const GENERIC_TOOLTIP = 'item.tooltip'; // Used to build tooltip routes to any generic entity.
+    public const GENERIC_DETAILS = 'item.details'; // Used to build links to any generic entity.
+    public const GENERIC_TOOLTIP = 'item.tooltip'; // Used to build tooltip routes to any generic entity.
 
-    const ICONS = 'icons';
+    public const ICONS = 'icons';
 
-    const INDEX = 'index';
+    public const INDEX = 'index';
 
-    const ITEM_DETAILS = 'item.details';
-    const ITEM_RECIPE_PAGE = 'item.recipe.page';
-    const ITEM_TOOLTIP = 'item.tooltip';
+    public const ITEM_DETAILS = 'item.details';
+    public const ITEM_RECIPE_PAGE = 'item.recipe.page';
+    public const ITEM_TOOLTIP = 'item.tooltip';
 
-    const MOD_LIST = 'mod.list';
-    const MOD_LIST_SAVE = 'mod.list.save';
-    const MOD_LIST_UPLOAD = 'mod.list.upload';
+    public const MOD_LIST = 'mod.list';
+    public const MOD_LIST_SAVE = 'mod.list.save';
+    public const MOD_LIST_UPLOAD = 'mod.list.upload';
 
-    const RECIPE_DETAILS = 'recipe.details';
-    const RECIPE_MACHINE_PAGE = 'recipe.machine.page';
-    const RECIPE_TOOLTIP = 'recipe.tooltip';
+    public const RECIPE_DETAILS = 'recipe.details';
+    public const RECIPE_MACHINE_PAGE = 'recipe.machine.page';
+    public const RECIPE_TOOLTIP = 'recipe.tooltip';
 
-    const SEARCH_QUERY  = 'search.query';
-    const SEARCH_QUERY_PAGE  = 'search.query.page';
+    public const SEARCH_QUERY  = 'search.query';
+    public const SEARCH_QUERY_PAGE  = 'search.query.page';
 
-    const SETTINGS = 'settings';
-    const SETTINGS_SAVE = 'settings.save';
+    public const SETTINGS = 'settings';
+    public const SETTINGS_SAVE = 'settings.save';
 
-    const SIDEBAR_PINNED = 'sidebar.pinned';
+    public const SIDEBAR_PINNED = 'sidebar.pinned';
 }
