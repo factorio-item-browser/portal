@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Portal\Database\Entity;
 
 use DateTime;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
@@ -44,7 +45,7 @@ class User
 
     /**
      * The timestamp when the user last visited.
-     * @var DateTime
+     * @var DateTimeInterface
      */
     protected $lastVisit;
 
@@ -92,7 +93,7 @@ class User
      * @param int|null $id
      * @return $this
      */
-    public function setId(?int $id)
+    public function setId(?int $id): self
     {
         $this->id = $id;
         return $this;
@@ -112,7 +113,7 @@ class User
      * @param string $locale
      * @return $this
      */
-    public function setLocale(string $locale)
+    public function setLocale(string $locale): self
     {
         $this->locale = $locale;
         return $this;
@@ -132,7 +133,7 @@ class User
      * @param array|string[] $enabledModNames
      * @return $this
      */
-    public function setEnabledModNames(array $enabledModNames)
+    public function setEnabledModNames(array $enabledModNames): self
     {
         $this->enabledModNames = $enabledModNames;
         return $this;
@@ -152,7 +153,7 @@ class User
      * @param string $recipeMode
      * @return $this
      */
-    public function setRecipeMode(string $recipeMode)
+    public function setRecipeMode(string $recipeMode): self
     {
         $this->recipeMode = $recipeMode;
         return $this;
@@ -169,10 +170,10 @@ class User
 
     /**
      * Sets the timestamp when the user last visited.
-     * @param DateTime $lastVisit
+     * @param DateTimeInterface $lastVisit
      * @return $this
      */
-    public function setLastVisit(DateTime $lastVisit)
+    public function setLastVisit(DateTimeInterface $lastVisit): self
     {
         $this->lastVisit = $lastVisit;
         return $this;
@@ -180,9 +181,9 @@ class User
 
     /**
      * Returns the timestamp when the user last visited.
-     * @return DateTime
+     * @return DateTimeInterface
      */
-    public function getLastVisit(): DateTime
+    public function getLastVisit(): DateTimeInterface
     {
         return $this->lastVisit;
     }
@@ -190,10 +191,12 @@ class User
     /**
      * Sets whether this is the first visit of the user.
      * @param bool $isFirstVisit
+     * @return $this
      */
-    public function setIsFirstVisit(bool $isFirstVisit): void
+    public function setIsFirstVisit(bool $isFirstVisit): self
     {
         $this->isFirstVisit = $isFirstVisit;
+        return $this;
     }
 
     /**
@@ -210,7 +213,7 @@ class User
      * @param string $sessionId
      * @return $this
      */
-    public function setSessionId(string $sessionId)
+    public function setSessionId(string $sessionId): self
     {
         $this->sessionId = $sessionId;
         return $this;
@@ -230,7 +233,7 @@ class User
      * @param string $apiAuthorizationToken
      * @return $this
      */
-    public function setApiAuthorizationToken(string $apiAuthorizationToken)
+    public function setApiAuthorizationToken(string $apiAuthorizationToken): self
     {
         $this->apiAuthorizationToken = $apiAuthorizationToken;
         return $this;
@@ -250,7 +253,7 @@ class User
      * @param array $sessionData
      * @return $this
      */
-    public function setSessionData(array $sessionData)
+    public function setSessionData(array $sessionData): self
     {
         $this->sessionData = $sessionData;
         return $this;

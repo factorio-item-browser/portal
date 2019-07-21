@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Portal\Database\Entity;
 
 use DateTime;
+use DateTimeInterface;
 
 /**
  * The entity holding the entities in the sidebar of the users.
@@ -58,7 +59,7 @@ class SidebarEntity
 
     /**
      * The time when the entity was last viewed.
-     * @var DateTime
+     * @var DateTimeInterface
      */
     protected $lastViewTime;
 
@@ -77,7 +78,7 @@ class SidebarEntity
      * @param int|null $id
      * @return $this
      */
-    public function setId(?int $id)
+    public function setId(?int $id): self
     {
         $this->id = $id;
         return $this;
@@ -97,7 +98,7 @@ class SidebarEntity
      * @param User $user
      * @return $this
      */
-    public function setUser(User $user)
+    public function setUser(User $user): self
     {
         $this->user = $user;
         return $this;
@@ -117,7 +118,7 @@ class SidebarEntity
      * @param string $type
      * @return $this
      */
-    public function setType(string $type)
+    public function setType(string $type): self
     {
         $this->type = $type;
         return $this;
@@ -137,7 +138,7 @@ class SidebarEntity
      * @param string $name
      * @return $this
      */
-    public function setName(string $name)
+    public function setName(string $name): self
     {
         $this->name = $name;
         return $this;
@@ -157,7 +158,7 @@ class SidebarEntity
      * @param string $label
      * @return $this
      */
-    public function setLabel(string $label)
+    public function setLabel(string $label): self
     {
         $this->label = $label;
         return $this;
@@ -177,7 +178,7 @@ class SidebarEntity
      * @param string $description
      * @return $this
      */
-    public function setDescription(string $description)
+    public function setDescription(string $description): self
     {
         $this->description = $description;
         return $this;
@@ -197,7 +198,7 @@ class SidebarEntity
      * @param int $pinnedPosition
      * @return $this
      */
-    public function setPinnedPosition(int $pinnedPosition)
+    public function setPinnedPosition(int $pinnedPosition): self
     {
         $this->pinnedPosition = $pinnedPosition;
         return $this;
@@ -214,10 +215,10 @@ class SidebarEntity
 
     /**
      * Sets the time when the entity was last viewed.
-     * @param DateTime $lastViewTime
+     * @param DateTimeInterface $lastViewTime
      * @return $this
      */
-    public function setLastViewTime(DateTime $lastViewTime)
+    public function setLastViewTime(DateTimeInterface $lastViewTime): self
     {
         $this->lastViewTime = $lastViewTime;
         return $this;
@@ -225,9 +226,9 @@ class SidebarEntity
 
     /**
      * Returns the time when the entity was last viewed.
-     * @return DateTime
+     * @return DateTimeInterface
      */
-    public function getLastViewTime(): DateTime
+    public function getLastViewTime(): DateTimeInterface
     {
         return $this->lastViewTime;
     }
