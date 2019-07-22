@@ -2,11 +2,12 @@ parameters:
   level: max
   paths:
     - src
-#    - test/src
+    - test/src
 
   ignoreErrors:
+    - '#Call to an undefined method Zend\\View\\Helper\\HeadTitle::.*\(\)\.#'
     - '#Dynamic call to static method PHPUnit\\Framework\\.*#'
-    - '#Parameter \#1 \$message of method Zend\\Log\\LoggerInterface::.*\(\) expects string, .* given.#'
+    - '#Parameter \#1 \$message of method Zend\\Log\\LoggerInterface::.*\(\) expects string, .* given\.#'
 
 includes:
   - vendor/phpstan/phpstan-doctrine/extension.neon

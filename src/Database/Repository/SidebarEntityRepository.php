@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Portal\Database\Repository;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
 use FactorioItemBrowser\Portal\Database\Entity\SidebarEntity;
 use FactorioItemBrowser\Portal\Database\Entity\User;
 
@@ -44,7 +45,12 @@ class SidebarEntityRepository
                      ->andWhere('s.user = :userId')
                      ->setParameter('userId', $user->getId());
 
-        return (int) $queryBuilder->getQuery()->getSingleScalarResult();
+        try {
+            $result = (int) $queryBuilder->getQuery()->getSingleScalarResult();
+        } catch (NonUniqueResultException $e) {
+            $result = 0;
+        }
+        return $result;
     }
 
     /**

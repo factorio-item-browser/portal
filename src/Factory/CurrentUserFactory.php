@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Portal\Factory;
 
 use FactorioItemBrowser\Portal\Database\Entity\User;
-use FactorioItemBrowser\Portal\Database\Service\UserService;
+use FactorioItemBrowser\Portal\Service\UserService;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 

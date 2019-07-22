@@ -16,6 +16,8 @@ use function BluePsyduck\ZendAutoWireFactory\readConfig;
 use ContainerInteropDoctrine\EntityManagerFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use FactorioItemBrowser\Portal\Constant\ConfigKey;
+use Zend\I18n\Translator\Translator;
+use Zend\I18n\Translator\TranslatorInterface;
 use Zend\Stratigility\Middleware\ErrorHandler;
 
 return [
@@ -23,11 +25,13 @@ return [
         'abstract_factories' => [
             Factory\AbstractViewHelperFactory::class,
         ],
+        'aliases' => [
+            Translator::class => TranslatorInterface::class,
+        ],
         'factories'  => [
             Database\Repository\SidebarEntityRepository::class => AutoWireFactory::class,
             Database\Repository\UserRepository::class          => AutoWireFactory::class,
             Database\Service\SidebarEntityService::class       => AutoWireFactory::class,
-            Database\Service\UserService::class                => AutoWireFactory::class,
 
             Handler\Icon\IconHandler::class                => AutoWireFactory::class,
             Handler\Index\IndexHandler::class              => AutoWireFactory::class,
@@ -49,9 +53,13 @@ return [
             Middleware\ApiClientMiddleware::class       => AutoWireFactory::class,
             Middleware\CleanupMiddleware::class         => AutoWireFactory::class,
             Middleware\LayoutMiddleware::class          => AutoWireFactory::class,
+            Middleware\LayoutParamsMiddleware::class    => AutoWireFactory::class,
             Middleware\LocaleMiddleware::class          => AutoWireFactory::class,
             Middleware\MetaDataRequestMiddleware::class => AutoWireFactory::class,
             Middleware\SessionMiddleware::class         => AutoWireFactory::class,
+            Middleware\TitleDecoratorMiddleware::class  => AutoWireFactory::class,
+
+            Service\UserService::class => AutoWireFactory::class,
 
             Session\Container\MetaSessionContainer::class     => Session\Container\AbstractSessionContainerFactory::class,
             Session\Container\ModListSessionContainer::class  => Session\Container\AbstractSessionContainerFactory::class,

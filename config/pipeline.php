@@ -44,6 +44,8 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
 
     $app->pipe(BodyParamsMiddleware::class);
     $app->pipe(Middleware\MetaDataRequestMiddleware::class);
+    $app->pipe(Middleware\LayoutParamsMiddleware::class);
+    $app->pipe(Middleware\TitleDecoratorMiddleware::class);
     $app->pipe(Middleware\LayoutMiddleware::class);
 
     $app->pipe(DispatchMiddleware::class);

@@ -15,6 +15,7 @@ use FactorioItemBrowser\Portal\Constant\Config;
 use FactorioItemBrowser\Portal\Database\Entity\SidebarEntity;
 use FactorioItemBrowser\Portal\Database\Entity\User;
 use FactorioItemBrowser\Portal\Database\Repository\SidebarEntityRepository;
+use FactorioItemBrowser\Portal\Service\UserService;
 use FactorioItemBrowser\Portal\View\Helper\LayoutParamsHelper;
 
 /**

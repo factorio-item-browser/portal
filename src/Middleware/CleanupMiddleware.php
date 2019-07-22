@@ -43,9 +43,18 @@ class CleanupMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $response = $handler->handle($request);
-        if (mt_rand(0, Config::CLEANUP_FACTOR) === 42) {
+        if ($this->getRandomNumber() === 42) {
             $this->userRepository->cleanup();
         }
         return $response;
+    }
+
+    /**
+     * Returns a random number.
+     * @return int
+     */
+    protected function getRandomNumber(): int
+    {
+        return mt_rand(0, Config::CLEANUP_FACTOR);
     }
 }

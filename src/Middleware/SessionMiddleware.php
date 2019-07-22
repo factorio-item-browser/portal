@@ -11,7 +11,7 @@ use Dflydev\FigCookies\FigResponseCookies;
 use Dflydev\FigCookies\SetCookie;
 use FactorioItemBrowser\Portal\Constant\Config;
 use FactorioItemBrowser\Portal\Database\Entity\User;
-use FactorioItemBrowser\Portal\Database\Service\UserService;
+use FactorioItemBrowser\Portal\Service\UserService;
 use FactorioItemBrowser\Portal\Session\SessionManager;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -68,11 +68,11 @@ class SessionMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $this->readUserFromRequest($request);
+        $currentUser = $this->readUserFromRequest($request);
 
         $response = $handler->handle($request);
 
-        $this->userService->getCurrentUser()->setSessionData($this->sessionManager->getSessionData());
+        $currentUser->setSessionData($this->sessionManager->getSessionData());
         $this->userService->persistCurrentUser();
 
         $response = $this->writeCookieToResponse($response);
@@ -80,24 +80,24 @@ class SessionMiddleware implements MiddlewareInterface
     }
 
     /**
-     * Reads the current user from the specified request.
+     * Reads and returns the current user from the specified request.
      * @param ServerRequestInterface $request
-     * @return $this
+     * @return User
      */
-    protected function readUserFromRequest(ServerRequestInterface $request)
+    protected function readUserFromRequest(ServerRequestInterface $request): User
     {
-        $user = null;
         $sessionId = FigRequestCookies::get($request, Config::SESSION_COOKIE_NAME, '')->getValue();
         if (strlen($sessionId) > 0) {
-            $user = $this->userService->getBySessionId($sessionId);
+            $user = $this->userService->getUserBySessionId($sessionId);
+            if ($user instanceof User) {
+                $user->setIsFirstVisit(false);
+                $this->userService->setCurrentUser($user);
+                $this->sessionManager->setSessionData($user->getSessionData());
+            }
         }
-        if (!$user instanceof User) {
-            $user = $this->userService->createNewUser();
-        }
-        $user->setIsFirstVisit($sessionId !== $user->getSessionId());
-        $this->userService->setCurrentUser($user);
-        $this->sessionManager->setSessionData($user->getSessionData());
-        return $this;
+
+        $this->userService->persistCurrentUser();
+        return $this->userService->getCurrentUser();
     }
 
     /**

@@ -6,7 +6,7 @@ namespace FactorioItemBrowser\Portal\Middleware;
 
 use FactorioItemBrowser\Portal\Constant\Attribute;
 use FactorioItemBrowser\Portal\Database\Entity\SidebarEntity;
-use FactorioItemBrowser\Portal\Database\Service\UserService;
+use FactorioItemBrowser\Portal\Service\UserService;
 use FactorioItemBrowser\Portal\Session\Container\MetaSessionContainer;
 use FactorioItemBrowser\Portal\View\Helper\LayoutParamsHelper;
 use FactorioItemBrowser\Portal\View\Helper\SidebarHelper;
@@ -110,11 +110,6 @@ class LayoutMiddleware implements MiddlewareInterface
         if ($isAjaxRequest) {
             $this->templateRenderer->addDefaultParam(TemplateRendererInterface::TEMPLATE_ALL, 'layout', false);
         }
-        $this->prepareTitle();
-        $this->layoutParamsHelper
-            ->setSettingsHash($this->userService->getSettingsHash())
-            ->setNumberOfAvailableMods($this->metaSessionContainer->getNumberOfAvailableMods())
-            ->setNumberOfEnabledMods($this->metaSessionContainer->getNumberOfEnabledMods());
 
         $response = $handler->handle($request);
 
@@ -136,17 +131,6 @@ class LayoutMiddleware implements MiddlewareInterface
     }
 
     /**
-     * Prepares the title of the page.
-     * @return $this
-     */
-    protected function prepareTitle()
-    {
-        $this->headTitleHelper->setSeparator(' - ');
-        $this->headTitleHelper->append($this->translator->translate('meta title'));
-        return $this;
-    }
-
-    /**
      * Prepares the response of the AJAX request.
      * @param ResponseInterface $response
      * @return ResponseInterface
@@ -156,7 +140,7 @@ class LayoutMiddleware implements MiddlewareInterface
         if (!$response instanceof JsonResponse) {
             $responseData = [
                 'content' => $response->getBody()->getContents(),
-                'settingsHash' => $this->userService->getSettingsHash(),
+                'settingsHash' => $this->userService->getCurrentUser()->getSettingsHash(),
                 'title' => trim($this->headTitleHelper->renderTitle()),
             ];
 

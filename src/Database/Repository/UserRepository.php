@@ -7,6 +7,7 @@ namespace FactorioItemBrowser\Portal\Database\Repository;
 use DateTime;
 use DateTimeInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
 use FactorioItemBrowser\Portal\Constant\Config;
 use FactorioItemBrowser\Portal\Database\Entity\SidebarEntity;
 use FactorioItemBrowser\Portal\Database\Entity\User;
@@ -49,7 +50,12 @@ class UserRepository
                      ->setParameter('sessionId', $sessionId)
                      ->setParameter('lifetime', $this->createLifetime(Config::SESSION_LIFETIME));
 
-        return $queryBuilder->getQuery()->getOneOrNullResult();
+        try {
+            $result = $queryBuilder->getQuery()->getOneOrNullResult();
+        } catch (NonUniqueResultException $e) {
+            $result = null;
+        }
+        return $result;
     }
 
     /**

@@ -35,7 +35,7 @@ class User
      * The mods the user wants to have enabled.
      * @var array|string[]
      */
-    protected $enabledModNames = [];
+    protected $enabledModNames = Config::DEFAULT_MODS;
 
     /**
      * The recipe mode the user wants to use.
@@ -53,7 +53,7 @@ class User
      * Whether this is the first visit of the user.
      * @var bool
      */
-    protected $isFirstVisit = false;
+    protected $isFirstVisit = true;
 
     /**
      * The session ID for the user.
@@ -81,9 +81,12 @@ class User
 
     /**
      * Initializes the entity.
+     * @param string $sessionId
      */
-    public function __construct()
+    public function __construct(string $sessionId)
     {
+        $this->sessionId = $sessionId;
+
         $this->lastVisit = new DateTime();
         $this->sidebarEntities = new ArrayCollection();
     }
@@ -301,5 +304,18 @@ class User
                  ->orderBy(['lastViewTime' => Criteria::DESC]);
 
         return $this->sidebarEntities->matching($criteria);
+    }
+
+    /**
+     * Returns a hash representing the user's settings.
+     * @return string
+     */
+    public function getSettingsHash(): string
+    {
+        return hash('crc32b', (string) json_encode([
+            $this->apiAuthorizationToken,
+            $this->locale,
+            $this->recipeMode,
+        ]));
     }
 }

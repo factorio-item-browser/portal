@@ -29,15 +29,16 @@ class UserTest extends TestCase
      */
     public function testConstruct(): void
     {
-        $user = new User();
+        $sessionId = 'abc';
+        $user = new User($sessionId);
 
         $this->assertNull($user->getId());
         $this->assertSame(Config::DEFAULT_LOCALE, $user->getLocale());
-        $this->assertSame([], $user->getEnabledModNames());
+        $this->assertSame(Config::DEFAULT_MODS, $user->getEnabledModNames());
         $this->assertSame(Config::DEFAULT_RECIPE_MODE, $user->getRecipeMode());
         $user->getLastVisit();
-        $this->assertFalse($user->getIsFirstVisit());
-        $this->assertSame('', $user->getSessionId());
+        $this->assertTrue($user->getIsFirstVisit());
+        $this->assertSame($sessionId, $user->getSessionId());
         $this->assertSame('', $user->getApiAuthorizationToken());
         $this->assertSame([], $user->getSessionData());
         $user->getSidebarEntities();
@@ -51,7 +52,7 @@ class UserTest extends TestCase
     public function testSetAndGetId(): void
     {
         $id = 42;
-        $user = new User();
+        $user = new User('foo');
 
         $this->assertSame($user, $user->setId($id));
         $this->assertSame($id, $user->getId());
@@ -65,7 +66,7 @@ class UserTest extends TestCase
     public function testSetAndGetLocale(): void
     {
         $locale = 'abc';
-        $user = new User();
+        $user = new User('foo');
 
         $this->assertSame($user, $user->setLocale($locale));
         $this->assertSame($locale, $user->getLocale());
@@ -79,7 +80,7 @@ class UserTest extends TestCase
     public function testSetAndGetEnabledModNames(): void
     {
         $enabledModNames = ['abc', 'def'];
-        $user = new User();
+        $user = new User('foo');
 
         $this->assertSame($user, $user->setEnabledModNames($enabledModNames));
         $this->assertSame($enabledModNames, $user->getEnabledModNames());
@@ -93,7 +94,7 @@ class UserTest extends TestCase
     public function testSetAndGetRecipeMode(): void
     {
         $recipeMode = 'abc';
-        $user = new User();
+        $user = new User('foo');
 
         $this->assertSame($user, $user->setRecipeMode($recipeMode));
         $this->assertSame($recipeMode, $user->getRecipeMode());
@@ -107,7 +108,7 @@ class UserTest extends TestCase
     public function testSetAndGetLastVisit(): void
     {
         $lastVisit = new DateTime('2038-01-19 03:14:07');
-        $user = new User();
+        $user = new User('foo');
 
         $this->assertSame($user, $user->setLastVisit($lastVisit));
         $this->assertSame($lastVisit, $user->getLastVisit());
@@ -120,11 +121,10 @@ class UserTest extends TestCase
      */
     public function testSetAndGetIsFirstVisit(): void
     {
-        $isFirstVisit = true;
-        $user = new User();
+        $user = new User('foo');
 
-        $this->assertSame($user, $user->setIsFirstVisit($isFirstVisit));
-        $this->assertSame($isFirstVisit, $user->getIsFirstVisit());
+        $this->assertSame($user, $user->setIsFirstVisit(false));
+        $this->assertFalse($user->getIsFirstVisit());
     }
 
     /**
@@ -135,7 +135,7 @@ class UserTest extends TestCase
     public function testSetAndGetSessionId(): void
     {
         $sessionId = 'abc';
-        $user = new User();
+        $user = new User('foo');
 
         $this->assertSame($user, $user->setSessionId($sessionId));
         $this->assertSame($sessionId, $user->getSessionId());
@@ -149,7 +149,7 @@ class UserTest extends TestCase
     public function testSetAndGetApiAuthorizationToken(): void
     {
         $apiAuthorizationToken = 'abc';
-        $user = new User();
+        $user = new User('foo');
 
         $this->assertSame($user, $user->setApiAuthorizationToken($apiAuthorizationToken));
         $this->assertSame($apiAuthorizationToken, $user->getApiAuthorizationToken());
@@ -163,7 +163,7 @@ class UserTest extends TestCase
     public function testSetAndGetSessionData(): void
     {
         $sessionData = ['abc' => 'def', 'ghi' => 'jkl'];
-        $user = new User();
+        $user = new User('foo');
 
         $this->assertSame($user, $user->setSessionData($sessionData));
         $this->assertSame($sessionData, $user->getSessionData());
@@ -175,7 +175,7 @@ class UserTest extends TestCase
      */
     public function testGetPinnedSidebarEntities(): void
     {
-        $user = new User();
+        $user = new User('foo');
 
         $entity1 = new SidebarEntity($user);
         $entity1->setPinnedPosition(42);
@@ -201,7 +201,7 @@ class UserTest extends TestCase
      */
     public function testGetUnpinnedSidebarEntities(): void
     {
-        $user = new User();
+        $user = new User('foo');
 
         $entity1 = new SidebarEntity($user);
         $entity1->setPinnedPosition(0)
@@ -222,4 +222,20 @@ class UserTest extends TestCase
 
         $this->assertEquals($expectedEntities, array_values($result->toArray()));
     }
+
+    /**
+     * Tests the getSettingsHash method.
+     * @covers ::getSettingsHash
+     */
+    public function testGetSettingsHash(): void
+    {
+        $user = new User('foo');
+        $user->setApiAuthorizationToken('abc')
+             ->setLocale('def')
+             ->setRecipeMode('ghi');
+
+        $result = $user->getSettingsHash();
+        $this->assertSame('bf7ce9d4', $result);
+    }
+
 }

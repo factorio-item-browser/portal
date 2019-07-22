@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace FactorioItemBrowser\Portal\Middleware;
 
 use FactorioItemBrowser\Portal\Constant\Config;
-use FactorioItemBrowser\Portal\Database\Service\UserService;
+use FactorioItemBrowser\Portal\Service\UserService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\I18n\Translator\Translator;
-use Zend\I18n\Translator\TranslatorInterface;
 
 /**
  * The middleware for detecting the locale of the current user.
@@ -34,7 +33,7 @@ class LocaleMiddleware implements MiddlewareInterface
 
     /**
      * The translator.
-     * @var TranslatorInterface
+     * @var Translator
      */
     protected $translator;
 
@@ -47,10 +46,10 @@ class LocaleMiddleware implements MiddlewareInterface
     /**
      * Initializes the middleware.
      * @param UserService $userService
-     * @param TranslatorInterface $translator
+     * @param Translator $translator
      * @param array|string[] $locales
      */
-    public function __construct(UserService $userService, TranslatorInterface $translator, array $locales)
+    public function __construct(UserService $userService, Translator $translator, array $locales)
     {
         $this->userService = $userService;
         $this->translator = $translator;
@@ -71,10 +70,8 @@ class LocaleMiddleware implements MiddlewareInterface
         }
 
         $this->userService->getCurrentUser()->setLocale($newLocale);
-        if ($this->translator instanceof Translator) {
-            $this->translator->setLocale($newLocale)
-                             ->setFallbackLocale(Config::DEFAULT_LOCALE);
-        }
+        $this->translator->setLocale($newLocale)
+                         ->setFallbackLocale(Config::DEFAULT_LOCALE);
 
         return $handler->handle($request);
     }

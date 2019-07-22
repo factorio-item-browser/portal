@@ -4,29 +4,27 @@ declare(strict_types=1);
 
 namespace FactorioItemBrowser\Portal\Middleware;
 
-use FactorioItemBrowser\Api\Client\ApiClientInterface;
-use FactorioItemBrowser\Api\Client\Exception\ApiClientException;
-use FactorioItemBrowser\Api\Client\Request\Mod\ModMetaRequest;
-use FactorioItemBrowser\Api\Client\Response\Mod\ModMetaResponse;
+use FactorioItemBrowser\Portal\Service\UserService;
 use FactorioItemBrowser\Portal\Session\Container\MetaSessionContainer;
+use FactorioItemBrowser\Portal\View\Helper\LayoutParamsHelper;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 /**
- * The middleware for requesting some meta data if they are missing.
+ * The middleware filling the layout params helper with required values.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class MetaDataRequestMiddleware implements MiddlewareInterface
+class LayoutParamsMiddleware implements MiddlewareInterface
 {
     /**
-     * The API client.
-     * @var ApiClientInterface
+     * The layout params helper.
+     * @var LayoutParamsHelper
      */
-    protected $apiClient;
+    protected $layoutParamsHelper;
 
     /**
      * The meta session container.
@@ -35,16 +33,25 @@ class MetaDataRequestMiddleware implements MiddlewareInterface
     protected $metaSessionContainer;
 
     /**
+     * The database user service.
+     * @var UserService
+     */
+    protected $userService;
+
+    /**
      * Initializes the middleware.
-     * @param ApiClientInterface $apiClient
+     * @param LayoutParamsHelper $layoutParamsHelper
      * @param MetaSessionContainer $metaSessionContainer
+     * @param UserService $userService
      */
     public function __construct(
-        ApiClientInterface $apiClient,
-        MetaSessionContainer $metaSessionContainer
+        LayoutParamsHelper $layoutParamsHelper,
+        MetaSessionContainer $metaSessionContainer,
+        UserService $userService
     ) {
-        $this->apiClient = $apiClient;
+        $this->layoutParamsHelper = $layoutParamsHelper;
         $this->metaSessionContainer = $metaSessionContainer;
+        $this->userService = $userService;
     }
 
     /**
@@ -52,16 +59,13 @@ class MetaDataRequestMiddleware implements MiddlewareInterface
      * @param ServerRequestInterface $request
      * @param RequestHandlerInterface $handler
      * @return ResponseInterface
-     * @throws ApiClientException
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        if ($this->metaSessionContainer->getNumberOfAvailableMods() === 0) {
-            /** @var ModMetaResponse $modMetaResponse */
-            $modMetaResponse = $this->apiClient->fetchResponse(new ModMetaRequest());
-            $this->metaSessionContainer->setNumberOfAvailableMods($modMetaResponse->getNumberOfAvailableMods())
-                                       ->setNumberOfEnabledMods($modMetaResponse->getNumberOfEnabledMods());
-        }
+        $currentUser = $this->userService->getCurrentUser();
+        $this->layoutParamsHelper->setSettingsHash($currentUser->getSettingsHash())
+                                 ->setNumberOfAvailableMods($this->metaSessionContainer->getNumberOfAvailableMods())
+                                 ->setNumberOfEnabledMods($this->metaSessionContainer->getNumberOfEnabledMods());
 
         return $handler->handle($request);
     }
