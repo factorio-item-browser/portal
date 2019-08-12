@@ -29,7 +29,7 @@ class User
      * The locale the user uses.
      * @var string
      */
-    protected $locale = Config::DEFAULT_LOCALE;
+    protected $locale = '';
 
     /**
      * The mods the user wants to have enabled.

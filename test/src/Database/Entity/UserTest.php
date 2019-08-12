@@ -33,7 +33,7 @@ class UserTest extends TestCase
         $user = new User($sessionId);
 
         $this->assertNull($user->getId());
-        $this->assertSame(Config::DEFAULT_LOCALE, $user->getLocale());
+        $this->assertSame('', $user->getLocale());
         $this->assertSame(Config::DEFAULT_MODS, $user->getEnabledModNames());
         $this->assertSame(Config::DEFAULT_RECIPE_MODE, $user->getRecipeMode());
         $user->getLastVisit();
@@ -237,5 +237,4 @@ class UserTest extends TestCase
         $result = $user->getSettingsHash();
         $this->assertSame('bf7ce9d4', $result);
     }
-
 }

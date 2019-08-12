@@ -6,8 +6,6 @@ namespace FactorioItemBrowser\Portal\Middleware;
 
 use FactorioItemBrowser\Portal\Constant\Attribute;
 use FactorioItemBrowser\Portal\Database\Entity\SidebarEntity;
-use FactorioItemBrowser\Portal\Service\UserService;
-use FactorioItemBrowser\Portal\Session\Container\MetaSessionContainer;
 use FactorioItemBrowser\Portal\View\Helper\LayoutParamsHelper;
 use FactorioItemBrowser\Portal\View\Helper\SidebarHelper;
 use Psr\Http\Message\ResponseInterface;
@@ -16,41 +14,16 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\JsonResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
-use Zend\I18n\Translator\TranslatorInterface;
 use Zend\View\Helper\HeadTitle;
 
 /**
- * The middleware handling the layout.
+ * The middleware handling incoming AJAX requests.
  *
  * @author BluePsyduck <bluepsyduck@gmx.com>
  * @license http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-class LayoutMiddleware implements MiddlewareInterface
+class AjaxMiddleware implements MiddlewareInterface
 {
-    /**
-     * The meta session container.
-     * @var MetaSessionContainer
-     */
-    protected $metaSessionContainer;
-
-    /**
-     * The template renderer.
-     * @var TemplateRendererInterface
-     */
-    protected $templateRenderer;
-
-    /**
-     * The translator.
-     * @var TranslatorInterface
-     */
-    protected $translator;
-
-    /**
-     * The database user service.
-     * @var UserService
-     */
-    protected $userService;
-
     /**
      * The head title helper.
      * @var HeadTitle
@@ -70,28 +43,25 @@ class LayoutMiddleware implements MiddlewareInterface
     protected $sidebarHelper;
 
     /**
+     * The template renderer.
+     * @var TemplateRendererInterface
+     */
+    protected $templateRenderer;
+
+    /**
      * Initializes the middleware.
-     * @param MetaSessionContainer $metaSessionContainer
-     * @param TemplateRendererInterface $templateRenderer
-     * @param TranslatorInterface $translator
-     * @param UserService $userService
      * @param HeadTitle $headTitleHelper
      * @param LayoutParamsHelper $layoutParamsHelper
      * @param SidebarHelper $sidebarHelper
+     * @param TemplateRendererInterface $templateRenderer
      */
     public function __construct(
-        MetaSessionContainer $metaSessionContainer,
-        TemplateRendererInterface $templateRenderer,
-        TranslatorInterface $translator,
-        UserService $userService,
         HeadTitle $headTitleHelper,
         LayoutParamsHelper $layoutParamsHelper,
-        SidebarHelper $sidebarHelper
+        SidebarHelper $sidebarHelper,
+        TemplateRendererInterface $templateRenderer
     ) {
-        $this->metaSessionContainer = $metaSessionContainer;
         $this->templateRenderer = $templateRenderer;
-        $this->translator = $translator;
-        $this->userService = $userService;
         $this->headTitleHelper = $headTitleHelper;
         $this->layoutParamsHelper = $layoutParamsHelper;
         $this->sidebarHelper = $sidebarHelper;
@@ -107,15 +77,17 @@ class LayoutMiddleware implements MiddlewareInterface
     {
         $isAjaxRequest = $this->isAjaxRequest($request);
         $request = $request->withAttribute(Attribute::REQUEST_AJAX, $isAjaxRequest);
+
         if ($isAjaxRequest) {
             $this->templateRenderer->addDefaultParam(TemplateRendererInterface::TEMPLATE_ALL, 'layout', false);
+            $response = $handler->handle($request);
+            if (!$response instanceof JsonResponse) {
+                $response = $this->prepareAjaxResponse($response);
+            }
+        } else {
+            $response = $handler->handle($request);
         }
 
-        $response = $handler->handle($request);
-
-        if ($isAjaxRequest) {
-            $response = $this->prepareAjaxResponse($response);
-        }
         return $response;
     }
 
@@ -137,26 +109,23 @@ class LayoutMiddleware implements MiddlewareInterface
      */
     protected function prepareAjaxResponse(ResponseInterface $response): ResponseInterface
     {
-        if (!$response instanceof JsonResponse) {
-            $responseData = [
-                'content' => $response->getBody()->getContents(),
-                'settingsHash' => $this->userService->getCurrentUser()->getSettingsHash(),
-                'title' => trim($this->headTitleHelper->renderTitle()),
-            ];
+        $responseData = [
+            'content' => $response->getBody()->getContents(),
+            'settingsHash' => $this->layoutParamsHelper->getSettingsHash(),
+            'title' => trim($this->headTitleHelper->renderTitle()),
+        ];
 
-            if (strlen($this->layoutParamsHelper->getBodyClass()) > 0) {
-                $responseData['bodyClass'] = $this->layoutParamsHelper->getBodyClass();
-            }
-            if (strlen($this->layoutParamsHelper->getSearchQuery()) > 0) {
-                $responseData['searchQuery'] = $this->layoutParamsHelper->getSearchQuery();
-            }
-            if ($this->layoutParamsHelper->getNewSidebarEntity() instanceof SidebarEntity) {
-                $responseData['newSidebarEntity']
-                    = $this->sidebarHelper->renderEntity($this->layoutParamsHelper->getNewSidebarEntity());
-            }
-
-            $response = new JsonResponse($responseData, $response->getStatusCode(), $response->getHeaders());
+        if ($this->layoutParamsHelper->getBodyClass() !== '') {
+            $responseData['bodyClass'] = $this->layoutParamsHelper->getBodyClass();
         }
-        return $response;
+        if ($this->layoutParamsHelper->getSearchQuery() !== '') {
+            $responseData['searchQuery'] = $this->layoutParamsHelper->getSearchQuery();
+        }
+        if ($this->layoutParamsHelper->getNewSidebarEntity() instanceof SidebarEntity) {
+            $responseData['newSidebarEntity']
+                = $this->sidebarHelper->renderEntity($this->layoutParamsHelper->getNewSidebarEntity());
+        }
+
+        return new JsonResponse($responseData, $response->getStatusCode(), $response->getHeaders());
     }
 }

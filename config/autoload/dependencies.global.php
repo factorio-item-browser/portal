@@ -50,9 +50,9 @@ return [
             Handler\Settings\SettingsSaveHandler::class    => AutoWireFactory::class,
             Handler\Sidebar\SidebarPinnedHandler::class    => AutoWireFactory::class,
 
+            Middleware\AjaxMiddleware::class            => AutoWireFactory::class,
             Middleware\ApiClientMiddleware::class       => AutoWireFactory::class,
             Middleware\CleanupMiddleware::class         => AutoWireFactory::class,
-            Middleware\LayoutMiddleware::class          => AutoWireFactory::class,
             Middleware\LayoutParamsMiddleware::class    => AutoWireFactory::class,
             Middleware\LocaleMiddleware::class          => AutoWireFactory::class,
             Middleware\MetaDataRequestMiddleware::class => AutoWireFactory::class,

@@ -21,21 +21,16 @@ use Zend\I18n\Translator\Translator;
 class LocaleMiddleware implements MiddlewareInterface
 {
     /**
-     * The default locale to use when everything else fails.
+     * The translator.
+     * @var Translator
      */
-    private const DEFAULT_LOCALE = 'en';
+    protected $translator;
 
     /**
      * The user database service.
      * @var UserService
      */
     protected $userService;
-
-    /**
-     * The translator.
-     * @var Translator
-     */
-    protected $translator;
 
     /**
      * The locales of the portal.
@@ -45,14 +40,14 @@ class LocaleMiddleware implements MiddlewareInterface
 
     /**
      * Initializes the middleware.
-     * @param UserService $userService
      * @param Translator $translator
+     * @param UserService $userService
      * @param array|string[] $locales
      */
-    public function __construct(UserService $userService, Translator $translator, array $locales)
+    public function __construct(Translator $translator, UserService $userService, array $locales)
     {
-        $this->userService = $userService;
         $this->translator = $translator;
+        $this->userService = $userService;
         $this->locales = $locales;
     }
 
@@ -64,13 +59,14 @@ class LocaleMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $newLocale = $this->userService->getCurrentUser()->getLocale();
-        if (strlen($newLocale) === 0) {
-            $newLocale = $this->detectLocaleFromRequest($request);
-        }
+        $currentUser = $this->userService->getCurrentUser();
 
-        $this->userService->getCurrentUser()->setLocale($newLocale);
-        $this->translator->setLocale($newLocale)
+        $locale = $currentUser->getLocale();
+        if ($locale === '') {
+            $locale = $this->detectLocaleFromRequest($request);
+            $currentUser->setLocale($locale);
+        }
+        $this->translator->setLocale($locale)
                          ->setFallbackLocale(Config::DEFAULT_LOCALE);
 
         return $handler->handle($request);
@@ -83,18 +79,18 @@ class LocaleMiddleware implements MiddlewareInterface
      */
     protected function detectLocaleFromRequest(ServerRequestInterface $request): string
     {
-        $result = self::DEFAULT_LOCALE;
         $acceptLanguage = $request->getHeaderLine('Accept-Language');
         foreach (explode(',', $acceptLanguage) as $locale) {
             $pos = strpos($locale, ';');
             if ($pos !== false) {
                 $locale = substr($locale, 0, $pos);
             }
+            $locale = trim($locale);
             if (isset($this->locales[$locale])) {
-                $result = $locale;
-                break;
+                return $locale;
             }
         }
-        return $result;
+
+        return Config::DEFAULT_LOCALE;
     }
 }
