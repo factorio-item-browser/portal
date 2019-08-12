@@ -69,9 +69,9 @@ class ItemDetailsHandler extends AbstractRenderHandler
                           ->setNumberOfResults(Config::ITEM_RECIPE_PER_PAGE);
         $this->apiClient->sendRequest($ingredientRequest);
 
-        /* @var ItemProductResponse $productResponse */
+        /** @var ItemProductResponse $productResponse */
         $productResponse = $this->apiClient->fetchResponse($productRequest);
-        /* @var ItemIngredientResponse $ingredientResponse */
+        /** @var ItemIngredientResponse $ingredientResponse */
         $ingredientResponse = $this->apiClient->fetchResponse($ingredientRequest);
 
         try {

@@ -37,7 +37,7 @@ class ItemTooltipHandler extends AbstractRenderHandler
                        ->setNumberOfResults(Config::TOOLTIP_RECIPES);
 
         try {
-            /* @var ItemProductResponse $productResponse */
+            /** @var ItemProductResponse $productResponse */
             $productResponse = $this->apiClient->fetchResponse($productRequest);
 
             $response = new JsonResponse([

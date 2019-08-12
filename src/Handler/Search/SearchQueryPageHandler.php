@@ -41,7 +41,7 @@ class SearchQueryPageHandler extends AbstractRenderHandler
                           ->setNumberOfRecipesPerResult(Config::SEARCH_RECIPE_COUNT);
 
             try {
-                /* @var SearchQueryResponse $searchResponse */
+                /** @var SearchQueryResponse $searchResponse */
                 $searchResponse = $this->apiClient->fetchResponse($searchRequest);
 
                 $response = new JsonResponse([

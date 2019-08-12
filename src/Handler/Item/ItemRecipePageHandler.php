@@ -42,7 +42,7 @@ class ItemRecipePageHandler extends AbstractRenderHandler
                       ->setIndexOfFirstResult(($page - 1) * Config::ITEM_RECIPE_PER_PAGE);
 
         try {
-            /* @var ItemIngredientResponse|ItemProductResponse $recipeResponse */
+            /** @var ItemIngredientResponse|ItemProductResponse $recipeResponse */
             $recipeResponse = $this->apiClient->fetchResponse($recipeRequest);
 
             $response = new JsonResponse([

@@ -34,7 +34,7 @@ class RecipeTooltipHandler extends AbstractRenderHandler
         $detailsRequest->setNames([$name]);
 
         try {
-            /* @var RecipeDetailsResponse $detailsResponse */
+            /** @var RecipeDetailsResponse $detailsResponse */
             $detailsResponse = $this->apiClient->fetchResponse($detailsRequest);
 
             if (count($detailsResponse->getRecipes()) > 0) {

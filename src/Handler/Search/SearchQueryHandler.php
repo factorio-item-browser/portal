@@ -82,7 +82,7 @@ class SearchQueryHandler extends AbstractRenderHandler
                 ->setIndexOfFirstResult(0)
                 ->setNumberOfRecipesPerResult(Config::SEARCH_RECIPE_COUNT);
 
-            /* @var SearchQueryResponse $searchResponse */
+            /** @var SearchQueryResponse $searchResponse */
             $searchResponse = $this->apiClient->fetchResponse($searchRequest);
 
             $response = new HtmlResponse($this->templateRenderer->render('portal::search/query', [

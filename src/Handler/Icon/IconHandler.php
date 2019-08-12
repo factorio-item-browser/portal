@@ -43,7 +43,7 @@ class IconHandler extends AbstractRenderHandler
                 }
             }
 
-            /* @var GenericIconResponse $iconResponse */
+            /** @var GenericIconResponse $iconResponse */
             $iconResponse = $this->apiClient->fetchResponse($iconRequest);
             $icons = $iconResponse->getIcons();
 

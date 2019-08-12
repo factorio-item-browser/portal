@@ -109,9 +109,9 @@ abstract class AbstractModListChangeHandler implements RequestHandlerInterface
             $this->apiClient->sendRequest($modMetaRequest);
             $this->apiClient->sendRequest($modListRequest);
 
-            /* @var ModMetaResponse $modMetaResponse */
+            /** @var ModMetaResponse $modMetaResponse */
             $modMetaResponse = $this->apiClient->fetchResponse($modMetaRequest);
-            /* @var ModListResponse $modListResponse */
+            /** @var ModListResponse $modListResponse */
             $modListResponse = $this->apiClient->fetchResponse($modListRequest);
             $this->sidebarEntityService->refresh();
 

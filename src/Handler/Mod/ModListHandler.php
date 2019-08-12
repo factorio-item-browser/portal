@@ -52,7 +52,7 @@ class ModListHandler extends AbstractRenderHandler
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $modListRequest = new ModListRequest();
-        /* @var ModListResponse $modListResponse */
+        /** @var ModListResponse $modListResponse */
         $modListResponse = $this->apiClient->fetchResponse($modListRequest);
 
         $response = new HtmlResponse($this->templateRenderer->render('portal::mod/list', [

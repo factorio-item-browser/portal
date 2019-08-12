@@ -37,7 +37,7 @@ class RecipeMachinePageHandler extends AbstractRenderHandler
                        ->setIndexOfFirstResult(($page - 1) * Config::MACHINE_PER_PAGE);
 
         try {
-            /* @var RecipeMachinesResponse $machineResponse */
+            /** @var RecipeMachinesResponse $machineResponse */
             $machineResponse = $this->apiClient->fetchResponse($machineRequest);
 
             $response = new JsonResponse([

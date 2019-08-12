@@ -67,9 +67,9 @@ class RecipeDetailsHandler extends AbstractRenderHandler
             $this->apiClient->sendRequest($detailsRequest);
             $this->apiClient->sendRequest($machinesRequest);
 
-            /* @var RecipeDetailsResponse $detailsResponse */
+            /** @var RecipeDetailsResponse $detailsResponse */
             $detailsResponse = $this->apiClient->fetchResponse($detailsRequest);
-            /* @var RecipeMachinesResponse $machinesResponse */
+            /** @var RecipeMachinesResponse $machinesResponse */
             $machinesResponse = $this->apiClient->fetchResponse($machinesRequest);
 
             $recipe = reset($detailsResponse->getRecipes()) ?: null;
